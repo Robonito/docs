@@ -4,8 +4,6 @@
 
 @import url("../styles/syntax.css");
 
-
-
 @layer base {
   :root {
     --background: 0 0% 100%;

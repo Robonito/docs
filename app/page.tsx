@@ -20,7 +20,7 @@ export default function Home() {
       <p className="mb-8 sm:text-xl max-w-[800px] text-muted-foreground">
       Best No-Code Tool for your QA Process Stop wasting time on manual QA process
       and adopt a smarter way to test your applications. Save hundreds of hours by
-      using intuitive Recorder along with Assertions for better UI and flow testing
+      using intuitive Recorder along with Assertions for better Web and API testing
       </p>
       <div className="flex flex-row items-center gap-5">
         <Link
@@ -30,7 +30,7 @@ export default function Home() {
           Get Stared
         </Link>
         <Link
-          href="/blog"
+          href="https://robonito.com/blog"
           className={buttonVariants({
             variant: "secondary",
             className: "px-6",

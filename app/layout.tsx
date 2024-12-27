@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "Robonito docs",
   metadataBase: new URL("https://docs.robonito.com/"),
   description:
-    "Best No-Code Tool for your QA Process Stop wasting time on manual QA process and adopt a smarter way to test your applications. Save hundreds of hours by using intuitive Recorder along with Assertions for better UI and flow testing.",
+    "Best No-Code Tool for your QA Process Stop wasting time on manual QA process and adopt a smarter way to test your applications. Save hundreds of hours by using intuitive Recorder along with Assertions for better Web and API testing.",
 };
 
 export default function RootLayout({

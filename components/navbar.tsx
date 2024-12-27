@@ -27,7 +27,7 @@ export const NAVLINKS = [
   // },
   {
     title: "Slack",
-    href: "https://join.slack.com/t/robonito/shared_invite/zt-2sanyrjr5-gPDeppZ7UsV0gCk~rDg~yw",
+    href: "https://join.slack.com/t/robonito/shared_invite/zt-2vzwc6wol-wJUrgT4aL9~LbhiCYwdczA",
   },
 ];
 

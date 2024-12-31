@@ -15,7 +15,7 @@ export const ROUTES: EachRoute[] = [
     items: [
       { title: "Introduction", href: "/introduction" },
       { title: "Installation", href: "/installation" },
-      { title: "Quick Start Guide", href: "/quick-start-guide" }
+      { title: "Quick Tour", href: "/quick-tour" }
     ],
   },
 ];

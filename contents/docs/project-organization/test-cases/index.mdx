@@ -1,212 +1,185 @@
----
-title: Markdown & Custom Components Guide
-description: This section provides an overview of standard markdown components and custom components.
----
-
-# Markdown Guide:
-
-This guide covers the necessary markdown elements and custom components used in this project.
-
-You can use different headings using the standard markdown like this
-
-```
-## Headings
-# Heading 1
-## Heading 2
-### Heading 3
-```
-
-The result looks like below
-
-## Headings
-
-# Heading 1
-
-## Heading 2
-
-### Heading 3
-
-The Lists can be used like this
-
-```
-## Lists
-### Unordered List
-- Item 1
-  - Nested Item 1.1
-  - Nested Item 1.2
-- Item 2
-### Ordered List
-1. Step 1
-2. Step 2
-   1. Sub-step 2.1
-```
-
-## Lists
-
-### Unordered List
-
-- Item 1
-  - Nested Item 1.1
-  - Nested Item 1.2
-- Item 2
-
-### Ordered List
-
-1. Step 1
-2. Step 2
-   1. Sub-step 2.1
-
-Blockquotes can be used like this
-
-```
-## Blockquotes
-> This is a blockquote. Blockquotes are useful for highlighting quotes or key information.
-```
-
-## Blockquotes
-
-> This is a blockquote. Blockquotes are useful for highlighting quotes or key information.
-> The usage of Code Blocks with line numbers is as follows
-
-````
-## Code Blocks
-Here’s an example of a code block with line numbers:
-```javascript {showLineNumbers=true}
-function helloWorld() {
-  console.log("Hello, world!");
-}```
-````
-
-## Code Blocks
-
-Here’s an example of a code block with line numbers:
-
-```javascript {showLineNumbers=true}
-function helloWorld() {
-  console.log("Hello, world!");
-}
-```
-
-# Custom Components Guide:
-
-# Tabs Component
-
-## Overview
-
-The `Tabs` component is used to organize content into multiple sections, each with its own tab. It's commonly used for displaying different categories of content or settings in a compact and organized manner.
-
-### Features:
-
-- Supports multiple tabs with customizable content.
-- Easy switching between tabs.
-- Customizable active and inactive tab styles.
-
-## Props
-
-| Prop          | Type       | Description                                                   |
-| ------------- | ---------- | ------------------------------------------------------------- |
-| `tabs`        | `array`    | An array of tab objects, each containing a label and content. |
-| `activeTab`   | `number`   | The index of the currently active tab.                        |
-| `onTabChange` | `function` | Callback function triggered when a tab is changed.            |
-| `className`   | `string`   | Optional additional classes for styling the tabs container.   |
-
-## Usage
-
-Here’s an example of how to use the `Tabs` component:
-
-```tsx
-import Tabs from "@/components/UI/Tabs";
-
-const tabs = [
-  { label: "Tab 1", content: "This is the content for tab 1" },
-  { label: "Tab 2", content: "This is the content for tab 2" },
-  { label: "Tab 3", content: "This is the content for tab 3" },
-];
-
-<Tabs
-  tabs={tabs}
-  activeTab={0}
-  onTabChange={(tabIndex) => console.log("Tab changed:", tabIndex)}
-/>;
-```
-
-# Note Component
-
-## Overview
-
-The `Note` component is used to display informational or warning messages in the documentation or UI. It helps to highlight important notes, tips, or warnings for the user.
-
-### Features:
-
-- Customizable for different types of notes (e.g., info, warning, success).
-- Supports rich text or markdown content inside the note.
-- Can be styled to match the theme of the application.
-
-## Props
-
-| Prop        | Type        | Description                                                    |
-| ----------- | ----------- | -------------------------------------------------------------- |
-| `type`      | `string`    | Defines the type of note (e.g., "info", "warning", "success"). |
-| `children`  | `ReactNode` | The content to be displayed inside the note.                   |
-| `className` | `string`    | Optional additional classes for styling the note container.    |
-
-## Usage
-
-Here’s an example of how to use the `Note` component:
-
-```tsx
-import Note from "@/components/Note";
-
-<Note type="info">This is an informational note for the user.</Note>;
-```
-
-# Stepper Component
-
-## Overview
-
-The `Stepper` component is used to break down complex workflows or processes into smaller steps, providing a visual representation of progress. It is ideal for forms, multi-step wizards, or onboarding processes.
-
-### Features:
-
-- Displays multiple steps with optional labels.
-- Can be horizontal or vertical.
-- Supports custom actions for each step (e.g., next, previous).
-
-## Props
-
-| Prop           | Type       | Description                                                             |
-| -------------- | ---------- | ----------------------------------------------------------------------- |
-| `steps`        | `array`    | An array of step objects, each containing a label and optional content. |
-| `currentStep`  | `number`   | The index of the current active step.                                   |
-| `onStepChange` | `function` | Callback function triggered when the step is changed.                   |
-| `className`    | `string`   | Optional additional classes for styling the stepper container.          |
-
-## Usage
-
-Here’s an example of how to use the `Stepper` component:
-
-```tsx
-import Stepper from "@/components/UI/Stepper";
-
-const steps = [
-  { label: "Step 1", content: "This is the content for step 1" },
-  { label: "Step 2", content: "This is the content for step 2" },
-  { label: "Step 3", content: "This is the content for step 3" },
-];
-
-<Stepper
-  steps={steps}
-  currentStep={1}
-  onStepChange={(step) => console.log("Step changed:", step)}
-/>;
-```
-
-# Links
-
-Adding links is straightforward. Use the markdown syntax for links:
-
-```
-[Link Text](https://example.com)
-```
-
-[Link Text](https://example.com)
+# Introduction to Test Cases in Robonito
+
+Test cases are the individual units of testing within Robonito. They define the specific steps and expected outcomes for verifying a particular functionality or feature of your application. Robonito supports both API and UI test cases, allowing you to cover a wide range of testing scenarios.
+
+**Test Case Types:**
+
+* **API Test Cases:** Verify the functionality and performance of your application's APIs.
+* **UI Test Cases:** Simulate user interactions with your application's user interface to ensure proper functionality and usability.
+
+**Adding Test Cases to a Suite:**
+
+Test cases are added within suites, allowing you to organize your tests based on functionality, modules, or other relevant criteria. The type of test cases you can add to a suite depends on the suite type (Web or API).
+
+**Adding a UI Test Case to a Web Suite:**
+
+1.  **Select a Web Suite:**
+    * Navigate to the suite management module and select the web suite in which you want to add a test case.
+2.  **Access Add Test Case Option:**
+    * Click the three vertical dots (ellipsis) on the right of the suite name (next to the play icon).
+3.  **Open Add Test Case Dialog:**
+    * Select "Add test case" from the suite actions menu.
+4.  **Add Test Case Dialog (Add-Test-Case-Dialog.png):**
+    * The "Add test case" dialog box will appear.
+
+        ![Add Test Case Dialog](https://raw.githubusercontent.com/Robonito/docs/refs/heads/main/public/AddTestCaseDialog.png)
+
+5.  **Enter Test Case Name:**
+    * Provide a descriptive name for your test case in the "Test case name" field.
+6.  **Enter Description (Optional):**
+    * Provide a brief description of the test case in the "Description" field.
+7.  **Add Test Case:**
+    * Click the "Add" button to create the test case.
+
+**Configuring a UI Test Case:**
+
+1.  **Test Case Configuration Screen:**
+    * After adding a test case, you will be redirected to the test case configuration screen.
+
+        ![Test Case Configuration](https://raw.githubusercontent.com/Robonito/docs/refs/heads/main/public/TestCaseConfigurationScreen.png)
+
+2.  **Test Case Details:**
+    * The configuration screen displays the test case name, description (if provided), and other details such as:
+        * **Recorded In:** The browser used to record the test case (e.g., Chrome).
+        * **Screen Size:** The screen size used during recording (if available).
+        * **Created:** The timestamp when the test case was created.
+        * **Last Modified:** The timestamp when the test case was last modified.
+3.  **Browser Launch Options:**
+    * Click the "Click here to configure browser launch options" link to customize the browser settings for test execution.
+4.  **Test Case Steps:**
+    * The "No steps recorded so far" message indicates that no test steps have been recorded yet.
+    * You can record or manually add test steps to define the actions to be performed during the test.
+5.  **Test Case Actions:**
+    * The test case configuration screen also provides action buttons such as:
+        * **Recorder:** Start recording test steps.
+        * **Configure:** Configure test case settings.
+        * **Execute:** Execute the test case.
+        * **Logs:** View execution logs.
+6.  **Changes Saved Confirmation:**
+    * After making changes to the test case, a "changes saved successfully" message will appear at the bottom of the screen.
+
+**Test Case Configuration Drawer:**
+
+![Test Case Configuration Drawer](https://raw.githubusercontent.com/Robonito/docs/refs/heads/main/public/TestCaseConfigurator.png)
+
+* **Configure Test Case:**
+    * Click the "Configure" button to open the test case configuration drawer from the left side of the screen.
+* **Browser:**
+    * Select the browser to use for test execution (e.g., Chrome).
+* **Can be Dependency:**
+    * Check this box to mark the test case as a dependency.
+    * Dependency test cases can be reused by other test cases as a prerequisite.
+* **Enable WebGL:**
+    * Enable WebGL support for the test case (if required).
+* **Select dependency:**
+    * Select a dependency test case from the dropdown.
+    * This allows the current test case to depend on the selected test case, ensuring it runs before the current test case.
+* **Target URL:**
+    * Enter the URL of the application under test.
+* **Screen Size:**
+    * Set the screen size for the browser during test execution.
+* **Pageload Timeout:**
+    * Set the maximum time to wait for the page to load before timing out.
+* **Record Video:**
+    * Choose whether to record a video of the test execution (Always, Never, or On Failure).
+* **Capture Network Traces:**
+    * Choose whether to capture network traces during test execution (Always, Never, or On Failure).
+* **Capture Browser Console:**
+    * Choose whether to capture browser console logs during test execution (Always, Never, or On Failure).
+* **Save Configuration:**
+    * Click the "Save" button to save the test case configuration.
+
+**Test Case Recording Options:**
+
+![Test Case Recording](https://raw.githubusercontent.com/Robonito/docs/refs/heads/main/public/RecordingOptions.png)
+
+* **Recorder:**
+    * After configuring the test case, the recording options are enabled.
+    * Click the "Recorder" button to access the recording options.
+* **Recording Methods:**
+    * Robonito provides multiple methods for recording test cases:
+        * **Record & Playback:** The traditional method of recording user interactions and replaying them during test execution.
+        * **AI Recorder:** Use Robonito's AI Assistant to automatically generate test cases based on user interactions and application analysis.
+    * **Future Options:**
+        * Robonito will add more options in the future, such as:
+            * Generating test cases from specifications or user stories.
+            * Uploading manual test cases for automation and execution.
+
+**Viewing Recorded Test Case Steps:**
+
+![Test Case Steps](https://raw.githubusercontent.com/Robonito/docs/refs/heads/main/public/SelectTestCaseInSuite.png)
+
+* **Select Test Case:**
+    * Click on any recorded test case within a suite to view its test steps.
+* **Test Case Steps Display:**
+    * The steps recorded for the selected test case are displayed in the main content area.
+    * Each step is shown with a description and any associated data or actions.
+* **Test Case Details:**
+    * The test case details, such as name, description, and creation/modification timestamps, are also displayed.
+    * The recorded browser and screen size are also shown.
+
+**Editing Test Case Steps:**
+
+![Edit Test Case Step](https://raw.githubusercontent.com/Robonito/docs/refs/heads/main/public/EditStepInTestCase.png)
+
+* **Edit Step:**
+    * Recorded test case steps can be edited after recording.
+* **Selectors:**
+    * Modify the selectors used to identify elements on the page.
+    * Add new selectors or edit existing ones.
+* **Data Values:**
+    * Change the data values used in the test step.
+    * Use options like:
+        * **Random Generation:** Generate random values for input fields.
+        * **Variables:** Use variables to dynamically input data.
+        * **OTP (One-Time Password):** Use OTPs for authentication scenarios. (See Integrations section for more details.)
+* **Element Info:**
+    * View information about the element being interacted with, such as name, class, and placeholder.
+* **Save/Cancel:**
+    * Save the changes or cancel the edit.
+
+**Key Features of Test Cases:**
+
+* **Clear Definition:** Test cases provide a clear definition of the steps and expected outcomes for a specific test.
+* **Organization:** Test cases are organized within suites for easy management.
+* **Flexibility:** Robonito supports both API and UI test cases, allowing you to cover a wide range of testing needs.
+* **Descriptive Information:** You can add descriptions to your test cases for better clarity and understanding.
+* **Configuration Options:** You can configure various settings for your test cases, such as browser launch options, dependencies, and recording options.
+* **Recording and Manual Steps:** You can record user interactions or manually add test steps to define the test flow.
+* **Execution and Logging:** You can execute test cases and view execution logs for analysis.
+* **Dependency Management:** Reuse existing test cases by marking them as dependencies and selecting them in other test cases, promoting reusability and efficiency.
+* **Multiple Recording Options:** Choose from traditional record and playback or AI-powered recording methods.
+* **Future Enhancements:** Robonito will continue to add more options for test case generation and automation.
+* **Step-by-Step Viewing:** Easily view the recorded steps of any test case within a suite.
+* **Step Editing:** Edit recorded test case steps to modify selectors, data values, and other properties.
+* **Dynamic Data Input:** Use random value generation, variables, and OTPs to make test cases dynamic and adaptable.
+
+**Adding an API Test Case to an API Suite:**
+
+1.  **Select an API Suite:**
+    * Navigate to the suite management module and select the API suite in which you want to add a test case.
+2.  **Access Add Test Case Option:**
+    * Click the three vertical dots (ellipsis) on the right of the suite name (next to the play icon).
+3.  **Open Add Test Case Dialog:**
+    * Select "Add test case" from the suite actions menu.
+4.  **Add Test Case Dialog:**
+    * The "Add test case" dialog box will appear.
+
+        ![Add Test Case Dialog](https://raw.githubusercontent.com/Robonito/docs/refs/heads/main/public/AddTestCaseDialog.png)
+
+5.  **Enter Test Case Name:**
+    * Provide a descriptive name for your test case in the "Test case name" field.
+6.  **Enter Description (Optional):**
+    * Provide a brief description of the test case in the "Description" field.
+7.  **Add Test Case:**
+    * Click the "Add" button to create the test case.
+
+**Configuring an API Test Case:**
+![API Test Case Configuration](https://raw.githubusercontent.com/Robonito/docs/refs/heads/main/public/APITestCase.png)
+
+* After adding an API test case, you will be redirected to an interface that is familiar to most QA Engineers.
+* This interface provides a code-less environment to configure and define assertions for API test cases.
+* You can specify the API endpoint, request method, headers, request body, and expected response.
+* Assertions can be defined to validate the response status code, headers, and body content.
+
+**Note:** This documentation will be updated as Robonito evolves. Stay tuned for more detailed instructions and feature guides.

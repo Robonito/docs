@@ -1,0 +1,73 @@
+---
+title: 'Configuring an API Endpoint'
+description: 'Learn how to set up the URL, parameters, headers, body, and authentication for your API tests in Robonito.'
+---
+
+# Configuring an API Endpoint
+
+Before you can test an API, you need to configure its endpoint details within Robonito. This involves specifying the target URL, any necessary parameters, headers, the request body (if applicable), and authentication details.
+
+Follow these steps to configure your API endpoint:
+
+### 1. Endpoint URL
+
+-   **Field:** Endpoint URL
+-   **Action:** Enter the complete URL of the API endpoint you intend to test.
+-   **Example:** `https://api.example.com/v1/users`
+
+### 2. Query Parameters
+
+Query parameters modify the request and are typically appended to the URL. You can add them in two ways:
+
+-   **Directly in URL:** Append them to the Endpoint URL using standard syntax (e.g., `?key=value&key2=value2`).
+-   **Using the Parameters Tab:**
+    1.  Navigate to the **Parameters** tab.
+    2.  Click **Add new +**.
+    3.  Enter the **Key** and **Value** for each parameter. Robonito will automatically append these to the URL when sending the request.
+
+### 3. Headers
+
+HTTP headers provide additional information about the request or the client.
+
+-   **Action:**
+    1.  Navigate to the **Headers** tab.
+    2.  Click **Add new +** for each header you need to add.
+    3.  Enter the **Header Name** (e.g., `Content-Type`) and its corresponding **Value** (e.g., `application/json`).
+-   **Common Headers:** `Content-Type`, `Authorization`, `Accept`, `User-Agent`, custom headers like `X-API-Key`.
+
+### 4. Request Body
+
+If your API request requires sending data (e.g., for POST, PUT, PATCH methods), you'll configure it here.
+
+-   **Format:** Currently, Robonito supports **JSON** format for the request body.
+-   **Action:** Enter your request payload in the designated body section, ensuring it is valid JSON syntax.
+-   **Example (for creating a user):**
+    ```json
+    {
+      "username": "testuser",
+      "email": "test@example.com"
+    }
+    ```
+
+### 5. Authentication
+
+Configure how your test will authenticate with the API.
+
+-   **Action:** Select the appropriate authentication method from the available options and provide the required credentials.
+-   **Supported Methods:**
+    -   **Bearer Token:** Provide the token value.
+    -   **Basic Auth:** Provide the username and password.
+    -   **API Key:** Specify the key name, value, and where it should be added (Header or Query Params).
+    -   *(Add other supported methods if applicable)*
+
+### Saving Your Configuration
+
+**Important:** Robonito does not automatically save changes as you make them in the configuration screen. Always click the **Save** button (or equivalent action in your UI) before navigating away or closing the application to ensure your endpoint configuration is preserved.
+
+### Running Your Test
+
+Once the endpoint is fully configured and saved, you can execute the API request:
+
+1.  Ensure you are viewing the configured API test.
+2.  Click the **Run Test** (or similar) button, typically located at the top of the screen.
+3.  Robonito will send the request and display the response, including status code, headers, and body, along with any assertion results.

@@ -62,9 +62,11 @@ export const ROUTES: EachRoute[] = [
     title: "API Testing",
     href: "/api-testing",
     items: [
-      { title: "1", href: "/1" },
-      { title: "2", href: "/2" },
-      { title: "3", href: "/3" },
+      { title: "Create API testcase", href: "/create-api-testcase" },
+      { title: "Configure API endpoint", href: "/configure-api-endpoint" },
+      { title: "Execution report", href: "/execution-report" },
+      { title: "Variables in API", href: "/variables-in-api" },
+      { title: "Assertions", href: "/assertions" },
     ],
   },
   {

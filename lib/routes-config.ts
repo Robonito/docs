@@ -16,9 +16,9 @@ export const ROUTES: EachRoute[] = [
     title: "Installation",
     href: "/installation",
     items: [
-      { title: "Mac", href: "/installation/mac" },
-      { title: "Windows", href: "/installation/window" },
-      { title: "Linux", href: "/installation/linux" },
+      { title: "Mac", href: "/mac" },
+      { title: "Windows", href: "/window" },
+      { title: "Linux", href: "/linux" },
     ],
   },
   {
@@ -39,22 +39,22 @@ export const ROUTES: EachRoute[] = [
     items: [
       {
         title: "Record Test case",
-        href: "/web-testing/record test-case",
+        href: "/recordtest-case",
         items: [
           {
             title: "Record & playback",
-            href: "/web-testing/record test-case/record-playback",
+            href: "/record-playback",
           },
           {
             title: "AI recording",
-            href: "/web-testing/record test-case/ai-recording",
+            href: "/ai-recording",
           },
         ],
       },
 
       {
         title: "Assertions",
-        href: "/web-testing/assertions",
+        href: "/assertions",
         items: [
           { title: "AI Generated", href: "/ai-generated" },
           { title: "Manual", href: "/manual" },
@@ -62,11 +62,11 @@ export const ROUTES: EachRoute[] = [
       },
       {
         title: "Recording variables",
-        href: "/web-testing/recording-variables",
+        href: "/recording-variables",
       },
       {
         title: "Executions",
-        href: "/web-testing/executions",
+        href: "/execution",
         items: [
           { title: "Cloud", href: "/cloud" },
           { title: "Local", href: "/local" },

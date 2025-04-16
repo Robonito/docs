@@ -1,28 +1,32 @@
 ---
-title: Create API Testcase
+title: 'Creating an API Test Case'
+description: 'Learn how to create a new API test case within an API suite in Robonito.'
 ---
+
+# Creating an API Test Case
+
+An API test case in Robonito groups one or more API requests together to test a specific scenario or workflow.
 
 ### Prerequisite
 
-Before creating an API test case in Robonito, you need to have an API suite.  
-[Learn how to create an API suite](../suites)
+Before creating an API test case, ensure you have already created an API suite to contain it. If you haven't, see [How to Create an API Suite](../suites).
 
-### Creating an API Test Case
+### Steps to Create an API Test Case
 
-- **Step 1**: Open the test explorer by clicking the second icon in the sidebar on the dashboard page.  
-  ![Step 1](/api-testing/test-explorer-instruction.png)
+1.  **Open Test Explorer:** Navigate to the dashboard page and click the second icon in the sidebar to open the test explorer.
+    ![Open Test Explorer](/api-testing/test-explorer-instruction.png)
 
-- **Step 2**: In the suite list, click the action menu button for one of the API suites.  
-  ![Step 2](/api-testing/api-suite-menu-item.png)
+2.  **Access Suite Menu:** In the test explorer's suite list, locate the API suite where you want to add the test case. Click the action menu button (usually represented by three dots or similar) associated with that suite.
+    ![Access Suite Menu](/api-testing/api-suite-menu-item.png)
 
-- **Step 3**: Click the **Add Test Case** button. Once the modal opens, fill in the details and create the test case.  
-  ![Step 3](/api-testing/create-testcase-button.png)
+3.  **Add Test Case:** From the action menu, select the **Add Test Case** option. A modal window or form will appear. Fill in the required details for your new test case (e.g., name, description) and confirm its creation.
+    ![Add Test Case Button](/api-testing/create-testcase-button.png)
 
-- **Step 4**: After the test case is created, add a request by clicking the **Add Request** button.  
-  _(A request is an entity in the API test case that contains all the details of the API request.)_  
-  ![Step 4](/api-testing/create-endpoint.png)
+4.  **Add Initial Request:** Once the test case is created, it will likely be empty. To make it functional, you need to add at least one API request. Click the **Add Request** button. A request holds all the configuration details for a single API call (URL, method, headers, body, etc.) within the test case.
+    ![Add Request Button](/api-testing/create-endpoint.png)
 
 ### ✅ What's Next?
 
-You’ve created your first API test case.  
-Next, learn how to [configure the API endpoint](./configure-api-endpoint).
+You have successfully created an API test case and added an initial request. The next step is to define the specifics of that request.
+
+Learn how to [Configure the API Endpoint](./configure-api-endpoint).

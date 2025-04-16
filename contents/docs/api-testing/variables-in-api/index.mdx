@@ -2,13 +2,40 @@
 title: Using Variables in API Testing
 ---
 
-Variable substitution is currently supported only within the API endpoint URL.
+# Using Variables in API Testing
 
-- **In URL**: To reference variables in the endpoint, use the syntax **`{{variable_name}}`**
+Variables allow you to make your API tests more dynamic and reusable by substituting placeholder values at runtime. This is particularly useful for managing environment-specific configurations (like base URLs) or data that changes between test runs.
 
-### Upcoming Enhancements
+## Current Support: URL Variables
 
-- Variable support within the request body.
-- Variable support in authentication parameters, such as tokens.
+Currently, Robonito supports variable substitution directly within the **API endpoint URL**.
 
-We’re actively working on expanding variable support to more parts of the request workflow. Stay tuned for future updates that will enhance the flexibility and power of your API tests.
+### Syntax
+
+To use a variable within the endpoint URL, enclose the variable name in double curly braces:
+
+```
+{{variable_name}}
+```
+
+### Example
+
+Imagine you have an environment variable named `baseURL` set to `https://api.yourapp.com/v1`. You can use this variable in your request URL like this:
+
+```
+{{baseURL}}/users/{{userId}}
+```
+
+During execution, Robonito will replace `{{baseURL}}` with `https://api.yourapp.com/v1` and `{{userId}}` with the current value of the `userId` variable (assuming it's also defined).
+
+*(Note: Explain where variables like `baseURL` and `userId` are defined, e.g., in Environment settings.)*
+
+## Upcoming Enhancements
+
+We are actively working to expand variable support to other parts of the API request configuration:
+
+-   **Request Body:** Using variables within JSON payloads or form data.
+-   **Authentication:** Referencing variables for dynamic tokens or credentials.
+-   **Headers:** Using variables in request header values.
+
+Stay tuned for future updates that will enhance the flexibility and power of your API tests in Robonito.

@@ -1,187 +1,163 @@
 ---
-title: Assertions in API test
----
-
-Assertions are used to validate different parts of an API response against expected values. They help ensure your API behaves as intended across a variety of scenarios.
-
-## How Assertions Work
-
-To define an assertion, you need to provide the following:
-
-- **Assert Type**: The category or source of the value being validated (e.g., response body or status code).
-- **Property Path**: The specific path within the response to target (e.g., `Response.id`).
-- **Operator**: The comparison logic to apply (e.g., `equals`, `contains-key`, `greater`).
-- **Expected Value**: The value you expect from the API response.
-
-## Supported Assert Types
-
-- **Response**: Used for validating values within the response body.
-- **Status Code**: Used for validating the HTTP status code returned by the API.
-
-## Property Path
-
-The property path refers to the exact location within the API response you want to assert. For nested objects, use dot notation:
-
-```txt
-Response.id
-Response.data.user.name
-
-```
-
----
-
 title: 'API Assertions Guide'
-description: 'Comprehensive guide for API response validation'
-
+description: 'Learn how to validate API responses using assertions in Robonito.'
 ---
 
 # API Assertions
 
-## Property Path Examples
+Assertions are crucial for validating that your API responses match expected outcomes. They help ensure your API behaves correctly under various conditions by checking specific parts of the response data, status codes, headers, and more.
 
-Given this API response:
+## How Assertions Work
 
+Defining an assertion involves specifying four key components:
+
+1.  **Assert Type**: The part of the API response you want to validate (e.g., response body, status code, header).
+2.  **Property Path**: The specific location within the selected Assert Type to target (e.g., `body.user.id`, `statusCode`, `headers['Content-Type']`). This identifies the *actual* value.
+3.  **Operator**: The comparison logic to apply between the actual value and the expected value (e.g., `equals`, `contains`, `greaterThan`).
+4.  **Expected Value**: The value you anticipate the API response should contain at the specified property path.
+
+## Supported Assert Types
+
+Robonito currently supports assertions on the following parts of an API response:
+
+-   **Response Body**: Validate data within the JSON or text body returned by the API.
+-   **Status Code**: Validate the HTTP status code (e.g., `200`, `404`, `500`).
+-   **Headers**: Validate specific response headers and their values. *(Self-correction: Added Headers as a likely common assert type)*
+
+## Property Path
+
+The property path precisely identifies the data point within the Assert Type you wish to validate.
+
+-   **For Response Body (JSON):** Use dot notation (`.`) to navigate nested objects and bracket notation (`[index]`) for array elements.
+    ```json
+    // Example JSON Body:
+    {
+      "user": { "id": 123, "name": "Alice" },
+      "orders": [ { "orderId": "A1", "total": 50 }, { "orderId": "B2", "total": 75 } ],
+      "status": "active"
+    }
+    ```
+    -   `body.status` -> accesses `"active"`
+    -   `body.user.id` -> accesses `123`
+    -   `body.orders[0].orderId` -> accesses `"A1"`
+    -   `body` -> accesses the entire response body object
+-   **For Status Code:** Use `statusCode`.
+-   **For Headers:** Use `headers['Header-Name']` (e.g., `headers['Content-Type']`).
+
+## Example Assertions
+
+Let's use the following example API response:
+
+**Status Code:** `200`
+
+**Headers:**
+```
+Content-Type: application/json
+X-Request-ID: abc-123
+```
+
+**Response Body:**
 ```json
 {
-  "name": {
-    "firstName": "John",
-    "lastName": "Doe"
+  "user": {
+    "id": 101,
+    "username": "jdoe",
+    "roles": ["editor", "viewer"]
   },
-  "age": 30,
-  "email": "johndoe@example.com",
-  "scores": [90, 85, 95],
-  "settings": {
-    "theme": "dark",
-    "notifications": true
-  }
+  "data": {
+    "items": [
+      { "itemId": "X1", "price": 25.50 },
+      { "itemId": "Y2", "price": 10.00 }
+    ],
+    "count": 2
+  },
+  "timestamp": "2025-04-16T10:00:00Z"
 }
 ```
 
-### Property Path Navigation
+Here are some example assertions you could define:
 
-1. **Simple Properties**
+1.  **Check Status Code:**
+    ```json
+    {
+      "assertType": "StatusCode",
+      "propertyPath": "statusCode",
+      "operator": "equals",
+      "expectedValue": 200
+    }
+    ```
 
-```typescript
-{
-  propertyPath: "age",  // accesses response.age
-  operator: OperatorType.EQUAL,
-  expectedValue: 30
-}
-```
+2.  **Check Content-Type Header:**
+    ```json
+    {
+      "assertType": "Headers",
+      "propertyPath": "headers['Content-Type']",
+      "operator": "contains",
+      "expectedValue": "application/json"
+    }
+    ```
 
-2. **Nested Properties**
+3.  **Check Username in Body:**
+    ```json
+    {
+      "assertType": "ResponseBody",
+      "propertyPath": "body.user.username",
+      "operator": "equals",
+      "expectedValue": "jdoe"
+    }
+    ```
 
-```typescript
-{
-  propertyPath: "name.firstName",  // accesses response.name.firstName
-  operator: OperatorType.EQUAL,
-  expectedValue: "John"
-}
-```
+4.  **Check Number of Items:**
+    ```json
+    {
+      "assertType": "ResponseBody",
+      "propertyPath": "body.data.count",
+      "operator": "greaterThanOrEqual",
+      "expectedValue": 1
+    }
+    ```
 
-3. **Array Properties**
+5.  **Check if User has 'editor' Role:**
+    ```json
+    {
+      "assertType": "ResponseBody",
+      "propertyPath": "body.user.roles",
+      "operator": "contains",
+      "expectedValue": "editor"
+    }
+    ```
 
-```typescript
-{
-  propertyPath: "scores",  // accesses response.scores
-  operator: OperatorType.SIZE_OF,
-  expectedValue: 3
-}
-```
+6.  **Check Price of the First Item:**
+    ```json
+    {
+      "assertType": "ResponseBody",
+      "propertyPath": "body.data.items[0].price",
+      "operator": "equals",
+      "expectedValue": 25.50
+    }
+    ```
 
-## Operator Examples
+7.  **Check Type of `count` field:**
+    ```json
+    {
+      "assertType": "ResponseBody",
+      "propertyPath": "body.data.count",
+      "operator": "typeOf",
+      "expectedValue": "number" // Expected type as a string
+    }
+    ```
 
-### Equality Operators
+## Assertion Result Format
 
-```typescript
-// Equal comparison
-{
-  propertyPath: "email",
-  operator: OperatorType.EQUAL,
-  expectedValue: "johndoe@example.com"
-}
+Each assertion execution returns a result object indicating success or failure, along with details:
 
-// Not equal comparison
-{
-  propertyPath: "settings.theme",
-  operator: OperatorType.NOT_EQUAL,
-  expectedValue: "light"
-}
-```
-
-### Numeric Operators
-
-```typescript
-// Greater than
-{
-  propertyPath: "age",
-  operator: OperatorType.GREATER,
-  expectedValue: 25
-}
-
-// Less than or equal
-{
-  propertyPath: "scores[0]",
-  operator: OperatorType.LESSER_OR_EQUAL,
-  expectedValue: 90
-}
-```
-
-### Collection Operators
-
-```typescript
-// Size validation
-{
-  propertyPath: "scores",
-  operator: OperatorType.SIZE_OF,
-  expectedValue: 3
-}
-
-// Contains key check
-{
-  propertyPath: "settings",
-  operator: OperatorType.CONTAINS_KEY,
-  expectedValue: "theme"
-}
-
-// In operator
-{
-  propertyPath: "age",
-  operator: OperatorType.IN,
-  expectedValue: [25, 30, 35]
-}
-```
-
-### Type Validation
-
-```typescript
-// Type checking
-{
-  propertyPath: "settings.notifications",
-  operator: OperatorType.TYPE_OF,
-  expectedValue: "boolean"
-}
-```
-
-## Response Format
-
-All assertions return an `AssertionResponse`:
-
-```typescript
-interface AssertionResponse {
-  success: boolean;
-  message?: string;
-  expected: any;
-  actual: any;
-}
-```
 
 ## Best Practices
 
-1. Use empty property path to validate entire response object
-2. Use dot notation for nested properties
-3. Match operator types with data types:
-   - Use numeric operators for numbers
-   - Use SIZE_OF for arrays
-   - Use TYPE_OF for type validation
-   - Use CONTAINS_KEY for object property checks
+1.  **Be Specific:** Target specific fields rather than asserting against large, complex objects when possible. This makes failures easier to diagnose.
+2.  **Use Appropriate Operators:** Choose operators that match the data type and the logic you need (e.g., use numeric operators for numbers, `contains` for arrays/strings, `typeOf` for type checking).
+3.  **Validate Status Codes:** Always include an assertion for the expected HTTP status code.
+4.  **Check Critical Data:** Focus assertions on the most important parts of the response that indicate success or failure of the API call's purpose.
+5.  **Consider Edge Cases:** Add assertions to check how the API handles errors, empty responses, or unexpected data formats.
+6.  **Use `typeOf`:** Validate the data type of key fields, especially in dynamically typed responses, to prevent errors in subsequent processing.
+```

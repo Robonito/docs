@@ -38,38 +38,21 @@ export const ROUTES: EachRoute[] = [
     href: "/web-testing",
     items: [
       {
-        title: "Record Test case",
-        href: "/recordtest-case",
+        title: "Create web test case",
+        href: "/create-web-test",
+      },
+      {
+        title: "Recording",
+        href: "/recording",
         items: [
           {
-            title: "Record & playback",
-            href: "/record-playback",
+            title: "Record & Playback",
+            href: "/recording/record-playback",
           },
           {
-            title: "AI recording",
-            href: "/ai-recording",
+            title: "AI Recording",
+            href: "/recording/ai-recording",
           },
-        ],
-      },
-
-      {
-        title: "Assertions",
-        href: "/assertions",
-        items: [
-          { title: "AI Generated", href: "/ai-generated" },
-          { title: "Manual", href: "/manual" },
-        ],
-      },
-      {
-        title: "Recording variables",
-        href: "/recording-variables",
-      },
-      {
-        title: "Executions",
-        href: "/execution",
-        items: [
-          { title: "Cloud", href: "/cloud" },
-          { title: "Local", href: "/local" },
         ],
       },
     ],
@@ -79,9 +62,11 @@ export const ROUTES: EachRoute[] = [
     title: "API Testing",
     href: "/api-testing",
     items: [
-      { title: "1", href: "/1" },
-      { title: "2", href: "/2" },
-      { title: "3", href: "/3" },
+      { title: "Create API testcase", href: "/create-api-testcase" },
+      { title: "Configure API endpoint", href: "/configure-api-endpoint" },
+      { title: "Execution report", href: "/execution-report" },
+      { title: "Variables in API", href: "/variables-in-api" },
+      { title: "Assertions", href: "/assertions" },
     ],
   },
   {
@@ -121,13 +106,23 @@ export const ROUTES: EachRoute[] = [
 
 type Page = { title: string; href: string };
 
+function joinPaths(parent: string, child: string) {
+  if (parent.endsWith("/")) {
+    parent = parent.slice(0, -1);
+  }
+  if (!child.startsWith("/")) {
+    child = "/" + child;
+  }
+  return parent + child;
+}
+
 function getRecurrsiveAllLinks(node: EachRoute) {
   const ans: Page[] = [];
   if (!node.noLink) {
     ans.push({ title: node.title, href: node.href });
   }
   node.items?.forEach((subNode) => {
-    const temp = { ...subNode, href: `${node.href}${subNode.href}` };
+    const temp = { ...subNode, href: joinPaths(node.href, subNode.href) };
     ans.push(...getRecurrsiveAllLinks(temp));
   });
   return ans;

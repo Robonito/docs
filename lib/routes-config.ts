@@ -38,38 +38,21 @@ export const ROUTES: EachRoute[] = [
     href: "/web-testing",
     items: [
       {
-        title: "Record Test case",
-        href: "/web-testing/record test-case",
+        title: "Create web test case",
+        href: "/create-web-test",
+      },
+      {
+        title: "Recording",
+        href: "/recording",
         items: [
           {
-            title: "Record & playback",
-            href: "/web-testing/record test-case/record-playback",
+            title: "Record & Playback",
+            href: "/recording/record-playback",
           },
           {
-            title: "AI recording",
-            href: "/web-testing/record test-case/ai-recording",
+            title: "AI Recording",
+            href: "/recording/ai-recording",
           },
-        ],
-      },
-
-      {
-        title: "Assertions",
-        href: "/web-testing/assertions",
-        items: [
-          { title: "AI Generated", href: "/ai-generated" },
-          { title: "Manual", href: "/manual" },
-        ],
-      },
-      {
-        title: "Recording variables",
-        href: "/web-testing/recording-variables",
-      },
-      {
-        title: "Executions",
-        href: "/web-testing/executions",
-        items: [
-          { title: "Cloud", href: "/cloud" },
-          { title: "Local", href: "/local" },
         ],
       },
     ],

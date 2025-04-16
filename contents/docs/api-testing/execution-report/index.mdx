@@ -1,0 +1,45 @@
+# Execution Reports
+
+The Execution Report provides a detailed history of your API test case runs, allowing you to monitor results, analyze performance, and debug failures. Each report contains comprehensive information about the requests made, the responses received, and the outcomes of any assertions.
+
+## Accessing the Execution History
+
+1.  **Navigate to Logs:** Click the **Logs** button located in the top navigation bar of the Robonito interface.
+    *(Suggestion: Add a screenshot highlighting the Logs button)*
+
+2.  **View History Table:** A side drawer or panel will open, displaying a chronological table of past test executions. Each row represents a single run of a test case or suite.
+    *(Suggestion: Add a screenshot of the execution history table)*
+
+3.  **Open Specific Report:** Click on any row within the table to view the detailed execution report for that specific test run.
+
+## Understanding the Report Details
+
+Clicking on a specific execution opens a detailed view, typically organized into the following sections:
+
+### Request Details
+
+This section shows the exact request that was sent during the test run:
+
+-   **HTTP Method:** The method used (e.g., GET, POST, PUT, DELETE).
+-   **Endpoint URL:** The full URL targeted by the request.
+-   **Headers:** A list of all HTTP headers sent with the request.
+-   **Request Body:** The payload sent with the request (if applicable, e.g., for POST or PUT requests).
+-   **Configuration:** Any specific configuration parameters applied during this run (e.g., environment variables used).
+
+### Response Details
+
+This section displays the response received from the API server:
+
+-   **Status Code:** The HTTP status code returned (e.g., 200 OK, 404 Not Found, 500 Internal Server Error).
+-   **Response Time:** The duration it took to receive the response after sending the request.
+-   **Headers:** A list of all HTTP headers received in the response.
+-   **Response Body:** The content returned by the server.
+
+### Assertion Results
+
+If your test case includes assertions, this section shows their outcomes:
+
+-   **Assertion List:** Displays each assertion defined for the request.
+-   **Status:** Indicates whether each assertion passed (`✅`) or failed (`❌`).
+-   **Comparison:** For failed assertions, it often shows the expected value versus the actual value received.
+    *(Suggestion: Add a screenshot showing the different sections within a detailed report)*

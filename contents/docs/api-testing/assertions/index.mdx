@@ -1,0 +1,187 @@
+---
+title: Assertions in API test
+---
+
+Assertions are used to validate different parts of an API response against expected values. They help ensure your API behaves as intended across a variety of scenarios.
+
+## How Assertions Work
+
+To define an assertion, you need to provide the following:
+
+- **Assert Type**: The category or source of the value being validated (e.g., response body or status code).
+- **Property Path**: The specific path within the response to target (e.g., `Response.id`).
+- **Operator**: The comparison logic to apply (e.g., `equals`, `contains-key`, `greater`).
+- **Expected Value**: The value you expect from the API response.
+
+## Supported Assert Types
+
+- **Response**: Used for validating values within the response body.
+- **Status Code**: Used for validating the HTTP status code returned by the API.
+
+## Property Path
+
+The property path refers to the exact location within the API response you want to assert. For nested objects, use dot notation:
+
+```txt
+Response.id
+Response.data.user.name
+
+```
+
+---
+
+title: 'API Assertions Guide'
+description: 'Comprehensive guide for API response validation'
+
+---
+
+# API Assertions
+
+## Property Path Examples
+
+Given this API response:
+
+```json
+{
+  "name": {
+    "firstName": "John",
+    "lastName": "Doe"
+  },
+  "age": 30,
+  "email": "johndoe@example.com",
+  "scores": [90, 85, 95],
+  "settings": {
+    "theme": "dark",
+    "notifications": true
+  }
+}
+```
+
+### Property Path Navigation
+
+1. **Simple Properties**
+
+```typescript
+{
+  propertyPath: "age",  // accesses response.age
+  operator: OperatorType.EQUAL,
+  expectedValue: 30
+}
+```
+
+2. **Nested Properties**
+
+```typescript
+{
+  propertyPath: "name.firstName",  // accesses response.name.firstName
+  operator: OperatorType.EQUAL,
+  expectedValue: "John"
+}
+```
+
+3. **Array Properties**
+
+```typescript
+{
+  propertyPath: "scores",  // accesses response.scores
+  operator: OperatorType.SIZE_OF,
+  expectedValue: 3
+}
+```
+
+## Operator Examples
+
+### Equality Operators
+
+```typescript
+// Equal comparison
+{
+  propertyPath: "email",
+  operator: OperatorType.EQUAL,
+  expectedValue: "johndoe@example.com"
+}
+
+// Not equal comparison
+{
+  propertyPath: "settings.theme",
+  operator: OperatorType.NOT_EQUAL,
+  expectedValue: "light"
+}
+```
+
+### Numeric Operators
+
+```typescript
+// Greater than
+{
+  propertyPath: "age",
+  operator: OperatorType.GREATER,
+  expectedValue: 25
+}
+
+// Less than or equal
+{
+  propertyPath: "scores[0]",
+  operator: OperatorType.LESSER_OR_EQUAL,
+  expectedValue: 90
+}
+```
+
+### Collection Operators
+
+```typescript
+// Size validation
+{
+  propertyPath: "scores",
+  operator: OperatorType.SIZE_OF,
+  expectedValue: 3
+}
+
+// Contains key check
+{
+  propertyPath: "settings",
+  operator: OperatorType.CONTAINS_KEY,
+  expectedValue: "theme"
+}
+
+// In operator
+{
+  propertyPath: "age",
+  operator: OperatorType.IN,
+  expectedValue: [25, 30, 35]
+}
+```
+
+### Type Validation
+
+```typescript
+// Type checking
+{
+  propertyPath: "settings.notifications",
+  operator: OperatorType.TYPE_OF,
+  expectedValue: "boolean"
+}
+```
+
+## Response Format
+
+All assertions return an `AssertionResponse`:
+
+```typescript
+interface AssertionResponse {
+  success: boolean;
+  message?: string;
+  expected: any;
+  actual: any;
+}
+```
+
+## Best Practices
+
+1. Use empty property path to validate entire response object
+2. Use dot notation for nested properties
+3. Match operator types with data types:
+   - Use numeric operators for numbers
+   - Use SIZE_OF for arrays
+   - Use TYPE_OF for type validation
+   - Use CONTAINS_KEY for object property checks

@@ -1,0 +1,41 @@
+---
+title: Configure API Endpoint
+---
+
+Follow these steps to configure your API endpoint for testing:
+
+### Essential Components
+
+1. **Endpoint URL**
+
+   - Enter the complete URL of the API you want to test
+   - Example: `https://api.example.com/v1/users`
+
+2. **Query Parameters**
+
+   - Add parameters in two ways:
+     - Directly in the URL: `?key=value&key2=value2`
+     - Using the Parameters tab: Click **Add new +** to add parameters individually
+
+3. **Headers**
+
+   - Navigate to the Headers tab
+   - Click **Add new +** to add each header
+   - Common headers include: `Content-Type`, `Authorization`, `Accept`
+
+4. **Request Body**
+
+   - Currently supports JSON format only
+   - Ensure valid JSON syntax in your request body
+
+5. **Request Authentication**
+   - Supports multiple auth methods:
+     - Bearer Token
+     - Basic Auth
+     - API Key
+
+> **Important**: Always save your configurations before exiting the Robonito application to prevent losing changes.
+
+### Running Your Test
+
+Once you've configured your endpoint, click the **Test** button at the top of the screen to execute your API test case.

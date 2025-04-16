@@ -16,9 +16,9 @@ export const ROUTES: EachRoute[] = [
     title: "Installation",
     href: "/installation",
     items: [
-      { title: "Mac", href: "/installation/mac" },
-      { title: "Windows", href: "/installation/window" },
-      { title: "Linux", href: "/installation/linux" },
+      { title: "Mac", href: "/mac" },
+      { title: "Windows", href: "/window" },
+      { title: "Linux", href: "/linux" },
     ],
   },
   {
@@ -121,13 +121,23 @@ export const ROUTES: EachRoute[] = [
 
 type Page = { title: string; href: string };
 
+function joinPaths(parent: string, child: string) {
+  if (parent.endsWith("/")) {
+    parent = parent.slice(0, -1);
+  }
+  if (!child.startsWith("/")) {
+    child = "/" + child;
+  }
+  return parent + child;
+}
+
 function getRecurrsiveAllLinks(node: EachRoute) {
   const ans: Page[] = [];
   if (!node.noLink) {
     ans.push({ title: node.title, href: node.href });
   }
   node.items?.forEach((subNode) => {
-    const temp = { ...subNode, href: `${node.href}${subNode.href}` };
+    const temp = { ...subNode, href: joinPaths(node.href, subNode.href) };
     ans.push(...getRecurrsiveAllLinks(temp));
   });
   return ans;

@@ -1,171 +1,95 @@
-# Introduction to Test Cases in Robonito
+---
+title: 'Introduction to a Test Case'
+description: 'Learn how to create a test case within a suite in Robonito.'
+---
+### Introduction to Test Cases in Robonito
 
-Test cases are the individual units of testing within Robonito. They define the specific steps and expected outcomes for verifying a particular functionality or feature of your application. Robonito supports both API and UI test cases, allowing you to cover a wide range of testing scenarios.
+Test cases are critical components of Robonito, encompassing defined steps and expected outcomes that validate application functionalities. Robonito supports both API and UI test cases, facilitating comprehensive testing coverage.
 
-**Test Case Types:**
+### Test Case Types
 
-* **API Test Cases:** Verify the functionality and performance of your application's APIs.
-* **UI Test Cases:** Simulate user interactions with your application's user interface to ensure proper functionality and usability.
+- **API Test Cases:** Validate the functionality and performance of application APIs.
+- **UI Test Cases:** Simulate user interactions with the UI to ensure correct functionality and usability.
 
-**Adding Test Cases to a Suite:**
+### Adding Test Cases to a Suite
 
-Test cases are added within suites, allowing you to organize your tests based on functionality, modules, or other relevant criteria. The type of test cases you can add to a suite depends on the suite type (Web or API).
+Test cases are systematically organized within suites according to functionality or modules. The type of test cases added depends on the suite type (Web or API).
 
-**Adding a UI Test Case to a Web Suite:**
+#### Adding a UI Test Case to a Web Suite:
 
-1.  **Select a Web Suite:**
-    * Navigate to the suite management module and select the web suite in which you want to add a test case.
-2.  **Access Add Test Case Option:**
-    * Click the three vertical dots (ellipsis) on the right of the suite name (next to the play icon).
-3.  **Open Add Test Case Dialog:**
-    * Select "Add test case" from the suite actions menu.
-4.  **Add Test Case Dialog (Add-Test-Case-Dialog.png):**
-    * The "Add test case" dialog box will appear.
+1. **Select a Web Suite:** Navigate to the suite management module and choose the desired web suite.
+2. **Access Add Test Case Option:** Click the ellipsis next to the suite name.
+3. **Open Add Test Case Dialog:** Select "Add test case" from the menu.
+4. **Enter Test Case Name:** Provide a descriptive name in the "Test case name" field.
+5. **Enter Description (Optional):** Include a brief description if necessary.
+6. **Add Test Case:** Click "Add" to create the test case.
 
-        ![Add Test Case Dialog](https://raw.githubusercontent.com/Robonito/docs/refs/heads/main/public/AddTestCaseDialog.png)
+    ![Add Test Case Dialog](https://raw.githubusercontent.com/Robonito/docs/refs/heads/main/public/AddTestCaseDialog.png)
 
-5.  **Enter Test Case Name:**
-    * Provide a descriptive name for your test case in the "Test case name" field.
-6.  **Enter Description (Optional):**
-    * Provide a brief description of the test case in the "Description" field.
-7.  **Add Test Case:**
-    * Click the "Add" button to create the test case.
+### Configuring a UI Test Case
 
-**Configuring a UI Test Case:**
+Upon adding a test case, you will be directed to the configuration screen.
+![Test case Configration](/test-case/TestCaseConfigurationScreen.png)
 
-1.  **Test Case Configuration Screen:**
-    * After adding a test case, you will be redirected to the test case configuration screen.
+- **Test Case Details:** Review the test case name, description, and additional details such as browser used and timestamps.
+- **Browser Launch Options:** Customize browser settings for test execution.
+- **Test Case Steps:** Record or manually add steps to define the test actions.
+- **Test Case Actions:** Utilize action buttons to record, configure, execute, or view logs.
+- **Changes Saved Confirmation:** A confirmation message will indicate successful updates.
 
-        ![Test Case Configuration](https://raw.githubusercontent.com/Robonito/docs/refs/heads/main/public/TestCaseConfigurationScreen.png)
 
-2.  **Test Case Details:**
-    * The configuration screen displays the test case name, description (if provided), and other details such as:
-        * **Recorded In:** The browser used to record the test case (e.g., Chrome).
-        * **Screen Size:** The screen size used during recording (if available).
-        * **Created:** The timestamp when the test case was created.
-        * **Last Modified:** The timestamp when the test case was last modified.
-3.  **Browser Launch Options:**
-    * Click the "Click here to configure browser launch options" link to customize the browser settings for test execution.
-4.  **Test Case Steps:**
-    * The "No steps recorded so far" message indicates that no test steps have been recorded yet.
-    * You can record or manually add test steps to define the actions to be performed during the test.
-5.  **Test Case Actions:**
-    * The test case configuration screen also provides action buttons such as:
-        * **Recorder:** Start recording test steps.
-        * **Configure:** Configure test case settings.
-        * **Execute:** Execute the test case.
-        * **Logs:** View execution logs.
-6.  **Changes Saved Confirmation:**
-    * After making changes to the test case, a "changes saved successfully" message will appear at the bottom of the screen.
+### Test Case Configuration Drawer
 
-**Test Case Configuration Drawer:**
+![Test Case Configuration Drawer](/test-case/TestCaseConfigurator.png)
 
-![Test Case Configuration Drawer](https://raw.githubusercontent.com/Robonito/docs/refs/heads/main/public/TestCaseConfigurator.png)
+- **Configure Test Case:** Access the configuration drawer to set options.
+- **Browser Selection:** Choose the browser for execution.
+- **Dependency Management:** Mark test cases as dependencies for reuse.
+- **Target URL and Screen Size:** Specify the application URL and screen size.
+- **Timeout and Recording Options:** Set page load timeout and select video recording preferences.
+- **Save Configuration:** Click "Save" to apply changes.
 
-* **Configure Test Case:**
-    * Click the "Configure" button to open the test case configuration drawer from the left side of the screen.
-* **Browser:**
-    * Select the browser to use for test execution (e.g., Chrome).
-* **Can be Dependency:**
-    * Check this box to mark the test case as a dependency.
-    * Dependency test cases can be reused by other test cases as a prerequisite.
-* **Enable WebGL:**
-    * Enable WebGL support for the test case (if required).
-* **Select dependency:**
-    * Select a dependency test case from the dropdown.
-    * This allows the current test case to depend on the selected test case, ensuring it runs before the current test case.
-* **Target URL:**
-    * Enter the URL of the application under test.
-* **Screen Size:**
-    * Set the screen size for the browser during test execution.
-* **Pageload Timeout:**
-    * Set the maximum time to wait for the page to load before timing out.
-* **Record Video:**
-    * Choose whether to record a video of the test execution (Always, Never, or On Failure).
-* **Capture Network Traces:**
-    * Choose whether to capture network traces during test execution (Always, Never, or On Failure).
-* **Capture Browser Console:**
-    * Choose whether to capture browser console logs during test execution (Always, Never, or On Failure).
-* **Save Configuration:**
-    * Click the "Save" button to save the test case configuration.
+### Test Case Recording Options
+![Test Case Recording](/test-case/RecordingOptions.png)
 
-**Test Case Recording Options:**
+- **Recorder Access:** Click the "Recorder" button to initiate recording options.
+- **Recording Methods:** Select between traditional record & playback or AI-assisted recording.
+- **Future Enhancements:** Anticipate increased options for test case generation and automation.
 
-![Test Case Recording](https://raw.githubusercontent.com/Robonito/docs/refs/heads/main/public/RecordingOptions.png)
+### Viewing Recorded Test Case Steps
 
-* **Recorder:**
-    * After configuring the test case, the recording options are enabled.
-    * Click the "Recorder" button to access the recording options.
-* **Recording Methods:**
-    * Robonito provides multiple methods for recording test cases:
-        * **Record & Playback:** The traditional method of recording user interactions and replaying them during test execution.
-        * **AI Recorder:** Use Robonito's AI Assistant to automatically generate test cases based on user interactions and application analysis.
-    * **Future Options:**
-        * Robonito will add more options in the future, such as:
-            * Generating test cases from specifications or user stories.
-            * Uploading manual test cases for automation and execution.
+![Test Case Steps](/test-case/SelectTestCaseInSuite.png)
 
-**Viewing Recorded Test Case Steps:**
+- **Select Test Case:** Click on a recorded test case to view its steps.
+- **Test Case Steps Display:** Recorded steps will be displayed with descriptions and associated data.
 
-![Test Case Steps](https://raw.githubusercontent.com/Robonito/docs/refs/heads/main/public/SelectTestCaseInSuite.png)
+### Editing Test Case Steps
 
-* **Select Test Case:**
-    * Click on any recorded test case within a suite to view its test steps.
-* **Test Case Steps Display:**
-    * The steps recorded for the selected test case are displayed in the main content area.
-    * Each step is shown with a description and any associated data or actions.
-* **Test Case Details:**
-    * The test case details, such as name, description, and creation/modification timestamps, are also displayed.
-    * The recorded browser and screen size are also shown.
+![Edit Test Case Step](/test-case/EditStepInTestCase.png)
 
-**Editing Test Case Steps:**
+- **Edit Step:** Adjust recorded steps as needed.
+- **Selectors and Data Values:** Modify selectors and data values, including random generation and OTPs.
+- **Save/Cancel:** Save changes or cancel edits.
 
-![Edit Test Case Step](https://raw.githubusercontent.com/Robonito/docs/refs/heads/main/public/EditStepInTestCase.png)
+### Key Features of Test Cases
 
-* **Edit Step:**
-    * Recorded test case steps can be edited after recording.
-* **Selectors:**
-    * Modify the selectors used to identify elements on the page.
-    * Add new selectors or edit existing ones.
-* **Data Values:**
-    * Change the data values used in the test step.
-    * Use options like:
-        * **Random Generation:** Generate random values for input fields.
-        * **Variables:** Use variables to dynamically input data.
-        * **OTP (One-Time Password):** Use OTPs for authentication scenarios. (See Integrations section for more details.)
-* **Element Info:**
-    * View information about the element being interacted with, such as name, class, and placeholder.
-* **Save/Cancel:**
-    * Save the changes or cancel the edit.
+- **Clear Definition:** Precisely defined steps and expected outcomes.
+- **Organization:** Structured within suites for effective management.
+- **Flexibility:** Supports both API and UI test cases.
+- **Configuration Options:** Diverse settings for test cases, including dependencies and recording.
+- **Execution and Logging:** Execute test cases and analyze logs.
+- **Dynamic Data Input:** Utilize random values, variables, and OTPs for enhanced adaptability.
 
-**Key Features of Test Cases:**
+### Adding an API Test Case to an API Suite
 
-* **Clear Definition:** Test cases provide a clear definition of the steps and expected outcomes for a specific test.
-* **Organization:** Test cases are organized within suites for easy management.
-* **Flexibility:** Robonito supports both API and UI test cases, allowing you to cover a wide range of testing needs.
-* **Descriptive Information:** You can add descriptions to your test cases for better clarity and understanding.
-* **Configuration Options:** You can configure various settings for your test cases, such as browser launch options, dependencies, and recording options.
-* **Recording and Manual Steps:** You can record user interactions or manually add test steps to define the test flow.
-* **Execution and Logging:** You can execute test cases and view execution logs for analysis.
-* **Dependency Management:** Reuse existing test cases by marking them as dependencies and selecting them in other test cases, promoting reusability and efficiency.
-* **Multiple Recording Options:** Choose from traditional record and playback or AI-powered recording methods.
-* **Future Enhancements:** Robonito will continue to add more options for test case generation and automation.
-* **Step-by-Step Viewing:** Easily view the recorded steps of any test case within a suite.
-* **Step Editing:** Edit recorded test case steps to modify selectors, data values, and other properties.
-* **Dynamic Data Input:** Use random value generation, variables, and OTPs to make test cases dynamic and adaptable.
+1. **Select an API Suite:** Navigate to the suite management module and choose the desired API suite.
+2. **Access Add Test Case Option:** Click the ellipsis next to the suite name.
+3. **Open Add Test Case Dialog:** Select "Add test case" from the menu.
+4. **Enter Test Case Name:** Provide a descriptive name in the "Test case name" field.
+5. **Enter Description (Optional):** Include a brief description if necessary.
+6. **Add Test Case:** Click "Add" to create the test case.
 
-**Adding an API Test Case to an API Suite:**
-
-1.  **Select an API Suite:**
-    * Navigate to the suite management module and select the API suite in which you want to add a test case.
-2.  **Access Add Test Case Option:**
-    * Click the three vertical dots (ellipsis) on the right of the suite name (next to the play icon).
-3.  **Open Add Test Case Dialog:**
-    * Select "Add test case" from the suite actions menu.
-4.  **Add Test Case Dialog:**
-    * The "Add test case" dialog box will appear.
-
-        ![Add Test Case Dialog](https://raw.githubusercontent.com/Robonito/docs/refs/heads/main/public/AddTestCaseDialog.png)
+![Add Test Case Dialog](/test-case/AddTestCaseDialog.png)
 
 5.  **Enter Test Case Name:**
     * Provide a descriptive name for your test case in the "Test case name" field.
@@ -174,12 +98,8 @@ Test cases are added within suites, allowing you to organize your tests based on
 7.  **Add Test Case:**
     * Click the "Add" button to create the test case.
 
-**Configuring an API Test Case:**
-![API Test Case Configuration](https://raw.githubusercontent.com/Robonito/docs/refs/heads/main/public/APITestCase.png)
+### Configuring an API Test Case
 
-* After adding an API test case, you will be redirected to an interface that is familiar to most QA Engineers.
-* This interface provides a code-less environment to configure and define assertions for API test cases.
-* You can specify the API endpoint, request method, headers, request body, and expected response.
-* Assertions can be defined to validate the response status code, headers, and body content.
+After adding, you will access a user-friendly interface to configure API test cases. Specify the API endpoint, request method, headers, request body, and expected response. Define assertions to validate response status, headers, and body content.
 
-**Note:** This documentation will be updated as Robonito evolves. Stay tuned for more detailed instructions and feature guides.
+**Note:** This documentation will be updated as Robonito evolves. Stay informed for more detailed instructions and feature updates.

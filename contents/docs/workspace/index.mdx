@@ -1,81 +1,31 @@
-# Introduction to Workspaces in Robonito
+---
+title: 'Introduction to a WorkSpace in Robonito'
+description: 'Learn how to create a new workspace in Robonito.'
+---
+##  Understanding the Workspace Concept
+A workspace in Robonito is an organizational unit that streamlines project management and enhances team collaboration. It serves as a dedicated area for automation projects, ensuring tests and resources are organized and isolated. Workspaces allow seamless teamwork and support custom execution plans and integrations, providing an efficient way to manage automation efforts.
 
-After successfully signing up and logging in, you'll be greeted with the Robonito Dashboard. This dashboard serves as your central hub for accessing various features and managing your automation projects.
+## Creating a Workspace
 
-**Dashboard View (https://raw.githubusercontent.com/Robonito/docs/refs/heads/main/public/Robonito-Dashboard.png):**
+On your first login, you’ll create a workspace, which organizes your automation projects.
+![Workspace Creation](/workspace/CreateNewWorkSpace.png)
 
-![Robonito Dashboard](https://raw.githubusercontent.com/Robonito/docs/refs/heads/main/public/Robonito-Dashboard.png)
+**Steps:**
 
-The dashboard is designed to provide you with a quick overview of your available tools and recent updates. Here's a breakdown of the key sections:
+1. **Access Creation:** New users are prompted, or use the dropdown next to the logo.
+2. **Enter Workspace Name** and click "Create."
 
-* **Top Navigation:**
-    * **Robonito Logo:** Located at the top left, this allows you to access workspace management options.
-    * **Search Bar:** Search for specific projects, tests, or other items within Robonito.
-    * **Profile Icon:** Located at the top right, access user account settings and profile information.
-* **"What you can do?" Section:**
-    * This section highlights the primary functionalities of Robonito, including:
-        * **Teams:** Collaborate with team members.
-        * **Schedules:** Schedule your tests.
-        * **Parallel Execution:** Execute multiple suites concurrently.
-        * **Web Testing:** Utilize Robonito's web testing capabilities.
-        * **AI Generation:** Leverage AI for test automation (Coming Soon).
-    * Each of these options has an "Explore" button that directs you to the corresponding feature.
-* **"What's new?" Section:**
-    * This section provides updates and announcements about new features, enhancements, and improvements to Robonito.
+You will be redirected to the dashboard with your new workspace,from which you can create more workspaces as illustrated below.
+![Workspace Creation](/workspace/new-workspace.png)
 
-## Workspace Creation
+## Workspace Management
+   Invite team members to collaborate. Key features include:
 
-Upon your first login, or when you need to create a new project environment, you'll be prompted to create a workspace. A workspace is a dedicated area for your automation projects, allowing you to organize and manage your tests, configurations, and resources effectively.
+* **Logical Separation:** Keeps projects organized.
+* **Suite Management:** Ties test suites to workspaces.
+* **Execution Plans:** Limits on parallel (10) and monthly (3000) tests.
+* **Integrations:** Set up independently per workspace.
 
-**Workspace Creation Process:**
+**Benefits:** Collaborate, stay organized, manage efficiently, and scale easily.
 
-1.  **Access Workspace Creation:**
-    * If you are a new user you will be automatically prompted to create a workspace.
-    * Alternatively, you can create a new workspace by clicking the dropdown menu located next to the Robonito logo in the top left corner of the dashboard.
-2.  **Workspace Creation Screen (Workspace-Creation.png):**
-    * You will be presented with a form to enter the following information:
-        * **Workspace Name:** Provide a descriptive name for your workspace.
-    * **Create Workspace:**
-        * After entering the workspace name, click the "Create" button to create your workspace.
-        * You can go back to the dashboard by clicking "Back" button.
-    * **Workspace Creation Screen:**
-
-        ![Workspace Creation](https://raw.githubusercontent.com/Robonito/docs/refs/heads/main/public/CreateNewWorkSpace.png)
-Once your workspace is created, you'll be redirected to the dashboard, and your newly created workspace will be active. You can then begin using Robonito's features to build and execute your automation tests.
-
-## Workspace Management - Team Members and Features
-
-After creating a workspace in Robonito, you can collaborate with your team by inviting them to join the workspace. This allows for seamless teamwork and efficient management of your automation projects.
-
-**Inviting Team Members:**
-
-![Workspace Team Members](https://raw.githubusercontent.com/Robonito/docs/refs/heads/main/public/InviteTeamMembersToWorkSpace.png)
-
-**Steps to Invite Team Members:**
-
-1.  **Access Team Members:**
-    * Navigate to your desired workspace.
-2.  **Add Member:**
-    * Click the "Add member" button located in the top right corner of the "Team members" section.
-3.  **Enter Email:**
-    * Enter the email address of the team member you wish to invite.
-4.  **Assign Role:**
-    * Select the appropriate role for the team member (e.g., Member, Admin).
-5.  **Send Invitation:**
-    * Click the "Invite" or "Send" button to send the invitation.
-
-**Key Features of a Workspace:**
-
-* **Logical Separation:** A workspace acts as a logical container for each testing project within Robonito. This ensures that projects are organized and isolated from each other, preventing conflicts and improving manageability.
-* **Suite Management:** Test suites created in the test creation module are tied to a specific workspace. This allows for easy organization and management of test suites related to a particular project.
-* **Execution Plans:** Each workspace has an associated execution plan that defines the number of parallel executions and monthly executions allowed. By default, users can execute a minimum of 10 tests in parallel, with a limit of 3000 monthly executions. For customized execution plans and pricing information, please contact us through the contact form on our website.
-* **Integrations:** Integrations, such as JIRA, are configured at the workspace level. This means that if you integrate JIRA with Workspace A and then create a new Workspace B, you will need to configure the JIRA integration again for Workspace B. This ensures that integrations are specific to the projects within each workspace.
-
-**Workspace Benefits:**
-
-* **Enhanced Collaboration:** Invite team members to collaborate on projects within a shared workspace.
-* **Project Organization:** Maintain clear separation between different testing projects.
-* **Efficient Management:** Manage test suites, execution plans, and integrations at the workspace level.
-* **Scalability:** Easily scale your testing efforts by creating multiple workspaces for different projects.
-
-**Note:** This documentation will be updated as Robonito evolves. Stay tuned for more detailed instructions and feature guides.
+**Learn how to add** [Team Members](../team) in workspace

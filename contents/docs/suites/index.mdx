@@ -1,96 +1,58 @@
-## Introduction to Suites in Robonito
+---
+title: Introduction of Suites
+description: Instructions for creating suites in the Robonito Desktop App.
+---
 
-Suites are a fundamental building block in Robonito, serving as containers for organizing and managing your test cases within a workspace. The suite management module provides an Integrated Development Environment (IDE)-like interface for creating, editing, and executing your tests.
+### Introduction to Suites
+Suites are essential components in Robonito, functioning as containers to organize and manage your test cases within a workspace. The suite management module features an IDE-like interface for creating, editing, and executing tests efficiently.
 
-**Suite Management Interface:**
 
-![Suite Management](https://raw.githubusercontent.com/Robonito/docs/refs/heads/main/public/Test-IDE.png)
+### Create Suite:
 
-**Creating a Suite with Suite Type:**
+1. **Click "+ New Suite":** Click the "+ new suite" button in the top left corner.
+![Suite Management](/suite/Test-IDE.png)
+   
+2. **Enter Suite Name:** Provide a descriptive name for your suite in the "Suite name" field.
+![Suite Creation Dialog](/suite/Suite-Creation-Dialog.png)
 
-1.  **Click "+ new suite":**
-    * Click the "+ new suite" button located in the top left corner of the suite management module.
-2.  **Suite Creation Dialog (Suite-Creation-Dialog.png):**
-    * A dialog box will appear to create a new suite.
+3. **Select Suite Type:**
+   * Choose the suite type from the "Suite type" dropdown. Robonito currently supports two suite types:
+     * **Web:** For web-based test cases.
+     * **API:** For API-based test cases.
 
-        ![Suite Creation Dialog](https://raw.githubusercontent.com/Robonito/docs/refs/heads/main/public/CreateNewSuiteDialog.png)
+4. **Create Suite:** Click "Create" or "Save" to finalize.
 
-3.  **Enter Suite Name:**
-    * Provide a descriptive name for your suite in the "Suite name" field.
-4.  **Select Suite Type:**
-    * Choose the type of suite you want to create from the "Suite type" dropdown.
-    * Currently, Robonito supports two suite types:
-        * **Web:** For web-based test cases.
-        * **API:** For API-based test cases.
-    * **Note:** In future releases, Robonito will support mobile and other suite types.
-5.  **Create Suite:**
-    * Click the "Create" or "Save" button to create the suite.
+### Key Features:
 
-**Key Features of Suite Management:**
+* **Organization:** Test cases are stored within suites for structured management.
+* **IDE-like Interface:** Navigate suites and test cases easily with a clear layout.
+* [**Variable Management:**](../variables) Define variables to enhance test maintainability.
+* **Search:** Use the search bar to find specific suites or test cases quickly.
 
-* **Suite Creation:**
-    * Click the "+ new suite" button to create a new suite.
-    * Suites act as logical groupings for related test cases.
-* **Test Case Organization:**
-    * Test cases are created and stored within suites.
-    * This allows for structured organization of tests based on functionality, modules, or other relevant criteria.
-* **IDE-like Interface:**
-    * The suite management module provides an IDE-like interface for easy navigation and management of suites and test cases.
-    * The left panel displays the list of suites and their associated test cases.
-    * The main panel displays the content of the selected suite or test case.
-* **Variables:**
-    * Click the "(x) Variables" button to define and manage variables that can be used within your test cases.
-    * Variables allow for dynamic data input and improve test maintainability.
-* **Search Functionality:**
-    * Use the search bar to quickly find specific suites or test cases.
-* **Suite and Test Case Navigation:**
-    * Expand suites to view their associated test cases.
-    * Click on a test case to view or edit its content in the main panel.
+### Suite List
+* **Suite Actions List:** Click the three vertical dots (ellipsis) next to the suite name to access the suite actions menu, which includes options to:
+![suite Action](/suite/SuiteActions.png)
 
-**Suite List and Type Display:**
+  * **Add Test Case:** Seamlessly add a new test case to the suite.
+  * **Delete Suite:** Permanently delete the entire suite.
+  * **Schedule:** Automate the suite to run at specific times or intervals.
+  * **Report:** Access execution reports for the suite.
+  * **Generate Code:** Generate code snippets for the suite or its test cases.
 
-![Suite List](https://raw.githubusercontent.com/Robonito/docs/refs/heads/main/public/SuitesInLeftPane.png)
+### Suite Execution Details:
 
-* **Suite List:**
-    * The left panel of the suite management module displays a list of all suites within the current workspace.
-    * Each suite is represented by its name.
-* **Suite Type Indicator:**
-    * To the left of each suite name, the suite type is displayed (e.g., "WEB" or "API").
-    * This clearly indicates the type of test cases contained within the suite.
-    * This helps users quickly identify and differentiate between web and API test suites.
-* **Suite Actions:**
-    * Each suite entry includes action icons or buttons, such as a "play" button to execute the suite and a "more options" icon for additional actions.
+* [**Local Execution:**](../local) Executes the test cases on your local machine.
+* [**Cloud Execution:**](../cloud) Executes the test cases on Robonito's cloud infrastructure.
+* [**Execution Reports:**](../reports) You will receive detailed reports on the execution status of each test case within the suite.
+* [**Scheduling:**](../schedules) Effortlessly automate the execution of suites at desired times or intervals.
 
-**Suite Actions and Execution:**
+### Benefits of Using Suite Actions:
 
-![Suite Actions](https://raw.githubusercontent.com/Robonito/docs/refs/heads/main/public/SuiteActions.png)
+* **Efficient Execution:** Execute all test cases within a suite with a single click for maximum efficiency.
+* **Flexible Execution Options:** Choose between local or cloud execution based on your specific needs.
+* **Comprehensive Reporting:** Access thorough execution reports to analyze test results effectively.
+* **Automation:** Schedule suites to run automatically at selected times for enhanced productivity.
+* **Suite Management:** Easily add, delete, and manage suites and their test cases with confidence.
+* **Code Generation:** Generate code snippets to streamline your test development process
 
-* **Execute Suite:**
-    * Click the "play" icon (green triangle) next to the suite name to execute all test cases within the suite.
-    * You can choose to execute tests locally or in the cloud.
-* **Suite Actions Menu:**
-    * Click the three vertical dots (ellipsis) on the right of the suite name to access the suite actions menu.
-    * The menu provides the following options:
-        * **Add test case:** Add a new test case to the suite.
-        * **Delete Suite:** Delete the entire suite.
-        * **Schedule:** Schedule the suite to run at a specific time or on a recurring basis.
-        * **Report:** View execution reports for the suite.
-        * **Generate code:** Generate code snippets for the suite or its test cases.
-
-**Suite Execution Details:**
-
-* **Local Execution:** Executes the test cases on your local machine.
-* **Cloud Execution:** Executes the test cases on Robonito's cloud infrastructure.
-* **Execution Reports:** Provides detailed reports on the execution status of each test case within the suite.
-* **Scheduling:** Allows you to automate the execution of suites at specific times or intervals.
-
-**Benefits of Using Suite Actions:**
-
-* **Efficient Execution:** Quickly execute all test cases within a suite with a single click.
-* **Flexible Execution Options:** Choose between local or cloud execution based on your needs.
-* **Comprehensive Reporting:** Access detailed execution reports to analyze test results.
-* **Automation:** Schedule suites to run automatically at specific times.
-* **Suite Management:** Easily add, delete, and manage suites and their test cases.
-* **Code Generation:** Generate code snippets to aid in test development.
-
-**Note:** This documentation will be updated as Robonito evolves. Stay tuned for more detailed instructions and feature guides.
+**Note:** This documentation will be updated as Robonito evolves. Stay tuned for more updates and features.

@@ -22,8 +22,8 @@ export const ROUTES: EachRoute[] = [
     ],
   },
   {
-    title: "Workspaces",
-    href: "/workspaces",
+    title: "Workspace",
+    href: "/workspace",
   },
   {
     title: "Suites",

@@ -1,0 +1,29 @@
+---
+title: 'Integrating Robonito with External Tools'
+description: 'Learn how to set up and manage integrations within your Robonito workspace.'
+---
+## Understanding Robonito Integrations
+Integrations allow you to connect Robonito with other tools you use daily, streamlining your workflows and keeping all project activities connected.
+
+**Important:** Integrations are specific to each **workspace**. This means every Robonito workspace will have its own separate set of integrations.
+
+## Accessing Integrations
+To manage your integrations, simply click on **"Integrations"** in the sidebar of your Robonito dashboard.
+![Integrations Click](/integrations/integrations-click.gif)
+
+## Supported Integrations
+Robonito supports several popular integrations:
+
+* [**Jira**](./integrations/jira):
+    * Create issues directly in Jira from Robonito. This is useful for logging bugs or tasks identified during test executions.
+* [**Email**](./integrations/email):
+    * Give Robonito access to your email. This allows Robonito to read **one-time passwords (OTPs)** from your emails, which is useful for automating test cases that require an OTP for verification.
+* [**GitHub**](./integrations/github):
+    * Trigger Robonito tests automatically based on events in your GitHub repositories. You can set up triggers for:
+        * **Pull Request:** Run tests when a new pull request is opened or updated.
+        * **Push:** Execute tests after code is pushed to a branch.
+        * **Merge:** Initiate tests when changes are merged into your main branches.
+* [**Authenticator Apps**](/authenticator-apps):
+    * Robonito supports popular authenticator applications (like Google Authenticator and Microsoft Authenticator). This allows it to generate and use **one-time passwords (OTPs)** from these apps to automate test steps that require them for verification.
+
+These integrations help you connect Robonito seamlessly with your existing development and testing ecosystems, making your automation journey more efficient and collaborative.

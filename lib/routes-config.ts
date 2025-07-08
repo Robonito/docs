@@ -92,6 +92,7 @@ export const ROUTES: EachRoute[] = [
       { title: "Email", href: "/email" },
       { title: "Jira", href: "/jira" },
       { title: "Github", href: "/github" },
+      {title: "Authenticator Apps", href:'/authenticator-apps'}
     ],
   },
   {

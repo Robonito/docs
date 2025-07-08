@@ -20,9 +20,9 @@ To add a new authenticator app account, you'll need to provide the **secret key*
 
 2.  **Select Authenticator App:** Find the Authenticator App option and hit the `Add Account` button to start.
 
-3.  **Enter Connection Details:** A form will pop up. You'll need to enter this info:
-    * **Account Name:** A descriptive name that clearly identifies which account or site this 2FA setup belongs to(e.g., Github 2FA, CRM Login OTP).
-    * **Secret Key:** The secret key provided by your 2FA service when you initially set up the 2FA (e.g., when you scan a QR code or manually enter a key).
+3.  **Enter Connection Details:** A side drawer with a form will open. You'll need to enter this info:
+    * **Account Name:** A descriptive name that clearly identifies which account or site this 2FA setup belongs to (e.g. Github 2FA, CRM Login OTP).
+    * **Secret Key:** The secret key provided by your 2FA service when you initially set up the 2FA (e.g. when you scan a QR code or manually enter a key).
      * **Advanced Options (Prefilled with Standard Values):**
         * **Number of Digits:** The length of the OTP (commonly 6 or 8 digits).
         * **Period:** The time interval (in seconds) for which an OTP is valid (typically 30 seconds).
@@ -34,10 +34,10 @@ To add a new authenticator app account, you'll need to provide the **secret key*
 
 ---
 
-## Using Authenticator App OTPs
+## Recording a web test case with Authenticator App OTPs
 
-> **Note:** You should add .
-Once your Authenticator App integration is set up, you can easily generate and fetch OTPs directly during your test case execution.
+> **Note:** You should add the respective account first.
+Once you have added an account, you can easily generate and fetch OTPs directly during your test case execution.
 
 **Steps:**
 
@@ -52,3 +52,5 @@ Once your Authenticator App integration is set up, you can easily generate and f
 5.  **Select Account Name:** If you have multiple accounts set up, select the account you wish to use from the dropdown list.
 
 6.  **OTP Generation and Filling:** Robonito will generate the OTP using the configured secret key and automatically populate the detected OTP field on the current page with the generated OTP.
+
+<iframe width="660" height="365" src="https://www.youtube.com/embed/89ITxT_0NTU?si=UyMas55d0Cmfqg2c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

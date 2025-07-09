@@ -95,6 +95,18 @@ export const ROUTES: EachRoute[] = [
     ],
   },
   {
+    title: "Data Source",
+    href: "/data-source",
+    items: [
+      { title: "Upload Data Source", href: "/upload-data-source" },
+      { title: "Apply Data Source", href: "/apply-data-source" },
+      {
+        title: "Configure Test Case For Data Source",
+        href: "/configure-test-case",
+      },
+    ],
+  },
+  {
     title: "Reports",
     href: "/reports",
   },

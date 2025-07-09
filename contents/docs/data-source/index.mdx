@@ -1,0 +1,67 @@
+---
+title: Data Source in Web Testing
+sidebar_position: 2
+---
+
+import Admonition from "@theme/Admonition";
+
+In automated web testing, one powerful approach to enhance test coverage and reusability is **data-driven testing**. In **Robonito**, we make this possible through a feature called **Data Source**.
+
+---
+
+## What is a Data Source?
+
+A **Data Source** is an external file — typically an **Excel (.xlsx)** or **CSV (.csv)** — that contains a list of values used to fill in input fields across various test cases.
+
+Instead of writing multiple test cases for different input values, you can **record a test case once** and run it multiple times with various data values being pulled from a Data Source.
+
+---
+
+## Objective
+
+Our goal with Data Source is simple:
+
+> **Record once, reuse many times.**
+
+You only need to record a single test case, and then:
+
+1. **Upload a Data Source file** containing test values.
+2. **Configure how the test case should be executed** using these values.
+3. Robonito automatically fills the test case input fields with each data row from the data source and executes it.
+4. **Review the results** in a detailed report.
+
+---
+
+## Configuration Options
+
+You can control how Robonito uses your Data Source using two strategy types:
+
+### 1. Sequential Strategy
+
+- Use this when you want to **execute the test case in order**, from a specific range in the data file.
+- Example: Use rows 1 to 10 only.
+- Every row in that range will be used once.
+
+```yaml
+strategy: sequential
+range:
+  starting row: 1
+  ending row: 10
+```
+
+### 2. Random Strategy
+
+- Use this when you want to randomly pick data rows and execute the test case multiple times.
+- You only need to specify how many times the test case should run.
+
+```yaml
+strategy: random
+execute count: 5
+```
+
+## Supported File Types
+
+- .csv (Comma-Separated Values)
+- .xlsx (Excel File)
+
+Each row in your file should represent a unique data set, and each column maps to the input fields or parameters in your test case.

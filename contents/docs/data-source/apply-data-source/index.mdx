@@ -1,0 +1,63 @@
+---
+title: Apply Data Source to Test Case
+sidebar_position: 2
+description: Learn how to link uploaded data source values to your test case inputs in Robonito.
+---
+
+Once you’ve uploaded a **Data Source** (CSV or Excel), the next step is to **connect it to your test case**. This allows you to dynamically fill test inputs using the values from your data file.
+
+---
+
+## Steps to Apply Data Source
+
+### 1. Go to Test Explorer
+
+- From the Robonito dashboard, navigate to the **Test Explorer**.
+- Select the test case you want to apply the data source to.
+
+![Test Explorer](/data-source/test-explorer.png)
+
+### 2. Select an Input Node
+
+- Click on any test step where data needs to be filled (e.g., a `Fill Input` node).
+- A panel will open where you can edit the **Fill Input Value**.
+
+![Edit Test Node](/data-source/edit-node.png)
+---
+
+## How to Insert a Data Source Value
+
+In the **Fill Input Value** field:
+
+- Start typing `[[` — this will open a popup showing all the **uploaded data sources**.
+- Select a **file name** from the list.
+- Once selected, a second popup will appear to **select a column name** from that data source.
+- After selecting the column, the expression will automatically complete like this:
+
+```text
+[[filename.columnName]]
+```
+- Example
+
+- If your uploaded file is users.csv and it has a column email, your field value would be:
+
+```text
+[[users.email]]
+```
+
+![Select Data Source](/data-source/fill-data-source.png)
+
+![Select Data Source Column](/data-source/fill-data-source-column.png)
+
+- This tells Robonito to use the value from the email column for each row when executing the test case.
+
+## Things to Remember
+
+- The popup only appears when you start typing [[.
+- The file name and column name must match exactly with what was uploaded.
+- You can preview and verify the data before running the test case.
+
+
+Once done, you can move on to [Configure Execution Strategy](configure-test-case) to define how many times the test should run using the data source values.
+
+Happy testing with Robonito! 🎉

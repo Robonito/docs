@@ -88,6 +88,7 @@ export const ROUTES: EachRoute[] = [
       { title: "Page Assertion", href: "/page-assertion" },
       { title: "Text Assertion", href: "/text-assertion" },
       { title: "UI Assertion", href: "/ui-assertion" },
+      { title: "Custom Assertion", href: "/custom-assertion" },
     ],
   },
   {

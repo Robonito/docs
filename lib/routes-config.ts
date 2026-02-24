@@ -78,6 +78,7 @@ export const ROUTES: EachRoute[] = [
     href: "/mobile-testing",
     items: [
       { title: "Create Mobile test case", href: "/create-mobile-testcase" },
+      { title: "Mobile Setup", href: "/mobile-setup"}
     ],
   },
     {

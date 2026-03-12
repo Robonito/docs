@@ -1,0 +1,147 @@
+# Start Recording a Mobile Test Case
+
+Robonito allows you to record user interactions on a mobile application running on an Android emulator. During recording, Robonito captures each action performed on the application and converts it into test steps.
+
+Follow the steps below to start recording a mobile test case.
+
+
+## 1. Open the Mobile Test Case
+
+Navigate to your project and open the **Mobile Test Case** you want to record.
+
+In the test case page, click the **Record** button to start the mobile recording process.
+
+
+## 2. Configure Mobile Test Case Launch Options
+
+When you click **Record**, a configuration dialog appears.
+
+This dialog allows you to configure the environment for the mobile test recording.
+
+### Platform
+
+Select the mobile platform on which you want to record the test.
+
+Example:
+
+Platform: Android
+
+This tells Robonito to launch the Android automation environment.
+
+
+### Select App Files
+
+Next, select the application file you want to test.
+
+Click the file selector and choose your application file from your system.
+
+Supported file types include:
+
+- `.apk` (Android application package)
+- `.ipa` (iOS application package)
+
+Example:
+
+app-release.apk
+
+After selecting the file, it will appear in the **Select app files** field.
+
+
+## 3. Start Recording
+
+After selecting the platform and application file, click:
+
+**Start Recording**
+
+Robonito will begin initializing the mobile recording environment.
+
+
+## 4. Emulator Initialization
+
+Robonito launches the configured Android emulator automatically.
+
+You may see the message:
+
+> Initializing recorder...
+>
+> Launching emulator (It may take a while)
+
+This step prepares the emulator and installs the selected application.
+
+
+## 5. Mobile Application Launch
+
+Once the emulator starts, the application will open automatically inside the emulator.
+
+You can now interact with the application just like a real user.
+
+Example screens may include:
+
+- Application welcome screen
+- Login screen
+- Permissions dialogs
+
+
+## 6. Recording User Actions
+
+While recording is active, Robonito captures each interaction performed on the mobile application.
+
+Examples of recorded actions include:
+
+- Tap on a button
+- Enter text in input fields
+- Navigate between screens
+- Select options
+
+Each action appears as a step in the **Steps** panel.
+
+Example recorded step:
+
+**Tap Allow Button**
+
+Action type:
+
+`MOBILE-TAP`
+
+
+## 7. Enter Input Data
+
+If the test requires entering data, type directly into the application during recording.
+
+Example:
+
+**Enter phone number: 500000005**
+
+Robonito automatically records the input action as a step.
+
+
+## 8. Automatic Step Generation
+
+During recording, Robonito may generate step descriptions such as:
+
+* Enter Phone Number
+* Tap Login Button
+
+These steps represent the actions performed on the emulator.
+
+
+## 9. Save Recorded Steps
+
+Once recording is complete, click **Save** to store the recorded steps in the test case.
+
+You can later modify, execute, or extend these steps.
+
+
+## Summary
+
+Mobile recording in Robonito involves the following process:
+
+1.  Open a Mobile Test Case
+2.  Click **Record**
+3.  Select **Platform**
+4.  Upload the **App File (.apk)**
+5.  Click **Start Recording**
+6.  Emulator launches automatically
+7.  Perform actions on the application
+8.  Robonito records each action as test steps
+9.  Save the recorded test case

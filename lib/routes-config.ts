@@ -48,16 +48,16 @@ export const ROUTES: EachRoute[] = [
       {
         title: "Recording",
         href: "/recording",
-        items: [
-          {
-            title: "Record & Playback",
-            href: "/recording/record-playback",
-          },
-          {
-            title: "AI Recording",
-            href: "/recording/ai-recording",
-          },
-        ],
+        // items: [
+        //   {
+        //     title: "Record & Playback",
+        //     href: "/recording/record-playback",
+        //   },
+        //   {
+        //     title: "AI Recording",
+        //     href: "/recording/ai-recording",
+        //   },
+        // ],
       },
     ],
   },
@@ -78,7 +78,8 @@ export const ROUTES: EachRoute[] = [
     href: "/mobile-testing",
     items: [
       { title: "Create Mobile test case", href: "/create-mobile-testcase" },
-      { title: "Mobile Setup", href: "/mobile-setup"}
+      { title: "Mobile Setup", href: "/mobile-setup"},
+      { title: "Recording", href: "/recording"}
     ],
   },
     {

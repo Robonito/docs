@@ -1,156 +1,97 @@
-### Cloud Execution
+# Cloud Execution
 
-Cloud Execution allows you to run test cases on Robonito’s cloud infrastructure instead of your local machine. This execution mode is designed for scalability, reliability, and team-based automation workflows.
+Cloud Execution allows you to run your automated test cases directly on Robonito’s dedicated cloud infrastructure instead of relying on your local machine. This execution mode is specifically designed for enterprise scalability, maximum reliability, and seamless team-based automation workflows.
 
-Cloud Execution is available as a premium feature.
+> **Note:** Cloud Execution is currently available as a premium feature.
 
+---
 
 ## Key Characteristics of Cloud Execution
 
-- Test cases are executed on Robonito-managed cloud infrastructure
-- No dependency on local system resources
-- Provides a consistent and controlled execution environment
-- Suitable for large test suites and team-based execution
-- Ideal for continuous integration and scheduled runs
+- **Zero Local Dependency:** Test cases are executed entirely on Robonito-managed cloud infrastructure, freeing up your local system resources.
+- **Consistent Environments:** Provides a highly consistent, controlled, and stable execution environment across all test runs.
+- **Team Scalability:** Suitable for managing large test suites and executing team-based parallel workflows.
+- **Automation Ready:** Ideal for integrating into Continuous Integration (CI/CD) pipelines and scheduling unattended overnight runs.
 
+---
 
-### When to Use Cloud Execution
+## When to Use Cloud Execution
 
-Cloud Execution is recommended when:
+Cloud Execution is highly recommended when:
+- Running tests automatically as part of your CI/CD pipelines.
+- Executing extremely large or complex end-to-end test suites.
+- Multiple team members need shared access to the same execution environments.
+- Local system resources (CPU/RAM) are limited or need to be preserved for active development.
+- Tests absolutely need to run independently of individual user machines to prevent local environment discrepancies.
 
-- Running tests as part of CI/CD pipelines
-- Executing large or complex test suites
-- Multiple team members need shared execution environments
-- Local system resources are limited
-- Tests need to run independently of user machines
+---
 
+## Cloud Execution Availability
 
-### Cloud Execution Availability
+If Cloud Execution is **not** actively enabled for your account workspace:
+- The **Execute** button for cloud runs will be visibly disabled in the UI.
+- A lock message will indicate that Cloud Execution requires premium access.
+- Options are provided directly in the interface to request access via:
+  - Account Contact Email
+  - Direct Contact Slack
 
-If Cloud Execution is not enabled for your account:
+Once officially enabled by your workspace admin, Cloud Execution immediately becomes selectable in the standard execution configuration menu.
 
-- The **Execute** button is disabled
-- A message indicates that Cloud Execution is locked
-- Options are provided to request access:
-  - Contact Email
-  - Contact Slack
+---
 
-Once enabled, Cloud Execution becomes selectable in the execution configuration.
+## Cloud Execution Behavior
 
+During an active cloud execution:
+- Test steps are executed sequentially in real-time on secure cloud resources.
+- All configured assertions (Smart, UI, Page, Content-based) are stringently evaluated.
+- Live execution progress is tracked and available remotely.
+- Results, logs, and screenshots are collected simultaneously and stored centrally.
 
-### Cloud Execution Behavior
+---
 
-During cloud execution:
+## Execution Report: Cloud Execution
 
-- Test steps are executed sequentially on cloud resources
-- All assertions (Smart, UI, Page, Content-based) are evaluated
-- Execution progress is tracked remotely
-- Results are collected and stored centrally
+The Execution Report for Cloud Execution provides incredibly detailed insights into all test runs executed on the cloud. It helps teams monitor test stability, track execution performance, and analyze historical pass/fail trends over time.
 
-
-### Execution Report – Cloud Execution
-
-The Execution Report for Cloud Execution provides detailed insights into test runs executed on the cloud. It helps teams monitor test stability, execution performance, and historical trends.
-
-A cloud execution report is generated automatically after each cloud run.
-
+A comprehensive cloud execution report is generated automatically immediately after each cloud run completes.
 
 ### Report Overview
+The top section of the cloud execution report acts as a dashboard, displaying:
 
-The top section of the cloud execution report displays:
+- **Total Runs:** The total number of lifetime cloud executions for the test case.
+- **Passed:** The exact number of successful cloud executions.
+- **Failed:** The exact number of failed cloud executions.
+- **Average Duration:** The average time taken by the cloud platform to complete the executions.
+- **Test Case Health:** A percentage metric reflecting the overall stability of the test case based on its cloud execution history.
+  - Calculated dynamically using historical pass/fail ratios.
+  - Swiftly helps identify flaky or unstable tests before they block deployments.
+  - Extremely useful for monitoring long-term test reliability.
 
-### Total Runs
+---
 
-Total number of cloud executions for the test case.
+## Execution History Breakdown
 
+The **Execution History** table includes specific metadata for each individual cloud execution run:
 
-### Passed
+| Metric | Description |
+| :--- | :--- |
+| **Date** | The exact timestamp when the cloud execution was triggered. |
+| **Status** | The final execution result (`PASS` or `FAIL`). |
+| **Type** | The target test case type (e.g., `Web`, `API`, or `Mobile`). |
+| **Executed By** | The user, system, or CI pipeline that manually or automatically triggered the execution. |
+| **Version** | The explicit test case version that was executed in the cloud. |
+| **Environment** | The designated execution environment (e.g., `CLOUD`). |
+| **Browser** | The target browser and exact software version used in the cloud run. |
+| **Screen Size** | The viewport resolution utilized in the cloud run. |
+| **Platform** | The specific cloud infrastructure platform details. |
+| **Runtime** | The total duration it took to execute the run. |
 
-Number of successful cloud executions.
-
-
-### Failed
-
-Number of failed cloud executions.
-
-
-### Average Duration
-
-Average time taken by cloud executions.
-
-
-### Test Case Health
-
-Test Case Health reflects the stability of the test case based on cloud execution history.
-
-- Calculated using pass/fail ratios
-- Helps identify flaky or unstable tests
-- Useful for monitoring long-term test reliability
-
-
-### Execution History
-
-The Execution History table includes details for each cloud execution run.
-
-### Date
-
-Time when the cloud execution was triggered.
-
-
-### Status
-
-Execution result:
-
-- PASS
-- FAIL
-
-
-### Type
-
-Test case type (Web, API, or Mobile).
-
-
-### Executed By
-
-User or system that triggered the execution (manual or CI).
-
-
-### Version
-
-Test case version executed in the cloud.
-
-
-### Environment
-
-Execution environment:
-
-- CLOUD
-
-
-### Browser
-
-Browser and version used in cloud execution.
-
-
-### Screen Size
-
-Viewport resolution used in the cloud run.
-
-
-### Platform
-
-Cloud execution platform details.
-
-
-### Runtime
-
-Total execution duration.
-
+---
 
 ## Understanding Cloud Execution Failures
 
-For failed cloud executions:
+In the event of a failed cloud execution:
 
-- Failed steps and assertions are highlighted
-- Logs and execution details are available for analysis
-- Helps diagnose environment-specific or timing-related issues
+- All failed steps and specific assertions are explicitly highlighted in red within the report.
+- Deep system logs and execution details are generated and made available for root-cause analysis.
+- These collected forensics significantly help diagnose environment-specific caching issues or timing-related (flaky) automation failures.

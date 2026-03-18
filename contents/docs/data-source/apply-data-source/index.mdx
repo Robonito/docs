@@ -1,63 +1,72 @@
 ---
 title: Apply Data Source to Test Case
 sidebar_position: 2
-description: Learn how to link uploaded data source values to your test case inputs in Robonito.
+description: Learn how to dynamically connect and link uploaded data source values to your test case input fields in Robonito.
 ---
 
-Once you’ve uploaded a **Data Source** (CSV or Excel), the next step is to **connect it to your test case**. This allows you to dynamically fill test inputs using the values from your data file.
+Once you have successfully uploaded a **Data Source** (like a `.csv` or Excel file), the next step is to **connect it to your test case**. This process allows you to perform data-driven testing by dynamically filling your test inputs with the rows from your attached data file.
 
 ---
 
-## Steps to Apply Data Source
+## Steps to Apply a Data Source
 
-### 1. Go to Test Explorer
+To begin attaching data values, follow these initial steps:
 
-- From the Robonito dashboard, navigate to the **Test Explorer**.
-- Select the test case you want to apply the data source to.
+### 1. Open the Test Explorer
 
-![Test Explorer](/data-source/test-explorer.png)
+1. Navigate to the **Test Explorer** from the main Robonito dashboard.
+2. Select the specific test case you want to parameterize with your data source.
+
+![Test Explorer View](/data-source/test-explorer.png)
 
 ### 2. Select an Input Node
 
-- Click on any test step where data needs to be filled (e.g., a `Fill Input` node).
-- A panel will open where you can edit the **Fill Input Value**.
+1. Click on any test step within the timeline where data needs to be populated (e.g., a **Fill Input** node).
+2. The step configuration panel will open on the right, allowing you to edit the **Fill Input Value**.
 
-![Edit Test Node](/data-source/edit-node.png)
+![Edit Test Node Panel](/data-source/edit-node.png)
+
 ---
 
 ## How to Insert a Data Source Value
 
-In the **Fill Input Value** field:
+Within the **Fill Input Value** field, you can fetch your data by following these exact steps:
 
-- Start typing `[[` — this will open a popup showing all the **uploaded data sources**.
-- Select a **file name** from the list.
-- Once selected, a second popup will appear to **select a column name** from that data source.
-- After selecting the column, the expression will automatically complete like this:
+1. **Trigger the Menu:** Start typing `[[` in the input field. This automatically opens a popup displaying all your uploaded data sources.
+2. **Select the File:** Click on the desired **file name** from the dropdown list.
+3. **Select the Column:** A secondary popup will immediately appear. Select your desired **column name** from that specific data source.
+4. **Completion:** After selecting the column, the field expression will automatically complete using the following syntax:
 
-```text
-[[filename.columnName]]
-```
-- Example
+   ```text
+   [[filename.columnName]]
+   ```
 
-- If your uploaded file is users.csv and it has a column email, your field value would be:
+### Working Example
+
+If your uploaded file is officially named `users.csv` and it contains a column named `email`, your field value would look like this:
 
 ```text
 [[users.email]]
 ```
 
-![Select Data Source](/data-source/fill-data-source.png)
+![Select Data Source Popup](/data-source/fill-data-source.png)  
+![Select Data Source Column Popup](/data-source/fill-data-source-column.png)
 
-![Select Data Source Column](/data-source/fill-data-source-column.png)
+This explicit syntax tells Robonito to dynamically pull the value from the `email` column for each corresponding row during the automated execution of the test case.
 
-- This tells Robonito to use the value from the email column for each row when executing the test case.
+---
 
-## Things to Remember
+## Important Things to Remember
 
-- The popup only appears when you start typing [[.
-- The file name and column name must match exactly with what was uploaded.
-- You can preview and verify the data before running the test case.
+Keep the following rules in mind when working with data sources:
+- **Trigger Key:** The data source popup **only** appears when you explicitly start typing exactly `[[`.
+- **Exact Matches:** The file name and column name must match exactly with what was originally uploaded.
+- **Verification:** You can safely preview and verify your data bindings before running the actual test case.
 
+---
 
-Once done, you can move on to [Configure Execution Strategy](configure-test-case) to define how many times the test should run using the data source values.
+## Next Steps
+
+Once your data sources are successfully linked to your inputs, you can move on to the **[Configure Execution Strategy](./configure-test-case)** guide to define exactly how many times (or loop iterations) the test should run using your new attached data rows.
 
 Happy testing with Robonito! 🎉

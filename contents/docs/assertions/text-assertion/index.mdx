@@ -1,34 +1,39 @@
-### Choose Assertion Type
+# Text Assertions
 
-Robonito supports two categories of assertions:
-![Text Assertions](/test-case/plain-text.png)
+Robonito supports powerful content-based assertions to help you validate the text and messaging displayed on any given page.
 
-### Content-Based Assertions
+## Choose an Assertion Type
 
-Content-based assertions validate text or content displayed on the page.
+When adding an assertion to your test case, you can select from various categories of assertions to match your exact validation strategy:
 
-### Plain Text
+![Text Assertions Menu](/test-case/plain-text.png)
 
-Asserts that a specific text appears on the page.
+---
 
-- Supports exact or partial text matching
+## Content-Based Assertions
 
-**Use case:**  
-Validate headings, labels, messages, or static content.
+Content-based assertions scan and validate the visible UI text displayed on the screen. Robonito provides three primary types of text-matching validation rules:
 
+### 1. Plain Text
+Asserts that a specific, static string of text appears on the page.
 
-### Custom Expression
+- **Matching Support:** Supports both **Exact** or **Partial** text matching, depending on your strictness requirements.
 
-Asserts text using a custom expression for advanced matching scenarios.
+**Use Case:**  
+Validate stable, static content such as page headings, button labels, and standard confirmation messages.
 
-**Use case:**  
-Validate dynamic text such as IDs, timestamps, or formatted values.
+---
 
+### 2. Custom Expression
+Asserts text matching against a dynamic custom expression, designed for more advanced testing scenarios.
 
-### Regex
+**Use Case:**  
+Validate dynamic runtime text such as generated User IDs, live timestamps, order numbers, or stored API variables.
 
-Validates text using regular expressions.
+---
 
-**Use case:**  
-Match complex patterns such as email addresses or dynamically generated strings.
+### 3. Regex (Regular Expressions)
+Validates UI text by evaluating the element against a robust Regular Expression.
 
+**Use Case:**  
+Match complex or unpredictable text formatting patterns, such as validating email addresses, postal codes, or dynamically generated alphanumeric strings.

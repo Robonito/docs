@@ -1,113 +1,63 @@
 # Mobile Setup
 
+If your required mobile testing environment is not fully configured, Robonito will display the active warning: **“Mobile Setup Not Complete”**. This warning strictly indicates that the local mobile testing architecture (such as SDKs or Emulators) is currently missing required core components to function.
 
-If the required mobile environment is not configured, Robonito will display the message **“Mobile Setup Not Complete”**. This means that the mobile testing environment (SDKs or Emulator) is missing required components.
+To continue with your mobile test recording, click **Configure Environment** to begin and complete your mobile setup installation. Once the setup is securely finished, you can freely start recording automated mobile test cases.
 
-To continue with mobile test recording, click **Configure Environment** and complete the mobile setup configuration. Once the setup is finished, you can start recording mobile test cases.
+![Mobile Setup Configuration Dashboard](/test-case/mobile-setup.png)
 
-![Target Suite ](/test-case/mobile-setup.png)
+---
 
-Configure Android SDK, Node.js, and Appium for mobile testing in Robonito.
-The **Mobile Environment** section allows you to configure:
+## Environment Setup Overview
 
-- Android SDK
-- Node.js
-- Appium
+The **Mobile Environment** setup wizard effectively allows you to download and correctly configure:
+- Android SDK Toolchains
+- Node.js Runtime
+- Appium Servers
 
-This setup prepares your system for mobile automation testing.
-## Setup Required
+This setup pipeline instantly prepares your local host system for complex mobile automation testing.
 
-Robonito manages isolated SDKs to ensure stability.
+> **Important:** Robonito intelligently manages completely isolated SDKs within its own folders to ensure maximum build stability. This automated setup will **not** affect or overwrite your machine's pre-existing global native environment variables.
 
-This setup will not affect your system's global environment.
+---
 
+## Environment Status Dashboard
 
-## Environment Status
+At the very top of the setup page, you can see a high-level overview of your installation progress:
 
-At the top of the page, you can see:
+- **Installation Progress:** A live percentage indicating how much of your environment is physically ready.
+- **Platform:** Your actively detected host operating system (e.g., `Windows`, `macOS`).
+- **Setup Required:** A visual indicator showing if actionable setup steps are currently required.
+- **Install All:** The primary action button used to simultaneously install all missing components automatically.
 
-- Installation progress percentage
-- Platform (e.g., Windows)
-- Setup Required indicator
-- **Install All** button
+Simply click **Install All** to safely fetch and install all missing dependencies.
 
-Click **Install All** to install all missing components.
+---
 
+## Required Environment Components
 
-# Environment Components
+The following native software components must be successfully installed on your machine for mobile testing to function. 
 
-The following components must be installed for mobile testing:
+*(Note: Robonito will display a red `MISSING` status next to any tool that has not been securely configured yet.)*
 
+| Component | Description | Default Status |
+| :--- | :--- | :--- |
+| **Java Development Kit (JDK)** | The baseline Java runtime strictly required for compiling Android build tools. | `MISSING` |
+| **Android Command Tools** | The core Android SDK Manager & AVD (Android Virtual Device) Manager utilities. | `MISSING` |
+| **Platform Tools (ADB)** | Provides the Android Debug Bridge pipeline to communicate efficiently with virtual devices. | `MISSING` |
+| **Android Emulator** | An automated Virtual Device (e.g., a virtual Pixel 9 smartphone) exclusively used for test rendering. | `MISSING` |
+| **Node.js Runtime** | An isolated, local Node.js JavaScript engine explicitly used for operating the Appium server. | `MISSING` |
+| **Appium Server** | The primary automation server engine used to translate your web tests (v2.12 or newer). | `MISSING` |
+| **UiAutomator2 Driver** | Appium's core Android automation and UI manipulation accessibility driver. | `MISSING` |
 
-##  Java Development Kit (JDK)
+---
 
-**Description:**  
-Java runtime for Android tools.
+## How to Install Components
 
-**Status:**  
-Shows `MISSING` if not installed.
+Follow these exact steps to automatically fetch all the listed structural requirements above:
 
+1. **Launch:** Open the main Robonito application interface.
+2. **Navigate:** Proceed directly to the **Mobile Setup** dashboard locally.
+3. **Execute:** Click the **Install All** button natively located at the top of the interface.
 
-##  Android Command Tools
-
-**Description:**  
-SDK Manager & AVD Manager.
-
-**Status:**  
-Shows `MISSING` if not installed.
-
-
-##  Platform Tools (ADB)
-
-**Description:**  
-Android Debug Bridge.
-
-**Status:**  
-Shows `MISSING` if not installed.
-
-
-##  Android Emulator
-
-**Description:**  
-Virtual Device (Pixel 9).
-
-**Status:**  
-Shows `MISSING` if not installed.
-
-
-##  Node.js Runtime
-
-**Description:**  
-Isolated Node.js for Appium.
-
-**Status:**  
-Shows `MISSING` if not installed.
-
-
-## Appium Server
-
-**Description:**  
-Automation server v2.12+
-
-**Status:**  
-Shows `MISSING` if not installed.
-
-
-##  UiAutomator2 Driver
-
-**Description:**  
-Android automation driver.
-
-**Status:**  
-Shows `MISSING` if not installed.
-
-
-# How to Install
-
-1. Open **Robonito**
-2. Go to **Mobile Setup**
-3. Click **Install All**
-
-Robonito installs all missing components automatically.
-
-
+Robonito will safely and autonomously sequence, download, and install all missing architectural components in strict isolation for you.

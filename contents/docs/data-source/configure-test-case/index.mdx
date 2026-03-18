@@ -1,94 +1,99 @@
 ---
 title: Configure Execution Strategy
 sidebar_position: 2
-description: Learn how to configure data source execution strategies in Robonito for your test cases.
+description: Learn how to configure data source execution strategies in Robonito to iterate test cases using uploaded datasets.
 ---
 
-After uploading and applying a **Data Source** to your test case, the next step is to **configure how the test case should execute** using that data.
+After uploading and applying a **Data Source** to your test case, the next crucial step is to **configure how the test case should execute** using your attached data.
 
-Robonito allows you to define an **execution strategy** to control how many times and in what way your test case should run with the uploaded data.
+Robonito allows you to easily define an **Execution Strategy** to control exactly how many times and in what specific order your automated test case should run through the uploaded data rows.
 
 ---
 
-## Steps to Configure Execution Strategy
+## Configuring an Execution Strategy
 
-### 1. Open Test Explorer
+Follow these initial steps to open your execution settings:
 
-- Go to the **Test Explorer** from the Robonito dashboard.
-- Select any test case that you want to configure.
+### 1. Open the Test Explorer
 
-![Test Explorer](/data-source/test-explorer.png)
+- Navigate to the **Test Explorer** from the main Robonito dashboard.
+- Select the specific test case that you want to properly configure.
 
-### 2. Click the Execute Button
+![Test Explorer View](/data-source/test-explorer.png)
+
+### 2. Open the Execution Drawer
 
 - In the top menu bar, click the **Execute** button.
-- This will open a **drawer** listing all available browser configurations (e.g., Chrome, Firefox).
+- A side drawer will slide open, listing all available browser configurations associated with your test (e.g., Chrome, Firefox, Edge).
 
 ![Open Test Case Config Drawer](/data-source/execution-config-drawer.png)
 
-### 3. Select a Configuration to Edit
+### 3. Edit a Browser Configuration
 
-- Click on any of the listed configurations.
-- A new **drawer** will open to edit the selected configuration.
+- Click on any of your listed browser configurations.
+- A secondary drawer will open, allowing you to edit the detailed settings for that specific execution profile.
 
 ![Edit Execution Config](/data-source/edit-execution-config.png)
 
 ---
 
-## Apply Data Source Configuration
+## Applying Data Source Strategies
 
-In the configuration drawer:
+Inside the detailed configuration drawer:
 
 1. Click on the **"Apply Data Source"** option.
-2. This will show the **Data Source Strategy Configuration Panel**.
-3. Choose a strategy and fill the necessary details.
+2. The **Data Source Strategy Configuration Panel** will become visible.
+3. Choose your preferred execution strategy and fill in the required details.
 
-![Apply Data Source Strategy](/data-source/apply-data-source-config.png)
+![Apply Data Source Strategy Panel](/data-source/apply-data-source-config.png)
+
 ---
 
 ## Available Execution Strategies
 
+Robonito supports two primary execution strategies for data-driven testing:
+
 ### 1. Sequential Strategy
 
-Run the test case in the **exact order of rows** from the data source.
+The Sequential Strategy executes the test case iteratively in the **exact order** of the rows provided in the data source.
 
-- Use when you want to test specific rows.
-- You can specify a **range** of rows.
+- **Use Case:** Best when you want to thoroughly test specific, predictable rows in chronological order.
+- **Range Control:** You can specify a targeted **range** of rows to execute out of the entire dataset.
 
-- Example:
-
+**Example Configuration:**
 ```yaml
 strategy: sequential
 range:
   start: 1
   end: 10
 ```
+*Result: This specific strategy will run the automated test case exactly from row 1 to row 10 sequentially.*
 
-- This will run the test case from row 1 to row 10 of the data source.
+![Sequential Strategy Setup](/data-source/apply-data-source-config.png)
 
-![Apply Random Strategy](/data-source/apply-data-source-config.png)
+---
 
 ### 2. Random Strategy
 
-Run the test case using random rows from the data source.
+The Random Strategy executes the test case iteratively by fetching completely random rows from the associated data source.
 
-- Use when you want to simulate random behavior.
-- Just specify how many times the test case should execute.
+- **Use Case:** Best when you want to simulate chaotic, randomized user behavior or stress test inputs unpredictably.
+- **Iteration Control:** You simply specify exactly how many times the test case should execute globally.
 
-- Example:
-
+**Example Configuration:**
 ```yaml
 strategy: random
 times: 5
 ```
+*Result: This specific strategy will execute the test case exactly 5 times, picking a completely random row from your dataset for each run.*
 
-- This will execute the test case 5 times, picking random rows each time.
+![Random Strategy Setup](/data-source/sequential-strategy.png)
 
-![Apply Strategy](/data-source/sequential-strategy.png)
+---
 
-## Final Step
+## Final Step: Saving the Configuration
 
-Once you've configured the strategy:
+Once you've configured your desired data strategy:
 
-- Click Save or Update on the configuration.
-- Now when you execute the test case, Robonito will run it using the selected strategy and data source values.
+1. Click the **Save** or **Update** button located at the bottom of the configuration drawer.
+2. The next time you execute the test case, Robonito will automatically run it using your newly selected iteration strategy and data source values.

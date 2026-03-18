@@ -1,152 +1,86 @@
-### Test Case Scheduling
+# Test Case Scheduling
 
-Robonito allows you to schedule test cases to run automatically at specified times. Scheduling helps teams run tests regularly without manual intervention, making it ideal for regression testing, nightly runs, and continuous validation.
+Robonito intimately allows you to intelligently schedule test cases to smoothly run automatically at precisely specified times. Scheduling helps automation teams confidently run tests on a regular cadence without manual intervention, making it incredibly ideal for robust regression testing, nightly parallel runs, and continuous validation pipelines.
 
+---
 
-### Creating a New Schedule
+## Creating a New Schedule
 
-To create a schedule, click **New Schedule** from the **Schedules** section. The **New Schedule** dialog opens, where you can configure when and how test cases should run.
-![Target Suite ](/test-case/schedule.png)
+To completely automate your suites, simply navigate to the **Schedules** section in the sidebar and click the **New Schedule** action button. The dedicated schedule dialog will open, where you can easily configure exactly when and how your test cases should run blindly.
+
+![Schedules Dashboard Overview](/test-case/schedule.png)
 
 ### Schedule Configuration Fields
-![Target Suite ](/test-case/new-schedule.png)
-### Schedule Name
 
-Enter a unique and descriptive name for the schedule.
+The configuration wizard natively guides you through setting up your automated timeline:
 
-- Maximum length: 50 characters
+![New Schedule Configuration](/test-case/new-schedule.png)
 
-**Example:**  
-Daily Regression, Nightly API Tests
+- **Schedule Name:** Enter a highly unique and descriptive name for the automated schedule (e.g., *Daily Regression*, *Nightly API Tests*). Maximum length is safely capped at 50 characters.
+- **Frequency:** Select exactly how often the selected test cases should structurally run. (e.g., **Daily** executes the designated test cases every single day at the explicitly specified time).
+- **Timezone:** Natively select the geographical timezone in which the schedule should anchor and run (e.g., `Asia/Calcutta`). Live execution time is automatically calculated based strictly on the selected timezone.
+- **Execution Time:** Select the exact 24-hour time when the formally scheduled execution should start (e.g., `11:00 PM`).
+- **Environment (*):** Select the target infrastructure in which the automatically scheduled test cases will reliably execute (e.g., `LOCAL` or `CLOUD`). *This field is mandatory.*
 
+---
 
-### Frequency
+## Selecting Test Cases
 
-Select how often the test cases should run.
+Directly below the configuration fields, you must explicitly select the exact test cases to include in your new automated timeline.
 
-- **Daily** – Executes the selected test cases every day at the specified time  
-  (Additional frequencies may be supported based on configuration)
+**Test Case Selection Features:**
+- Seamlessly search test cases by literal name, description, or custom tag.
+- Dynamically select individual test cases using checking boxes securely.
+- Test cases are natively grouped logically for remarkably easy navigation.
+- Each test case visibly displays its dedicated type indicator (e.g., `WEB`, `API`, `MOBILE`).
+- *Note: A new schedule fundamentally cannot be created until at least one test case is actively selected safely.*
 
+### Committing the Schedule
+After fully configuring all field parameters and selecting the target test cases:
+1. Carefully review all the populated schedule details natively.
+2. Click the primary **Create Schedule** action button securely.
 
-### Timezone
+**Once successfully created:**
+- The new schedule becomes logically active immediately.
+- The securely selected test cases will predictably run fully automatically at the formally next scheduled time naturally.
 
-Select the timezone in which the schedule should run.
+---
 
-- **Example:** Asia/Calcutta
-- Execution time is calculated based on the selected timezone
+## Managing Your Schedules
 
+All safely created structural schedules are permanently displayed in the native **Schedules** dashboard table locally.
 
-### Execution Time
+![Schedules Table Dashboard](/test-case/schedule-report.png)
 
-Select the exact time when the scheduled execution should start.
-
-- **Example:** 11:00 PM
-- Uses the selected timezone
-
-
-### Environment *
-
-Select the environment in which the scheduled test cases will execute.
-
-- **Example:** Local or Cloud (based on availability)
-- This field is mandatory
-
-
-### Selecting Test Cases
-
-Below the configuration fields, you can select the test cases to include in the schedule.
-
-
-### Test Case Selection Features
-
-- Search test cases by name, description, or tag
-- Select individual test cases using checkboxes
-- Test cases are grouped for easy navigation
-- Each test case displays its type (e.g., WEB, API)
-- The schedule cannot be created until at least one test case is selected
-
-
-### Creating the Schedule
-
-After configuring all fields and selecting test cases:
-
-1. Review the schedule details
-2. Click **Create Schedule**
-
-Once created:
-
-- The schedule becomes active immediately
-- Test cases will run automatically at the next scheduled time
-
-
-### Schedules List
-
-All created schedules are displayed in the **Schedules** table.
-
-![Target Suite ](/test-case/schedule-report.png)
 ### Schedule Table Columns
 
-### Name
+| Column Name | Description |
+| :--- | :--- |
+| **Name** | Visually displays your custom descriptive schedule name natively. |
+| **Status** | Indicates whether the timeline is currently active. (e.g., `ACTIVE` – Schedule is formally enabled and will faithfully run automatically). |
+| **Upcoming Run** | Intelligently shows precisely when the very next scheduled execution will occur natively (e.g., `in 10 hours`). |
+| **Frequency** | Displays the recurring execution frequency, specific time, and strict timezone naturally (e.g., `Daily 23:00 hours : Asia/Calcutta`). |
+| **Scheduled By** | Visually displays the authenticated user name who manually created the custom timeline. |
+| **Created** | Responsively displays exactly when the recurring schedule was originally authored. |
+| **Actions** | Native row actions elegantly allow you to **Pause** (temporarily disable), **Edit** (modify configuration variables), or securely **Delete** (remove permanently) the given active schedule seamlessly. |
 
-Displays the schedule name.
+---
 
+## Scheduled Execution Behavior
 
-### Status
+When an automated schedule successfully spins up:
+- All safely selected test cases reliably execute iteratively natively.
+- The automation engine explicitly follows the strictly configured environment limits natively (Local or Cloud limits).
+- Test results are diligently actively recorded logically, identically exactly like manual executions.
+- Comprehensive intelligent execution reports are dynamically generated for every single run flawlessly.
 
-Indicates whether the schedule is active.
+---
 
-- **ACTIVE** – Schedule is enabled and will run automatically
+## Benefits of Test Scheduling
 
-
-### Upcoming Run
-
-Shows when the next scheduled execution will occur.
-
-**Example:** in 10 hours
-
-
-### Frequency
-
-Displays the execution frequency, time, and timezone.
-
-**Example:** Daily 23:00 hours : Asia/Calcutta
-
-
-### Scheduled By
-
-Shows the user who created the schedule.
-
-
-### Created
-
-Displays when the schedule was created.
-
-
-### Actions
-
-Available actions for each schedule:
-
-- **Pause** – Temporarily disable the schedule
-- **Edit** – Modify schedule configuration
-- **Delete** – Remove the schedule permanently
-
-
-### Scheduled Execution Behavior
-
-When a schedule runs:
-
-- Selected test cases are executed automatically
-- Execution follows the configured environment
-- Results are recorded just like manual executions
-- Execution reports are generated for each run
-
-
-### Benefits of Scheduling
-
-Test case scheduling helps you:
-
-- Automate repetitive test execution
-- Run tests during off-hours (e.g., nightly)
-- Ensure continuous quality checks
-- Reduce manual execution effort
-- Maintain consistent test coverage
+Leveraging robust test case scheduling securely helps your QA team directly:
+- Flawlessly automate deeply repetitive test execution reliably.
+- Effectively seamlessly run incredibly heavy suites deeply during off-hours natively (e.g., nightly builds securely).
+- Diligently ensure incredibly continuous production quality checks locally.
+- Significantly reliably reduce exhaustive manual execution effort natively.
+- Seamlessly maintain massive consistent test coverage efficiently natively securely.

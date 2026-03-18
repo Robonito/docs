@@ -1,66 +1,58 @@
 ---
 title: 'Integrating Robonito with Jira'
-description: 'Learn how to set up Jira integration and create issues directly from Robonito.'
+description: 'Learn how to easily set up your Jira integration to create bug tickets directly from failed Robonito test cases.'
 ---
-## Understanding Jira Integration
 
-Integrating Robonito with Jira allows you to easily create issues (like bugs or tasks) in your Jira projects.
+## Understanding the Jira Integration
 
+Integrating Robonito seamlessly with Atlassian Jira allows your QA team to easily create and track issues (like bugs, tasks, or stories) directly in your active Jira projects. This heavily accelerates your testing workflow by natively connecting your automated test results straight to your development backlog.
 
+---
 
-## Setting Up Jira Integration
+## Setting Up the Jira Integration
 
-To connect Robonito with your Jira instance, you'll need to grant Robonito specific permissions to your Jira account.
+To securely connect Robonito with your Jira instance, you will need to grant Robonito specific OAuth permissions to your Atlassian account.
 
-**Steps:**
+### Configuration Steps:
 
-1.  **Navigate to Integrations:** In your Robonito dashboard, click on **"Integrations"** in the sidebar.
+1. **Navigate to Integrations:** In your main Robonito dashboard, click on **Integrations** located in the left sidebar.
+2. **Select Jira:** Locate the designated Jira integration option and click the `Connect` button to begin the automated setup.
+3. **Authorize the Connection:** A new browser window will open securely, taking you directly to your Atlassian Jira instance. Here, Robonito will formally request OAuth access for certain permissions to interact with your Jira workspace. Simply follow the on-screen prompts in the browser window to formally grant the necessary permissions.
+4. **Confirm Integration:** After safely granting permission, you can explicitly close the browser window. Back inside Robonito, the Jira integration status will automatically update to display as `Connected` for your current workspace.
 
-2.  **Select Jira:** Find the Jira integration option and click on the `Connect` button to begin the setup.
+---
 
-3.  **Authorize Connection:** A new browser window will open, taking you to your Jira instance. Here, Robonito will ask for certain permissions for your Jira account. Follow the on-screen prompts in the browser window to grant the necessary permissions.
+## Configuring Default Mapping Settings
 
-4.  **Confirm Integration:** After granting permission, you can close the browser window. Back in Robonito, the Jira integration status will automatically update to `Connected` for your current workspace.
+Immediately after successful authentication, you can configure standard default values for any new Jira issues created directly from Robonito. Setting defaults significantly helps speed up issue creation by automatically pre-filling common form fields.
 
-## Configuring Default Settings
+You will find options to set standard defaults for:
 
-After successful authentication, you can configure default values for new Jira issues created from Robonito. These defaults help speed up issue creation by pre-filling common fields.
+- **Site:** If you natively have multiple Jira sites attached, select the default site URL where automated issues should be created.
+- **Project:** Choose the default core Jira Project where Robonito issues will be formally logged.
+- **Assignee:** Set a default team member assignee who will naturally receive these issues.
+- **Issue Type:** Select the default Atlassian issue type to use (e.g., `Bug`, `Task`, `Story`).
 
-You will find options to set defaults for:
+> **Note:** These default settings are not locked permanently; they can always be manually overridden when you actively create an individual issue in the future.
 
-* **Site:** If you have multiple Jira sites, select the default site where issues should be created.
-
-* **Project:** Choose the default Jira project where issues will be logged.
-
-* **Assignee:** Set a default assignee for issues.
-
-* **Issue Type:** Select the default issue type (e.g., Bug, Task, Story).
-
-These default settings can be overridden when you create an individual issue.
+---
 
 ## Creating a Jira Issue from Robonito
 
-Once the Jira integration is set up and configured, you can easily create new issues.
+Once the Jira integration is fully set up and configured, you can easily log new bugs directly from your test reports.
 
+> **Important:** Creating an issue is always natively linked directly to a specific automated test case.
 
-**Steps:**
+### Execution Steps:
 
-1.  **Select the Test Case:** Select the test case for which you want to create an issue.
-> **Note:** An issue is always linked to a test case.
-2.  **Click on Log a Bug:** If a test execution fails, an option to `Log a Bug` will appear.
+1. **Select the Test Case:** Navigate to the specific test case for which you want to create an issue. 
+2. **Click "Log a Bug":** If a test execution formally fails, an option labeled `Log a Bug` will dynamically appear within the execution screen.
 
-![Screenshot of the Robonito UI showing the 'Log a Bug' button](/integrations/log-a-bug.png)
+![Log a Bug Button UI](/integrations/log-a-bug.png)
 
-3.  **Issue Details Form:** A form will appear, pre-filled with any default settings you configured (site, project, assignee, issue type).
-> **Note:** You can override the defaults for an individual issue.
-
-4.  **Add Details:**
-
-    * **Summary:** Enter a concise summary for the issue.
-
-    * **Description:** This field will be pre-filled with failure logs and a screenshot URL from the failed test execution. You can also add more information.
-
-    * **Override Defaults (Optional):** Adjust the project, assignee, or issue type if they differ from your default settings for this specific issue.
-
-5.  **Submit Issue:** Click "Create" or "Submit" to log the issue directly into your Jira project.
-
+3. **Issue Details Form:** A creation form will successfully appear, already pre-filled with the default settings you configured earlier (Site, Project, Assignee, Issue Type).
+4. **Add Details & Overrides:**
+   - **Summary:** Enter a concise, identifiable summary for the specific issue.
+   - **Description:** This field will be immensely pre-filled with technical failure logs and a screenshot URL originating from the specific failed test execution. You can also append more human-readable information to this block.
+   - **Override Defaults:** You can optionally adjust the project, assignee, or issue type if they differ from your default settings strictly for this specific issue.
+5. **Submit Issue:** Click the **Create** or **Submit** button to successfully log the issue directly into your active Jira project pipeline.

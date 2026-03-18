@@ -1,59 +1,69 @@
 ---
 title: Upload Data Source
 sidebar_position: 2
-description: Let's learn how to upload a data source in Robonito
+description: Learn how to successfully upload and manage test data in Robonito using CSV or Excel files.
 ---
 
-Robonito makes it easy to upload and manage test data for your automated test cases using a **CSV** or **Excel** file. This is the first step to using **Data-Driven Testing**.
+Robonito makes it incredibly easy to upload and manage dynamic test data for your automated test cases using standard **CSV** or **Excel** files. This is the very first step to unlocking the power of **Data-Driven Testing**.
 
 ---
 
-## Steps to Upload Data Source
+## Steps to Upload a Data Source
 
-### 1. Open the Dashboard Page
+Follow these steps to successfully upload your data files:
 
-- Navigate to the **Dashboard** from the Robonito interface.
-- In the **sidebar**, click on the **Data Source** icon to go to the Data Source page.
+### 1. Open the Data Source Page
+
+- Navigate to the **Dashboard** from the main Robonito interface.
+- In the left **sidebar**, click on the **Data Source** icon to open the data management page.
 
 ![Data Source Page](/data-source/data-source.png)
 
 ### 2. Upload Your File
 
 - Click on the **Browse File** button.
-- Choose a file in either **`.csv`** or **Excel (`.xlsx`)** format from your local system.
-- Once selected, the file will be uploaded automatically.
+- Choose a file in either **`.csv`** or **Excel (`.xlsx`)** format from your local computer.
+- Once selected, the file will automatically upload and begin processing.
 
-![File Upload](/data-source/file-dialog.png)
+![File Upload Dialog](/data-source/file-dialog.png)
 
 ### 3. Preview Uploaded Data
 
-- After uploading, you’ll see a **preview of the data** in a table format.
-- The table allows:
-  - **Scrolling** through rows and columns
-  - **Searching** values with a fast and responsive search box
-  - A clean and easy-to-read structure so you can verify your data before applying it
+- After a successful upload, you will immediately see a **preview of your data** presented in a clean table format.
+- The interactive preview table allows you to:
+  - **Scroll** through all populated rows and columns.
+  - **Search** for specific values using the fast and responsive search box.
+  - Verify your data's structure and integrity before applying it to any automated tests.
 
-![Data Preview](/data-source/data-preview.png)
+![Data Preview Table](/data-source/data-preview.png)
 
 ---
 
 ## Supported File Types
 
-- `.csv` – Comma-Separated Values
-- `.xlsx` – Excel Spreadsheet
+Robonito currently supports the following standard file formats:
 
-Each row represents a data entry that can be used in your test case execution.
+- **`.csv`** – Comma-Separated Values
+- **`.xlsx`** – Excel Spreadsheets
+
+Each row in your uploaded file represents a distinct data entry that can be iteratively used during your test case execution.
 
 ---
 
 ## Best Practices
 
-- Ensure your data file has **header columns** (e.g., `email`, `password`) that match the placeholders used in your recorded test case.
-- Avoid special characters or merged cells in Excel for better compatibility.
-- Use the preview table to verify data integrity before running your test.
+To ensure flawless data-driven testing execution, follow these guidelines:
+
+- **Header Columns:** Ensure your data file uses top-row **header columns** (e.g., `email`, `password`) that exactly match the placeholders used in your recorded test cases.
+- **Clean Formatting:** Completely avoid using special characters, blank headers, or merged cells in Excel for the highest compatibility.
+- **Always Preview:** Always use the built-in preview table to visually verify your data's integrity before running your final test suite.
 
 ---
 
-Now that you've uploaded your data source, you're ready to [Apply Data Source On Test Case](apply-data-source) for your test cases.
+## Next Steps
+
+Now that you have successfully uploaded your core data source, you are ready to apply it:
+
+- Learn how to **[Apply a Data Source to a Test Case](./apply-data-source)**.
 
 Happy testing with **Robonito**!

@@ -1,7 +1,28 @@
-### Assertions
+# Assertions in Robonito
 
-Assertions are used to validate expected behavior during test execution. **Robonito** allows you to add assertions while recording or after recording by editing a test step.
+Assertions are critical components of automated testing. They are used to validate and verify that your application behaves exactly as expected during test execution. **Robonito** allows you to seamlessly integrate assertions either dynamically while recording your test, or retroactively by editing an existing test step.
 
-When adding an assertion, the **Add Assertion** dialog appears, enabling you to choose the assertion type and configure validation rules.
-![Add Assertions](/test-case/add-assertion.png)
+When adding a new assertion, the **Add Assertion** dialog appears, enabling you to clearly choose the specific assertion type and configure its unique validation rules.
 
+![Add Assertions Dialog](/test-case/add-assertion.png)
+
+---
+
+## Types of Assertions
+
+Robonito supports a wide variety of assertion types to ensure reliable coverage of your application's UI, dynamic variables, and overall routing behavior. Explore the topics below to learn how to use each one effectively:
+
+- **[Text Assertions](./text-assertion)**  
+  Validate static text, dynamic variables, and regex patterns directly on your UI.
+  
+- **[UI / Element-Based Assertions](./ui-assertion)**  
+  Verify the structural presence, physical visibility, total count, and CSS styling of specific DOM elements on the page.
+
+- **[Page Assertions](./page-assertion)**  
+  Ensure your application successfully navigates to the correct URL and loads the expected Page Title metadata.
+  
+- **[Smart Assertions](./smart-assertion)**  
+  Use simple, AI-powered natural language to easily describe what should be true about a UI element without complex CSS/XPath logic.
+  
+- **[Custom Assertions](./custom-assertion)**  
+  Validate UI content dynamically using runtime user variables instead of fixed, hardcoded testing text.

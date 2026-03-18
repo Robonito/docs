@@ -1,83 +1,82 @@
+# UI / Element-Based Assertions
 
-### UI / Element-Based Assertions
+UI / Element-Based Assertions are used to validate the presence, visibility, count, and styling of specific UI elements on a web page. These assertions ensure that your application's UI components are rendered correctly and behave exactly as expected during test execution.
 
-UI / Element-Based Assertions are used to validate the presence, visibility, count, and styling of specific UI elements on a page. These assertions ensure that UI components are rendered correctly and behave as expected during test execution.
+The **Add Assertion** dialog dynamically updates the options panel when you select **UI / Element-Based** as your assertion type during a recording or while editing a test step.
 
-The **Add Assertion** dialog appears when you select **UI / Element-Based** under the assertion type while recording or editing a test step.
-![Text Assertions](/test-case/ui-assertion.png)
+![UI Assertions Menu](/test-case/ui-assertion.png)
 
-### Choose Assertion Type – UI / Element-Based
+---
 
-UI / Element-Based assertions focus on validating DOM elements rather than page content.
+## Choose an Assertion Type
+
+Unlike Content-Based assertions that check for text, UI / Element-Based assertions focus purely on validating structural DOM elements.
 
 Robonito supports the following UI assertion types:
 
+### 1. Element Exists
+Asserts that a specific structural element exists physically in the DOM.
 
-### Element Exists
+- Validates only that the element is present, regardless of whether it is currently visible on the screen or hidden via CSS.
+- Useful for ensuring that required base elements are successfully rendered by the browser code.
 
-Asserts that a specific element exists in the DOM.
+**Use Case:**  
+Verify that a hidden dialog container, core button element, or structural header tag exists on the page.
 
-- Validates that the element is present, regardless of visibility
-- Useful for ensuring required elements are rendered
+---
 
-**Use case:**  
-Verify that a header, button, or container exists on the page.
+### 2. Element Visible
+Asserts that a specific DOM element is actively visible to the user.
 
+- Ensures the element is currently displayed and effectively rendering on the user's screen.
+- Crucial for validating UI readiness before subsequent test interactions (like clicking) occur.
 
-### Element Visible
+**Use Case:**  
+Confirm that a critical "Submit" button or warning text banner is actually visible to the user before the test code attempts to click or read it.
 
-Asserts that a specific element is visible to the user.
+---
 
-- Ensures the element is displayed on the screen
-- Useful for validating UI readiness before interactions
+### 3. Element Count
+Validates the exact number of structural elements matching your selected element selector.
 
-**Use case:**  
-Confirm that a button or text is visible before clicking or reading it.
+**Configuration Options:**
+- **Expected Count Value (\*)** – Enter the exact numerical value of expected items.
 
+**Use Case:**  
+Verify the total number of items rendered dynamically in a dropdown list, counted table rows, or repeated UI cards in a dashboard grid.
 
-### Element Count
+---
 
-Validates the number of elements matching a selector.
+### 4. CSS Assertion
+Validates the exact output value of a specific CSS stylistic property attached to an element.
 
-### Configuration Options
+**Configuration Options:**
+- **CSS Property Name (\*)** – Provide the required CSS key (e.g., `background-color`, `font-size`).
+- **Expected Property Value (\*)** – Provide the expected CSS output result (e.g., `#FFFFFF`, `16px`).
 
-- **Expected count value**
+**Use Case:**  
+Ensure accurate dynamic styling changes in the UI, such as verifying a validation box turns red during an error state or confirming proper typography scales are dynamically applied.
 
-**Use case:**  
-Verify the number of items in a list, table rows, or repeated UI components.
+---
 
+## Assertion Configuration
 
-### CSS Assertion
+Once a specific UI assertion type is selected, the **Configuration** panel becomes active. 
 
-Validates the value of a specific CSS property for an element.
+Depending on your chosen assertion, you can configure matching behaviors:
+- **Expected Value (\*)** – The expected value explicitly associated with evaluating the UI element.
+- **Match Type** – Define how the evaluation should be handled strictly (e.g., `Exact Match`, `Partial Match`).
+- **Case Sensitive** – Enable strictly for enforcing capitalization rules.
 
-### Configuration Options
+These settings define exactly how Robonito evaluates your target UI element during the test's automation execution phase.
 
-- **CSS property name**
-- **Expected property value**
+---
 
-**Use case:**  
-Ensure correct styling, such as color, font size, or visibility state.
+## Adding the Assertion
 
+After successfully configuring your element assertion logic:
 
-### Assertion Configuration
+1. **Review:** Double-check your chosen UI assertion type and its active configuration settings.
+2. **Add:** Click the **Add Assertion** button on the interface.
 
-Once a UI assertion type is selected, the **Configuration** panel becomes active.
-
-Depending on the selected assertion, you can configure:
-
-- **Expected Text*** – The expected value associated with the element
-- **Match Type** – How the value should be matched (e.g., Exact Match)
-- **Case Sensitive** – Enable for case-sensitive matching
-
-These settings define how Robonito evaluates the assertion during execution.
-
-
-### Add Assertion
-
-After configuring the assertion:
-
-1. Review the selected UI assertion and configuration
-2. Click **Add Assertion**
-
-The assertion is attached to the selected test step and evaluated during test execution. Results are displayed as **pass** or **fail** in the execution report.
+The assertion will be closely attached to your selected test step. Robonito evaluates this UI rule exactly at that step and automatically displays the resulting **Pass** or **Fail** timeline status in your test's detailed execution report.

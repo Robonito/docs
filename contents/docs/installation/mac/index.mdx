@@ -1,59 +1,66 @@
-### Install Robonito on macOS
+# Install Robonito on macOS
 
-This guide explains how to install and set up **Robonito** on macOS systems.
+This guide explains exactly how to install and securely set up the **Robonito** desktop application on macOS systems.
 
-### Important Note – Intel Macs Not Supported
+---
 
-> ⚠️ **Robonito does NOT support Intel-based macOS systems.**
+## ⚠️ Important Note – Intel Macs Not Supported
 
-Robonito is built **only for Apple Silicon (ARM64)** architecture.
+> **Robonito currently does NOT support Intel-based macOS systems.**  
+> The application is built **strictly for Apple Silicon (ARM64)** architectures.
 
-### Supported Mac Devices
+### ✅ Supported Mac Devices (Apple Silicon)
+- **MacBook Air:** M1, M2, M3
+- **MacBook Pro:** M1, M2, M3
+- **Mac Mini:** M1, M2
+- **Mac Studio:** M1, M2
+- **Mac Pro:** Apple Silicon Models
 
-- MacBook Air (M1, M2, M3)
-- MacBook Pro (M1, M2, M3)
-- Mac Mini (M1, M2)
-- Mac Studio (M1, M2)
+### ❌ Not Supported
+- Any **Intel-based Macs** (e.g., Intel Core i5, i7, i9)
+- Any macOS operating system running on an Intel processor.
+- **Rosetta 2 emulation** is actively **not supported** at this time.
 
-### Not Supported
+*(Please carefully verify your Mac’s internal processor via `Apple Menu > About This Mac` before attempting to download the software.)*
 
-- ❌ Intel-based Macs (Intel Core i5, i7, i9)
-- ❌ macOS running on Intel processors
-- ❌ Rosetta emulation is **not supported**
+---
 
-Please verify your Mac’s processor before downloading.
+## System Requirements
 
+Before downloading and installing Robonito, please ensure your Apple device meets the following exact requirements:
 
-### System Requirements
+- **Operating System:** macOS 11 (Big Sur) or any later version.
+- **Architecture:** Apple Silicon (ARM64) **strictly required**.
+- **Browser:** Google Chrome (the latest stable version is highly recommended for best automation execution).
+- **Internet Connection:** An active broadband connection is strictly required for initial installation and background updates.
 
-- **Operating System:** macOS 11 (Big Sur) or later
-- **Architecture:** Apple Silicon (ARM64) only
-- **Browser:** Google Chrome (latest version recommended)
-- **Internet Connection:** Required for installation and updates
+---
 
+## Download Robonito for macOS
 
-### Download Robonito for macOS
+Click the secure link below to download the absolute latest robust version of Robonito compiled specifically for macOS Silicon:
 
-- **macOS (ARM64)**  
-  [Download Robonito for macOS](https://robonito-prod-builds.s3.ap-south-1.amazonaws.com/Robonito-2.5.0-arm64.dmg)
+- **macOS (ARM64):**  
+  [Download Robonito for macOS (v2.5.0)](https://robonito-prod-builds.s3.ap-south-1.amazonaws.com/Robonito-2.5.0-arm64.dmg)
 
+> **Note:** The download link currently hosts version **2.5.0**. Always ensure you are pulling the absolute latest stable release for maximum project compatibility.
 
-### Installation Steps
+---
 
-1. Download the Robonito macOS installer (`.dmg`)
-2. Open the downloaded `.dmg` file
-3. Drag the **Robonito** app into the **Applications** folder
-4. Open Robonito from the Applications folder
+## Installation Steps
 
+1. **Download:** Securely download the Robonito macOS installer file (`.dmg`) from the designated link above.
+2. **Mount:** Double-click to open and mount the downloaded `.dmg` image file on your desktop.
+3. **Install:** Drag and drop the **Robonito** application icon directly into the adjacent **Applications** directory folder on the prompt.
+4. **Launch:** Safely eject the mounted disk image and finally open the Robonito app directly from your macOS Applications folder.
 
-### Permissions
+---
 
-On first launch, macOS may request the following permissions:
+## Initial System Permissions
 
-- Accessibility
-- Screen Recording
+On its very first launch, macOS core security features will safely request the following native privacy permissions:
 
-Grant these permissions to enable recording and automation features.
+- **Accessibility:** Required for the testing engine to actively interact with UI elements on your screen.
+- **Screen Recording:** Strictly required to capture live screenshot visuals, assertion evaluations, and element targeting during your test recordings.
 
-
-
+You **must successfully grant** both of these local privacy permissions in your Mac's **System Settings** to fully enable Robonito's recording and web automation features.

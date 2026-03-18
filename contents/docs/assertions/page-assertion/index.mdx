@@ -1,58 +1,57 @@
-### Page Assertion
+# Page Assertions
 
-Page Assertions are used to validate page-level properties during test execution. They ensure that the application navigates to the correct page and that the page is loaded as expected.
+Page Assertions are used to validate page-level properties during test execution. They ensure that your application successfully navigates to the correct page and that the page loads exactly as expected.
 
-The **Add Page Assertion** dialog appears when you choose to add a page-level validation during recording or while editing a test step.
-![Page Assertion](/test-case/page-assertion.png)
+The **Add Page Assertion** dialog appears when you choose to add a page-level validation during an active recording or while editing an existing test step.
 
-### Page Assertion Types
+![Page Assertion Dialog](/test-case/page-assertion.png)
 
-Robonito supports the following page assertion types:
+---
 
+## Page Assertion Types
 
-### Page Title
+Robonito supports the following types of page-level assertions to validate your application's routing and metadata:
 
-Verifies the title of the currently loaded page.
+### 1. Page Title
+Verifies the browser tab's title for the currently loaded page.
 
-### Configuration Options
+**Configuration Options:**
+- **Expected Title (\*)** – Enter the exact or partial string of the expected page title.
+- **Match Type** – Choose how the title should be evaluated:
+  - **Exact Match:** The title must match the input string entirely.
+  - **Partial Match:** The title must simply contain the input string.
+- **Case Sensitive** – Enable this option to strictly enforce capitalized and lowercase matching.
 
-- **Expected Title*** – Enter the expected page title
-- **Match Type** – Choose how the title should be matched:
-  - Exact Match
-  - Partial Match (if supported)
-- **Case Sensitive** – Enable this option to perform case-sensitive matching
+**Use Case:**  
+Ensure the user is navigated to the correct page after completing an action (e.g., verifying the title says "Dashboard" after a successful login).
 
-**Use case:**  
-Ensure the user is navigated to the correct page after an action.
+---
 
+### 2. Page URL
+Validates the explicit web address (URL) of the currently loaded page.
 
-### Page URL
+**Configuration Options:**
+- **URL (\*)** – Enter the expected page URL string.
 
-Validates the URL of the currently loaded page.
+**Use Case:**  
+Confirm correct navigation or routing flow after specific page transitions (e.g., verifying the URL changes from `/cart` to `/checkout`).
 
-### Configuration Options
+---
 
-- **URL*** – Enter the expected page URL
+## Adding a Page Assertion
 
-**Use case:**  
-Confirm correct navigation or routing after page transitions.
+To finalize and add a page assertion to your test:
 
+1. **Review:** Double-check your expected Title or URL configuration.
+2. **Add:** Click the **Add Assertion** button to attach the page assertion to the selected test step.
 
-### Add Page Assertion
+During execution, Robonito evaluates the page assertion precisely at that step and marks it as either **Passed** or **Failed** in your test's execution report.
 
-After configuring the page assertion:
+---
 
-1. Review the expected title or URL
-2. Click **Add Assertion** to attach the page assertion to the selected test step
+## Benefits of Page Assertions
 
-During execution, Robonito evaluates the page assertion and marks it as **passed** or **failed** in the execution report.
-
-
-### Benefits of Page Assertions
-
-Page Assertions help ensure:
-
-- Correct navigation flow
-- Accurate page rendering
-- Reliable validation of routing behavior
-
+Routinely using Page Assertions in your test suites helps ensure:
+- Correct navigation and routing workflows.
+- Accurate page rendering and metadata generation.
+- Reliable validation of complex user journey transitions.

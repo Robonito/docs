@@ -1,115 +1,75 @@
 # Variables in Robonito API Testing
 
-Variables allow you to capture values from one API response and reuse them in subsequent API requests.
-
-They help build dynamic, chained, and real-world test scenarios.
+Variables allow you to capture specific values from an API response and dynamically reuse them in subsequent API requests. This feature is crucial for building dynamic, chained, and real-world test scenarios.
 
 Variables are commonly used for:
-
 - Authentication tokens
-- User IDs
+- User or Object IDs
 - Order IDs
 - Transaction references
-- Dynamic response values
+- Dynamic response data
 
-Using variables enables end-to-end API workflow validation.
+Using variables enables validation of full, end-to-end API workflows.
 
+---
 
 ## Why Variables Are Important
 
-In real-world APIs, responses often contain dynamic data such as:
-
+In real-world applications, APIs often return dynamic data, such as:
 - Newly created resource IDs
-- Session tokens
-- Access tokens
-- Reference numbers
+- Session and access tokens
+- Unique reference numbers
 
-Instead of hardcoding these values, Robonito allows you to extract them and reuse them dynamically.
+Instead of hardcoding these temporary values in your test cases, Robonito allows you to extract and reuse them on the fly. This best practice makes your API tests **reusable, maintainable, reliable, and production-ready.**
 
-This makes your API tests:
-
-- Reusable
-- Maintainable
-- Reliable
-- Production-ready
-
+---
 
 ## How Variables Work
 
-When a request is executed:
-
+When an API request is executed, the process is as follows:
 1. The API returns a response.
-2. Robonito extracts the specified value using JSONPath.
+2. Robonito extracts a specific target value using a given JSONPath.
 3. The extracted value is stored as a variable.
-4. The variable can be used in subsequent requests using `{{variableName}}`.
+4. The variable can then be used in subsequent API requests using the `{{variableName}}` syntax.
 
+---
 
 ## Variable Extraction
 
-Variable extraction allows you to capture data from:
-
+Variable extraction allows you to capture data from multiple sources within an API response:
 - Response Body (JSON)
 - Response Headers
-- Response Status
-- Other supported sources
+- Response Status Code
+- Other supported target sources
 
+---
 
 ## Configuring a Variable
+
+To configure variable extraction in Robonito, follow these steps:
+
 ![Configuring a Variable](/test-case/variable-setup.png)
-To configure a variable extraction:
 
-### Step 1: Open the Request
+1. **Open the Request:** Navigate to your desired API request.
+2. **Go to the Variables Tab:** Click on the **Variables** section.
+3. **Add an Extraction:** Click the **Extract Variable** button.
+4. **Configure Fields:** Fill in the extraction details (explained below).
 
-Navigate to your API request.
+![Variable Extractions Config](/test-case/variable-extractions.png)
 
-### Step 2: Go to Variables Tab
+### Variable Name
+The custom name you will use to reference the variable later.
+- **Examples:** `userId`, `authToken`, `orderId`
+- **Usage Syntax:** `{{userId}}`
 
-Click on the **Variables** tab.
-
-### Step 3: Click Extract Variable
-
-Click **Extract Variable**.
-
-### Step 4: Configure Fields
-![Target Suite ](/test-case/variable-extractions.png)
-You must configure the following:
-
-#### Variable Name
-
-The name used to reference the variable later.
-
-Example:
-
-```
-userId
-authToken
-orderId
-```
-
-This variable will be referenced as:
-
-```
-{{userId}}
-```
-
-
-#### Source
-
+### Source
 Select where the value should be extracted from.
+- **Common Source:** `Response Body (JSON)`
 
-Common Source:
+### JSONPath
+Provide the specific [JSONPath](https://jsonpath.com/) expression to extract the value.
 
-```
-Response Body (JSON)
-```
-
-
-#### JSON Path
-
-Provide the JSONPath expression to extract the value.
-
-Example response:
-
+**Example Response:**
 ```json
 {
   "user": {
@@ -120,112 +80,26 @@ Example response:
 }
 ```
 
-Example JSONPath expressions:
+**Example JSONPath Expressions:**
+- `$.user.id`
+- `$.user.email`
+- `$.token`
 
-```
-$.user.id
-$.user.email
-$.token
-```
+---
 
+## Using Variables in Requests
 
-## Example 1 – Extract User ID
+You can use an extracted variable in subsequent API requests across various fields. Robonito will automatically replace the `{{variableName}}` placeholder with the extracted value at runtime.
 
-### API Request
-
-```
-POST /api/users
-```
-
-### Sample Response
-
-```json
-{
-  "id": 101,
-  "name": "Arshad"
-}
-```
-
-### Variable Configuration
-
-Variable Name: userId  
-Source: Response Body (JSON)  
-JSONPath: $.id  
-
-After execution, the variable stores:
-
-```
-{{userId}} = 101
-```
-
-
-## Using the Variable in Next Request
-
-You can use the extracted variable in another API request.
-
-### Example
-
-```
-GET /api/users/{{userId}}
-```
-
-Robonito automatically replaces `{{userId}}` with the extracted value.
-
-Final request sent:
-
-```
-GET /api/users/101
-```
-
-
-## Example 2 – Extract Authentication Token
-
-### Login API
-
-```
-POST /api/login
-```
-
-### Sample Response
-
-```json
-{
-  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-}
-```
-
-### Variable Configuration
-
-Variable Name: authToken  
-Source: Response Body (JSON)  
-JSONPath: $.accessToken  
-
-
-### Use in Headers
-
-In the next request:
-
-Header:
-
-```
-Authorization: Bearer {{authToken}}
-```
-
-This allows authenticated API chaining.
-
-
-## Using Variables in Different Places
-
-Variables can be used in:
-
-- Request URL
+### Allowed Locations
+Variables can be placed directly within test configurations, including:
+- Request URLs
 - Query Parameters
-- Request Body
-- Headers
+- Request Body (JSON)
+- HTTP Headers
 - Authorization fields
 
-Example in request body:
-
+**Example (Request Body):**
 ```json
 {
   "userId": "{{userId}}",
@@ -233,52 +107,99 @@ Example in request body:
 }
 ```
 
+---
 
-## Variable Scope
+## Practical Examples
 
-Variables are available:
+### Example 1: Extracting a User ID
 
-- Within the same test case
-- In subsequent API calls inside the same workflow
+**Original API Request:**
+```http
+POST /api/users
+```
 
-They are resolved at runtime.
+**Sample Response:**
+```json
+{
+  "id": 101,
+  "name": "Arshad"
+}
+```
 
+**Variable Configuration:**
+- **Variable Name:** `userId`
+- **Source:** `Response Body (JSON)`
+- **JSONPath:** `$.id`
+
+After execution, the runtime stores: `{{userId}} = 101`.
+
+**Using the Variable (Next Request):**
+```http
+GET /api/users/{{userId}}
+```
+*At runtime, this is dynamically resolved to: `GET /api/users/101`*
+
+### Example 2: Extracting an Auth Token
+
+**Login API Request:**
+```http
+POST /api/login
+```
+
+**Sample Response:**
+```json
+{
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+
+**Variable Configuration:**
+- **Variable Name:** `authToken`
+- **Source:** `Response Body (JSON)`
+- **JSONPath:** `$.accessToken`
+
+**Using the Token in Headers:**
+```http
+Authorization: Bearer {{authToken}}
+```
+*This allows for seamless authenticated API chaining.*
+
+---
 
 ## Common JSONPath Examples
 
-Extract first item in array:
+When extracting values from complex JSON structures, use these JSONPath tricks:
 
-```
-$.users[0].id
-```
+- **Extract first item in an array:**  
+  `$.users[0].id`
+- **Extract a nested value:**  
+  `$.data.user.profile.email`
+- **Extract the array length:**  
+  `$.users.length()`
 
-Extract nested value:
+---
 
-```
-$.data.user.profile.email
-```
+## Variable Scope
 
-Extract array length:
+Variables extracted during a test execution are scoped locally and are available:
+- Within the same test case sequence.
+- In subsequent API calls inside the same workflow.
+- Only retrieved and resolved during runtime.
 
-```
-$.users.length()
-```
+---
 
-## Complete Workflow Example
+## End-to-End Workflow Example
 
-Step 1: Create User  
-Extract `userId`
+Here is how variables enable a complete end-to-end user scenario:
 
-Step 2: Login  
-Extract `authToken`
-
-Step 3: Get User Details  
-
-```
-GET /api/users/{{userId}}
-Authorization: Bearer {{authToken}}
-```
-
-This validates full end-to-end workflow.
-
-
+1. **Step 1: Create User**  
+   Extract `userId` from the creation response.
+2. **Step 2: Login User**  
+   Extract `authToken` from the login response.
+3. **Step 3: Get User Details**  
+   Use variables to request the valid profile:
+   ```http
+   GET /api/users/{{userId}}
+   Authorization: Bearer {{authToken}}
+   ```
+   *This single workflow validates the full path from creation to authenticated retrieval.*

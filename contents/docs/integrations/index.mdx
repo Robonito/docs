@@ -1,29 +1,50 @@
 ---
 title: 'Integrating Robonito with External Tools'
-description: 'Learn how to set up and manage integrations within your Robonito workspace.'
+description: 'Learn how to easily set up, manage, and scale external integrations seamlessly within your Robonito workspace.'
 ---
-## Understanding Robonito Integrations
-Integrations allow you to connect Robonito with other tools you use daily, streamlining your workflows and keeping all project activities connected.
 
-**Important:** Integrations are specific to each **workspace**. This means every Robonito workspace will have its own separate set of integrations.
+## Understanding Robonito Integrations
+
+Integrations allow you to seamlessly connect Robonito with the other core enterprise tools your team uses daily, streamlining your automation workflows and keeping all testing activities deeply connected to your existing ecosystem.
+
+> **Important:** Integrations are secure and specifically scoped to each **workspace**. This means every individual Robonito workspace will securely maintain its own entirely separate, isolated set of integrations.
+
+---
 
 ## Accessing Integrations
-To manage your integrations, simply click on **"Integrations"** in the sidebar of your Robonito dashboard.
-![Integrations Click](/integrations/integrations-click.gif)
+
+To manage or add new external connections, simply click on the **Integrations** tab located in the left sidebar of your main Robonito dashboard.
+
+![Integrations Menu Click](/integrations/integrations-click.gif)
+
+---
 
 ## Supported Integrations
-Robonito supports several popular integrations:
 
-* [**Jira**](./integrations/jira):
-    * Create issues directly in Jira from Robonito. This is useful for logging bugs or tasks identified during test executions.
-* [**Email**](./integrations/email):
-    * Give Robonito access to your email. This allows Robonito to read **one-time passwords (OTPs)** from your emails, which is useful for automating test cases that require an OTP for verification.
-* [**GitHub**](./integrations/github):
-    * Trigger Robonito tests automatically based on events in your GitHub repositories. You can set up triggers for:
-        * **Pull Request:** Run tests when a new pull request is opened or updated.
-        * **Push:** Execute tests after code is pushed to a branch.
-        * **Merge:** Initiate tests when changes are merged into your main branches.
-* [**Authenticator Apps**](/authenticator-apps):
-    * Robonito supports popular authenticator applications (like Google Authenticator and Microsoft Authenticator). This allows it to generate and use **one-time passwords (OTPs)** from these apps to automate test steps that require them for verification.
+Robonito currently supports native plug-and-play integrations with several popular enterprise tools:
 
-These integrations help you connect Robonito seamlessly with your existing development and testing ecosystems, making your automation journey more efficient and collaborative.
+### [Jira](./jira)
+Natively connect Robonito to your Atlassian Jira projects to:
+- Directly create and link new Jira issues straight from your failed test execution reports.
+- Automatically log bugs, tasks, or stories without leaving the Robonito dashboard.
+
+### [Email (IMAP)](./email)
+Give Robonito secure IMAP access to test email inboxes to:
+- Automatically read incoming **One-Time Passwords (OTPs)** or verification links directly from targeted test emails.
+- Perfectly automate secure test cases that strictly require two-factor email verification steps.
+
+### [GitHub](./github)
+Connect Robonito directly to your GitHub source code repositories to:
+- Continually trigger automated Robonito regression tests based on live VCS pipeline events.
+- **Pull Request:** Automatically run your test suites when a new PR is opened or updated.
+- **Push:** Execute structural tests immediately after new code is pushed to a specified branch.
+- **Merge:** Initiate final regression tests when changes are formally merged into your main production branches.
+
+### [Authenticator Apps](./authenticator-apps)
+Securely bind Robonito to standard TOTP protocols (like Google Authenticator, Microsoft Authenticator, or Authy) to:
+- Automatically generate and securely inject dynamic **One-Time Passwords (OTPs)** directly into active test case nodes.
+- Flawlessly unblock automated tests that strictly require app-based standard 2FA verification layers.
+
+---
+
+*These powerful integrations directly help you bridge Robonito seamlessly with your existing development, security, and testing ecosystems—making your automation journey far more efficient and heavily collaborative.*

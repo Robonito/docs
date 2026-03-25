@@ -1,9 +1,8 @@
-## Recording a Web Test Case in Robonito
+# Recording a Web Test Case in Robonito
 
 Recording is the fastest way to create a Web (UI) test case in **Robonito**. It captures real user interactions in a browser and automatically converts them into structured, executable test steps.
 
-This guide covers the complete recording workflow—from starting the recording to using automation tools and assertions.
-
+This guide covers the complete recording workflow—from starting the recording process to using advanced automation tools and assertions.
 
 ## Start Recording
 
@@ -11,196 +10,149 @@ To begin recording a web test case:
 
 1. Open an existing **Web Test Case** or [create a new one](/docs/web-testing/create-web-test).
 2. Click the **Record** button.
-![Record](/test-case/record.png)
+
+   ![Record](/test-case/record.png)
+
 3. The **Configure Web Test Case Launch Options** dialog appears.
-![Configure Web Test Case](/test-case/configure-web-test-case.png)
 
-## Configure Web Test Case Launch Options
+   ![Configure Web Test Case](/test-case/configure-web-test-case.png)
 
-Before recording starts, configure the environment in which the test will be recorded.
+## Configure Launch Options
+
+Before the recording starts, configure the environment in which the test will be executed.
 
 ### Browser
-
 Select the browser for recording.
 
 **Example:** Google Chrome
 
+### Target URL
+Enter the URL of the application to be tested. The browser will open this URL when the recording starts.
 
-### Target URL *
+### Device
+Select a predefined device preset or add a custom device configuration. This defines the screen resolution and viewport size.
 
-Enter the URL of the application to be tested.  
-The browser will open this URL when recording starts.
-
-
-### Device *
-
-Select a predefined device preset or add a custom device configuration.
-
-- Defines screen resolution and viewport size  
-- **Example:** Laptop 11 (1366 × 768)
-
+**Example:** Laptop 11 (1366 × 768)
 
 ### Auth Test Case (Optional)
-
 Select an authentication test case to inject session cookies before the browser loads.
-
-- Used to bypass login steps
-- Useful for recording authenticated user flows
+- Used to easily bypass login steps.
+- Useful for recording authenticated user flows.
 
 After configuring the options, click **Start Recording**.
-
 
 ## Browser Launch and Recording Session
 
 Once recording starts:
-
-- A new browser window opens using the selected browser and device configuration
-- The browser navigates to the specified **Target URL**
-- Robonito begins capturing user interactions immediately
-- The browser is controlled by Robonito and dedicated to the recording session
-
+- A new browser window opens using the selected browser and device configuration.
+- The browser navigates to the specified **Target URL**.
+- Robonito begins capturing user interactions immediately.
+- The browser is controlled entirely by Robonito and dedicated to the active recording session.
 
 ## Recorded User Actions
 
 During the recording session, Robonito captures:
-
 - Mouse clicks
 - Text input and form submissions
 - Page navigation
 - UI element interactions
 - Supported validations
 
-Each interaction is automatically converted into a test step in the test case.
+Each interaction is automatically converted into a test step in your test case.
+
 ![Recording steps](/test-case/recording.png)
 
 ## Automation Tools During Recording
 
 While recording is active, Robonito provides **Automation Tools** to enhance test reliability and flexibility.
+
 ![Automation Tools](/test-case/tools2.png)
 
-
-
-
-
 ### Smart Assertion
-
-Smart Assertion allows you to define validations using simple, human-readable descriptions. Instead of manually configuring assertion rules, you describe what should be true about the selected UI element, and **Robonito** automatically interprets and applies the appropriate validation logic.
+Smart Assertion allows you to define validations using simple, human-readable descriptions. Instead of manually configuring assertion rules, you describe what should be true about the selected UI element, and **Robonito** automatically interprets and applies the appropriate validation logic.  
 [Learn Smart Assertion](/docs/assertions/smart-assertion)
+
 ### Assertions
-
-Assertions are used to validate expected behavior during test execution. **Robonito** allows you to add assertions while recording or after recording by editing a test step.
+Assertions are used to validate expected behavior during test execution. **Robonito** allows you to add assertions while recording, or after recording by editing a test step.  
 [Learn Assertion](/docs/assertions)
+
 ### Page Assertion
-
-Page Assertions are used to validate page-level properties during test execution. They ensure that the application navigates to the correct page and that the page is loaded as expected.
+Page Assertions are used to validate page-level properties during test execution. They ensure that the application navigates to the correct page and that the page loads exactly as expected.  
 [Learn Page Assertion](/docs/assertions/page-assertion)
+
 ### Visual Assert
-
-Validates the visual appearance of UI elements or pages to detect layout or UI changes.
-
-
-
+Validates the visual appearance of UI elements or entire pages to detect unexpected layout or UI changes.
 
 ### Hover
-
 Records mouse hover interactions for menus, tooltips, and dynamic UI elements.
 
-
 ### Record Local Variable
-
-Captures values from the UI and stores them as variables for later use in the test.
-
+Captures values directly from the UI and stores them as variables for later use in the test.
 
 ### Use Variable
-
 Uses previously recorded variables in inputs, validations, or assertions.
 
-
 ### Fetch OTP
-
 Automatically fetches one-time passwords during execution for OTP-based authentication flows.
 
-
 ### New Browser
-
 Opens a new browser instance during the test for multi-session or advanced workflows.
 
-
 ### Optional Step
-
-Marks a step as optional, allowing the test to continue execution even if the step fails.
-
+Marks a step as optional, allowing the test to continue execution even if that specific step fails.
 
 ## Stopping the Recording
 
 When all required actions are recorded:
+1. Stop the recording session manually.
+2. All captured actions are saved as structured test steps.
+3. The test case is now ready for review, editing, and execution.
 
-1. Stop the recording session manually
-2. All captured actions are saved as structured test steps
-3. The test case is ready for review, editing, and execution
-
-
-## Benefits of Recording-Based Test Creation
+## Benefits of Recording-Based Testing
 
 Recording in Robonito ensures:
-
-- Accurate representation of real user behavior
-- Faster test creation with minimal manual effort
-- Reliable and repeatable automation tests
-- Reduced maintenance through smart assertions and variables
+- Accurate representation of real user behavior.
+- Faster test creation with minimal manual effort.
+- Reliable and repeatable automation tests.
+- Reduced test maintenance through smart assertions and variables.
 
 This end-to-end recording workflow enables teams to quickly build robust and maintainable web automation tests.
 
-
 ## Recorded Steps After Execution
 
-After stopping the recording or completing an execution flow, Robonito converts all recorded user interactions into structured test steps.
+After stopping the recording or completing an execution flow, Robonito converts all recorded user interactions into structured, readable test steps.
 
 These steps represent the exact sequence of actions performed during the recording session and can be reviewed, searched, reordered, or edited.
 
-
-## Step List Overview
+### Step List Overview
 
 Each recorded action is displayed as an individual step with clear labeling and metadata:
+- **Step Number:** Indicates the execution order.
+- **Action Description:** Human-readable description of the interaction.
+- **Browser Context:** Shows which browser instance performed the action (e.g., Browser 1).
+- **Action Type Tag:** Identifies the type of action (e.g., Browser, Navigate, Click).
 
-- **Step Number** – Indicates the execution order
-- **Action Description** – Human-readable description of the interaction
-- **Browser Context** – Shows which browser instance performed the action (e.g., Browser 1)
-- **Action Type Tag** – Identifies the type of action (Browser, Navigate, Click)
+### Example Recorded Steps
 
-
-## Example Recorded Steps
-
-- **Open Browser**  
-  Initializes a new browser session for the test case.
-
-- **Navigate to URL**  
-  Opens the specified target URL in the browser.
-
-- **Click Action**  
-  Captures a user click on a specific UI element.
-
-- **Additional Click or Navigation Actions**  
-  Records subsequent user interactions in sequence.
-
+- **Open Browser:** Initializes a new browser session for the test case.
+- **Navigate to URL:** Opens the specified target URL in the active browser.
+- **Click Action:** Captures a user click on a specific UI element.
+- **Additional Actions:** Records subsequent user interactions in logical sequence.
 
 ## Step Actions and Capabilities
 
 Recorded steps can be:
+- Reordered using simple drag-and-drop.
+- Searched using the step search bar.
+- Edited to refine selectors, inputs, or values.
+- Enhanced with assertions, variables, or optional behavior.
 
-- Reordered using drag-and-drop
-- Searched using the step search bar
-- Edited to refine selectors or values
-- Enhanced with assertions, variables, or optional behavior
-
-Each step is modular and reusable, enabling precise control over test execution.
-
+Each step is modular and reusable, giving you precise control over test execution.
 
 ## Why Recorded Steps Matter
 
 Structured recorded steps provide:
-
-- Full visibility into test execution flow
-- Easier debugging and maintenance
-- Flexibility to enhance tests after recording
-- Reliable and repeatable automation behavior
+- Full visibility into the test execution flow.
+- Easier debugging and test maintenance.
+- Complete flexibility to enhance tests after recording.
+- Reliable and repeatable automation behavior.

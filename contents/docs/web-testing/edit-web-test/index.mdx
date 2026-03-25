@@ -1,14 +1,12 @@
 # Editing Test Steps in Robonito
 
-Robonito allows you to modify recorded or manually created test steps using the Edit Event Node panel. Editing helps you refine selectors, adjust assertions, configure timeouts, and fine-tune test behavior for better reliability.
-
+Robonito allows you to modify recorded or manually created test steps using the **Edit Event Node** panel. Editing helps you refine selectors, adjust assertions, configure timeouts, and fine-tune test behavior for better reliability.
 
 ## What Is an Event Node?
 
-An Event Node represents a single test step within a test case. It represents one action or validation performed during execution.
+An **Event Node** represents a single test step within a test case. It represents one action or validation performed during execution.
 
 An Event Node may represent:
-
 - Click  
 - Input  
 - Navigation  
@@ -17,120 +15,100 @@ An Event Node may represent:
 
 Each step can be edited after recording or manual creation.
 
-
 ## How to Edit a Step
 
 To edit a test step:
 
-1. Open the test case.
+1. Open the testcase.
 2. Locate the step in the step list.
 3. Click the **Edit (✏️)** icon next to the step.
-4. The **Edit Event Node** panel opens.
+4. The **Edit Event Node** panel will open.
 
 This panel allows you to modify the step configuration.
+
 ![Edit a Step](/test-case/edit-test-case.png)
 
 ## Edit Event Node Panel Overview
 
 The Edit panel allows you to configure multiple properties of a step.
 
-
 ### 1. Event Type
 
-Displays the type of step (for example, Assert).
+Displays the type of step (for example, *Assert*).
 
-This field indicates the category of action being performed.  
-It helps identify whether the step is a click, input, navigation, or assertion.
-
+This field indicates the category of action being performed. It helps identify whether the step is a click, input, navigation, or assertion.
 
 ### 2. Timeout (in seconds)
 
 Defines how long Robonito should wait before failing the step.
 
-- Default value: 10 seconds  
-- Increase timeout for slow-loading elements  
-- Decrease timeout for faster failure detection  
+- **Default value:** 10 seconds  
+- Increase the timeout for slow-loading elements.
+- Decrease the timeout for faster failure detection.
 
 Proper timeout configuration improves test stability.
-
 
 ### 3. Mark Optional
 
 When enabled:
-
-- The step will not fail the test case if it fails  
-- Execution continues to the next step  
+- The step will not fail the testcase if it fails.
+- Execution continues to the next step.
 
 Use optional steps for:
-
 - Non-critical UI elements  
 - Conditional elements  
 - Flaky UI behaviors  
 - Elements that may or may not appear  
 
-Avoid overusing this option, as it can hide real issues.
-
+> **Note:** Avoid overusing this option, as it can hide real issues.
 
 ### 4. Description
 
 A short explanation of what the step does.
 
-Example:
+**Example:**
+> Visually assert selected area
 
-Visually assert selected area
-
-Adding meaningful descriptions improves readability and maintainability of test cases.
-
+Adding meaningful descriptions improves the readability and maintainability of test cases.
 
 ## Assertion Configuration
 
 If the step is an assertion, additional configuration options are available.
 
-
 ### Assertion Type
 
 Select the type of assertion from the dropdown menu.
+
 ![Assertion Type](/test-case/asserstion-types.png)
 
-
-
 The assertion type determines how Robonito evaluates the validation during execution.
-
 
 ## Visual Assertion Example
 
 If **Assert visually same** is selected:
 
-Robonito compares the current UI snapshot with the stored baseline image.
-
-If differences exceed the allowed tolerance, the step fails.
-
+Robonito compares the current UI snapshot with the stored baseline image. If differences exceed the allowed tolerance, the step fails.
 
 ### Tolerance
 
 Defines the allowed difference between images in visual comparison.
 
-Example: 0.1
+**Example:** `0.1`
 
-- Lower value → stricter comparison  
-- Higher value → allows minor UI variations  
+- **Lower value** → stricter comparison  
+- **Higher value** → allows minor UI variations  
 
 Tolerance should be configured carefully to balance strictness and flexibility.
 
-
 ### Snapshot URL
 
-Displays the stored baseline image reference used for visual comparison.
-
-This reference image is used to validate UI consistency across executions.
-
+Displays the stored baseline image reference used for visual comparison. This reference image is used to validate UI consistency across executions.
 
 ## Visual Assert Info
 
-Expanding Visual Assert Info displays detailed information about the selected validation area.
+Expanding **Visual Assert Info** displays detailed information about the selected validation area.
 
 Includes:
-
 - Top  
 - Bottom  
 - Left  
@@ -142,26 +120,21 @@ Includes:
 
 These values define the exact UI region being validated during visual comparison.
 
-
 ## Selectors
 
 Selectors define how Robonito identifies a UI element on the page.
 
 You can:
-
 - View existing selectors  
 - Add new selectors  
 - Delete selectors  
 - Copy selector values  
 
-## Examples:
-
+### Examples:
+```text
 div >> internal:has-text="Quick" >> nth=0
 body:nth-child(2) > main:nth-child(3) > div:nth-child(1)
-
-
-
-
+```
 
 ### Selector Best Practices
 
@@ -173,19 +146,15 @@ body:nth-child(2) > main:nth-child(3) > div:nth-child(1)
 
 Stable selectors reduce flaky test failures.
 
-
 ## Advanced Settings
 
-The Advanced Settings section allows further customization of element behavior and matching logic (if applicable).
-
-These settings help fine-tune how Robonito interacts with or validates an element.
-
+The **Advanced Settings** section allows further customization of element behavior and matching logic (if applicable). These settings help fine-tune how Robonito interacts with or validates an element.
 
 ## HTML Element Info
 
 Displays technical details of the selected element.
 
-Example:
+**Example:**
 
 | Key  | Value |
 |------|-------|
@@ -193,37 +162,30 @@ Example:
 
 This information helps debug selector accuracy and understand the underlying DOM structure.
 
-
 ## Step Status Indicator
 
 After execution, each step displays its execution status.
 
-Possible statuses:
+**Possible statuses:**
+- `PASSED`  
+- `FAILED`  
 
-- PASSED  
-- FAILED  
-
-Example:
-
-FAILED – Visual assertion mismatch
+**Example:**
+> FAILED – Visual assertion mismatch
 
 If a step fails, you can edit and re-save the step to correct issues.
-
 
 ## Saving Changes
 
 After making modifications:
-
-- Click **Save** to apply changes  
-- Click **Cancel** to discard changes  
+- Click **Save** to apply changes.
+- Click **Cancel** to discard changes.
 
 Changes are immediately reflected in the test case once saved.
-
 
 ## Why Editing Is Important
 
 Editing test steps helps you:
-
 - Improve selector stability  
 - Adjust assertion strictness  
 - Fix flaky tests  
@@ -233,14 +195,13 @@ Editing test steps helps you:
 
 Proper editing improves reliability and maintainability of automation tests.
 
-
 ## Best Practices
 
-- Always review selectors after recording  
-- Increase timeout for slow-loading elements  
-- Use tolerance carefully in visual assertions  
-- Avoid overusing optional steps  
-- Keep descriptions meaningful and clear  
-- Test after modifying critical assertions  
+- Always review selectors after recording.
+- Increase timeout for slow-loading elements.
+- Use tolerance carefully in visual assertions.
+- Avoid overusing optional steps.
+- Keep descriptions meaningful and clear.
+- Test after modifying critical assertions.
 
 Following best practices ensures stable and maintainable test automation.

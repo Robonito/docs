@@ -16,8 +16,8 @@ export const ROUTES: EachRoute[] = [
     title: "Installation",
     href: "/installation",
     items: [
-      { title: "Mac", href: "/mac" },
       { title: "Windows", href: "/window" },
+      { title: "Mac", href: "/mac" },
       { title: "Linux", href: "/linux" },
     ],
   },
@@ -78,11 +78,11 @@ export const ROUTES: EachRoute[] = [
     href: "/mobile-testing",
     items: [
       { title: "Create Mobile test case", href: "/create-mobile-testcase" },
-      { title: "Mobile Setup", href: "/mobile-setup"},
-      { title: "Recording", href: "/recording"}
+      { title: "Mobile Setup", href: "/mobile-setup" },
+      { title: "Recording", href: "/recording" }
     ],
   },
-    {
+  {
     title: "Assertions",
     href: "/assertions",
     items: [

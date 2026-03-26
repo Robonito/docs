@@ -1,207 +1,57 @@
-# Editing Test Steps in Robonito
+---
+title: Editing Web Test Steps
+sidebar_position: 4
+description: Modify configurations, adjust assertions, and fine-tune selectors for recorded test nodes.
+---
 
-Robonito allows you to modify recorded or manually created test steps using the **Edit Event Node** panel. Editing helps you refine selectors, adjust assertions, configure timeouts, and fine-tune test behavior for better reliability.
+# Editing Event Nodes
 
-## What Is an Event Node?
+Robonito allows you to heavily fine-tune your recorded test logic manually from the desktop dashboard. Each action captured during a recording session (clicks, typing, assertions) is saved as an individual **Event Node** on your test timeline. 
 
-An **Event Node** represents a single test step within a test case. It represents one action or validation performed during execution.
+---
 
-An Event Node may represent:
-- Click  
-- Input  
-- Navigation  
-- Assertion  
-- Visual Assertion  
+## Accessing the Edit Panel
 
-Each step can be edited after recording or manual creation.
+To edit the configuration parameters of an existing step:
 
-## How to Edit a Step
-
-To edit a test step:
-
-1. Open the testcase.
-2. Locate the step in the step list.
-3. Click the **Edit (✏️)** icon next to the step.
-4. The **Edit Event Node** panel will open.
-
-This panel allows you to modify the step configuration.
+1. Open your target Test Case in the **Test Explorer**.
+2. Hover over the specific step you want to modify in the execution timeline.
+3. Click the **Edit (✏️)** icon located on the right side of the step node.
+4. The **Node Configuration Panel** will expand, revealing the technical parameters for that event.
 
 ![Edit a Step](/test-case/edit-test-case.png)
 
-## Edit Event Node Panel Overview
+---
 
-The Edit panel allows you to configure multiple properties of a step.
+## Core Configuration Parameters
 
-### 1. Event Type
+Depending on the specific `Event Type` (e.g., Click, Input, Assert), the following primary settings are exposed:
 
-Displays the type of step (for example, *Assert*).
+### 1. Element Selectors
+Selectors represent the exact DOM paths Robonito utilizes to find target elements on the page. By default, the recorder captures highly resilient composite selectors.
+- You can manually inject new CSS or XPath targets.
+- You can delete brittle sub-selectors to force the engine to rely on more stable identifiers (like `#id` or data attributes).
 
-This field indicates the category of action being performed. It helps identify whether the step is a click, input, navigation, or assertion.
+### 2. Node Timeout
+This defines the maximum time (in seconds) the runtime engine will wait for the target element to become interactive or visible before failing the test. 
+- **Default:** 10 seconds.
+- **Tip:** If your web application has specific pages that load slowly or heavily rely on delayed API fetches, increase this timeout for the associated step to prevent flaky execution validation.
 
-### 2. Timeout (in seconds)
+### 3. Execution Priority (Optional Flag)
+Toggling the **Mark Optional** switch flags the step as non-critical. 
+If an optional step fails to execute (e.g., a promotional pop-up did not appear today, so the "Close Pop-up" click failed), the engine will dynamically ignore the failure and gracefully continue executing the rest of the test suite.
 
-Defines how long Robonito should wait before failing the step.
-
-- **Default value:** 10 seconds  
-- Increase the timeout for slow-loading elements.
-- Decrease the timeout for faster failure detection.
-
-Proper timeout configuration improves test stability.
-
-### 3. Mark Optional
-
-When enabled:
-- The step will not fail the testcase if it fails.
-- Execution continues to the next step.
-
-Use optional steps for:
-- Non-critical UI elements  
-- Conditional elements  
-- Flaky UI behaviors  
-- Elements that may or may not appear  
-
-> **Note:** Avoid overusing this option, as it can hide real issues.
-
-### 4. Description
-
-A short explanation of what the step does.
-
-**Example:**
-> Visually assert selected area
-
-Adding meaningful descriptions improves the readability and maintainability of test cases.
+---
 
 ## Assertion Configuration
 
-If the step is an assertion, additional configuration options are available.
+If you are explicitly editing an **Assert** or **Visual Assert** node, additional validation parameters become available:
 
-### Assertion Type
+- **Mathematical Tolerance (Visual Only):** Determine how strictly Robonito compares baseline images to live execution screenshots. A tolerance of `0.0` demands mathematical pixel perfection, while `0.2` allows for minor rendering shifts (like anti-aliasing differences).
+- **Matching Value (Text Assertions):** Modify the exact internal string expected to exist within the target DOM node. 
 
-Select the type of assertion from the dropdown menu.
-
-![Assertion Type](/test-case/asserstion-types.png)
-
-The assertion type determines how Robonito evaluates the validation during execution.
-
-## Visual Assertion Example
-
-If **Assert visually same** is selected:
-
-Robonito compares the current UI snapshot with the stored baseline image. If differences exceed the allowed tolerance, the step fails.
-
-### Tolerance
-
-Defines the allowed difference between images in visual comparison.
-
-**Example:** `0.1`
-
-- **Lower value** → stricter comparison  
-- **Higher value** → allows minor UI variations  
-
-Tolerance should be configured carefully to balance strictness and flexibility.
-
-### Snapshot URL
-
-Displays the stored baseline image reference used for visual comparison. This reference image is used to validate UI consistency across executions.
-
-## Visual Assert Info
-
-Expanding **Visual Assert Info** displays detailed information about the selected validation area.
-
-Includes:
-- Top  
-- Bottom  
-- Left  
-- Right  
-- Width  
-- Height  
-- X-coordinate  
-- Y-coordinate  
-
-These values define the exact UI region being validated during visual comparison.
-
-## Selectors
-
-Selectors define how Robonito identifies a UI element on the page.
-
-You can:
-- View existing selectors  
-- Add new selectors  
-- Delete selectors  
-- Copy selector values  
-
-### Examples:
-```text
-div >> internal:has-text="Quick" >> nth=0
-body:nth-child(2) > main:nth-child(3) > div:nth-child(1)
-```
-
-### Selector Best Practices
-
-- Use stable selectors  
-- Avoid dynamic class names  
-- Prefer unique attributes  
-- Avoid overly long CSS paths  
-- Validate selectors after recording  
-
-Stable selectors reduce flaky test failures.
-
-## Advanced Settings
-
-The **Advanced Settings** section allows further customization of element behavior and matching logic (if applicable). These settings help fine-tune how Robonito interacts with or validates an element.
-
-## HTML Element Info
-
-Displays technical details of the selected element.
-
-**Example:**
-
-| Key  | Value |
-|------|-------|
-| Name | DIV   |
-
-This information helps debug selector accuracy and understand the underlying DOM structure.
-
-## Step Status Indicator
-
-After execution, each step displays its execution status.
-
-**Possible statuses:**
-- `PASSED`  
-- `FAILED`  
-
-**Example:**
-> FAILED – Visual assertion mismatch
-
-If a step fails, you can edit and re-save the step to correct issues.
+---
 
 ## Saving Changes
 
-After making modifications:
-- Click **Save** to apply changes.
-- Click **Cancel** to discard changes.
-
-Changes are immediately reflected in the test case once saved.
-
-## Why Editing Is Important
-
-Editing test steps helps you:
-- Improve selector stability  
-- Adjust assertion strictness  
-- Fix flaky tests  
-- Increase timeout for slow elements  
-- Refine visual validation areas  
-- Make steps optional when appropriate  
-
-Proper editing improves reliability and maintainability of automation tests.
-
-## Best Practices
-
-- Always review selectors after recording.
-- Increase timeout for slow-loading elements.
-- Use tolerance carefully in visual assertions.
-- Avoid overusing optional steps.
-- Keep descriptions meaningful and clear.
-- Test after modifying critical assertions.
-
-Following best practices ensures stable and maintainable test automation.
+All modifications made in the right-side properties panel are held in a draft state until you explicitly click the **Save** button. Once saved, the new parameters are instantly synchronized with the backend database and will be securely utilized in the very next execution run.

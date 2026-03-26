@@ -1,124 +1,65 @@
-# Start Recording a Mobile Test Case
+---
+title: Mobile Recording Guide
+sidebar_position: 4
+description: Record native touch interactions efficiently on your uploaded mobile app builds.
+---
 
-Robonito allows you to seamlessly record your user interactions on mobile applications by actively running an Android or iOS emulator locally. During an active recording session, Robonito natively captures every action performed on the mobile application screen and automatically converts them into reusable, repeatable test steps.
+# Start Recording a Mobile Test
 
-Follow the comprehensive steps below to successfully configure, launch, and record a new mobile test case.
+Robonito allows you to naturally record user interactions on mobile applications by actively running an Android or iOS emulator locally. During your recording session, the system automatically translates your manual touch inputs into highly reusable, repeatable test steps.
 
 ---
 
-## 1. Open the Mobile Test Case
+## 1. Preparing the Test Case
 
-First, navigate to your active Robonito project and securely open the specific **Mobile Test Case** you want to record. 
+Navigate to your active project workspace and explicitly open the defined **Mobile Test Case** you wish to execute. 
 
-Once inside the test case page, simply click the **Record** button located at the top to explicitly initialize the mobile recording process.
+Click the **Record** button located at the top of the dashboard to initialize the visual mobile recording process.
 
 ---
 
 ## 2. Configure Launch Options
 
-When you click **Record**, a configuration dialog instantly appears. This dialog allows you to define exactly how the mobile testing environment will launch.
+A configuration dialog instantly appears, allowing you to define exactly how the testing environment will bootstrap:
 
 ### Target Platform
-Select the specific mobile platform on which you deliberately intend to record the test.
-- **Example:** Selecting `Android` tells Robonito to launch the target local Android automation emulation environment.
+Select the explicit mobile platform (*Android* or *iOS*).
 
-### Select App Files
-Next, you must legally provide the actual compiled application file you want to test. Click the file selector and securely choose your application file straight from your local system.
+### Upload App Files
+You must provide the actual compiled application file you want to test. Click the file selector and securely choose your application build directly from your system.
 
-**Supported mobile file types perfectly include:**
+**Supported mobile file types:**
 - **`.apk`** (Android application package)
 - **`.ipa`** (iOS application package)
 
-- **Example File:** `app-release.apk`
+---
 
-*Once selected natively, the filename will visually appear in the **Select app files** configuration field.*
+## 3. Emulator Initialization
+
+After uploading the application file, click the **Start Recording** button.
+
+Robonito will independently launch your configured mobile emulator workspace in the background. During this standard process, the virtual mobile device spins up and installs your selected application (`.apk` or `.ipa`).
+
+> *Note: Initializing the emulator for the first time on a fresh installation may take a few minutes.*
 
 ---
 
-## 3. Start the Recording
+## 4. Recording User Actions
 
-After successfully selecting both your target platform and compiled application file, click the **Start Recording** button.
+Once the emulator screen fully boots, your target application automatically opens. You can now interact with the mobile application precisely like an actual user.
 
-Robonito will immediately begin initializing the secure mobile recording environment via Docker/Appium in the background.
+**Examples of captured recording actions:**
+- Tapping on a native button
+- Entering text dynamically into an input component
+- Swiping down to scroll naturally
+- Activating dropdowns and select pickers
 
----
-
-## 4. Emulator Initialization
-
-Robonito will automatically launch your configured mobile emulator workspace. During this booting process, you may see the following status messages:
-
-> *Initializing recorder...*  
-> *Launching emulator (It may take a while)*
-
-This crucial pipeline step successfully spins up the virtual mobile device locally and actively installs your selected application file (`.apk` or `.ipa`) onto the emulator natively.
+As you navigate the app, Robonito's tracker intelligently generates human-readable step instructions inside the sidebar, completely mapping out your exact sequence of actions.
 
 ---
 
-## 5. Mobile Application Launch
+## 5. Saving the Flow
 
-Once the emulator screen fully boots, your target application will automatically open and launch inside the virtual device window.
+Once your test pipeline successfully replicates the defined scenario, click the **Save** button in the dashboard to permanently commit the logic steps. 
 
-You are now completely free to interact with the application exactly like a real user would. The Robonito test environment can comfortably handle standard flows such as:
-- Application welcome/onboarding screens
-- Complex login workflows (Oauth, Email)
-- Native System permissions dialogs
-
----
-
-## 6. Recording User Actions
-
-While the recording session is actively glowing, Robonito is actively capturing and listening to every strict interaction performed on the mobile application screen.
-
-**Examples of natively recorded actions heavily include:**
-- Tapping on a button or physical icon
-- Entering text dynamically into standard input fields
-- Navigating back and forth natively between screens
-- Selecting standard native dropdown or picker options
-
-Each explicit user action instantly generates an automated timeline step inside the **Steps** panel.
-- **Example Recorded Step:** `Tap Allow Button`
-- **Native Action Keyword:** `MOBILE-TAP`
-
----
-
-## 7. Entering Input Data
-
-If your test scenario safely requires entering textual data (like a username or phone number), simply type the data directly into the mobile application window on the emulator during the recording.
-
-- **Example Input:** `Enter phone number: 500000005`
-
-Robonito's tracking engine will automatically capture your active keystrokes and securely record the exact input action as an independent, editable test step.
-
----
-
-## 8. Automatic Step Generation
-
-As you navigate and touch the app natively, Robonito's AI intelligently parses the UI components and generates human-readable step descriptions explicitly for you, such as:
-- *Enter Phone Number*
-- *Tap Login Button*
-
-These descriptions precisely map out the exact sequence of technical actions performed by your specific cursor on the emulator.
-
----
-
-## 9. Save Recorded Steps
-
-Once your test path recording is entirely proven complete, click the **Save** button in the Robonito recording dashboard to permanently store the recorded timeline logic steps into the test case.
-
-You can later natively modify these individual steps, edit assertions, execute the suite completely blindly, or extend the automated test with unique loops and variables.
-
----
-
-## Process Summary
-
-Mobile recording in Robonito safely and effectively involves the following linear process:
-
-1. **Open** a designated Mobile Test Case cleanly.
-2. **Click** the primary `Record` action button.
-3. **Select** the target mobile `Platform`.
-4. **Upload** your compiled App File (`.apk` or `.ipa`).
-5. **Click** `Start Recording`.
-6. **Wait** while the emulator autonomously launches and securely installs your app.
-7. **Perform** natural touch actions on the visual application UI.
-8. **Watch** as Robonito actively records each intentional action as a test step.
-9. **Save** the intelligently recorded test case sequence for future automated execution.
+You can later modify these instructions manually, configure specific UI assertions, or execute the test via the cloud automation system.

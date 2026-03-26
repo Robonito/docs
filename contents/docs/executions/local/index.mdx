@@ -1,84 +1,46 @@
+---
+title: Local Execution
+description: Execute test cases immediately on your local machine for rapid debugging and feedback.
+---
+
 # Local Execution
 
-Local Execution allows you to run automated test cases directly on your local machine using your current Robonito setup. This execution mode is primarily designed for rapid test development, initial debugging, and quick validation.
+Local Execution allows you to dynamically run your automated test cases directly on your host desktop machine using your current Robonito `desktop-app` setup. 
+
+This execution mode revolves entirely around rapid test development, initial step debugging, and secure intranet validations.
 
 ---
 
-## Key Characteristics of Local Execution
+## Key Benefits of Local Execution
 
-- **Zero Cloud Dependency:** Test cases are executed entirely on your local system, meaning no cloud infrastructure is required.
-- **Local Settings:** Uses your locally installed browsers and custom environment configurations.
-- **Rapid Feedback:** Suitable for getting immediate feedback loops during active test creation.
-- **Easy Debugging:** Ideal for stepping through and debugging failing steps and assertions locally.
-
----
-
-## When to Use Local Execution
-
-Local Execution is highly recommended when:
-- Actively developing or recording brand-new test cases.
-- Investigating and debugging broken steps, selectors, or assertions.
-- Validating script changes locally before committing tests to a shared cloud suite.
-- Needing to run tests in a strictly controlled, local network environment (e.g., testing behind a corporate firewall).
+- **Zero Cloud Latency:** Test cases execute entirely on your local system resources sequentially.
+- **Use Local Installations:** Automatically uses the portable browsers configured in your local Robonito environment.
+- **Rapid Feedback Loops:** Ideal for getting immediate runtime feedback while actively creating new test suites.
+- **Secure Network Isolation:** Perfect for running scenarios against un-deployed local servers (e.g., `localhost:3000`) or testing confidentially behind a strict corporate firewall.
 
 ---
 
 ## Local Execution Behavior
 
 During a local execution run:
-- All recorded test steps are executed sequentially on your machine.
-- Execution status and progress are updated in real-time within the Robonito UI.
-- System logs and visual results are generated and available immediately after the execution completes.
+1. Robonito boots the selected local browser architecture (e.g., Chromium or Firefox).
+2. All recorded test steps execute in full view on your screen.
+3. Live progression updates display side-by-side in the Robonito application.
 
 ---
 
-## Execution Report: Local Execution
+## Reviewing the Results
 
-The Execution Report provides a detailed summary of all test case runs executed locally. It actively helps you analyze execution results, quickly identify point-of-failures, and reliably monitor test stability over time.
-
-A local execution report is automatically generated instantly after each local run completes.
+A detailed **Local Execution Report** generates instantly after the run finishes. This dashboard serves as your primary debugging tool:
 
 ![Local Execution Report](/test-case/execution-report.png)
 
-### Report Overview
-The top section of the report acts as a dashboard, displaying key execution metrics:
+### The Execution Summary
+- **Passed / Failed Totals:** A clear breakdown of the test's lifetime success rate.
+- **Average Duration:** Benchmarks performance timings for your application's UI response.
+- **Test Case Health:** A dynamically calculated stability percentage designed to flag explicitly flaky test logic over time.
 
-- **Total Runs:** Displays the total number of times the test case has been executed locally.
-- **Passed:** Indicates the absolute number of fully successful executions.
-- **Failed:** Indicates the absolute number of failed execution attempts.
-- **Average Duration:** Displays the average time it takes to complete the test case across all recorded local runs.
-- **Test Case Health:** A percentage metric reflecting the overall stability of the test case based purely on its historical local executions.
-  - Calculated as a direct percentage of passed versus failed runs.
-  - **Higher values** indicate deeply stable tests.
-  - **Lower values** serve to highlight exceptionally flaky or continuously failing test pipelines.
+### Debugging Local Failures
+If a local run fails, Robonito explicitly highlights the broken step in red. Comprehensive visual failure information—including screenshots, DOM state, and precise mismatch logs—are made available. 
 
----
-
-## Execution History Breakdown
-
-The **Execution History** table provides granular metadata for each individual local execution run:
-
-| Metric | Description |
-| :--- | :--- |
-| **Date** | The exact timestamp when the test case was executed. |
-| **Status** | The final result of the execution (`PASS` or `FAIL`). |
-| **Type** | The target test case type (e.g., `Web`, `API`). |
-| **Executed By** | The currently logged-in user who manually initiated the execution. |
-| **Version** | The explicit version of the test case at the time of execution. |
-| **Environment** | The designated execution environment (e.g., `LOCAL`). |
-| **Browser** | The target browser and exact software version used for execution. |
-| **Screen Size** | The viewport resolution natively utilized during the execution run. |
-| **Platform** | The local operating system on which the test was executed. |
-| **Runtime** | The total duration it took to completely finish the execution. |
-
----
-
-## Understanding Local Failures
-
-In the event of a failed local execution:
-
-- The overall execution status is visibly marked as **FAILED**.
-- The specific failed automated steps and their attached assertions are explicitly highlighted.
-- Detailed visual failure information is immediately available for rapid debugging.
-
-This instantaneous feedback loop is explicitly designed to help you quickly identify and permanently fix localized issues before sharing your tests with the rest of your development team.
+This immediate feedback loop enables rapid diagnosis so you can permanently fix the test logic before committing it to your production cloud suites.

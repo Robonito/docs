@@ -1,77 +1,77 @@
 # Configuring an API Endpoint
 
-Before you can execute an API test in Robonito, you must configure its endpoint details. This process includes specifying the target URL, any required parameters, HTTP headers, the request body, and your authentication credentials.
+Before executing an API test in Robonito, you must properly configure the endpoint details. This involves specifying the target URL, query parameters, HTTP headers, request body payloads, and any necessary authentication methods.
 
-Follow these steps to configure your API endpoint successfully:
+Follow this guide to securely and accurately configure your API requests.
 
-## 1. Endpoint URL
-The base address where your API request will be sent.
-- **Field:** `Endpoint URL`
-- **Action:** Enter the complete URL of the target API endpoint.
+## 1. Defining the Endpoint URL
+The URL is the base address of the API service you are testing.
+- **Action:** Enter the complete URL of the target API endpoint into the `Endpoint URL` field.
 - **Example:** `https://api.example.com/v1/users`
 
 ---
 
-## 2. Query Parameters
-Query parameters are used to modify the request and are typically appended to the end of the URL. 
+## 2. Setting Query Parameters
+Query parameters let you modify requests and are appended to the URL (e.g., `?search=robonito&sort=asc`).
 
-You can add query parameters in two ways:
-- **Directly in the URL:** Append them directly to the Endpoint URL using standard syntax (e.g., `?key=value&key2=value2`).
-- **Using the Parameters Tab:**
+You can configure query parameters in two ways:
+- **Directly in the URL Field:** Type them directly at the end of the Endpoint URL.
+- **Via the Parameters Tab (Recommended):**
   1. Navigate to the **Parameters** tab.
-  2. Click the **Add new +** button.
-  3. Enter the **Key** and **Value** for each parameter. Robonito will automatically append these to the URL when the request is sent.
+  2. Click **Add new +**.
+  3. Enter the **Key** and **Value** for each parameter. This method is visually cleaner and less prone to syntax errors.
 
 ---
 
-## 3. Headers
-HTTP headers provide the server with additional information about the request or the client.
+## 3. Adding HTTP Headers
+Headers provide critical metadata to the server, such as the type of content you are sending or the client's information.
 
 - **Action:**
-  1. Navigate to the **Headers** tab.
-  2. Click the **Add new +** button for each header you want to add.
-  3. Enter the **Header Name** (e.g., `Content-Type`) and its corresponding **Value** (e.g., `application/json`).
-- **Common Headers:** `Content-Type`, `Authorization`, `Accept`, `User-Agent`, and custom headers like `X-API-Key`.
+  1. Go to the **Headers** tab.
+  2. Click **Add new +** to define a new header.
+  3. Provide the **Header Name** (e.g., `Content-Type`) and **Value** (e.g., `application/json`).
+- **Common Examples:** `Content-Type`, `Accept`, `User-Agent`. *(Note: For Authorization, it is recommended to use the dedicated Authentication tab).*
 
 ---
 
-## 4. Request Body
-If your API request requires you to send data (typically for `POST`, `PUT`, and `PATCH` methods), you will configure it here.
+## 4. Constructing the Request Body
+If your request involves sending data (typically used with `POST`, `PUT`, or `PATCH` methods), you will configure the payload here.
 
-- **Format:** Robonito currently supports the **JSON** format for the request body.
-- **Action:** Enter your request payload into the body section, ensuring it uses valid JSON syntax.
-- **Example (Creating a User):**
-  ```json
-  {
-    "username": "testuser",
-    "email": "test@example.com"
-  }
-  ```
+- **Format:** Robonito expects the request body to be formatted as **JSON**.
+- **Action:** Paste or type your JSON payload into the body editor.
+
+**Example (Creating a User):**
+```json
+{
+  "username": "johndoe",
+  "email": "johndoe@example.com",
+  "role": "admin"
+}
+```
 
 ---
 
-## 5. Authentication
-Configure how your API test case will securely authenticate with the target server.
+## 5. Configuring Authentication
+Securely authenticate your test requests using Robonito's built-in Authentication tab.
 
-- **Action:** Select your required authentication method from the available options and provide the necessary credentials.
+- **Action:** Navigate to the **Authentication** tab, select the required format, and provide your credentials.
 - **Supported Methods:**
-  - **Bearer Token:** Provide your token value.
-  - **Basic Auth:** Provide the required username and password.
-  - **API Key:** Specify the key name, the key value, and its placement (e.g., in the Header or Query Params).
-  - *(Additional supported methods will appear here based on your workspace setup)*
+  - **Bearer Token:** Supply the token string.
+  - **Basic Auth:** Supply your username and password.
+  - **API Key:** Define the key name, its value, and where it should be injected (e.g., Query Params or Header).
 
 ---
 
 ## Saving Your Configuration
 
-> **Important:** Robonito does **not** automatically save changes as you type in the configuration screen. You must explicitly click the **Save** button (or the equivalent UI action) before navigating away to ensure your endpoint configuration is preserved.
+> **Important:** Changes made in the API configuration workspace are **not** auto-saved. Remember to explicitly click the **Save** button before navigating away to prevent data loss.
 
 ---
 
-## Running Your Test
+## Executing the Test
 
-Once your API endpoint is fully configured and saved, you are ready to execute the request:
+Once your configuration is complete and saved:
 
-1. Ensure you are viewing the fully configured API test case.
-2. Click the **Run Test** button (or equivalent), typically located at the top of the screen.
-3. Robonito will send the API request, then capture and display the response. This includes the HTTP status code, response headers, response body, and the results of any configured assertions.
+1. Click the **Run Test** button located at the top of the interface.
+2. Robonito will dispatch the request to the target server.
+3. Review the captured response in real-time, including the HTTP status code, response time, server headers, the JSON body payload, and the results of any configured assertions.

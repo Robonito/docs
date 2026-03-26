@@ -1,69 +1,55 @@
 ---
-title: Quick Tour
-description: Getting Started with Robonito..
+title: Overview & Quick Tour
+description: Understanding the Robonito automation ecosystem.
 ---
 
-### Welcome to Robonito: Revolutionizing Automated Testing
+# Navigating Robonito
 
-Robonito is an advanced automated testing solution designed to empower teams in delivering high-quality software with remarkable efficiency and accuracy. By automating the testing process, Robonito reduces human error, minimizes manual effort, and accelerates time to market.
+Robonito is an advanced end-to-end testing platform designed to help QA engineers rapidly automate complex Web, API, and Mobile workflows without needing to architect their own automation infrastructure.
 
-Robonito has proven to be an invaluable asset to the Club Car CPQ project, achieving a remarkable reduction in QA testing time by over 70%.
-This significant enhancement not only led to substantial cost savings but also greatly expedited the build, testing, and deployment timelines associated with this lead-to-quote digital transformation.
+By utilizing Robonito's native recorder and cloud executor, teams can significantly reduce their testing cycle lifespans, detect bugs earlier, and manage their automation strategies entirely through a single intuitive dashboard.
 
-Discover how Robonito can enhance your testing process and enable you to deliver outstanding software experiences. 
 ![Robonito Reports](/quicktour/lv_0_20241120155024.gif) 
 
-### Getting Started with Test Automation: A Quick Guide
+---
 
-Welcome to the world of test automation! This guide will introduce you to the essential features you'll need to kick off your automation journey.
+## Core Capabilities
 
-### Robonito's Vision.
-Robonito envisions a future where automation transcends traditional boundaries, empowering organizations to achieve unparalleled efficiency and innovation. By harnessing advanced technology, Robonito aims to revolutionize quality assurance processes, making them faster, more reliable, and accessible to teams of all sizes. The ultimate goal is to create robust, high-performance applications that deliver exceptional user experiences while minimizing operational risks. Through continuous improvement and seamless integration with existing workflows, Robonito strives to become a leader in the realm of automated testing, driving digital transformation across industries.
+Robonito unifies several powerful testing tools:
 
-### Key Features
+- **[Multi-Platform Recording](../web-testing):** Connect your app and generate human-readable test steps simply by organically clicking through your web pages or mobile emulator.
+- **[Test Execution](../executions):** Execute your automated regression suites instantly on your local hardware or dynamically dispatch them to Robonito's scalable cloud cloud cluster.
+- **[Data Mapping](../data-source):** Organize testing datasets securely inside CSV files and dynamically inject iterative paramaters directly into your test node steps using syntax like `{{@username}}`.
+- **[Advanced Integrations](../integrations):** Link your execution suites directly directly into CI/CD hooks (GitHub Actions) or bug pipelines (Jira).
+- **[Scheduled Automations](../schedules):** Run nightly builds automatically using a robust cron schedule parser.
 
-- [Workspaces Overview](../workspace)
-- [Manage Team](../team) 
-- [Test Suites](../suites)
-- [Test Case](../test-case)  
-- [Recording Tests](../recordtest-case)
-- [Test Execution](../test-execution)
-  - [*Local Execution*](../local)  
-  - [*Cloud Execution*](../cloud)
+---
 
-**Advanced Features:**
+## General Resource Navigation
 
-- [Schedule](../schedules)  
-- [Reports](../reports)
-- [Integrations](../integrations)
+Use the documentation sidebar to explore the platform in depth:
 
-**Additional Capabilities:**
+**Core Configuration:**
+- [Workspaces Governance](../workspace)
+- [Team Access Controls](../teams)
 
-- [API Testing](../api-testing)  
-- [Web testing](../web-testing)
-- Real-time notifications.  
-- Manages test dependencies (e.g., reusing login tests).  
-- Cross-suite test management.
+**Building Tests:**
+- [Test Suites Architecture](../suites)
+- [Creating Test Cases](../test-case)  
+- [Dynamic Variables](../variables)
 
-**Key Benefits:**
+**Validation:**
+- [Assertion Targeting](../assertions)
+- [Execution Dashboards](../reports)
 
-- **Accelerated QA Automation:** Streamline testing cycles to facilitate quicker releases.
-- **Minimized Manual Errors:** Decrease reliance on human intervention in the testing process.
-- **Seamless Integration:** Integrates effortlessly with CI/CD pipelines and JIRA.
-- **Scalability:** Suitable for teams of all sizes, ensuring adaptability.
-- **Confidence in Delivery:** Ensures stable, high-performance applications consistently.
-- **Early Bug Detection:** Identifies bugs during the development phase to mitigate production risks effectively.
+---
 
-### Requirements
-- Architecture: arm64 or x86_64
-- OS: macOS or Windows
-- There are no specific disk space or RAM requirements. Robonito smoothly operates with just about 4 GB of RSS RAM, delivering optimal performance without any hassle.
+## Getting Help
 
-### For More Information  
-Check out the YouTube video above or continue reading to familiarize yourself with Robonito.  
-<iframe width="680" height="380" src="https://www.Nyoutube.com/embed/HA6hpQ15ogo" title="Robonito Features and Usability" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+If you require engineering support or encounter a bug:
+1. Join our active [Community Slack Channel](https://join.slack.com/t/robonito/shared_invite/zt-2vzwc6wol-wJUrgT4aL9~LbhiCYwdczA).
+2. Report the issue directly securely via your Robonito Dashboard dropdown menu.
 
-### Getting Help  
-Join our [Slack](https://join.slack.com/t/robonito/shared_invite/zt-2vzwc6wol-wJUrgT4aL9~LbhiCYwdczA) channel for community support.
+<br />
 
-Thank you for choosing Robonito. Whether you're testing web applications or APIs, we're here to help you succeed.
+<iframe width="680" height="380" src="https://www.youtube.com/embed/HA6hpQ15ogo" title="Robonito Features and Usability" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

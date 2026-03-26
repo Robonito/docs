@@ -1,57 +1,49 @@
 # Page Assertions
 
-Page Assertions are used to validate page-level properties during test execution. They ensure that your application successfully navigates to the correct page and that the page loads exactly as expected.
+Page Assertions are critical validations used to verify entire page-level metadata properties during test execution. Rather than checking a specific button or text block, these assertions ensure your application routes correctly and loads the appropriate core page context.
 
-The **Add Page Assertion** dialog appears when you choose to add a page-level validation during an active recording or while editing an existing test step.
+The **Add Page Assertion** dialog allows you to quickly inject routing validations during an active recording or while editing a saved test step.
 
 ![Page Assertion Dialog](/test-case/page-assertion.png)
 
 ---
 
-## Page Assertion Types
+## Supported Page Assertion Types
 
-Robonito supports the following types of page-level assertions to validate your application's routing and metadata:
+Robonito supports two foundational page-level routing assertions:
 
 ### 1. Page Title
-Verifies the browser tab's title for the currently loaded page.
+Verifies the explicit text rendered inside the browser tab’s `<title>` tag for the currently active page.
 
 **Configuration Options:**
-- **Expected Title (\*)** – Enter the exact or partial string of the expected page title.
-- **Match Type** – Choose how the title should be evaluated:
-  - **Exact Match:** The title must match the input string entirely.
-  - **Partial Match:** The title must simply contain the input string.
-- **Case Sensitive** – Enable this option to strictly enforce capitalized and lowercase matching.
+- **Expected Title:** Enter the exact or partial string you expect the browser tab to display.
+- **Match Type:** 
+  - **Exact Match:** The `<title>` must identically match the input string.
+  - **Partial Match:** The `<title>` only needs to prominently feature the input string.
+- **Case Sensitive:** Enable to strictly enforce capitalization.
 
 **Use Case:**  
-Ensure the user is navigated to the correct page after completing an action (e.g., verifying the title says "Dashboard" after a successful login).
+Ensuring a user is successfully deposited on the correct page after a vital action (e.g., verifying the page title switches to "User Dashboard" immediately following a successful login attempt).
 
 ---
 
 ### 2. Page URL
-Validates the explicit web address (URL) of the currently loaded page.
+Validates the explicit web address (HTTP URL) that the browser is currently resting on.
 
 **Configuration Options:**
-- **URL (\*)** – Enter the expected page URL string.
+- **Expected URL:** Enter the full expected URL string (e.g., `https://example.com/checkout/success`).
 
 **Use Case:**  
-Confirm correct navigation or routing flow after specific page transitions (e.g., verifying the URL changes from `/cart` to `/checkout`).
+Confirming secure navigation boundaries and exact routing logic (e.g., mathematically verifying the URL transitions from `/cart` to `/checkout` when clicking 'Proceed').
 
 ---
 
 ## Adding a Page Assertion
 
-To finalize and add a page assertion to your test:
+To enforce a page assertion within your workflow:
 
-1. **Review:** Double-check your expected Title or URL configuration.
-2. **Add:** Click the **Add Assertion** button to attach the page assertion to the selected test step.
+1. Select either the **Page Title** or **Page URL** option from the assertion menu.
+2. Provide your expected configuration string.
+3. Click **Add Assertion** to bind it to the timeline.
 
-During execution, Robonito evaluates the page assertion precisely at that step and marks it as either **Passed** or **Failed** in your test's execution report.
-
----
-
-## Benefits of Page Assertions
-
-Routinely using Page Assertions in your test suites helps ensure:
-- Correct navigation and routing workflows.
-- Accurate page rendering and metadata generation.
-- Reliable validation of complex user journey transitions.
+During execution, Robonito will freeze the DOM at that precise millisecond, evaluate the browser's overarching metadata, and log a permanent **Passed** or **Failed** status.

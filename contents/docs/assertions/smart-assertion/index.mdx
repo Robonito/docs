@@ -1,60 +1,50 @@
 # Smart Assertions
 
-Smart Assertions allow you to define UI validations using simple, human-readable descriptions. Instead of manually configuring complex assertion rules, you describe what should be true about a selected UI element, and **Robonito** automatically interprets and applies the appropriate validation logic.
+Smart Assertions represent a breakthrough in test automation logic. Instead of wrestling with brittle CSS selectors or complex XPath configurations, Smart Assertions allow you to define UI validations using simple, human-readable English.
 
-The **Smart Assertion** dialog appears when you choose to add a smart validation during an active recording or while editing an existing test step.
+You just describe what should be true about a selected UI element, and Robonito’s AI engine automatically translates your intent into robust validation logic under the hood.
 
 ![Smart Assertion Dialog](/test-case/smart-assertion1.png)
 
 ---
 
-## Creating a Smart Assertion
+## How to Create a Smart Assertion
 
-The **Create Assertion** dialog enables you to define intelligent, flexible assertions using natural language.
+You can inject a Smart Assertion during an active recording session or while editing a saved test step.
 
-### Assertion Description
+### Writing the Assertion Description
 
-Enter a clear and accurate description of what exactly should be true about your selected UI element.
+Provide a clear, declarative sentence explaining exactly what you expect from the selected UI element.
 
-**Examples:**
-- *"The login button should be visible and clickable"*
-- *"The error message should contain the text 'Invalid credentials'"*
-- *"The submit button should be disabled"*
+**Examples of Good Smart Assertions:**
+- *"The login button should be visible and clickable."*
+- *"The error message should contain the text 'Invalid credentials'."*
+- *"The submit button should currently be disabled."*
 
-> **Note:** You can enter up to **500 characters** in the description box.
+> **Note:** The description box supports up to **500 characters**, allowing for highly specific multi-condition sentences.
 
 ---
 
-## Instructions for Writing Smart Assertions
+## Best Practices for AI Validation
 
-To create highly effective Smart Assertions, follow these best practices:
+To ensure your Smart Assertions evaluate perfectly every time, follow these guidelines:
 
-1. **Select the Target:** First, click and select the target UI element on the page.
-2. **Describe the Verification:** Describe exactly what you want to verify about the element.
-3. **Use Specific Language:** Use clear and specific declarative language. Common functional keywords include:
+1. **Target Accuracy:** Always click to accurately highlight the specific target UI element on the page before writing the rule.
+2. **Be Explicit:** Describe exactly what you want to verify. Avoid vague language like *"It should work."*
+3. **Use Common Keywords:** Robonito's engine responds exceptionally well to standard state keywords, including:
    - `should be visible`
    - `should be clickable`
    - `should contain text`
-   - `should be disabled`
-4. **Save:** Save the assertion once your description is complete.
+   - `should be disabled` or `enabled`
+4. **Save and Execute:** Click **Save Assertion**. 
 
-The assertion is then automatically evaluated by Robonito during test execution.
-
----
-
-## Saving Your Assertion
-
-To finalize your configuration:
-
-1. Click the **Save Assertion** button to attach the smart assertion to your selected test step.
-2. During test execution, Robonito evaluates this natural language assertion and dynamically marks it as either **Passed** or **Failed** in your test's execution report.
+Robonito will evaluate this plain-English rule dynamically during test execution.
 
 ---
 
-## Benefits of Smart Assertions
+## Why Use Smart Assertions?
 
-Using Smart Assertions dramatically improves your testing workflow by providing:
-- **Faster Assertion Creation:** Skip manual configurations and complex property dropdowns.
-- **Reduced Manual Effort:** No need to understand inner element properties, XPath, or DOM structures.
-- **Clear, Readable Validations:** Anyone on your team can read and understand the assertion intent immediately.
-- **Improved Test Maintainability:** Natural language tests are much more resilient to minor application code adjustments.
+Relying on Smart Assertions dramatically streamlines your automation workflow:
+- **Zero Coding Required:** Skip manual configuration and complex property dropdowns entirely.
+- **Maximum Readability:** Anyone on your team—from developers to business analysts—can read the test and immediately understand its intent.
+- **Resilient Automation:** Natural language assertions are far more resilient to minor frontend code changes (like changing a class name from `.btn-blue` to `.btn-primary`) because the AI interprets the *behavior* rather than just the code.

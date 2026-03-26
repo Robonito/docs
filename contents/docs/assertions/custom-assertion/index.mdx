@@ -1,115 +1,67 @@
 # Custom Assertions in Robonito
 
-Custom Assertions allow you to validate UI content dynamically using **runtime values** instead of fixed, hardcoded text. 
+Custom Assertions allow you to validate UI text dynamically using **runtime variables** instead of fixed, hardcoded strings. 
 
-This is essential when the expected value changes during execution, such as validating:
-- Page titles
-- Usernames
-- Dynamic labels
-- API-generated content
-- Data entered in previous test steps
-
-Robonito supports variable-based validation using the following syntax:  
-`{{!variableName}}`
-
-> **Note:** The `!` explicitly indicates that the value should be resolved dynamically at runtime.
+This approach is essential for scaling automation when expected values change fluidly during execution. Typical scenarios include validating:
+- Dynamically generated Order IDs or Usernames.
+- Live timestamps.
+- API-generated content injected into the UI.
+- Form data entered during preceding test steps.
 
 ---
 
-## Why Use Custom Assertions?
+## The Power of Custom Assertions
 
-Traditional assertions verify static text, which often leads to brittle tests:
-- **Static:** `"Dashboard"` *(Always the same)*
-- **Dynamic:** `"Welcome, Arshad"` *(Changes per user session)*
+Traditional static assertions verify hardcoded text, which makes tests highly brittle:
+- **Static Assertion:** Expects the UI to say exactly `"Welcome, Arshad"`. *(This test will fail the moment User B logs in).*
 
-Custom assertions solve this by validating against stored variables. This ensures your tests continue to pass regardless of the specific data being used in any given session, keeping your test suite robust and flexible.
+Custom Assertions solve this by evaluating against a dynamic memory variable:
+- **Custom Assertion:** Expects the UI to say `"Welcome, {{!username}}"`. *(This test passes for any user, making the test suite infinitely reusable).*
 
 ---
 
-## Variable-Based Assertion Syntax
+## Variable Syntax Rules
 
-To reference a dynamically stored variable during a UI assertion, use the double-curly brace notation with an exclamation mark prefix:
+To reference a dynamically cached variable during a UI assertion, you must use double-curly braces prefixed with an exclamation mark:
 
 **Syntax:**  
 `{{!variable_name}}`
 
-### Examples
+**Examples:**
 - `{{!page_title}}`
-- `{{!username}}`
-- `{{!product_name}}`
+- `{{!current_user}}`
+- `{{!generated_order_id}}`
 
-During test execution, Robonito automatically replaces these placeholders with the actual runtime value stored in the variable.
+During test execution, Robonito safely intercepts these placeholders and injects the actual runtime value stored in memory before performing the text comparison.
 
 ---
 
-## Step-by-Step: Using a Custom Assertion
+## Step-by-Step Implementation
 
 ### Step 1: Capture the Dynamic Value
-First, capture the target value and save it to a variable using one of the following methods:
-- Record a Local Variable during the test execution.
-- Capture an Input step value.
-- Extract an API variable.
-- Capture previous UI content.
+Before you can assert against a variable, you must store it in memory. You can capture variables by:
+- Recording a **Local Variable** directly from an onscreen UI element.
+- Saving a user configuration from an **Input** step.
+- Extracting a payload using an **API Variable**.
 
-**Example:**  
-You store the current page title into a variable:  
-`page_title = "Local Guide"`
+**Example:** You capture a generated ID and save it as: `order_id = "ORD-999"`.
 
-### Step 2: Add the Assertion
-1. Open the **Add Assertion** menu in Robonito.
-2. Choose **Content Based** → **Custom Expression**.
-3. In the **Expected Value** field, enter your formatted variable:  
-   `{{!page_title}}`
+### Step 2: Configure the Assertion
+1. Open the **Add Assertion** dialogue in Robonito.
+2. Select **Content Based** → **Custom Expression**.
+3. In the **Expected Value** field, inject your variable using the exact syntax:  
+   `Wait for your order: {{!order_id}}`
 
 ### Step 3: Execution Behavior
-During test execution, Robonito performs the following comparative logic:
-
-| Stage | Value |
-| :--- | :--- |
-| **Stored Variable** | `Local Guide` |
-| **Actual UI Text** | `Local Guide` |
-| **Assertion Result** | **✅ PASS** |
+During runtime, Robonito processes the test logically:
+1. Translates `{{!order_id}}` into `"ORD-999"`.
+2. Scans the target UI element.
+3. If the UI says *"Wait for your order: ORD-999"*, the assertion logs a **✅ PASS**.
 
 ---
 
-## Example Workflow
+## Essential Rules
 
-Here is how a custom assertion looks in action:
-
-1. **Navigate:** The user navigates to a page titled `"Local Guide"`.
-2. **Save:** You record the variable: `page_title = Local Guide`.
-3. **Assert:** You set the expected UI text as `{{!page_title}}`.
-4. **Result:** The assertion passes because the text currently displayed in the UI exactly matches the dynamically stored value.
-
----
-
-## Common Use Cases
-
-### 1. Verify Input Reflection
-The user types a dynamic name (e.g., `"Arshad"`) into an input field. You then validate that the profile header matches that exact input: `{{!username}}`.
-
-### 2. Verify Created Item
-You create a new product named `"iPhone 15"`. You then verify that the product listing displays that exact product name: `{{!product_name}}`.
-
-### 3. Verify API-Driven Content
-An API call returns an order ID (e.g., `"ORD-10231"`). You validate that the success UI screen displays that exact order ID: `{{!order_id}}`.
-
----
-
-## Comparison: Normal vs. Custom Assertion
-
-| Assertion Type | Example Input | Behavior |
-| :--- | :--- | :--- |
-| **Static Assertion** | `Local Guide` | Fixed comparison (Hardcoded text) |
-| **Custom Assertion** | `{{!page_title}}` | Dynamic comparison (Resolved at runtime) |
-
----
-
-## Important Rules
-
-Keep the following rules in mind when working with Custom Assertions:
-
-- **Existence:** The variable *must* be defined in a test step **before** the assertion step occurs.
-- **Case Sensitivity:** Variable names are strictly case-sensitive.
-- **Prefix:** You must use the `!` prefix inside the curly braces (`{{!var}}`) for runtime UI variable comparisons.
-- **Versatility:** Custom assertions work seamlessly with both UI-captured variables and API-stored variables.
+- **Pre-requisite Existence:** The variable *must* be initialized and stored in a test step **before** the assertion step occurs chronologically.
+- **Strict Case Sensitivity:** Variable names inside the brackets (`{{!varName}}`) are strictly case-sensitive.
+- **The Exclamation Formatting:** You MUST include the `!` prefix inside the curly braces to trigger runtime resolution.

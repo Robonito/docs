@@ -1,82 +1,78 @@
 # Browser Management
 
-The **Browser Management** section allows you to seamlessly download, install, and manage the browsers used for test recording and execution within the Robonito environment. Please note that only browsers explicitly downloaded or installed on your system are actively available for automated test runs.
+The **Browser Management** section allows you to download, install, and securely manage the browsers used for test recording and execution within the Robonito application.
+
+Only browsers that are explicitly downloaded or actively detected on your system are available for use in your automated test runs.
 
 ---
 
 ## Accessing Browser Management
 
-Follow the steps below to navigate to the Browser Management page:
+To view and manage your test browsers:
 
 1. Log in to your Robonito workspace.
 2. Click on your **Profile** icon located in the top-right corner of the interface.  
    ![Profile Icon](/test-case/profile.png)
-3. Select **Settings** from the expanding profile menu.
-4. Click on the **Browser** tab.  
+3. Select **Settings** from the profile dropdown menu.
+4. Click on the **Browser** tab in the settings sidebar.  
    ![Browser Settings Menu](/test-case/setting.png)
 
-The Browser Management page will open, providing you full control over all supported browsers for test execution.
+The Browser Management dashboard will open, giving you direct control over your automation environment's browsers.
 
 ---
 
-## About Browsers in Robonito
+## Supported Browsers in Robonito
 
-Robonito utilizes highly-performant, portable browser versions for its automated testing framework:
-
-- **Local Storage:** Portable browsers such as **Google Chrome**, **Mozilla Firefox**, and **Apple Safari** are downloaded locally and securely managed by the Robonito runtime.
-- **System Detection:** **Microsoft Edge** is uniquely installed system-wide by Playwright. If it is already available on your machine, Robonito will detect it automatically.
-- **Availability:** Only downloaded or system-installed browsers are authorized and available for active recording sessions and test executions.
-
----
-
-## Supported Browsers Overview
-
-Robonito currently supports the following standard browsers:
+Robonito supports three main browsers for recording and test execution. The application provides dedicated, portable versions for Chrome and Firefox to guarantee consistent execution, while leveraging system installations for Microsoft Edge.
 
 ![Supported Browsers Downloads Interface](/test-case/browser-downloads.png)
 
 ### 1. Google Chrome
-**Default Status:** `Downloaded`
-- Fully ready for immediate use during both test recording and batch execution.
-- Can be manually removed from your system if no longer required for your testing scope.
+**Initial Status:** `Downloaded` (Default)
+- A portable version of Google Chrome is downloaded by default when you install Robonito. 
+- It is fully ready for immediate use during both test recording and batch execution.
+- Can be manually deleted from your Robonito environment if no longer required.
 
 ### 2. Mozilla Firefox
-**Default Status:** `Not Installed`
-- Must be explicitly requested and downloaded before it can be used for automation.
-- **To Download:** Simply click the **Download** button next to Mozilla Firefox. After the backend process finishes, Firefox automatically becomes available for your test execution pipelines.
+**Initial Status:** `Not Installed`
+- Must be explicitly requested and downloaded within Robonito before it can be used for automation.
+- **To Setup:** Click the **Download** button next to Mozilla Firefox. Once the internal fetching process finishes, Firefox becomes immediately available for your test execution pipelines.
 
 ### 3. Microsoft Edge
-**Default Status:** `System Installed`
-- Automatically detected and available if it is securely installed on your host operating system.
-- No additional local downloads within the Robonito client are required.
+**Initial Status:** `System Installed`
+- Microsoft Edge is installed system-wide using its official installer, rather than a portable download within Robonito.
+- Robonito will automatically detect its presence and make it available. 
+- *Note for macOS users:* Microsoft Edge requires a manual system installation on macOS before Robonito can detect it.
+
+*(Note: Apple Safari/WebKit is currently unsupported in the Robonito Desktop active browser UI).*
 
 ---
 
 ## Managing Your Browsers
 
 ### Downloading a New Browser
-- Click the **Download** button located directly next to the required browser name.
-- *Note:* Initial download times may vary based on your local internet configuration and speeds.
+- Click the **Download** button located directly next to the required browser name (e.g., Mozilla Firefox).
+- *Wait briefly:* Initial download times may vary based on your local internet configuration and speeds.
 - Once completed, the browser status officially changes to **Downloaded**.
 
 ### Removing an Existing Browser
-- Click the **Delete (Trash)** icon next to any actively downloaded browser.
-- The browser codebase is safely removed and wiped from the local host system.
-- Removed browsers immediately disappear from your active browser selection dropdowns.
+- Click the **Delete (Trash)** icon next to an actively downloaded portable browser (like Google Chrome or Firefox).
+- The browser codebase is safely wiped from the local host system, freeing up designated storage space.
+- The removed browser will instantly disappear from your active recording and execution dropdown menus.
+
+*(Note: Because Microsoft Edge relies on system-wide installation, it cannot be deleted directly from via the Robonito UI trash icon).*
 
 ---
 
 ## Browser Availability During Execution
 
-Only browsers officially marked as **Downloaded** or **System Installed** can be actively configured and selected during the following workflow stages:
-- Active Test Recording
-- Active Test Execution
-
-Browsers that are marked as `Not Installed` simply will not appear in the test browser selection dropdown menus until they are fully fetched.
+Robonito explicitly restricts test configurations to guarantee successful runs:
+- Only browsers officially marked as **Downloaded** or **System Installed** can be configured during test recording and execution.
+- Browsers marked as `Not Installed` will be completely hidden from the test browser selection dropdown menus until they are successfully fetched.
 
 ---
 
-> **Important Notes:**
-> - Initial browser downloads may take several minutes depending heavily on your network footprint and connection conditions.
-> - Ensure your local host machine has sufficient available disk space before initiating new browser downloads.
-> - **Best Practice:** We highly recommend downloading all your required browser targets simultaneously in advance of setting up new QA testing projects.
+> **Important Notes & Best Practices:**
+> - **Initial Downloads:** Downloading new browsers directly affects your local machine's storage limit. Ensure your device has sufficient disk space available.
+> - **Network Impact:** Ensure you are on a stable internet connection before initiating a browser download inside the app.
+> - **Proactive Setup:** We highly recommend downloading all your required browser targets simultaneously before actively recording new QA projects!

@@ -1,58 +1,47 @@
 ---
-title: 'Integrating Robonito with Jira'
-description: 'Learn how to easily set up your Jira integration to create bug tickets directly from failed Robonito test cases.'
+title: Jira Integration
+description: Automatically create and track bug tickets directly from failed Robonito execution reports.
 ---
 
-## Understanding the Jira Integration
+# Jira Integration
 
-Integrating Robonito seamlessly with Atlassian Jira allows your QA team to easily create and track issues (like bugs, tasks, or stories) directly in your active Jira projects. This heavily accelerates your testing workflow by natively connecting your automated test results straight to your development backlog.
-
----
-
-## Setting Up the Jira Integration
-
-To securely connect Robonito with your Jira instance, you will need to grant Robonito specific OAuth permissions to your Atlassian account.
-
-### Configuration Steps:
-
-1. **Navigate to Integrations:** In your main Robonito dashboard, click on **Integrations** located in the left sidebar.
-2. **Select Jira:** Locate the designated Jira integration option and click the `Connect` button to begin the automated setup.
-3. **Authorize the Connection:** A new browser window will open securely, taking you directly to your Atlassian Jira instance. Here, Robonito will formally request OAuth access for certain permissions to interact with your Jira workspace. Simply follow the on-screen prompts in the browser window to formally grant the necessary permissions.
-4. **Confirm Integration:** After safely granting permission, you can explicitly close the browser window. Back inside Robonito, the Jira integration status will automatically update to display as `Connected` for your current workspace.
+Integrating Robonito with Atlassian Jira creates a seamless bridge between your automated testing pipeline and your active development backlog. When a test officially fails in Robonito, QA engineers can immediately generate a complex bug ticket directly from the dashboard without switching context.
 
 ---
 
-## Configuring Default Mapping Settings
+## 1. Connecting Your Jira Workspace
 
-Immediately after successful authentication, you can configure standard default values for any new Jira issues created directly from Robonito. Setting defaults significantly helps speed up issue creation by automatically pre-filling common form fields.
+To connect Jira, you must grant Robonito secure OAuth access to interact with your Atlassian projects:
 
-You will find options to set standard defaults for:
-
-- **Site:** If you natively have multiple Jira sites attached, select the default site URL where automated issues should be created.
-- **Project:** Choose the default core Jira Project where Robonito issues will be formally logged.
-- **Assignee:** Set a default team member assignee who will naturally receive these issues.
-- **Issue Type:** Select the default Atlassian issue type to use (e.g., `Bug`, `Task`, `Story`).
-
-> **Note:** These default settings are not locked permanently; they can always be manually overridden when you actively create an individual issue in the future.
+1. **Navigate to Integrations:** In the main Robonito dashboard, open the **Integrations** tab from the left sidebar.
+2. **Select Jira:** Locate the designated Jira tile and click `Connect`.
+3. **Authorize Access:** A secure browser window will open requesting Atlassian OAuth permissions explicitly. Follow the on-screen prompts to grant access safely.
+4. **Confirm:** Return to Robonito; the status panel will display `Connected`.
 
 ---
 
-## Creating a Jira Issue from Robonito
+## 2. Configuring Ticket Defaults
 
-Once the Jira integration is fully set up and configured, you can easily log new bugs directly from your test reports.
+To dramatically speed up the bug-logging workflow, configure your default project mapping variables:
 
-> **Important:** Creating an issue is always natively linked directly to a specific automated test case.
+- **Site:** Set the default Atlassian URL (if your organization uses multiple Jira instances).
+- **Project:** Select the primary Jira Board/Project where engineering bugs are tracked.
+- **Assignee:** Assign a default team member (e.g., your QA Lead) who will triage the incoming bug.
+- **Issue Type:** Default to standard classifications like `Bug` or `Task`.
 
-### Execution Steps:
+*These defaults are flexible and can be manually overridden when creating individual tickets.*
 
-1. **Select the Test Case:** Navigate to the specific test case for which you want to create an issue. 
-2. **Click "Log a Bug":** If a test execution formally fails, an option labeled `Log a Bug` will dynamically appear within the execution screen.
+---
 
-![Log a Bug Button UI](/integrations/log-a-bug.png)
+## 3. Creating a Jira Bug Ticket
 
-3. **Issue Details Form:** A creation form will successfully appear, already pre-filled with the default settings you configured earlier (Site, Project, Assignee, Issue Type).
-4. **Add Details & Overrides:**
-   - **Summary:** Enter a concise, identifiable summary for the specific issue.
-   - **Description:** This field will be immensely pre-filled with technical failure logs and a screenshot URL originating from the specific failed test execution. You can also append more human-readable information to this block.
-   - **Override Defaults:** You can optionally adjust the project, assignee, or issue type if they differ from your default settings strictly for this specific issue.
-5. **Submit Issue:** Click the **Create** or **Submit** button to successfully log the issue directly into your active Jira project pipeline.
+When an automation suite eventually fails, you can leverage the integration directly from the failure forensics screen:
+
+1. **Review Failure Logs:** Open the **Execution Report** for the failing test case.
+2. **Log a Bug:** Click the `Log a Bug` action button prominently displayed near the failed step.
+   ![Log a Bug Button UI](/integrations/log-a-bug.png)
+3. **Edit the Ticket Details:** 
+   - A creation module will open, pre-filled with your default Jira Project and Assignee.
+   - **Summary:** Write an actionable bug title.
+   - **Description:** Robonito autonomously injects deep failure logs, DOM state output, and direct image snapshot URLs into the body of the ticket. Add any manual QA context required.
+4. **Submit:** Click **Create Ticket** to push the comprehensive report directly into your developer's Jira backlog pipeline.

@@ -1,110 +1,84 @@
+---
+title: Execution Reports
+description: Monitor test executions, track failure occurrences, and analyze quality trends over time.
+---
+
 # Execution Reports
 
-The **Execution Reports** section in Robonito provides a comprehensive, centralized dashboard covering all of your automated test executions. It allows you to reliably monitor active testing activity, actively track failure occurrences across environments, analyze execution trends over time, and comfortably review deeply detailed test results.
+The **Execution Reports** section provides a centralized dashboard covering all of your automated test executions. It allows you to monitor active testing, track failure occurrences across environments, and review detailed test performance metadata.
 
-These reports natively help QA teams maintain full visibility into their automation performance and quickly identify unstable or failing test suites.
+These reports help QA teams maintain full visibility into their automation pipelines to quickly identify unstable runs or failing test suites.
 
 ![Execution Reports Dashboard](/test-case/execution-reports.png)
 
 ---
 
-## Execution Trend Graph
+## The Execution Trend Graph
 
-The dynamic trend chart flawlessly visualizes your test runs over hours, days, or weeks.
+The dynamic trend chart visualizes your test runs over hours, days, or weeks. 
 
-It displays execution histories intuitively categorized by:
+It displays execution histories categorized across:
 - **GitHub Check Runs**
 - **Scheduled Executions**
-- **Entire Test Suites**
-- **Single Test Cases**
+- **Test Suites**
+- **Individual Test Cases**
 
-Using the trend graph effectively helps enterprise teams:
-- Identify standard native test execution frequencies dynamically.
-- Detect sudden visual spikes in system-wide automation failures.
-- Track overall test activity trends logically across specific days or active deployment periods.
-- Securely monitor the cumulative health of your automation architecture daily.
+Using the trend graph helps development teams:
+- Identify overall test execution frequencies.
+- Detect sudden spikes in system-wide automation failures following a new deployment.
+- Monitor the cumulative health of your automation architecture daily.
 
 ---
 
-## Failed Tests Panel
+## Managing Failed Tests
 
-On the right side of your primary dashboard, the **Failed Tests** panel actively highlights your most recently failed test cases natively.
+On the right side of the primary dashboard, the **Failed Tests** panel highlights your most recent broken test cases.
 
-Each individual failed entry reliably shows the following metadata:
-- **Test Case Name:** The specific script or test that actively failed.
-- **Suite Name:** The parent suite where the test natively lives.
-- **Time of Failure:** The precise timestamp of the automated failure.
-- **Failure Reason:** A clear, automated error description highlighting exactly why it failed.
-- **Environment:** Where it executed securely (e.g., `LOCAL` or `CLOUD`).
+Each failed entry displays the following metadata:
+- **Test Case Name:** The specific script or scenario that failed.
+- **Suite Name:** The parent suite where the test resides.
+- **Time of Failure:** The precise timestamp of the run.
+- **Failure Reason:** An automated error description highlighting exactly why the step failed.
+- **Environment:** Where it executed (e.g., `LOCAL` or `CLOUD`).
 - **Test Type:** The platform classification (e.g., `WEB`, `API`, `MOBILE`).
-- **Tags:** Any custom organizational tags actively applied to the specific test.
 
-**Investigating Failures:**
-- Click **Show More** to securely expand the detailed failure breakdown metrics.
-- Click **View Logs** to instantly inspect the deeply detailed execution terminal logs.
+### Investigating Failures
+- Click **Show More** to expand detailed failure breakdown metrics.
+- Click **View Logs** to instantly inspect the underlying terminal logs.
 
-*This focused panel successfully allows for rapid pipeline debugging without having to navigate blindly through giant, full-length test reports.*
+*This focused panel allows for rapid pipeline debugging without having to navigate through full-length test reports.*
 
 ---
 
-## Advanced Filtering
+## Filtering and Exporting
 
-Robonito provides robust, native dashboard sorting filters to efficiently narrow and explicitly refine your report data for focused analysis:
-
-- **Status:** Instantly filter target executions actively by `Passed`, `Failed`, or currently `In Progress`.
-- **Environment:** View automation metrics exclusively mapped from `Local` or `Cloud` execution environments.
-- **Execution Type:** Safely narrow massive reports down natively by a single `Test Case`, an entire `Suite`, or a scheduled automated `Schedule`.
+Robonito provides robust dashboard filters to narrow your report data for focused analysis:
+- **Status:** Filter executions by `Passed`, `Failed`, or `In Progress`.
+- **Environment:** Isolate metrics mapped from `Local` or `Cloud` execution servers.
+- **Execution Type:** Narrow reports down by a single `Test Case`, an entire `Suite`, or a `Schedule`.
 
 ### Downloading Reports
-You can reliably click the **Download** action button to natively export execution logs or comprehensive `.csv` reports securely to save or share externally outside of the Robonito platform.
+You can click the **Download** button to export execution logs or comprehensive `.csv` spreadsheets securely for use outside of the Robonito platform.
 
 ---
 
-## Viewing Execution Details
+## Deep Dive: Execution Details
 
-Clicking into any specific execution entry naturally opens highly detailed debugging information natively, securely including:
-- Exact step-by-step test execution timelines.
+Clicking into any specific execution entry opens highly detailed debugging information, including:
+- Exact step-by-step test timelines.
 - Pass/fail assertion data result comparisons.
-- In-depth UI failure error messages and DOM traces.
-- Environmental runtime logic data metrics.
-- Comprehensive local system logs natively.
+- In-depth UI failure messages, network snapshots, and DOM traces.
+- Comprehensive system logs.
 
-*This explicit deep-dive interface significantly enables rapid manual inspection to track down any flaky, complex visual automation bugs seamlessly.*
+### Understanding Failure Examples
 
----
+In the event of a test failure, Robonito explicitly highlights the error directly in the UI. For example:
 
-## Failed Execution Details (Example)
+> **Visual assertion FAILED. Check diff and actual image.**
 
-In the unfortunate event of a test pipeline failure (as actively displayed directly in your UI):
+This output indicates that:
+1. A visual DOM mismatch occurred during execution.
+2. An unexpected UI change was detected.
+3. The recorded visual assertion failed.
 
-> **Example Error Message:**  
-> *Visual assertion FAILED. Check diff and actual image.*
-
-**This common Robonito logic output actively indicates that natively:**
-1. A visual DOM comparison mismatch successfully occurred.
-2. A disruptive, unexpected UI change was successfully detected by Robonito on the live screen.
-3. The natively recorded visual assertion inevitably failed completely during live execution.
-
-*From here, your QA automation users can deeply inspect the generated automation logs alongside the natively saved image screenshots to securely determine the core root cause securely.*
-
----
-
-## Benefits of Execution Reports
-
-Effectively utilizing Execution Reports reliably allows development QA teams to:
-- Actively monitor holistic robust test automation activity seamlessly.
-- Track individual test stability metrics and performance safely locally.
-- Identify unreliable, highly flaky test cases effortlessly on a team level.
-- Review historical execution deployments cleanly natively inside sprints.
-- Debug pipeline failures significantly faster leveraging structured evidence natively.
-- Assuredly maintain total Quality Assurance (QA) pipeline transparency across entire DevOps product streams natively securely.
-
----
-
-## Best Practices for Reviewing Reports
-
-- **React Fast:** Regularly actively review the "Failed Tests" dashboard panel uniquely to catch fresh bugs safely before they deploy blindly to production natively.
-- **Monitor Trends:** Intelligently observe test case health trend graphs after any major system code deployments securely locally.
-- **Filter the Noise:** Explicitly utilize the robust structural dashboard filters to explicitly isolate unstable automation tests securely mapped strictly by external environment variables explicitly.
-- **Investigate Promptly:** Instantly investigate recurring visual mismatches or broken CSS assertion failures manually to actively avoid unstable reporting pipelines seamlessly securely.
-- **Automate Feedback:** Leverage CI environments to securely schedule reliable, fully automated remote suite runs locally and deeply securely monitor the intelligently generated robust report trends regularly.
+From here, teams can deeply inspect the generated logs alongside the saved diagnostic screenshots to exactly determine the core root cause of the UI breakdown.

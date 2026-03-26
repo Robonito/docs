@@ -1,39 +1,36 @@
 # Text Assertions
 
-Robonito supports powerful content-based assertions to help you validate the text and messaging displayed on any given page.
+Robonito offers powerful text and content-based assertions to validate the typography, messaging, and data rendered visibly on your application's UI.
 
-## Choose an Assertion Type
-
-When adding an assertion to your test case, you can select from various categories of assertions to match your exact validation strategy:
+When configuring an assertion within a test case, select **Content Based** to access text-matching rules.
 
 ![Text Assertions Menu](/test-case/plain-text.png)
 
 ---
 
-## Content-Based Assertions
+## Content-Based Validation Types
 
-Content-based assertions scan and validate the visible UI text displayed on the screen. Robonito provides three primary types of text-matching validation rules:
+Content-based assertions scan the physical characters displayed within a targeted DOM element. Robonito provides three sophisticated text validation engines depending on your complexity needs:
 
 ### 1. Plain Text
-Asserts that a specific, static string of text appears on the page.
+Asserts that a highly specific, static string of text appears on the page.
 
-- **Matching Support:** Supports both **Exact** or **Partial** text matching, depending on your strictness requirements.
-
-**Use Case:**  
-Validate stable, static content such as page headings, button labels, and standard confirmation messages.
+- **Matching Support:** Supports both **Exact Match** (every character must be identical) or **Partial Match** (the string just exists somewhere inside the target element).
+- **Use Case:** Validating permanently static content such as primary headers, navigation button labels, and universal confirmation messages (e.g., `"Payment Successful"`).
 
 ---
 
 ### 2. Custom Expression
-Asserts text matching against a dynamic custom expression, designed for more advanced testing scenarios.
+Asserts text matching against a dynamic custom expression variable (`{{!runtimeVariable}}`).
 
-**Use Case:**  
-Validate dynamic runtime text such as generated User IDs, live timestamps, order numbers, or stored API variables.
+- **Behavior:** Resolves a dynamic variable stored previously in memory and compares it against the live UI.
+- **Use Case:** Validating dynamic, unpredictable runtime data. For example, ensuring that a generated User ID (`"User-8821"`) or a live timestamp is correctly rendered on the profile screen.  
+*(Learn more about [Custom Expression Assertions](./custom-assertion))*
 
 ---
 
 ### 3. Regex (Regular Expressions)
-Validates UI text by evaluating the element against a robust Regular Expression.
+Validates UI text by evaluating the element's inner text against a complex Regular Expression (RegEx) pattern.
 
-**Use Case:**  
-Match complex or unpredictable text formatting patterns, such as validating email addresses, postal codes, or dynamically generated alphanumeric strings.
+- **Behavior:** Passes if the UI text mathematically satisfies the RegEx rules.
+- **Use Case:** Matching structurally predictable but character-random formatting strings. Examples include validating that an input label is a properly formatted email address, a valid 5-digit zip code (`^\d{5}$`), or a complex alphanumeric transaction hash.

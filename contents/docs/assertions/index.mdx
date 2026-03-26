@@ -1,28 +1,30 @@
 # Assertions in Robonito
 
-Assertions are critical components of automated testing. They are used to validate and verify that your application behaves exactly as expected during test execution. **Robonito** allows you to seamlessly integrate assertions either dynamically while recording your test, or retroactively by editing an existing test step.
+Assertions are the foundation of automated testing. They mathematically validate that your application's user interface, network responses, and routing behave exactly as intended when users interact with it. 
 
-When adding a new assertion, the **Add Assertion** dialog appears, enabling you to clearly choose the specific assertion type and configure its unique validation rules.
+With **Robonito**, you can seamlessly attach assertions dynamically while recording your test journey, or inject them retroactively by editing an existing test step.
+
+When configuring a new validation rule, the **Add Assertion** dialogue presents you with multiple tailored assertion categories, allowing you to enforce highly specific validation criteria securely.
 
 ![Add Assertions Dialog](/test-case/add-assertion.png)
 
 ---
 
-## Types of Assertions
+## Types of UI Assertions
 
-Robonito supports a wide variety of assertion types to ensure reliable coverage of your application's UI, dynamic variables, and overall routing behavior. Explore the topics below to learn how to use each one effectively:
+Robonito supports a comprehensive suite of UI-centric assertion types to ensure rock-solid test coverage for any web element. Explore the dedicated sections below to master each category:
 
 - **[Text Assertions](./text-assertion)**  
-  Validate static text, dynamic variables, and regex patterns directly on your UI.
+  Validate that explicit static strings, dynamic variables, and complex RegEx patterns correctly render inside your UI elements.
   
 - **[UI / Element-Based Assertions](./ui-assertion)**  
-  Verify the structural presence, physical visibility, total count, and CSS styling of specific DOM elements on the page.
+  Verify the structural presence, exact count, physical visibility, and dynamic CSS styling properties of DOM elements.
 
 - **[Page Assertions](./page-assertion)**  
-  Ensure your application successfully navigates to the correct URL and loads the expected Page Title metadata.
+  Ensure your application successfully navigates to the expected URL and loads the correct Page Title metadata during specific workflows.
   
 - **[Smart Assertions](./smart-assertion)**  
-  Use simple, AI-powered natural language to easily describe what should be true about a UI element without complex CSS/XPath logic.
+  Let AI handle the complex DOM logic. Use plain, natural English to describe what should be explicitly true about a specific UI element (e.g., "The submit button should be disabled").
   
 - **[Custom Assertions](./custom-assertion)**  
-  Validate UI content dynamically using runtime user variables instead of fixed, hardcoded testing text.
+  Execute complex validations dynamically using runtime variables instead of fixed, hardcoded strings.

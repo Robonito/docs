@@ -1,30 +1,28 @@
 ---
-title: 'Introduction to a Test Case'
-description: 'Learn how to create and manage dynamic test cases effortlessly within a suite in Robonito.'
+title: Introduction to Test Cases
+description: Learn about the different types of test cases you can create within Robonito.
 ---
 
 # Test Cases in Robonito
 
-Test cases are the absolute core building blocks of Robonito’s test automation framework. Each individual test case explicitly represents a specific, isolated user scenario consisting of defined network configurations, recorded action steps, and strict expected visual outcomes utilized to securely validate your application's behavior. 
+Test cases are the fundamental building blocks of Robonito’s test automation framework. Each test case represents a single user scenario—such as logging into an account, fetching user data via an API, or interacting with a mobile app screen.
 
-Because Robonito intelligently supports multiple structural types of test cases natively, QA teams can intuitively automate entirely different layers of application testing natively from a single centralized dashboard seamlessly.
-
-> **Important:** Test cases are constantly created within a parent **Test Suite**. This strictly enforces logical project grouping natively based precisely on your active application modules or unique features.
+To keep your projects organized, every test case must be created inside a parent **Test Suite**. This allows you to logically group related scenarios based on feature modules (e.g., an "Authentication" test suite containing "Login" and "Sign Up" test cases).
 
 ---
 
 ## Supported Test Case Types
 
-Robonito supports the following core types of test cases, explicitly allowing comprehensive scalable automation across completely different native platforms:
+Robonito supports three distinct types of test cases, allowing you to build comprehensive automation across your entire technology stack from a single dashboard:
 
-### 🌐 Web (UI) Test Cases
-Web test cases natively automate comprehensive user interactions specifically targeting browser-based web applications. These distinct tests systematically simulate human actions natively such as clicking DOM elements, actively filling forms safely, navigating between dynamic pages, and perfectly validating complex UI behavior automatically in headless or live real browsers.
-- 📖 **[How to create a Web test case](../web-testing/create-web-test)**
+### 🌐 Web Test Cases
+Automate comprehensive user journeys for browser-based web applications. The Robonito recorder captures human actions—like clicking buttons, filling out forms, and verifying text—and automatically transforms them into resilient test steps.
+- 📖 **[How to create a Web Test Case](../web-testing/create-web-test)**
 
 ### ⚙️ API Test Cases
-API test cases reliably validate backend server services natively by actively testing internal API endpoints seamlessly. They actively help ensure correct endpoint request handling securely, perform rapid response validation heavily, and strictly test the data payload performance and structural reliability of your core application APIs.
-- 📖 **[How to create an API test case](../api-testing/create-api-testcase)**
+Validate your backend server endpoints quickly and securely. You can configure HTTP requests, pass dynamic headers, and use Smart Assertions to verify that the returned JSON payload responses match your exact expectations.
+- 📖 **[How to create an API Test Case](../api-testing/create-api-testcase)**
 
 ### 📱 Mobile Test Cases
-Mobile test cases securely are used natively to actively automate E2E testing elegantly for both Android and iOS mobile applications accurately. These advanced tests deeply validate target functionality securely, evaluate complex native app UI behavior locally, and securely automate touch workflows flawlessly directly on local virtual mobile emulator devices.
-- 📖 **[How to create a Mobile test case](../mobile-testing/create-mobile-testcase)**
+Automate end-to-end functionality for both Android and iOS mobile applications accurately. Using local virtual emulators and physical devices, you can seamlessly validate mobile UI layouts, touch workflows, and native application behavior.
+- 📖 **[How to create a Mobile Test Case](../mobile-testing/create-mobile-testcase)**

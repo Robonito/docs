@@ -1,47 +1,54 @@
+---
+title: Linux Installation
+description: Run Robonito seamlessly on Linux using a portable AppImage.
+---
+
 # Install Robonito on Linux
 
-This guide explains how to seamlessly install and run the **Robonito** desktop application on Linux systems using an AppImage package.
+This guide explains how to install and run the **Robonito** application on Linux systems using a standalone portable AppImage.
 
 ---
 
-## System Requirements
+## Prerequisites
 
-Before downloading and installing Robonito, please ensure your host system meets the following requirements:
-
-- **Operating System:** Ubuntu 20.04+, Debian-based distributions, or equivalent architecture.
-- **Browser:** Google Chrome (the latest stable version is highly recommended to guarantee the best execution results).
-- **Internet Connection:** An active connection is strictly required for cloud synchronization and downloading background updates.
-- **System Permissions:** You must have proper administrative rights to grant executable permissions for the AppImage file.
+- **Operating System:** Ubuntu 20.04+, Debian-based distributions, or equivalent architectures.
+- **Permissions:** You must have the ability to run `chmod` shell commands or modify file execution properties.
 
 ---
 
-## Download Robonito for Linux
+## 1. Download the AppImage
 
-Click the secure link below to download the absolute latest robust version of Robonito specifically compiled for Linux architectures:
+Unlike traditional `.deb` packages, an AppImage is a fully portable software format that contains all dependencies in a single file without requiring a system-level installation.
 
-- **Linux (AppImage):**  
-  [Download Robonito for Linux (v2.5.0)](https://robonito-prod-builds.s3.ap-south-1.amazonaws.com/Robonito-2.5.0.AppImage)
-
-> **Note:** The download link currently hosts version 2.5.0. The version string in the filename will change as new updates are constantly released.
+📥 **[Download Robonito for Linux (v2.5.0)](https://robonito-prod-builds.s3.ap-south-1.amazonaws.com/Robonito-2.5.0.AppImage)**
 
 ---
 
-## Installation Steps
+## 2. Grant Execution Permissions
 
-Unlike traditional Debian packages, an AppImage is a portable software format that does not require a complex native installation natively. To run Robonito, simply follow these steps:
+Before you can run the AppImage, you must mark it as an executable binary on your system.
 
-1. **Download:** Download the `Robonito-2.5.0.AppImage` file from the link provided above natively.
-2. **Navigate:** Open your system terminal and accurately navigate to the local directory where the file was downloaded (e.g., `cd ~/Downloads`).
-3. **Grant Permissions:** Make the AppImage natively executable by running the following shell command:
-
+**Via Terminal:**
+1. Open your terminal and navigate to the directory holding the application:
+   ```bash
+   cd ~/Downloads
+   ```
+2. Grant execution rights using `chmod`:
    ```bash
    chmod +x Robonito-2.5.0.AppImage
    ```
 
-4. **Launch Application:** Finally, execute the script file to instantly launch Robonito:
+**Via GUI (File Manager):**
+Alternatively, right-click the file, select **Properties**, go to the **Permissions** tab, and explicitly check the box labeled *“Allow executing file as program.”*
 
-   ```bash
-   ./Robonito-2.5.0.AppImage
-   ```
+---
 
-*(Alternatively, you can skip the final terminal launch command entirely by simply double-clicking the AppImage right from your graphical Linux file manager once the execute permissions have been successfully granted.)*
+## 3. Launch Robonito
+
+Once permissions are properly set, launch the application via your terminal:
+
+```bash
+./Robonito-2.5.0.AppImage
+```
+
+Alternatively, simply double-click the file tightly inside your visual Desktop Environment to start the Robonito client.

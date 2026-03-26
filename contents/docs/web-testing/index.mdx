@@ -1,60 +1,33 @@
 # Web Testing
 
-Robonito provides a powerful and intuitive way to automate web application testing. With recording, AI-assisted assertions, variables, and flexible execution options, teams can quickly create reliable and maintainable web test cases.
+Robonito offers a powerful, code-free approach to automating web application testing. By combining an intuitive action recorder, AI-driven assertions, dynamic variables, and scalable execution options, your team can rapidly build resilient and maintainable UI tests.
 
-This section covers everything you need to create, configure, execute, and manage Web (UI) tests in Robonito.
+This section covers everything required to create, configure, execute, and manage your Web (UI) tests within Robonito.
+
+---
 
 ## What is Web Testing in Robonito?
 
-Web Testing in Robonito allows you to automate real user interactions within a browser. Robonito captures actions such as clicks, inputs, navigation, and validations, seamlessly converting them into structured test steps.
+Web Testing in Robonito allows you to automate real-world user interactions seamlessly inside a browser environment. As you navigate your application, Robonito automatically captures your clicks, text inputs, and validations, converting them instantly into structured, repeatable test steps.
 
-Web tests help you:
-- Validate UI functionality.
-- Detect regressions.
-- Automate repetitive workflows.
-- Ensure cross-browser compatibility.
-- Improve release confidence.
+**Implementing web tests helps you:**
+- **Validate UI functionality** from the end-user's perspective.
+- **Detect visual regressions** before they reach production.
+- **Automate repetitive workflows** (e.g., checkout processes, form submissions).
+- **Ensure cross-browser compatibility** seamlessly.
+- **Increase release confidence** with reliable automation infrastructure.
 
-## Create a Web Test
+---
 
-To begin web testing:
+## The Web Testing Workflow
 
-1. Navigate to **Test Cases**.
-2. Click **Create Test Case**.
-3. Select and configure the following:
-   - **Type:** Web
-   - **Target Suite**
-   - **Browser**
-   - **Device**
-   - **Target URL**
-4. Click **Create**.
+Mastering Web Testing in Robonito revolves around three core phases:
 
-Once created, you can start recording or manually configure your test steps.
+1. **[Create a Web Test](./create-web-test)**  
+   Initialize a new test case, specify your target URL, and configure your preferred browser and device settings.
 
-## Record & Playback
+2. **[Record Your Actions](./recording)**  
+   Launch the Robonito recording browser. Perform your actions naturally—Robonito will capture and translate them into modular test steps automatically. 
 
-Recording is the fastest way to build a web test.
-
-### Start Recording
-
-1. Open the testcase.
-2. Click **Start Recording**.
-3. Configure the launch options:
-   - **Browser**
-   - **Target URL**
-   - **Device Resolution**
-   - **Authentication (optional)**
-4. Click **Start Recording** again to launch the session.
-
-A browser will launch, allowing Robonito to capture all of your interactions.
-
-### During Recording
-
-Robonito automatically captures:
-- Clicks
-- Text inputs
-- Navigation
-- Hover actions
-- Page transitions
-
-Each interaction is automatically converted into a structured test step within your test case.
+3. **[Execute & Analyze](/docs/executions)**  
+   Run your tests locally or in the cloud. Review comprehensive, step-by-step execution reports to debug failures and monitor application health.

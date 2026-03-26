@@ -1,69 +1,59 @@
 ---
 title: Upload Data Source
 sidebar_position: 2
-description: Learn how to successfully upload and manage test data in Robonito using CSV or Excel files.
+description: Upload and manage iteration data in Robonito using standard spreadsheets.
 ---
 
-Robonito makes it incredibly easy to upload and manage dynamic test data for your automated test cases using standard **CSV** or **Excel** files. This is the very first step to unlocking the power of **Data-Driven Testing**.
+# Uploading a Data Source
 
----
-
-## Steps to Upload a Data Source
-
-Follow these steps to successfully upload your data files:
-
-### 1. Open the Data Source Page
-
-- Navigate to the **Dashboard** from the main Robonito interface.
-- In the left **sidebar**, click on the **Data Source** icon to open the data management page.
-
-![Data Source Page](/data-source/data-source.png)
-
-### 2. Upload Your File
-
-- Click on the **Browse File** button.
-- Choose a file in either **`.csv`** or **Excel (`.xlsx`)** format from your local computer.
-- Once selected, the file will automatically upload and begin processing.
-
-![File Upload Dialog](/data-source/file-dialog.png)
-
-### 3. Preview Uploaded Data
-
-- After a successful upload, you will immediately see a **preview of your data** presented in a clean table format.
-- The interactive preview table allows you to:
-  - **Scroll** through all populated rows and columns.
-  - **Search** for specific values using the fast and responsive search box.
-  - Verify your data's structure and integrity before applying it to any automated tests.
-
-![Data Preview Table](/data-source/data-preview.png)
+Robonito allows you to upload and bind dynamic datasets to your automated tests using tabular files. Each parsed row in your uploaded file represents a distinct iteration matrix that the automation engine will sequentially execute.
 
 ---
 
 ## Supported File Types
 
-Robonito currently supports the following standard file formats:
-
+Robonito's parser currently supports the following structured text formats:
 - **`.csv`** – Comma-Separated Values
 - **`.xlsx`** – Excel Spreadsheets
 
-Each row in your uploaded file represents a distinct data entry that can be iteratively used during your test case execution.
+---
+
+## 1. Uploading the File
+
+To securely import your dataset into the Robonito database:
+
+1. **Navigate to Data Sources:** From the main dashboard, locate and click the **Data Source** icon in the left navigation sidebar.
+   ![Data Source Page](/data-source/data-source.png)
+2. **Launch Uploader:** Click the primary **Browse File** button located on the top right.
+   ![File Upload Dialog](/data-source/file-dialog.png)
+3. **Select File:** Select an eligible `.csv` or `.xlsx` spreadsheet strictly from your local machine.
+
+The file will upload, and the backend engine will automatically parse the headers into column objects.
 
 ---
 
-## Best Practices
+## 2. Previewing the Data
 
-To ensure flawless data-driven testing execution, follow these guidelines:
+Immediately following a successful upload pipeline, you will see a preview table representing your exact data matrix.
 
-- **Header Columns:** Ensure your data file uses top-row **header columns** (e.g., `email`, `password`) that exactly match the placeholders used in your recorded test cases.
-- **Clean Formatting:** Completely avoid using special characters, blank headers, or merged cells in Excel for the highest compatibility.
-- **Always Preview:** Always use the built-in preview table to visually verify your data's integrity before running your final test suite.
+- **Scroll** through the rows and columns to visually verify all data was parsed cleanly.
+- **Search** for specific string values using the data-table search box to ensure encoding limits weren't broken.
+  
+![Data Preview Table](/data-source/data-preview.png)
+
+---
+
+## Data Formatting Rules
+
+To ensure successful data-driven execution algorithms, adhere strictly to the following formatting rules before uploading:
+
+- **Header Row:** Your table **must** contain a row explicitly defining the column headers (e.g., `email`, `password`, `targetUrl`). These exact string matching headers are subsequently used as parameter identifiers in your Robonito recorded test steps.
+- **Clean Structures:** Do not use merged cells or complex styling within `.xlsx` payloads. Ensure the file contains strictly raw textual or numerical values.
 
 ---
 
 ## Next Steps
 
-Now that you have successfully uploaded your core data source, you are ready to apply it:
+Once the file is successfully parsed and saved into the workspace memory, you must actively link it to an execution target.
 
-- Learn how to **[Apply a Data Source to a Test Case](./apply-data-source)**.
-
-Happy testing with **Robonito**!
+- Learn how to **[Apply a Data Source to a Test Case](./data-source/apply-data-source)**.

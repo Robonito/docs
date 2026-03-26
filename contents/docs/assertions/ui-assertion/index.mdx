@@ -1,82 +1,65 @@
 # UI / Element-Based Assertions
 
-UI / Element-Based Assertions are used to validate the presence, visibility, count, and styling of specific UI elements on a web page. These assertions ensure that your application's UI components are rendered correctly and behave exactly as expected during test execution.
+UI / Element-Based Assertions are strictly designed to validate the physical presence, visibility, quantity, and aesthetic styling of specific DOM elements on a web page. 
 
-The **Add Assertion** dialog dynamically updates the options panel when you select **UI / Element-Based** as your assertion type during a recording or while editing a test step.
+These assertions guarantee that your application's architecture renders correctly and provides visual feedback exactly as expected.
 
 ![UI Assertions Menu](/test-case/ui-assertion.png)
 
 ---
 
-## Choose an Assertion Type
+## Available UI Assertion Types
 
-Unlike Content-Based assertions that check for text, UI / Element-Based assertions focus purely on validating structural DOM elements.
-
-Robonito supports the following UI assertion types:
+Robonito supports four primary UI assertion categories:
 
 ### 1. Element Exists
-Asserts that a specific structural element exists physically in the DOM.
+Validates that a specific HTML element physically exists within the document's DOM structure.
 
-- Validates only that the element is present, regardless of whether it is currently visible on the screen or hidden via CSS.
-- Useful for ensuring that required base elements are successfully rendered by the browser code.
-
-**Use Case:**  
-Verify that a hidden dialog container, core button element, or structural header tag exists on the page.
+- **Behavior:** This assertion passes if the element is in the code natively, regardless of whether it is currently visible on the screen or hidden via CSS (e.g., `display: none`).
+- **Use Case:** Ensuring that a hidden modal container or tracking script tag was successfully injected by the server.
 
 ---
 
 ### 2. Element Visible
-Asserts that a specific DOM element is actively visible to the user.
+Validates that a specific DOM element is actively rendering and visible to the end-user.
 
-- Ensures the element is currently displayed and effectively rendering on the user's screen.
-- Crucial for validating UI readiness before subsequent test interactions (like clicking) occur.
-
-**Use Case:**  
-Confirm that a critical "Submit" button or warning text banner is actually visible to the user before the test code attempts to click or read it.
+- **Behavior:** Fails if the element exists in the code but is hidden from the user viewport.
+- **Use Case:** Confirming that a critical "Submit" button or a red validation error banner is actually visible before the test attempts to interact with it.
 
 ---
 
 ### 3. Element Count
-Validates the exact number of structural elements matching your selected element selector.
+Validates the exact mathematical number of structural elements matching your selected CSS/XPath selector.
 
-**Configuration Options:**
-- **Expected Count Value (\*)** – Enter the exact numerical value of expected items.
-
-**Use Case:**  
-Verify the total number of items rendered dynamically in a dropdown list, counted table rows, or repeated UI cards in a dashboard grid.
+- **Configuration:** You must provide an **Expected Count Value (Integer)**.
+- **Use Case:** Verifying that a search result grid dynamically rendered exactly 12 product cards, or that a dropdown menu contains 5 distinct selectable items.
 
 ---
 
 ### 4. CSS Assertion
-Validates the exact output value of a specific CSS stylistic property attached to an element.
+Validates the dynamic output value of a specific CSS stylistic property attached to an element.
 
-**Configuration Options:**
-- **CSS Property Name (\*)** – Provide the required CSS key (e.g., `background-color`, `font-size`).
-- **Expected Property Value (\*)** – Provide the expected CSS output result (e.g., `#FFFFFF`, `16px`).
-
-**Use Case:**  
-Ensure accurate dynamic styling changes in the UI, such as verifying a validation box turns red during an error state or confirming proper typography scales are dynamically applied.
+- **Configuration:** 
+  - **CSS Property Name:** The CSS key (e.g., `background-color`, `font-size`, `z-index`).
+  - **Expected Property Value:** The expected CSS computed result (e.g., `rgb(255, 0, 0)`, `16px`).
+- **Use Case:** Ensuring precise aesthetic rules, such as verifying that an input border turns red (`#FF0000`) during a form validation error.
 
 ---
 
-## Assertion Configuration
+## Configuring Matching Rules
 
-Once a specific UI assertion type is selected, the **Configuration** panel becomes active. 
+When configuring your UI assertion logic, Robonito allows you to define precision rules:
 
-Depending on your chosen assertion, you can configure matching behaviors:
-- **Expected Value (\*)** – The expected value explicitly associated with evaluating the UI element.
-- **Match Type** – Define how the evaluation should be handled strictly (e.g., `Exact Match`, `Partial Match`).
-- **Case Sensitive** – Enable strictly for enforcing capitalization rules.
-
-These settings define exactly how Robonito evaluates your target UI element during the test's automation execution phase.
+- **Expected Value:** The explicit condition you are checking against.
+- **Match Type:** Choose between an `Exact Match` (must be perfect) or a `Partial Match` (contains the value).
+- **Case Sensitive:** Toggle strict capitalization enforcement.
 
 ---
 
 ## Adding the Assertion
 
-After successfully configuring your element assertion logic:
+To attach a UI validation to your test:
 
-1. **Review:** Double-check your chosen UI assertion type and its active configuration settings.
-2. **Add:** Click the **Add Assertion** button on the interface.
-
-The assertion will be closely attached to your selected test step. Robonito evaluates this UI rule exactly at that step and automatically displays the resulting **Pass** or **Fail** timeline status in your test's detailed execution report.
+1. Review your chosen assertion type and the associated configuration settings.
+2. Click the **Add Assertion** button.
+3. The assertion is now bound to the active test step. During execution, Robonito will evaluate the DOM exactly at that moment and log a definitive **Pass** or **Fail** timeline status in your test report.

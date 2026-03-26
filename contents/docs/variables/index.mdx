@@ -1,107 +1,46 @@
-# Variables in Robonito
+---
+title: Using Variables
+description: Store dynamic data during execution to pass into subsequent test steps.
+---
 
-Variables in Robonito allow you to store dynamic values during test execution and reuse them in later steps. This makes test cases more flexible, reusable, and reliable by eliminating the need for hard-coded values.
+# Variables
 
-Currently, Robonito supports **Local Variables**, which are created and used within a single test case execution.
+Variables allow your automation scripts to capture and store dynamic values (like generated Order IDs or random email addresses) during a live execution, and instantly reuse them later in that exact same test case. 
 
-## What Is a Local Variable?
+Currently, Robonito supports **Local Variables**, which are strictly scoped to the lifecycle of a single test execution.
 
-A Local Variable is a value that is captured or defined during test execution and stored temporarily for use in subsequent steps.
+---
 
-**Key characteristics of local variables:**
-- They exist only within the current test case.
-- They are created during recording or test editing.
-- They can be reused in actions, validations, and assertions.
+## 1. Recording a Local Variable
 
-## Recording a Local Variable
+To capture a dynamic value from your application during a recording session:
 
-To create a local variable, use the **Record Local Variable** option during recording or while editing a test case.
+1. **Start Recording:** Begin recording your target test case.
+2. **Open Variable Tool:** In the Robonito recording overlay toolbar, click the **Record Local Variable** action icon.
+   ![Record Variable Tool](/test-case/record-variable-tool.png)
+3. **Configure the Variable:**
+   - **Variable Name:** Enter a recognizable string (e.g., `checkoutOrderId` or `temporaryEmail`).
+   - **Value:** You can explicitly type a static baseline value or use the targeter to extract text natively from a DOM element on the screen.
+4. **Save:** Click **Save Variable**. 
 
-![Record Variable Tool](/test-case/record-variable-tool.png)
+An independent `LOCAL-VARIABLE` step is immediately inserted into your execution flow. This step will autonomously capture and bind the target value from the application memory whenever the test runs.
 
-### The Record Local Variable Dialog
+---
 
-When you select **Record Local Variable**, a dialog will open prompting you for details.
+## 2. Using a Variable
 
-![Record Variable Dialog](/test-case/variables.png)
+Once a variable step is successfully recorded in the flow, you can map it to downstream actions like Input Fields or Assertions.
 
-#### Variable Name
+1. **Trigger an Input Action:** Navigate to a text input field in your application and click it.
+2. **Open Use Variable Tool:** Instead of typing text on your keyboard, click the **Use Variable** icon in the Robonito overlay toolbar.
+   ![Use Variable Tool](/test-case/use-variable-tool.png)
+3. **Select the Variable:** A dropdown dialog will appear containing all Local Variables correctly initialized *before* this current step. Select your target variable (e.g., `checkoutOrderId`).
+4. **Inject:** Robonito will record the input step heavily binding the logic to the variable reference rather than a hard-coded string.
 
-Enter a unique and descriptive name for the variable so it is easy to identify later.
+---
 
-**Examples:**
-- `userEmail`
-- `apiToken`
-- `orderId`
+## Technical Constraints
 
-#### Value
-
-Enter the value you want to store in the variable. This can be:
-- Text captured directly from the application
-- Static text entered manually
-- Dynamic content copied during the recording process
-
-#### Saving the Variable
-
-Click **Save Variable** to store it. Once saved:
-- The variable becomes available for use within the test case.
-- A new **Record Local Variable** step is added to your test flow.
-
-### The Recorded Variable Step
-
-After saving, the variable appears in your test step list with the following details:
-- **Name:** Record local variable
-- **Step Type:** `LOCAL-VARIABLE`
-- **Session:** Associated with the active browser session
-
-This step ensures that the variable is properly initialized before it is used later in the test.
-
-## Using a Variable
-
-To reuse a stored variable, select **Use Variable** from the automation tools menu.
-
-![Use Variable Tool](/test-case/use-variable-tool.png)
-
-### The Use Variable Dialog
-
-The **Use Variable** dialog allows you to insert previously recorded variables into your test steps.
-
-![Use Variable Dialog](/test-case/use-variable.png)
-
-#### Searching for Variables
-- You can easily search for variables by their name.
-- The dialog displays all available local variables for the current test case.
-- If no variables have been created yet, the dialog will simply show **"No variables found"**.
-
-## Where Can Variables Be Used?
-
-You can insert variables into any of the following areas:
-- Input fields
-- Assertions
-- Validations
-- API requests (where supported)
-- Conditional or dynamic test logic
-
-## Variable Scope & Behavior
-
-It is important to understand how variables behave during a test run:
-- **Local Scope:** Variables are constrained to the testcase in which they are created.
-- **Runtime Evaluation:** They are evaluated dynamically during test execution.
-- **Reset on Execution:** Variable values do not persist; they are reset every time the test case runs.
-- **Sequential Dependency:** Variables must be recorded in the test flow before they can be used in subsequent steps.
-
-## Best Practices
-
-To get the most out of variables, follow these tips:
-- Use clear, descriptive, and consistent variable names.
-- Record variables as early as possible in your test flow.
-- Avoid hard-coding values whenever dynamic data is available.
-- Reuse variables whenever possible to reduce test maintenance.
-
-## Benefits of Using Variables
-
-Incorporating variables into your Robonito workflows helps you to:
-- Build dynamic, robust, and reusable test cases.
-- Seamlessly handle changing data (such as emails, IDs, or authentication tokens).
-- Drastically reduce duplication and reliance on hard-coded values.
-- Improve overall test stability and maintainability.
+- **Local Scope Limitations:** Variables cannot be shared across different test cases or test suites. They exist only inside the sandbox of the active script.
+- **Volatile Memory:** Variable values map entirely to runtime memory and are completely wiped when the test execution terminates.
+- **Sequential Requirements:** A variable **must** be extracted and recorded in the timeline *before* you can attempt to use it in a subsequent step.

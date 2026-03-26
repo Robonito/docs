@@ -1,97 +1,39 @@
+---
+title: Cloud Execution
+description: Execute your test cases remotely on Robonito's scalable cloud infrastructure.
+---
+
 # Cloud Execution
 
-Cloud Execution allows you to run your automated test cases directly on Robonito’s dedicated cloud infrastructure instead of relying on your local machine. This execution mode is specifically designed for enterprise scalability, maximum reliability, and seamless team-based automation workflows.
+Cloud Execution allows you to run your automated test cases directly on Robonito’s dedicated cloud servers rather than relying on your local desktop machine. This feature is designed for enterprise scalability, CI/CD integration, and seamless team-based test workflows.
 
 > **Note:** Cloud Execution is currently available as a premium feature.
 
 ---
 
-## Key Characteristics of Cloud Execution
+## Key Benefits of Cloud Execution
 
-- **Zero Local Dependency:** Test cases are executed entirely on Robonito-managed cloud infrastructure, freeing up your local system resources.
-- **Consistent Environments:** Provides a highly consistent, controlled, and stable execution environment across all test runs.
-- **Team Scalability:** Suitable for managing large test suites and executing team-based parallel workflows.
-- **Automation Ready:** Ideal for integrating into Continuous Integration (CI/CD) pipelines and scheduling unattended overnight runs.
-
----
-
-## When to Use Cloud Execution
-
-Cloud Execution is highly recommended when:
-- Running tests automatically as part of your CI/CD pipelines.
-- Executing extremely large or complex end-to-end test suites.
-- Multiple team members need shared access to the same execution environments.
-- Local system resources (CPU/RAM) are limited or need to be preserved for active development.
-- Tests absolutely need to run independently of individual user machines to prevent local environment discrepancies.
+- **Zero Local Dependency:** Tests are executed entirely in the cloud, unblocking your local system's CPU and memory resources for active development work.
+- **Consistent Testing:** Provides a highly stable, controlled environment across all test runs, eliminating the "it works on my machine" discrepancy.
+- **Remote CI/CD:** Perfect for integrating into automated deployment pipelines or scheduling continuous overnight test suites without needing a physical desktop turned on.
 
 ---
 
-## Cloud Execution Availability
+## Enabling Cloud Execution
 
-If Cloud Execution is **not** actively enabled for your account workspace:
-- The **Execute** button for cloud runs will be visibly disabled in the UI.
-- A lock message will indicate that Cloud Execution requires premium access.
-- Options are provided directly in the interface to request access via:
-  - Account Contact Email
-  - Direct Contact Slack
+If Cloud Execution is **not** actively enabled for your workspace:
+- The execution action for cloud runs will be visibly locked in the user interface.
+- You can request premium access by contacting Robonito Support through Email or our community Slack.
 
-Once officially enabled by your workspace admin, Cloud Execution immediately becomes selectable in the standard execution configuration menu.
+Once enabled by an administrator, the **Cloud** target officially becomes selectable in the standard Execution Configuration menu.
 
 ---
 
-## Cloud Execution Behavior
+## Behavior & Reporting
 
 During an active cloud execution:
-- Test steps are executed sequentially in real-time on secure cloud resources.
-- All configured assertions (Smart, UI, Page, Content-based) are stringently evaluated.
-- Live execution progress is tracked and available remotely.
-- Results, logs, and screenshots are collected simultaneously and stored centrally.
+- Test steps execute seamlessly in real-time on secure cloud clusters.
+- All defined assertions and conditional logic blocks are evaluated.
+- Live execution progress is broadcasted back to your local Robonito dashboard.
 
----
-
-## Execution Report: Cloud Execution
-
-The Execution Report for Cloud Execution provides incredibly detailed insights into all test runs executed on the cloud. It helps teams monitor test stability, track execution performance, and analyze historical pass/fail trends over time.
-
-A comprehensive cloud execution report is generated automatically immediately after each cloud run completes.
-
-### Report Overview
-The top section of the cloud execution report acts as a dashboard, displaying:
-
-- **Total Runs:** The total number of lifetime cloud executions for the test case.
-- **Passed:** The exact number of successful cloud executions.
-- **Failed:** The exact number of failed cloud executions.
-- **Average Duration:** The average time taken by the cloud platform to complete the executions.
-- **Test Case Health:** A percentage metric reflecting the overall stability of the test case based on its cloud execution history.
-  - Calculated dynamically using historical pass/fail ratios.
-  - Swiftly helps identify flaky or unstable tests before they block deployments.
-  - Extremely useful for monitoring long-term test reliability.
-
----
-
-## Execution History Breakdown
-
-The **Execution History** table includes specific metadata for each individual cloud execution run:
-
-| Metric | Description |
-| :--- | :--- |
-| **Date** | The exact timestamp when the cloud execution was triggered. |
-| **Status** | The final execution result (`PASS` or `FAIL`). |
-| **Type** | The target test case type (e.g., `Web`, `API`, or `Mobile`). |
-| **Executed By** | The user, system, or CI pipeline that manually or automatically triggered the execution. |
-| **Version** | The explicit test case version that was executed in the cloud. |
-| **Environment** | The designated execution environment (e.g., `CLOUD`). |
-| **Browser** | The target browser and exact software version used in the cloud run. |
-| **Screen Size** | The viewport resolution utilized in the cloud run. |
-| **Platform** | The specific cloud infrastructure platform details. |
-| **Runtime** | The total duration it took to execute the run. |
-
----
-
-## Understanding Cloud Execution Failures
-
-In the event of a failed cloud execution:
-
-- All failed steps and specific assertions are explicitly highlighted in red within the report.
-- Deep system logs and execution details are generated and made available for root-cause analysis.
-- These collected forensics significantly help diagnose environment-specific caching issues or timing-related (flaky) automation failures.
+After execution, a comprehensive **Cloud Execution Report** is immediately generated for your entire team. This report logs historical pass/fail trends, centralizes debugging logs, and helps identify flaky automation test steps across your organization.

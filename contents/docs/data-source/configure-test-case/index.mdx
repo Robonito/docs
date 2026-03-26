@@ -1,99 +1,48 @@
 ---
-title: Configure Execution Strategy
-sidebar_position: 2
-description: Learn how to configure data source execution strategies in Robonito to iterate test cases using uploaded datasets.
+title: Execution Strategy Integration
+sidebar_position: 4
+description: Understand how Robonito automatically processes your attached data sources during test execution.
 ---
 
-After uploading and applying a **Data Source** to your test case, the next crucial step is to **configure how the test case should execute** using your attached data.
+# Data Source Execution Behavior
 
-Robonito allows you to easily define an **Execution Strategy** to control exactly how many times and in what specific order your automated test case should run through the uploaded data rows.
+After uploading a **Data Source** and successfully binding its columns to your test steps using the `{{@filename.columnName}}` syntax, you are ready to execute your test case.
 
----
-
-## Configuring an Execution Strategy
-
-Follow these initial steps to open your execution settings:
-
-### 1. Open the Test Explorer
-
-- Navigate to the **Test Explorer** from the main Robonito dashboard.
-- Select the specific test case that you want to properly configure.
-
-![Test Explorer View](/data-source/test-explorer.png)
-
-### 2. Open the Execution Drawer
-
-- In the top menu bar, click the **Execute** button.
-- A side drawer will slide open, listing all available browser configurations associated with your test (e.g., Chrome, Firefox, Edge).
-
-![Open Test Case Config Drawer](/data-source/execution-config-drawer.png)
-
-### 3. Edit a Browser Configuration
-
-- Click on any of your listed browser configurations.
-- A secondary drawer will open, allowing you to edit the detailed settings for that specific execution profile.
-
-![Edit Execution Config](/data-source/edit-execution-config.png)
+Unlike complex testing frameworks that require you to manually build intricate iteration loops or draft YAML configuration files, Robonito simplifies data-driven testing by automatically handling the strategy under the hood during execution.
 
 ---
 
-## Applying Data Source Strategies
+## The Default Strategy: Randomized Fetching
 
-Inside the detailed configuration drawer:
+Currently, Robonito applies a streamlined **Randomized Execution Strategy** by default when processing any bound Data Source variables during a standard test run.
 
-1. Click on the **"Apply Data Source"** option.
-2. The **Data Source Strategy Configuration Panel** will become visible.
-3. Choose your preferred execution strategy and fill in the required details.
+### How It Works
 
-![Apply Data Source Strategy Panel](/data-source/apply-data-source-config.png)
+When a test case is executed (either manually via the Test Explorer or through a CI/CD pipeline hook), the runtime engine performs the following actions:
 
----
-
-## Available Execution Strategies
-
-Robonito supports two primary execution strategies for data-driven testing:
-
-### 1. Sequential Strategy
-
-The Sequential Strategy executes the test case iteratively in the **exact order** of the rows provided in the data source.
-
-- **Use Case:** Best when you want to thoroughly test specific, predictable rows in chronological order.
-- **Range Control:** You can specify a targeted **range** of rows to execute out of the entire dataset.
-
-**Example Configuration:**
-```yaml
-strategy: sequential
-range:
-  start: 1
-  end: 10
-```
-*Result: This specific strategy will run the automated test case exactly from row 1 to row 10 sequentially.*
-
-![Sequential Strategy Setup](/data-source/apply-data-source-config.png)
+1. **Test Initialization:** Robonito safely boots the isolated testing browser (Chromium or Firefox).
+2. **Memory Loading:** It securely loads the bound data sources containing your hundreds or thousands of rows into active memory.
+3. **Random Row Selection:** For each execution of the test case, Robonito's engine intrinsically picks a **randomized row** from the dataset.
+4. **Value Injection:** When the timeline hits your parameterized step, the engine dynamically injects exactly the corresponding column values from that randomized row into the UI.
 
 ---
 
-### 2. Random Strategy
+## Why Randomized Fetching?
 
-The Random Strategy executes the test case iteratively by fetching completely random rows from the associated data source.
+Robonito utilizes Randomized Execution by default because it mathematically guarantees better edge-case discovery. 
 
-- **Use Case:** Best when you want to simulate chaotic, randomized user behavior or stress test inputs unpredictably.
-- **Iteration Control:** You simply specify exactly how many times the test case should execute globally.
-
-**Example Configuration:**
-```yaml
-strategy: random
-times: 5
-```
-*Result: This specific strategy will execute the test case exactly 5 times, picking a completely random row from your dataset for each run.*
-
-![Random Strategy Setup](/data-source/sequential-strategy.png)
+By randomly fetching rows across thousands of test runs rather than repeatedly hitting the first few sequential rows, your test suite essentially simulates chaotic, real-world user behavior. This immediately exposes frontend validation errors and backend logic flaws that sequential testing often misses.
 
 ---
 
-## Final Step: Saving the Configuration
+## Executing the Test
 
-Once you've configured your desired data strategy:
+To actively execute your parameterized test:
 
-1. Click the **Save** or **Update** button located at the bottom of the configuration drawer.
-2. The next time you execute the test case, Robonito will automatically run it using your newly selected iteration strategy and data source values.
+1. Navigate to the **Test Explorer**.
+2. Click the **Execute** button globally or select a specific **Execution Config** (e.g., your custom Google Chrome setup).
+3. The test will automatically begin, and you can observe your `{{@...}}` variables being dynamically replaced with live, randomized data from your uploads in real-time.
+
+No additional strategy configuration menus are required.
+
+Happy Data-Driven Testing! 🎉

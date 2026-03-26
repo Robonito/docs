@@ -1,39 +1,43 @@
 ---
-title: 'Introduction to a Workspace in Robonito'
-description: 'Learn how to create and manage a new workspace in Robonito.'
+title: Introduction to Workspaces
+description: Learn how to manage projects and isolate automation environments using Robonito Workspaces.
 ---
 
-## Understanding the Workspace Concept
+# Understanding Robonito Workspaces
 
-A workspace in Robonito is a core organizational unit designed to streamline project management and enhance team collaboration. It serves as a dedicated area for your automation projects, ensuring that tests, configurations, and resources remain perfectly organized and isolated. 
+A Workspace in Robonito is the highest-level organizational unit. It acts as an isolated sandbox for your automation projects, ensuring that your test cases, suite executions, environment variables, and third-party integrations remain entirely separate from other projects.
 
-Workspaces enable seamless teamwork, support custom test execution plans, and allow for distinct integrations—providing an incredibly efficient way to manage all of your automation efforts.
+Using separate workspaces helps teams enforce strict logical separation between drastically different software environments (e.g., separating your staging mobile app from your production web app).
+
+---
 
 ## Creating a Workspace
 
-Upon your first login, you will be required to create an initial workspace to house your automation projects.
+Upon logging into Robonito for the very first time, the system will prompt you to create an initial workspace to house your data.
 
 ![Workspace Creation Prompt](/workspace/CreateNewWorkSpace.png)
 
-### Steps to Create:
+### Steps to Create
 
-1. **Access Workspace Creation:** 
-   - New users will be automatically prompted upon logging in. 
-   - Returning users can simply click the dropdown menu located next to the Robonito logo.
-2. **Enter Workspace Name:** Provide a clear, descriptive name and click **Create**.
+1. **Access the Menu:**
+   - Returning users can click the current workspace dropdown menu located globally in the top-left navigation bar (next to the Robonito icon).
+   - Select **Create Workspace**.
+2. **Name the Workspace:**
+   - Enter a clean, recognizable name (e.g., *Frontend E-Commerce* or *Payment API QA*).
+   - Click **Create**.
 
-After successfully creating the workspace, you will be redirected to your dashboard. From there, you can easily create additional workspaces as your organization grows, as illustrated below.
+Your active dashboard will immediately refresh and switch over to the newly generated database boundaries.
 
 ![Dashboard Workspace Dropdown](/test-case/workspace.png)
 
-## Workspace Management
+---
 
-Once your workspace is set up, you can invite team members to collaborate. Key management features include:
+## Managing Your Workspaces
 
-- **Logical Separation:** Easily keep unrelated projects and environments organized and isolated.
-- **Suite Management:** Link specific test suites directly to the appropriate workspaces.
-- **Integrations:** Configure tools and plugins independently for each workspace.
+Once a workspace is initialized, you can explicitly manage its specific capabilities:
 
-**Key Benefits:** Collaborate effortlessly, stay organized, manage resources efficiently, and scale your testing architecture with ease.
+- **Isolated Resources:** Variables, data sources, and scripts created within this workspace cannot leak into or be executed by other workspaces.
+- **Team Access Control:** You can invite individual team members exclusively to this specific workspace workspace.
+- **Custom Integrations:** You can bind Slack channels or Jira projects uniquely to this specific workspace.
 
-> **Next Step:** Learn how to add [Team Members](./teams) to your workspace.
+> **Next Step:** Learn how to grant access to your test boundaries by adding **[Team Members](../teams)**.

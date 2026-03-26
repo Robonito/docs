@@ -1,0 +1,24 @@
+---
+title: GitHub Integration
+description: Trigger your Robonito cloud execution suites automatically from GitHub version control events.
+---
+
+# GitHub Integration
+
+The GitHub Integration connects Robonito directly to your source code repositories. By binding your test suites to version control actions, you can inherently enforce strict Quality Assurance checks before code ever reaches production.
+
+---
+
+## Triggering Robonito from GitHub
+
+By implementing Robonito workflow hooks into your GitHub Actions pipelines, your automation suites will autonomously execute entirely in the cloud whenever specific repository events occur:
+
+- **Pull Request Creation:** Automatically trigger a full regression suite whenever a developer opens a new Pull Request against your target branch. If tests fail, the PR is distinctly marked as broken.
+- **Push Events:** Execute specific module test suites immediately after aggressive code pushes to your staging branches.
+- **Merge Events:** Initiate final sanity test automation when Pull Requests are officially successfully merged into your main production branch.
+
+---
+
+## Configuration
+
+*(Note: Advanced documentation for provisioning GitHub Webhooks and generating Robonito API connection tokens is coming soon. Please contact Robonito Support if you require immediate assistance configuring CI/CD pipeline blocking).*

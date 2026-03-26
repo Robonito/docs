@@ -1,81 +1,56 @@
+---
+title: Test Case Execution
+description: Learn how to execute your automated test cases locally or in the cloud.
+---
+
 # Test Case Execution
 
-Robonito allows you to execute your automated test cases using highly configurable execution environments. The **Execution Configuration** dialog enables you to explicitly define where and how a test case should run before starting the automation engine.
+Robonito allows you to execute your automated test cases using isolated execution environments. The **Execution Configuration** dialog enables you to explicitly define where a test case should run and which browser it should use before starting the automation engine.
 
-This dialog appears immediately when you click the **Execute** button on any test case in your suite.
+This dialog appears automatically when you click the **Execute** button on any test case.
 
 ![Execution Configuration Dialog](/test-case/execution.png)
 
 ---
 
-## Execution Configuration
+## The Execution Configuration
 
-The **Execution Configuration** panel provides granular options to control the specific test execution location and your underlying environment variables.
+The **Execution Configuration** panel provides options to control your test execution footprint:
 
-### 1. Runs On (\*)
+### 1. Runs On
+Select the underlying infrastructure where you want to execute your test case.
 
-Select the explicit infrastructure where you want to execute your test case.
+- **[Local Execution](./executions/local):** Executes the test case on your current workstation using your natively installed Robonito application.
+  - *Best used for:* Active test development, initial debugging, and script validation.
+- **[Cloud Execution](./executions/cloud) (Premium):** Executes the test case entirely on Robonito-managed servers.
+  - *Best used for:* CI/CD scheduled runs, enterprise scalability, and freeing up your local system resources.
 
-- **[Local Execution](./executions/local):** Executes the test case on your current local machine using your natively installed Robonito setup.
-  - *Ideal for:* Active test development, immediate debugging, and quick script validation.
-- **[Cloud Execution](./executions/cloud) (Premium):** Executes the test case entirely on Robonito-managed scalable infrastructure.
-  - *Ideal for:* Scalable remote automation, team-shared testing pipelines, and unattended CI/CD scheduled runs without relying on local system resources.
-
-### 2. Environment (\*)
-
-Select the target software and network environment in which the test case should execute exactly.
-
-- **Local:** Executes the active test strictly using your locally configured settings, variables, and browser resources.
+### 2. Environment Variables
+Select the target software metadata you want the test case to execute under.
+- Currently defaults to your **Local** profile to use your local browser storage and cache environments seamlessly.
 
 ---
 
-## Cloud Execution Access
+## Cloud Access
 
 Cloud execution is available as a scalable **premium feature**.
 
-If **Cloud Execution** is selected without an active premium plan:
-- The **Execute** button dynamically disables itself.
-- A visual prompt is displayed advising you to upgrade your workspace plan to unlock the feature.
+If your Robonito workspace does not have an active premium plan:
+- The **Execute** button for cloud runs will dynamically disable itself.
+- A visual prompt will guide you on how to upgrade your workspace.
 
-If you need to request premium access for your testing team, you can instantly reach out to support using:
-- **Contact Email**
-- **Contact Slack**
+To request premium cloud capabilities for your team, please reach out to Robonito Support via email or our community Slack channel.
 
 ---
 
 ## Executing a Test Case
 
-To start your automation run after selecting your desired execution configuration:
+To start your automation run:
 
-1. **Review:** Double-check your selected **Runs On** and **Environment** dropdown values.
-2. **Execute:** Click the primary **Execute** button to initiate the run.
+1. Double-check your selected **Runs On** infrastructure and **Environment** dropdowns.
+2. Click the primary **Execute** button to initiate the run.
 
-Once the automated execution officially starts:
-- The test case begins running sequentially with the exact selected configuration.
-- Your detailed execution progress is tracked and displayed in real-time.
-- Robust visual and data results are generated immediately upon completion.
-
----
-
-## Execution Behavior & Results
-
-During active test execution, Robonito's automation engine will autonomously:
-- Run every single programmed test step sequentially in explicit order.
-- Dynamically mark specific steps as **Passed** or **Failed** dependent on assertion outputs.
-- Capture deep execution logs, runtime variables, and status metrics.
-
-After the execution fully completes:
-- Every step clearly shows its final execution status marker.
-- Failed steps explicitly highlight the exact reason or UI error behind the failure.
-- Assertion results and expected comparisons are displayed clearly within the UI.
-- All execution data is securely available in your Test Logs for in-depth review and debugging.
-
----
-
-## Why Execution Configuration Matters
-
-Properly setting your execution configuration natively ensures:
-- All tests securely run in the correct, predictable network environment.
-- Highly repeatable, stable automation results across all team members.
-- Tightly controlled execution behaviors across parallel suites.
-- Maximum flexibility when swapping between local script debugging and cloud-based test deployments.
+Once the automated execution starts:
+- The test case begins executing sequentially exactly as you recorded it.
+- Your execution progress is tracked and displayed in real-time.
+- Visual logs and data results are generated immediately upon completion.

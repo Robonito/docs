@@ -1,50 +1,54 @@
 # Creating a New Web Test
 
-This guide explains how to create a new web test using Robonito.
+This guide will walk you through the process of setting up and creating a new Web Test Case inside Robonito.
 
-## Adding Test Cases to a Suite
+## Organizing Your Tests
 
-Test cases are systematically organized within suites according to their functionality or modules. When working with web applications, make sure to add your test cases to a **Web** suite.
+In Robonito, tests are systematically organized inside containers called **Test Suites**. Suites help group related functional behaviors together (e.g., "E-commerce Checkout", "User Profile Management"). 
 
-### Steps to Create a Test Case
+When automating web applications, ensure your test case is housed inside a designated **Web** Test Suite.
 
-Follow these steps to set up and create a new test case:
+---
 
-1. **Select Target Suite**  
-   Choose an existing test suite from the **Target Suite** dropdown. You can also type a new name to create a suite on the fly where the testcase will be added.
-   
+## Step-by-Step Guide
+
+Follow these simple steps to initialize a new web test case:
+
+1. **Select the Target Suite**  
+   Click the **Target Suite** dropdown. You can either select an existing suite or type a new name to dynamically generate one.  
    ![Target Suite](/test-case/target-suite.png)
 
-2. **Enter Test Case Name**  
-   Provide a clear and descriptive name in the **Test case name** field to easily identify the test scenario later.
-   
+2. **Name Your Test Case**  
+   Provide a clear, human-readable name in the **Test case name** field (e.g., `Verify Add to Cart Functionality`). A descriptive name ensures your team understands the scenario instantly.  
    ![Test Case Name](/test-case/test-case-name.png)
 
-3. **Select Test Type**  
-   Choose **Web** as the test case type. This defines the test as a UI automation test.
-   
+3. **Choose the Test Type**  
+   Select **Web** under the test type options. This instructs Robonito to load the UI automation workspace rather than the API workspace.  
    ![Test Type](/test-case/test-type.png)
 
-4. **Add Description (Optional)**  
-   Enter a short description explaining the purpose and scope of the test case.
+4. **Provide a Description (Optional but Recommended)**  
+   Enter a short summary outlining the goal of the test. Documenting the scope greatly aids team collaboration and maintenance.
 
-5. **Select Browser**  
-   Choose the browser in which the test will run (e.g., Google Chrome).
-   
+5. **Select Your Browser**  
+   Choose the browser environment in which the test will eventually execute (e.g., Google Chrome, Firefox).  
    ![Browser Selection](/test-case/browser.png)
 
-6. **Enter Target URL**  
-   Specify the application URL that will be opened when the test execution starts.
-   
+6. **Define the Target URL**  
+   Enter the starting URL of your application. This is the page Robonito will load when the test begins.  
    ![Target URL](/test-case/url.png)
 
-7. **Select Device**  
-   Choose a predefined device preset to define the screen resolution and viewport size (for example, `Laptop 11 – 1366×768`).
-   
+7. **Choose the Viewport Device**  
+   Select a predefined device preset (e.g., `Laptop 11 – 1366×768` or `iPhone 13`). This forces the browser to render the application at the exact screen resolution specified, ensuring accurate responsive testing.  
    ![Device Selection](/test-case/device.png)
 
-8. **Auth Test Case (Optional)**  
-   Select a predefined authentication testcase to automatically inject session cookies. This allows your new test to bypass repetitive login steps during execution.
+8. **Inject Authentication (Optional)**  
+   If your test requires an authenticated user session, you can select an existing **Auth Test Case**. Robonito will automatically inject valid session cookies before loading the Target URL, allowing you to bypass repetitive login screens entirely!
 
-9. **Create Test Case**  
-   Click the **Create** button to save. Once created, your test case becomes available for adding steps and execution!
+9. **Finalize Creation**  
+   Click the **Create** button. Your web test case is now saved to the suite!
+
+---
+
+## Next Steps
+
+With your test case created, you are now ready to begin capturing user actions using the [Robonito Recorder](/docs/web-testing/recording)!

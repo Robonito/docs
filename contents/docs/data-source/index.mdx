@@ -1,72 +1,41 @@
 ---
-title: Data Source in Web Testing
-sidebar_position: 2
+title: Introduction to Data Sources
+sidebar_position: 1
+description: Understand how to implement Data-Driven Testing within Robonito execution workflows.
 ---
 
-import Admonition from "@theme/Admonition";
+# Data-Driven Testing
 
-In automated web testing, one of the most powerful approaches to enhance test coverage and reusability is **Data-Driven Testing**. In **Robonito**, we make this seamlessly possible through a core feature called **Data Source**.
+One of the most powerful strategies to enforce high test coverage is **Data-Driven Testing**. Internally, Robonito natively supports this through its **Data Source** module.
 
 ---
 
 ## What is a Data Source?
 
-A **Data Source** is an external file—typically a standard **Excel (.xlsx)** or **CSV (.csv)** spreadsheet—that contains structured lists of values used to intelligently fill input fields across your various test cases.
+A **Data Source** is a structured, external spreadsheet file (`.csv` or `.xlsx`) uploaded to a specific workspace. It contains a matrix of tabular values intended to dynamically populate test inputs across various scenarios.
 
-Instead of writing dozens of identical test cases simply to test different input values, you can **record a single test case once** and configure it to run multiple iterations using dynamic data rows pulled directly from your Data Source.
-
----
-
-## The Objective
-
-Our primary goal with the Data Source feature is simple:
-
-> **Record once, reuse many times.**
-
-You only need to record your automated test case a single time. From there, you can:
-
-1. **Upload a Data Source file** containing your desired dataset values.
-2. **Configure an Execution Strategy** to define exactly how the test case should iterate using those values.
-3. **Execute:** Robonito will automatically launch, fill the test inputs with data from each row, and execute the test suite iteratively.
-4. **Review:** Analyze the overall success and failure metrics in a detailed, comprehensive execution report.
+Instead of writing dozens of identical test cases simply to hardcode different user emails or login passwords, you can configure Robonito to iterate over a single test case repeatedly, pulling fresh string parameters from your Data Source during each independent execution run.
 
 ---
 
-## Configuration Options
+## The Execution Strategy
 
-You can strictly control how Robonito interacts with your Data Source using two primary strategy types:
+The primary objective of Data-Driven testing is to **record once, loop many times.**
 
-### 1. Sequential Strategy
+In Robonito, the execution engine dynamically loops over your target test case.
 
-- **Use Case:** Best used when you want to execute the test case in chronological order based on a specific range within the data file.
-- **Example:** Running tests using only rows 1 through 10. Every row within that defined range will be used exactly once.
+**Autonomous Random Strategy:**
+To ensure tests accurately simulate unpredictable user behavior and avoid static caching traps, Robonito's engine inherently uses a **Random Selection Strategy** when parsing attached Data Sources.
 
-```yaml
-strategy: sequential
-range:
-  starting_row: 1
-  ending_row: 10
-```
-
----
-
-### 2. Random Strategy
-
-- **Use Case:** Best used when you want Robonito to randomly pick data rows to simulate unpredictable user behavior.
-- **Example:** You only need to specify the total number of times the test case should launch, and Robonito handles the random data fetching.
-
-```yaml
-strategy: random
-execute_count: 5
-```
+When a parameterized suite is actively triggered, the tracking engine seamlessly scrambles and randomly samples complete rows from the attached Data Source spreadsheet on the fly to inject highly variable parameter vectors into your UI bindings.
 
 ---
 
 ## Supported File Types
 
-Robonito currently supports the following spreadsheet formats for data-driven testing:
+Robonito accepts the following tabular payloads:
 
 - **`.csv`** (Comma-Separated Values)
 - **`.xlsx`** (Microsoft Excel Spreadsheets)
 
-> **Important:** Each row in your uploaded file should represent a unique, complete data set. Furthermore, each column header should accurately map to the named input fields or parameters in your recorded test case.
+> **Important:** To operate correctly, the topmost row in your uploaded spreadsheet **must** act as the header structure. These exact string boundaries will map directly to the `{{@columnName}}` references inside your recorded browser steps.

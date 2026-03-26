@@ -1,233 +1,84 @@
-# Assertion Types in Robonito API Testing
+# Assertion Types in Robonito
 
-Assertions in Robonito allow you to validate API responses to ensure correctness, reliability, and performance. 
+Assertions are the backbone of automated API testing. They programmatically validate API responses, ensuring that your endpoints behave correctly, reliably, and within acceptable performance thresholds.
 
-They help you verify:
+In Robonito, you can quickly configure assertions without writing code to verify:
+- **HTTP Status Codes:** E.g., Verifying a `200 OK` or `201 Created` response.
+- **Response Time:** E.g., Ensuring the API responds in under 500ms.
+- **Response Body:** E.g., Validating specific JSON values or text strings.
+- **Response Headers:** E.g., Checking for a valid `Content-Type`.
+- **Response Size:** E.g., Validating that payloads remain lightweight.
 
-- **HTTP Status Codes:** Ensure the correct response code is returned.
-- **Response Time:** Monitor API performance against expected limits.
-- **Response Body (JSON/Text):** Validate the specific data returned by the API.
-- **Response Headers:** Check for expected configurations like content type or security headers.
-- **Response Size:** Ensure payload sizes are within acceptable limits.
-- **Data Structure:** Confirm that the response format matches your expected schema.
-
-Assertions are essential for validating API behavior during automated test execution.
-
-## How Assertions Work in Robonito
-
-When an API request is executed, the following sequence occurs:
-
-1. **Request Sent:** Robonito sends the API request.
-2. **Response Received:** The server returns a response.
-3. **Assertions Evaluated:** Your configured assertions are checked against the response.
-4. **Test Result:** The test case is evaluated based on the assertion results.
-
-If **any** assertion fails, the entire test case is marked as **Failed**. If **all** assertions pass, it is marked as **Passed**.
+If **any** assertion fails, the entire test is flagged as **Failed**. If **all** assertions pass, the test is marked as **Passed**.
 
 ---
 
 ## Supported Assertion Types
 
 ### 1. Status Code
+Verifies the HTTP status code returned by the server.
 
-#### Purpose
-Validates the HTTP status code returned by the API.
-
-#### When to Use
-- Validate successful responses (e.g., `200 OK`).
-- Validate resource creation (e.g., `201 Created`).
-- Validate client errors (e.g., `400 Bad Request`, `404 Not Found`).
-- Validate authorization errors (e.g., `401 Unauthorized`, `403 Forbidden`).
-- Validate server errors (e.g., `500 Internal Server Error`).
-
-#### Configuration Example
-- **Assertion Type:** `Status Code`
-- **Operator:** `=`
-- **Expected Value:** `200`
-
-**Result:** The test case passes if the response status is exactly 200.
-
----
+- **When to Use:** Confirming successful operations (`200`, `201`), client errors (`400`, `401`), or anticipating specific server errors (`500`).
+- **Example:** Setting `Status Code` `=` `200` ensures a successful fetch.
 
 ### 2. Response Time (ms)
+Validates that the API response is served within a strict time limit (in milliseconds).
 
-#### Purpose
-Validates the API response time in milliseconds.
-
-#### When to Use
-- Performance validation.
-- Service Level Agreement (SLA) monitoring.
-- Load validation scenarios.
-
-#### Configuration Example
-- **Assertion Type:** `Response Time (ms)`
-- **Operator:** `<`
-- **Expected Value:** `500`
-
-**Result:** The test case passes if the API responds in less than 500 milliseconds.
-
----
+- **When to Use:** Performance monitoring and enforcing Service Level Agreements (SLAs).
+- **Example:** Setting `Response Time` `<` `800` fails the test if it takes too long.
 
 ### 3. Response Body (JSON)
+Extracts and validates a specific value inside a JSON payload using standard **JSONPath**.
 
-#### Purpose
-Validates specific values inside a JSON response body using JSONPath.
-
-#### When to Use
-- Verify specific data fields (e.g., `username`, `email`).
-- Validate transaction statuses.
-- Check nested data structures.
-- Validate the length or contents of arrays.
-
-#### Sample Response
-```json
-{
-  "user": {
-    "id": 101,
-    "role": "admin"
-  },
-  "status": "success"
-}
-```
-
-#### Examples
-
-**Example 1: Validate User Role**
-- **Assertion Type:** `Response Body (JSON)`
-- **JSONPath:** `$.user.role`
-- **Operator:** `=`
-- **Expected Value:** `admin`
-
-*Result: Verifies that the user role is `admin`.*
-
-**Example 2: Validate Status**
-- **Assertion Type:** `Response Body (JSON)`
-- **JSONPath:** `$.status`
-- **Operator:** `=`
-- **Expected Value:** `success`
-
-*Result: Verifies that the API returned a `success` status.*
-
-**Example 3: Validate Array Length**
-- **Assertion Type:** `Response Body (JSON)`
-- **JSONPath:** `$.users.length()`
-- **Operator:** `>`
-- **Expected Value:** `0`
-
-*Result: Verifies that at least one user exists in the `users` array.*
-
----
+- **When to Use:** Verifying user IDs, transaction statuses, or validating nested objects.
+- **Example:** 
+  For the response `{"user": {"role": "admin"}}`:
+  - JSONPath: `$.user.role`
+  - Operator: `=`
+  - Value: `admin`
 
 ### 4. Response Body (Text)
+Validates raw, plain text responses.
 
-#### Purpose
-Validates plain text responses.
-
-#### When to Use
-- HTML responses.
-- Explicit error messages.
-- Raw text APIs.
-
-#### Configuration Example
-- **Assertion Type:** `Response Body (Text)`
-- **Operator:** `contains`
-- **Expected Value:** `Welcome`
-
-**Result:** Verifies that the response body contains the word `Welcome`.
-
----
+- **When to Use:** Checking HTML responses, raw text streams, or hardcoded error messages.
+- **Example:** Searching if the text `contains` the word `Welcome`.
 
 ### 5. Response Header
+Validates the presence and exact value of an HTTP header returned by the server.
 
-#### Purpose
-Validates HTTP response headers.
-
-#### When to Use
-- Content-Type validation.
-- Cache validation.
-- Security header validation.
-
-#### Configuration Example: Validate Content Type
-- **Assertion Type:** `Response Header`
-- **Header Name:** `Content-Type`
-- **Operator:** `contains`
-- **Expected Value:** `application/json`
-
-**Result:** Verifies that the API returns a JSON response.
-
----
+- **When to Use:** Confirming correct caching mechanisms, security policies, or response content types.
+- **Example:** Validating that the `Content-Type` header `contains` `application/json`.
 
 ### 6. Response Size (Bytes)
+Validates the overall byte size of the response payload.
 
-#### Purpose
-Validates the total size of the response payload.
-
-#### When to Use
-- Prevent overwhelmingly large payloads.
-- Performance optimization validation.
-
-#### Configuration Example
-- **Assertion Type:** `Response Size`
-- **Operator:** `<`
-- **Expected Value:** `2048`
-
-**Result:** Verifies that the response size is under 2048 bytes.
+- **When to Use:** Preventing massive data dumps that could hamper client performance.
+- **Example:** Ensuring the response size is `<` `2048` bytes.
 
 ---
 
-## Supported Operators
+## Available Operators
 
-Robonito supports a variety of operators for making precise validations:
+Robonito provides logical operators to make varied and precise comparisons:
 
-- **`=`** — Equal to
-- **`!=`** — Not equal to
-- **`>`** — Greater than
-- **`<`** — Less than
-- **`>=`** — Greater than or equal to
-- **`<=`** — Less than or equal to
-- **`contains`** — The value contains a specific substring
-- **`not contains`** — The value does not contain a specific substring
-- **`is empty`** — The field has no value (empty)
-- **`is not empty`** — The field has a value (not empty)
-- **`matches regex`** — The value matches a specific Regular Expression (RegEx)
-
----
-
-## How to Add an Assertion in Robonito
-
-Follow these step-by-step instructions to add an assertion to your API test execution:
-
-1. **Open the API Test Case:** Navigate to your desired API test case in the Robonito project.
-2. **Open the Assertions Tab:** Click on the **Assertions** section within the test case.
-3. **Add an Assertion:** Click the **Add Assertion** button.
-4. **Configure the Assertion:**
-   - Select the **Assertion Type** (e.g., Status Code, Response Time).
-   - Choose the appropriate **Operator**.
-   - Enter your **Expected Value**.
-   - *Note: If using JSON validation, provide the correct **JSONPath**.*
-5. **Save and Run:** Save your test case and execute it to evaluate the assertion results.
+| Operator | Description |
+| :--- | :--- |
+| `=` | Exactly equal to |
+| `!=` | Not equal to |
+| `>` / `<` | Strictly greater than / less than |
+| `>=` / `<=` | Greater than or equal to / less than or equal to |
+| `contains` | Checks if a substring exists within the target |
+| `not contains` | Checks if a substring is absent |
+| `is empty` | Validates that a field is null or entirely empty |
+| `is not empty` | Validates that a field possesses some value |
+| `matches regex` | Validates the target against a Regular Expression |
 
 ---
 
-## Complete Example: API Test Scenario
+## How to Configure an Assertion
 
-Here is an example of what a fully configured API test case with assertions looks like.
-
-### API Request
-```http
-GET /api/users/101
-```
-
-### Expected Assertions
-
-| Assertion Type | Target / JSONPath | Operator | Expected Value |
-| :--- | :--- | :--- | :--- |
-| **Status Code** | - | `=` | `200` |
-| **Response Time (ms)** | - | `<` | `500` |
-| **Response Body (JSON)** | `$.user.id` | `=` | `101` |
-| **Response Body (JSON)** | `$.user.role` | `=` | `admin` |
-| **Response Header** | `Content-Type` | `contains` | `application/json` |
-
-### Validation Results
-- If **all** validations pass, the test case is marked as **Passed**.
-- If **any** validation fails, the test case is marked as **Failed**.
+1. **Open the Test Case:** Navigate to your API request.
+2. **Access Assertions:** Open the **Assertions** tab.
+3. **Add New:** Click the **Add Assertion** button.
+4. **Configure:** Select your desired **Assertion Type**, choose the appropriate **Operator**, provide an **Expected Value**, and (if necessary) specify a **JSONPath**.
+5. **Save and Execute:** Save your test configuration and run the test to see the assertions evaluated in real-time.

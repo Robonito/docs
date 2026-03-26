@@ -1,0 +1,62 @@
+# Record & Playback
+
+Record & Playback is the core recording workflow in Robonito. You interact with your web application naturally, and Robonito captures every action as a test step. Those steps can then be replayed automatically — on demand or on a schedule — to verify your application works correctly.
+
+---
+
+## How It Works
+
+1. **Record:** You open the Robonito recorder, interact with your app (clicking, typing, navigating), and every action is captured as a step.
+2. **Save:** The recording is saved as a structured test case in Robonito.
+3. **Playback:** Robonito replays your steps exactly as recorded, checking that the app behaves the same way each time.
+
+---
+
+## Starting a Recording
+
+1. Open a Web Test Case in the **Test Explorer**.
+2. Click the **Record** button at the top of the interface.
+3. In the **Configure Launch Options** dialog, verify:
+   - **Browser** (e.g., Chrome)
+   - **Target URL** (the starting page of your app)
+   - **Viewport** (e.g., `1280×1024` for desktop)
+   - **Auth Test Case** (optional — skip the login screen automatically)
+4. Click **Start Recording**.
+
+> **Screenshot placeholder:** *[Screenshot of the Configure Launch Options dialog before starting a recording]*
+
+---
+
+## During the Recording
+
+A browser window opens and Robonito begins listening. Every action you take is converted into a step:
+
+| Action | Step Created |
+|--------|-------------|
+| Click a button | `Click` step |
+| Type into a field | `Input` step |
+| Navigate to a URL | `Navigation` step |
+| Hover over an element | `Hover` step |
+
+> **Screenshot placeholder:** *[Screenshot of the recording session with steps appearing in the sidebar]*
+
+---
+
+## Stopping and Saving
+
+When you've finished recording your flow:
+1. Click the **Stop** button in the recording toolbar.
+2. Robonito finalizes all captured steps.
+3. Your test case is saved and ready to run.
+
+---
+
+## Running Playback
+
+To replay your recorded test:
+1. Open the test case in the Test Explorer.
+2. Click **Execute**.
+3. Choose **Local** or **Cloud** as the execution target.
+4. Robonito replays every step in order and logs a **Pass** or **Fail** for each.
+
+> **See also:** [Execution Guide](/docs/executions) | [Editing Steps](/docs/web-testing/edit-web-test)

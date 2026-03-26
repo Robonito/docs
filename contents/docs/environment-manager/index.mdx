@@ -1,0 +1,47 @@
+# Environment Manager
+
+The **Environment Manager** is where you manage workspace-wide configurations, secret keys, and platform-specific dependencies. It ensures that your test execution environment is correctly provisioned for the type of testing you need to perform.
+
+---
+
+## Managing Workspace Environments
+
+Robonito uses Environment configurations to decouple your test logic from your infrastructure. Instead of hard-coding URLs or API keys into your tests, you can store them as **Environment Variables**.
+
+### 1. System Dependencies
+The Environment Manager tracks the status of external services required for automation:
+- **Appium Status:** Required for Mobile Testing.
+- **ADB/iOS SDKs:** Required for native device communication.
+- **Docker Engine:** (Optional) for containerized local execution.
+
+### 2. Global Variables
+Define key-value pairs that can be accessed across all suites in a workspace:
+- **Base URLs:** (e.g., `STAGING_URL`, `PROD_URL`)
+- **API Secrets:** Encrypted keys used in API test headers.
+- **Global Auth Tokens:** Reusable credentials for system-wide login flows.
+
+---
+
+## Accessing the Manager
+
+To open the Environment Manager:
+1. Navigate to **Settings** (Profile icon > Settings).
+2. Select **Environment Manager** from the sidebar.
+
+> **Screenshot placeholder:** *[Screenshot of the Environment Manager UI showing system dependency statuses and global variables]*
+
+---
+
+## Dependency Health Checks
+
+Robonito automatically performs a health check on your environment when you open this page.
+
+| Status | Meaning | Action |
+|---|---|---|
+| `✅ Configured` | Dependency is found and working | No action needed |
+| `⚠️ Missing` | Component not detected | Click **Setup** or follow the manual installation guide |
+| `❌ Error` | Component is installed but broken | Hover over the status to see the error log |
+
+---
+
+> **See also:** [Browsers Management](../../browsers) | [Mobile Setup](../../mobile-testing/mobile-setup)

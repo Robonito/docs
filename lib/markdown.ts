@@ -61,13 +61,40 @@ type BaseMdxFrontmatter = {
 };
 
 export async function getDocsForSlug(slug: string) {
+  // skip assets to prevent ENOENT errors on index.mdx
+  const assetExtensions = [".png", ".jpg", ".jpeg", ".gif", ".svg", ".ico", ".css", ".js"];
+  if (assetExtensions.some(ext => slug.endsWith(ext))) return null;
+
   try {
     const contentPath = getDocsContentPath(slug);
     const rawMdx = await fs.readFile(contentPath, "utf-8");
-    return await parseMdx<BaseMdxFrontmatter>(rawMdx);
+    const res = await parseMdx<BaseMdxFrontmatter>(rawMdx);
+
+    // If title/description are missing from frontmatter, extract from content
+    if (!res.frontmatter.title || !res.frontmatter.description) {
+      const titleMatch = rawMdx.match(/^#\s+(.+)$/m);
+      if (titleMatch && !res.frontmatter.title) {
+        res.frontmatter.title = stripMdx(titleMatch[1]);
+      }
+      
+      const descMatch = rawMdx.match(/^(?!#)(?!\s*---)(?!\s*!\[)(?!\s*<)(.+)$/m);
+      if (descMatch && !res.frontmatter.description) {
+        res.frontmatter.description = stripMdx(descMatch[1]);
+      }
+    }
+
+    return res;
   } catch (err) {
-    console.log(err);
+    // console.log(err);
+    return null;
   }
+}
+
+function stripMdx(text: string) {
+  return text
+    .replace(/<[^>]*>/g, "") // strip HTML tags
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1") // strip Markdown links but keep text
+    .trim();
 }
 
 export async function getDocsTocs(slug: string) {
@@ -79,11 +106,12 @@ export async function getDocsTocs(slug: string) {
   const extractedHeadings = [];
   while ((match = headingsRegex.exec(rawMdx)) !== null) {
     const headingLevel = match[1].length;
-    const headingText = match[2].trim();
-    const slug = sluggify(headingText);
+    const rawText = match[2].trim();
+    const cleanText = stripMdx(rawText);
+    const slug = sluggify(rawText);
     extractedHeadings.push({
       level: headingLevel,
-      text: headingText,
+      text: cleanText,
       href: `#${slug}`,
     });
   }
@@ -99,7 +127,8 @@ export function getPreviousNext(path: string) {
 }
 
 function sluggify(text: string) {
-  const slug = text.toLowerCase().replace(/\s+/g, "-");
+  const clean = text.replace(/<[^>]*>/g, "").trim(); // strip HTML for slug generation
+  const slug = clean.toLowerCase().replace(/\s+/g, "-");
   return slug.replace(/[^a-z0-9-]/g, "");
 }
 

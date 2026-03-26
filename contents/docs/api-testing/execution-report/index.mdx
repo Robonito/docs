@@ -1,37 +1,41 @@
-# Execution Reports
+# Execution Reports (API)
 
-Execution Reports in Robonito provide a detailed, historical record of every API test run. This allows your team to actively monitor APIs, evaluate performance over time, and quickly troubleshoot any unexpected test failures.
+Execution Reports in Robonito provide a detailed, historical record of every API test run. This allows your team to actively monitor APIs, evaluate performance over time, and quickly troubleshoot any test failures.
 
-Every report captures exhaustive metadata regarding the exact request dispatched, the response received, and a breakdown of all assertion outcomes.
+Every report captures metadata regarding the request dispatched, the response received, and a breakdown of all assertion outcomes.
+
+---
 
 ## Accessing Your Execution History
 
 To view the execution histories of your automated tests:
 
-1. **Navigate to Logs:** Look for and click the **Logs** button located in the top navigation bar of the Robonito platform.  
-   *(Suggestion: Add a screenshot highlighting the Logs button)*
+1. **Navigate to Logs:** Click the **Logs** button located in the top navigation bar of the Robonito platform.
 
-2. **Browse the History Table:** A panel will reveal a chronological table detailing past executions. Each row represents an individual api test or suite run.  
-   *(Suggestion: Add a screenshot of the execution history table)*
+   > **Screenshot placeholder:** *[Screenshot highlighting the Logs button in the top navigation bar]*
 
-3. **Inspect a Report:** Click on any specific row to dig into its highly detailed execution breakdown.
+2. **Browse the History Table:** A panel will reveal a chronological table of past executions. Each row represents an individual API test or suite run.
+
+   > **Screenshot placeholder:** *[Screenshot of the execution history table with rows for each run]*
+
+3. **Inspect a Report:** Click on any specific row to open its detailed execution breakdown.
 
 ---
 
 ## Decoding the Report View
 
-Clicking into an execution report exposes a wealth of diagnostic data segmented into three core categories:
+Clicking into an execution report exposes diagnostic data segmented into three core categories:
 
 ### 1. Request Details
 This section logs exactly what Robonito sent to the target server:
 - **HTTP Method & URL:** The action used (e.g., `POST`) alongside the full queried endpoint.
 - **Headers:** The exact list of HTTP headers sent.
 - **Request Body:** The formatted payload data transmitted (if applicable).
-- **Configurations:** Information highlighting active variables or environments utilized during the run.
+- **Configurations:** Active variables or environments utilized during the run.
 
 ### 2. Response Details
 This section logs exactly what the API server returned:
-- **Status Code:** The HTTP status returned by the server (e.g., `201 Created`).
+- **Status Code:** The HTTP status returned (e.g., `201 Created`).
 - **Response Time:** Total time taken (in milliseconds) round-trip.
 - **Headers:** Server-side response headers.
 - **Response Body:** The data payload returned to Robonito.
@@ -40,5 +44,6 @@ This section logs exactly what the API server returned:
 If assertions were active during the test, this section details their pass/fail results:
 - **Summary:** A list of every rule evaluated.
 - **Status Flags:** Explicit `✅ Passed` or `❌ Failed` indicators.
-- **Debugging Insights:** For failures, Robonito displays an intuitive side-by-side comparison showing what the **Expected Value** was versus the **Actual Value** parsed. This lets developers pinpoint the exact point of failure instantly.  
-   *(Suggestion: Add a screenshot visualizing a failed assertion comparison)*
+- **Debugging Insights:** For failures, Robonito displays a side-by-side comparison showing the **Expected Value** versus the **Actual Value** returned. This helps you pinpoint the exact point of failure.
+
+  > **Screenshot placeholder:** *[Screenshot of a failed assertion showing the expected vs. actual value comparison]*

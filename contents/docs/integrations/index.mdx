@@ -1,8 +1,3 @@
----
-title: External Integrations
-description: Connect Robonito with the enterprise tools your QA and DevOps teams use daily.
----
-
 # External Integrations
 
 Integrations allow you to seamlessly connect Robonito with third-party bug trackers, version control systems, and two-factor authentication solutions to streamline your entire testing lifecycle.
@@ -25,14 +20,14 @@ To configure new external connections:
 
 Robonito currently features native plug-and-play combinations with the following enterprise systems:
 
-### [Jira](./integrations/jira)
-Connect Robonito specifically to Atlassian Jira to dynamically generate issue tickets. You can configure automation rules to instantly create and link new Jira bugs specifically when cloud execution reports fail.
+### [Jira](./jira)
+Connect Robonito to Atlassian Jira to automatically create bug tickets when test runs fail.
 
-### [Email Data Sources](./integrations/email)
-Connect Robonito to IMAP email inboxes. This complex integration allows your automation engine to fetch real-time One-Time Passwords (OTPs) or click registration links directly out of emails to bypass secure login flows during UI tests.
+### [Email](./email)
+Connect Robonito to an IMAP email inbox so the automation engine can fetch One-Time Passwords (OTPs) and magic links from real emails during test execution.
 
-### [GitHub Actions](./integrations/github)
-Bind your repository to trigger cloud testing runs based on live version control events. Run your regression suites directly when a Pull Request is opened, code is pushed, or a branch is merged into production.
+### [GitHub Actions](./github)
+Trigger cloud test runs directly from GitHub repository events — when a PR is opened, code is pushed, or a branch is merged.
 
-### [Authenticator Apps (TOTP)](./integrations/authenticator-apps)
-Register a shared Time-Based One-Time Password (TOTP) seed with Robonito—acting just like Google Authenticator or Authy. The engine will programmatically generate and inject valid 2FA codes into your tests during active execution.
+### [Authenticator Apps (TOTP)](./authenticator-apps)
+Register a shared TOTP secret so Robonito can generate and inject 6-digit 2FA codes automatically — just like Google Authenticator.

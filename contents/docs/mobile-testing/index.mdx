@@ -1,42 +1,45 @@
----
-title: Mobile Testing Overview
-sidebar_position: 1
-description: Introduction to automated mobile testing methodologies in Robonito.
----
-
 # Mobile Testing with Robonito
 
-Robonito provides a powerful architecture to test mobile applications natively, ensuring they function correctly across different operating systems and virtual devices. This section guides you through the tools and configurations designed for recording and analyzing mobile test cases.
+Robonito lets you record and replay automated tests on real mobile applications — no coding required. You interact with the app normally, and Robonito captures every tap, swipe, and input as a reusable test step.
 
 ---
 
 ## Supported Platforms
 
-Robonito's automation engine supports end-to-end mobile testing for the following ecosystems:
-- 🤖 **Android Applications** (via `.apk` uploads)
-- 🍏 **iOS Applications** (via `.ipa` uploads)
-- 💻 **Emulator-Based Execution** (Android Studio / Appium engines)
+- 🤖 **Android** — via `.apk` app files, run on an Android emulator
+- 🍏 **iOS** — via `.ipa` app files *(requires macOS with Apple Silicon)*
 
 ---
 
-## Getting Started
+## How to Get Started
 
-Navigate through the core topics below to configure your local setup and begin recording robust mobile tests:
+Follow these steps in order to set up and run your first mobile test:
 
-- 📱 **[Create a Mobile Test Case](./mobile-testing/create-mobile-testcase)**  
-  Learn how to initialize a new mobile test script within your workspace suite.
+### Step 1 — Set Up Your Environment
+Before recording, your machine needs a few tools installed (Appium, Android SDK, Node.js). Robonito handles this automatically.
 
-- ⚙️ **[Configure Mobile Setup](./mobile-testing/mobile-setup)**  
-  Install necessary global dependencies (Appium, SDK tooling, Node.js) required to operate a mobile emulator on your machine.
-  
-- 🎥 **[Start Recording a Mobile Test](./mobile-testing/recording)**  
-  Learn how to upload your `.apk` or `.ipa` app files, inherently boot the emulator, and seamlessly record your touch interactions.
+➡️ **[Configure Mobile Setup](/docs/environment-manager/mobile-setup)**
 
-- 🅰️ **[Variables in Mobile Tests](./variables)**  
-  Pass dynamic dataset parameters directly into your mobile workflows using standard variable management.
+### Step 2 — Create a Mobile Test Case
+Initialize a new test case inside a **Mobile** suite in Robonito.
 
-- ✅ **[Add Mobile Assertions](./assertions)**  
-  Validate specific native mobile application UI element states automatically during test execution.
+➡️ **[Create a Mobile Test Case](./create-mobile-testcase)**
 
-- 📊 **[Mobile Execution Reports](./reports)**  
-  Analyze success metrics, trace execution forensics, and review detailed timeline executions in the dashboard.
+### Step 3 — Record Your Test
+Upload your `.apk` or `.ipa` file, launch the emulator, and start interacting with the app. Robonito records every action.
+
+➡️ **[Start Recording](./recording)**
+
+---
+
+## What Gets Recorded?
+
+During a recording session, Robonito captures:
+- Taps and clicks on buttons, links, and list items
+- Text input into fields
+- Swipes and scrolls
+- Screen transitions and navigation flows
+
+Each action becomes a **test step** that can be replayed, edited, or run in the cloud.
+
+> **Screenshot placeholder:** *[Screenshot of the Robonito mobile recorder with a running Android emulator]*

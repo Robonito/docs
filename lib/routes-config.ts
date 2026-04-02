@@ -148,10 +148,10 @@ export const ROUTES: EachRoute[] = [
     ],
   },
   {
-    title: "Settings & Environment",
+    title: "Environment Manager",
     href: "/environment-manager",
     items: [
-      { title: "Environment Manager", href: "/" },
+      // { title: "Environment Manager", href: "/" },
       { title: "User Settings", href: "/user-settings" },
       { title: "License Management", href: "/license-check" },
       { title: "Browser Management", href: "/browsers" },

@@ -1,141 +1,41 @@
-### Local Execution
+# Local Execution
 
-Local Execution allows you to run test cases directly on your local machine using the installed Robonito setup. This execution mode is primarily used for test development, debugging, and quick validation.
+Local Execution allows you to dynamically run your automated test cases directly on your host desktop machine using your current Robonito `desktop-app` setup. 
 
+This execution mode revolves entirely around rapid test development, initial step debugging, and secure intranet validations.
 
-### Key Characteristics of Local Execution
+---
 
-- Test cases are executed on the user’s local system
-- Uses locally installed browsers and configurations
-- Suitable for rapid feedback during test creation
-- Ideal for debugging failed steps and assertions
-- Does not require cloud infrastructure
+## Key Benefits of Local Execution
 
+- **Zero Cloud Latency:** Test cases execute entirely on your local system resources sequentially.
+- **Use Local Installations:** Automatically uses the portable browsers configured in your local Robonito environment.
+- **Rapid Feedback Loops:** Ideal for getting immediate runtime feedback while actively creating new test suites.
+- **Secure Network Isolation:** Perfect for running scenarios against un-deployed local servers (e.g., `localhost:3000`) or testing confidentially behind a strict corporate firewall.
 
-### When to Use Local Execution
+---
 
-Local Execution is recommended when:
+## Local Execution Behavior
 
-- Developing or recording new test cases
-- Debugging failed steps or assertions
-- Validating changes before committing tests
-- Running tests in a controlled local environment
+During a local execution run:
+1. Robonito boots the selected local browser architecture (e.g., Chromium or Firefox).
+2. All recorded test steps execute in full view on your screen.
+3. Live progression updates display side-by-side in the Robonito application.
 
+---
 
-### Local Execution Behavior
+## Reviewing the Results
 
-During local execution:
+A detailed **Local Execution Report** generates instantly after the run finishes. This dashboard serves as your primary debugging tool:
 
-- Test steps are executed sequentially
-- Execution status is updated in real time
-- Logs and results are generated immediately after execution
+![Local Execution Report](/test-case/execution-report.png)
 
+### The Execution Summary
+- **Passed / Failed Totals:** A clear breakdown of the test's lifetime success rate.
+- **Average Duration:** Benchmarks performance timings for your application's UI response.
+- **Test Case Health:** A dynamically calculated stability percentage designed to flag explicitly flaky test logic over time.
 
-### Execution Report – Local Execution
+### Debugging Local Failures
+If a local run fails, Robonito explicitly highlights the broken step in red. Comprehensive visual failure information—including screenshots, DOM state, and precise mismatch logs—are made available. 
 
-The Execution Report provides a detailed summary of all test case runs executed using Local Execution. It helps analyze execution results, identify failures, and monitor test stability over time.
-
-The report is automatically generated after each local execution.
-![Target Suite ](/test-case/execution-report.png)
-
-### Report Overview
-
-The top section of the report displays key execution metrics:
-
-### Total Runs
-
-Shows the total number of times the test case has been executed locally.
-
-
-### Passed
-
-Indicates the number of successful executions.
-
-
-### Failed
-
-Indicates the number of failed executions.
-
-
-### Average Duration
-
-Displays the average time taken to complete the test case across all local runs.
-
-
-### Test Case Health
-
-Test Case Health represents the overall stability of the test case based on historical local executions.
-
-- Calculated as a percentage of passed versus failed runs
-- Higher values indicate stable tests
-- Lower values highlight flaky or failing tests
-
-
-### Execution History
-
-The Execution History table provides detailed information for each local execution run.
-
-### Date
-
-Time when the test case was executed.
-
-
-### Status
-
-Result of the execution:
-
-- PASS
-- FAIL
-
-
-### Type
-
-Test case type (e.g., Web).
-
-
-### Executed By
-
-User who initiated the execution.
-
-
-### Version
-
-Version of the test case at the time of execution.
-
-
-### Environment
-
-Execution environment:
-
-- LOCAL
-
-
-### Browser
-
-Browser and version used for execution.
-
-
-### Screen Size
-
-Viewport resolution used during execution.
-
-
-### Platform
-
-Operating system on which the test was executed.
-
-
-### Runtime
-
-Total time taken to complete the execution.
-
-
-### Understanding Failures
-
-For failed local executions:
-
-- The execution status is marked as FAILED
-- Failed steps and assertions are highlighted
-- Detailed failure information is available for debugging
-
-This helps quickly identify and fix issues during local test execution.
+This immediate feedback loop enables rapid diagnosis so you can permanently fix the test logic before committing it to your production cloud suites.

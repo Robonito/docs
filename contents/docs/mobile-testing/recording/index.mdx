@@ -1,0 +1,59 @@
+# Start Recording a Mobile Test
+
+Robonito allows you to naturally record user interactions on mobile applications by actively running an Android or iOS emulator locally. During your recording session, the system automatically translates your manual touch inputs into highly reusable, repeatable test steps.
+
+---
+
+## 1. Preparing the Test Case
+
+Navigate to your active project workspace and explicitly open the defined **Mobile Test Case** you wish to execute. 
+
+Click the **Record** button located at the top of the dashboard to initialize the visual mobile recording process.
+
+---
+
+## 2. Configure Launch Options
+
+A configuration dialog instantly appears, allowing you to define exactly how the testing environment will bootstrap:
+
+### Target Platform
+Select the explicit mobile platform (*Android* or *iOS*).
+
+### Upload App Files
+You must provide the actual compiled application file you want to test. Click the file selector and securely choose your application build directly from your system.
+
+**Supported mobile file types:**
+- **`.apk`** (Android application package)
+- **`.ipa`** (iOS application package)
+
+---
+
+## 3. Emulator Initialization
+
+After uploading the application file, click the **Start Recording** button.
+
+Robonito will independently launch your configured mobile emulator workspace in the background. During this standard process, the virtual mobile device spins up and installs your selected application (`.apk` or `.ipa`).
+
+> *Note: Initializing the emulator for the first time on a fresh installation may take a few minutes.*
+
+---
+
+## 4. Recording User Actions
+
+Once the emulator screen fully boots, your target application automatically opens. You can now interact with the mobile application precisely like an actual user.
+
+**Examples of captured recording actions:**
+- Tapping on a native button
+- Entering text dynamically into an input component
+- Swiping down to scroll naturally
+- Activating dropdowns and select pickers
+
+As you navigate the app, Robonito's tracker intelligently generates human-readable step instructions inside the sidebar, completely mapping out your exact sequence of actions.
+
+---
+
+## 5. Saving the Flow
+
+Once your test pipeline successfully replicates the defined scenario, click the **Save** button in the dashboard to permanently commit the logic steps. 
+
+You can later modify these instructions manually, configure specific UI assertions, or execute the test via the cloud automation system.

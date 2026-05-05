@@ -1,0 +1,51 @@
+# Manual Assertions
+
+Manual assertions let you add specific validation rules to any step in your web test case — without relying on AI. You define exactly what you want to check, and Robonito evaluates it during test execution.
+
+---
+
+## When to Use Manual Assertions
+
+Use manual assertions when you need precise control over what gets validated:
+- Checking that an exact error message appears after a failed login
+- Verifying a price, count, or label matches a known value
+- Confirming an element is visible or hidden at a specific point in the flow
+
+---
+
+## How to Add a Manual Assertion
+
+### During Recording
+1. In the recording toolbar, click the **Add Assertion** button.
+2. Choose your assertion type (Text, UI, Page, or Visual).
+3. Click the target element on the page.
+4. Configure the expected value and matching rules.
+5. Click **Save Assertion**.
+
+> **Screenshot placeholder:** *[Screenshot of the assertion panel open during a recording session]*
+
+### After Recording (Editing a Step)
+1. Open your test case in the Test Explorer.
+2. Click the **Edit (✏️)** icon on a step.
+3. In the step editor, scroll to the **Assertions** section.
+4. Click **Add Assertion** and follow the same steps as above.
+
+---
+
+## Supported Assertion Types
+
+| Type | What It Checks |
+|------|----------------|
+| [Text Assertion](/docs/assertions/text-assertion) | Text content inside a UI element |
+| [UI Assertion](/docs/assertions/ui-assertion) | Element existence, visibility, count, or CSS style |
+| [Page Assertion](/docs/assertions/page-assertion) | Page title or current URL |
+| [Smart Assertion](/docs/assertions/smart-assertion) | Plain-English AI-powered UI validation |
+| [Custom Assertion](/docs/assertions/custom-assertion) | Dynamic values using runtime variables |
+
+---
+
+## Tips for Reliable Assertions
+
+- **Be specific:** Prefer `Exact Match` over `Partial Match` when the value is always the same.
+- **Check visibility, not just existence:** An element might be in the DOM but hidden — use `Element Visible` when the user must actually see it.
+- **Use variables for dynamic text:** If the value changes per run, use a [Custom Assertion](/docs/assertions/custom-assertion) with `{{!variableName}}`.

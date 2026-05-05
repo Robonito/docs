@@ -1,0 +1,50 @@
+# Mobile Setup Workflow
+
+If your required mobile testing boundaries are not fully configured, Robonito will display an active warning: **“Mobile Setup Not Complete”**. This warning indicates that the local mobile testing architecture (Appium or SDKs) is currently missing essential system components.
+
+To proceed with mobile test recording, click **Configure Environment** to begin the auto-installation process.
+
+![Mobile Setup Configuration Dashboard](/test-case/mobile-setup.png)
+
+---
+
+## Environment Setup Overview
+
+The **Mobile Environment** setup wizard allows Robonito to download and configure:
+- Android SDK Toolchains
+- Node.js Runtime Layers
+- Appium Server Modules
+
+This setup pipeline instantly prepares your host system for complex mobile automation emulation.
+
+> **Important:** Robonito manages these specific SDKs within independent, isolated folders. This automated setup will **not** affect or overwrite your machine's pre-existing global native environment variables.
+
+---
+
+## Required Environment Components
+
+The following software components must be successfully installed on your machine for mobile testing to execute correctly. 
+
+*(Robonito will display a red `MISSING` status next to any tool that has not been securely configured.)*
+
+| Component | Description |
+| :--- | :--- |
+| **Java Development Kit (JDK)** | The baseline Java runtime required for compiling Android build tools. |
+| **Android Command Tools** | The core Android SDK Manager utilities. |
+| **Platform Tools (ADB)** | Provides the Android Debug Bridge pipeline to communicate with virtual devices. |
+| **Android Emulator** | An automated Virtual Device exclusively used for test rendering. |
+| **Node.js Runtime** | An isolated JavaScript engine explicitly used for operating the Appium server. |
+| **Appium Server** | The primary automation server engine used to translate interaction tests. |
+| **UiAutomator2 Driver** | Appium's core Android automation accessibility driver. |
+
+---
+
+## How to Install Components
+
+Follow these exact steps to fetch all structural requirements:
+
+1. **Launch:** Open the main Robonito application interface.
+2. **Navigate:** Proceed to the **Mobile Setup** dashboard locally.
+3. **Execute:** Click the **Install All** button located directly at the top of the interface.
+
+Robonito will autonomously sequence, download, and install all missing architectural components in strict isolation.

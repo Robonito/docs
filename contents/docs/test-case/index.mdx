@@ -1,15 +1,23 @@
+# Test Cases in Robonito
+
+Test cases are the fundamental building blocks of Robonito’s test automation framework. Each test case represents a single user scenario—such as logging into an account, fetching user data via an API, or interacting with a mobile app screen.
+
+To keep your projects organized, every test case must be created inside a parent **Test Suite**. This allows you to logically group related scenarios based on feature modules (e.g., an "Authentication" test suite containing "Login" and "Sign Up" test cases).
+
 ---
-title: 'Introduction to a Test Case'
-description: 'Learn how to create a test case within a suite in Robonito.'
----
-### Test Cases in Robonito
 
-Test cases are the core building blocks of Robonito’s automation framework. Each test case represents a specific scenario consisting of defined configurations, steps, and expected outcomes used to validate application behavior. Robonito supports multiple types of test cases, enabling teams to automate different layers of application testing.
+## Supported Test Case Types
 
-Test cases are always created within a test suite, allowing logical grouping based on application modules or features.
+Robonito supports three distinct types of test cases, allowing you to build comprehensive automation across your entire technology stack from a single dashboard:
 
-### Test Case Types
-Robonito supports the following types of test cases, allowing comprehensive automation across different platforms:
-- **Web (UI) Test Cases:** Web test cases automate user interactions with web applications. These tests simulate actions such as clicking elements, filling forms, navigating pages, and validating UI behavior in real browsers. [How to create a web test case](/docs/web-testing/create-web-test).
-- **API Test Cases:** API test cases validate backend services by testing API endpoints. They help ensure correct request handling, response validation, performance, and reliability of application APIs. [How to create an API test case](/docs/api-testing/create-api-testcase).
-- **Mobile Test Cases:** Mobile test cases are used to automate testing for mobile applications. These tests validate functionality, UI behavior, and workflows on mobile devices. [How to create a Mobile test case](/docs/mobile-testing/create-mobile-testcase).
+### 🌐 Web Test Cases
+Automate comprehensive user journeys for browser-based web applications. The Robonito recorder captures human actions—like clicking buttons, filling out forms, and verifying text—and automatically transforms them into resilient test steps.
+- 📖 **[How to create a Web Test Case](./web-testing/create-web-test)**
+
+### ⚙️ API Test Cases
+Validate your backend server endpoints quickly and securely. You can configure HTTP requests, pass dynamic headers, and use Smart Assertions to verify that the returned JSON payload responses match your exact expectations.
+- 📖 **[How to create an API Test Case](./api-testing/create-api-testcase)**
+
+### 📱 Mobile Test Cases
+Automate end-to-end functionality for both Android and iOS mobile applications accurately. Using local virtual emulators and physical devices, you can seamlessly validate mobile UI layouts, touch workflows, and native application behavior.
+- 📖 **[How to create a Mobile Test Case](./mobile-testing/create-mobile-testcase)**

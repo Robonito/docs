@@ -1,152 +1,54 @@
-### Test Case Scheduling
+# Test Case Scheduling
 
-Robonito allows you to schedule test cases to run automatically at specified times. Scheduling helps teams run tests regularly without manual intervention, making it ideal for regression testing, nightly runs, and continuous validation.
+Robonito allows you to construct automated CRON-style schedules to run test cases unconditionally at specific times. This is ideal for continuous validation workflows such as nightly regression pipelines.
 
+---
 
-### Creating a New Schedule
+## Creating a Schedule
 
-To create a schedule, click **New Schedule** from the **Schedules** section. The **New Schedule** dialog opens, where you can configure when and how test cases should run.
-![Target Suite ](/test-case/schedule.png)
+Navigate to the **Schedules** section natively in the left dashboard sidebar and click the **New Schedule** button. 
 
-### Schedule Configuration Fields
-![Target Suite ](/test-case/new-schedule.png)
-### Schedule Name
+![Schedules Dashboard Overview](/test-case/schedule.png)
 
-Enter a unique and descriptive name for the schedule.
+### 1. Configure Timeline Properties
 
-- Maximum length: 50 characters
+The schedule wizard requires absolute definitions for execution timing:
 
-**Example:**  
-Daily Regression, Nightly API Tests
+![New Schedule Configuration](/test-case/new-schedule.png)
 
+- **Schedule Name:** Enter a recognizable tracking identifier (e.g., *Nightly API V2 Verification*).
+- **Frequency:** Define the recurring interval cadence (e.g., *Daily*, *Weekly*).
+- **Timezone:** Select the local geographical timezone. The trigger clock is strictly mapped to this boundary.
+- **Execution Time:** Specify the precise 24-hour timestamp at which execution must begin.
+- **Environment:** Select the target compute logic (`LOCAL` or `CLOUD`). *(Note: Local scheduled execution requires the Robonito host application to remain persistently open on the target machine).*
 
-### Frequency
+### 2. Map Test Cases
 
-Select how often the test cases should run.
+Configure the execution payload by actively selecting the target test cases:
+- Use the search bar to locate specific test flows.
+- Select checkboxes to group tests together into the scheduled queue.
+- *You must select at least one test case to successfully save a schedule.*
 
-- **Daily** – Executes the selected test cases every day at the specified time  
-  (Additional frequencies may be supported based on configuration)
+### 3. Save
 
+Click **Create Schedule**. The Robonito orchestration server will natively queue your suite execution.
 
-### Timezone
+---
 
-Select the timezone in which the schedule should run.
+## Managing Active Schedules
 
-- **Example:** Asia/Calcutta
-- Execution time is calculated based on the selected timezone
+All configured schedules are tracked dynamically in the **Schedules** dashboard.
 
+![Schedules Table Dashboard](/test-case/schedule-report.png)
 
-### Execution Time
+### Schedule Table Overview
 
-Select the exact time when the scheduled execution should start.
+| Column | Description |
+| :--- | :--- |
+| **Name** | The configured schedule identifier. |
+| **Status** | The timeline status (`ACTIVE` indicates the clock is enabled). |
+| **Upcoming Run** | A computed countdown clock indicating the exact next execution instance. |
+| **Frequency** | The selected recurring cadence. |
+| **Actions** | Open the context menu to **Pause**, **Edit**, or **Delete** the schedule tracking logic. |
 
-- **Example:** 11:00 PM
-- Uses the selected timezone
-
-
-### Environment *
-
-Select the environment in which the scheduled test cases will execute.
-
-- **Example:** Local or Cloud (based on availability)
-- This field is mandatory
-
-
-### Selecting Test Cases
-
-Below the configuration fields, you can select the test cases to include in the schedule.
-
-
-### Test Case Selection Features
-
-- Search test cases by name, description, or tag
-- Select individual test cases using checkboxes
-- Test cases are grouped for easy navigation
-- Each test case displays its type (e.g., WEB, API)
-- The schedule cannot be created until at least one test case is selected
-
-
-### Creating the Schedule
-
-After configuring all fields and selecting test cases:
-
-1. Review the schedule details
-2. Click **Create Schedule**
-
-Once created:
-
-- The schedule becomes active immediately
-- Test cases will run automatically at the next scheduled time
-
-
-### Schedules List
-
-All created schedules are displayed in the **Schedules** table.
-
-![Target Suite ](/test-case/schedule-report.png)
-### Schedule Table Columns
-
-### Name
-
-Displays the schedule name.
-
-
-### Status
-
-Indicates whether the schedule is active.
-
-- **ACTIVE** – Schedule is enabled and will run automatically
-
-
-### Upcoming Run
-
-Shows when the next scheduled execution will occur.
-
-**Example:** in 10 hours
-
-
-### Frequency
-
-Displays the execution frequency, time, and timezone.
-
-**Example:** Daily 23:00 hours : Asia/Calcutta
-
-
-### Scheduled By
-
-Shows the user who created the schedule.
-
-
-### Created
-
-Displays when the schedule was created.
-
-
-### Actions
-
-Available actions for each schedule:
-
-- **Pause** – Temporarily disable the schedule
-- **Edit** – Modify schedule configuration
-- **Delete** – Remove the schedule permanently
-
-
-### Scheduled Execution Behavior
-
-When a schedule runs:
-
-- Selected test cases are executed automatically
-- Execution follows the configured environment
-- Results are recorded just like manual executions
-- Execution reports are generated for each run
-
-
-### Benefits of Scheduling
-
-Test case scheduling helps you:
-
-- Automate repetitive test execution
-- Run tests during off-hours (e.g., nightly)
-- Ensure continuous quality checks
-- Reduce manual execution effort
-- Maintain consistent test coverage
+When a scheduled countdown triggers, Robonito executes all mapped test cases synchronously and generates a standard execution report aggregating the pass/fail assertions.

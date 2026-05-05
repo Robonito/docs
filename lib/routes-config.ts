@@ -16,8 +16,8 @@ export const ROUTES: EachRoute[] = [
     title: "Installation",
     href: "/installation",
     items: [
-      { title: "Mac", href: "/mac" },
       { title: "Windows", href: "/window" },
+      { title: "Mac", href: "/mac" },
       { title: "Linux", href: "/linux" },
     ],
   },
@@ -48,16 +48,26 @@ export const ROUTES: EachRoute[] = [
       {
         title: "Recording",
         href: "/recording",
-        items: [
-          {
-            title: "Record & Playback",
-            href: "/recording/record-playback",
-          },
-          {
-            title: "AI Recording",
-            href: "/recording/ai-recording",
-          },
-        ],
+      },
+      {
+        title: "Record & Playback",
+        href: "/record-test-case/record-playback",
+      },
+      {
+        title: "Recording Variables",
+        href: "/recording-variables",
+      },
+      {
+        title: "AI Recording",
+        href: "/record-test-case/ai-recording",
+      },
+      {
+        title: "Manual Assertions",
+        href: "/assertions/manual",
+      },
+      {
+        title: "AI Generated Assertions",
+        href: "/assertions/ai-generated",
       },
     ],
   },
@@ -78,9 +88,10 @@ export const ROUTES: EachRoute[] = [
     href: "/mobile-testing",
     items: [
       { title: "Create Mobile test case", href: "/create-mobile-testcase" },
+      { title: "Recording", href: "/recording" },
     ],
   },
-    {
+  {
     title: "Assertions",
     href: "/assertions",
     items: [
@@ -88,6 +99,7 @@ export const ROUTES: EachRoute[] = [
       { title: "Page Assertion", href: "/page-assertion" },
       { title: "Text Assertion", href: "/text-assertion" },
       { title: "UI Assertion", href: "/ui-assertion" },
+      { title: "Custom Assertion", href: "/custom-assertion" },
     ],
   },
   {
@@ -96,6 +108,13 @@ export const ROUTES: EachRoute[] = [
     items: [
       { title: "Cloud", href: "/cloud" },
       { title: "Local", href: "/local" },
+    ],
+  },
+  {
+    title: "Performance",
+    href: "/performance",
+    items: [
+      { title: "Performance Monitor", href: "/monitor" },
     ],
   },
   {
@@ -113,7 +132,7 @@ export const ROUTES: EachRoute[] = [
       { title: "Email", href: "/email" },
       { title: "Jira", href: "/jira" },
       { title: "Github", href: "/github" },
-      { title: "Authenticator Apps", href: '/authenticator-apps' }
+      { title: "Authenticator Apps", href: "/authenticator-apps" },
     ],
   },
   {
@@ -129,8 +148,15 @@ export const ROUTES: EachRoute[] = [
     ],
   },
   {
-    title: "Browser",
-    href: "/browsers",
+    title: "Environment Manager",
+    href: "/environment-manager",
+    items: [
+      // { title: "Environment Manager", href: "/" },
+      { title: "User Settings", href: "/user-settings" },
+      { title: "License Management", href: "/license-check" },
+      { title: "Browser Management", href: "/browsers" },
+      { title: "Mobile Setup", href: "/mobile-setup" },
+    ],
   },
   {
     title: "Reports",

@@ -1,56 +1,33 @@
----
-title: 'Integrating Robonito with Authenticator Apps'
-description: 'Learn how to set up Authenticator App integration and automate OTP retrieval for your test cases.'
----
-## Understanding Authenticator Apps Integration
+# Authenticator App Integration
 
-Integrating Robonito with an **authenticator app secret** allows Robonito to generate Time-Based One-Time Passwords (TOTPs) automatically, just like apps such as Google Authenticator or Authy. This is useful for automating test cases that involve **Two-Factor Authentication (2FA)** where these types of OTPs are required. Robonito can generate the necessary OTPs and use them in your tests.
+Integrating Robonito with a secure **Authenticator Secret** allows the test engine to generate valid Time-Based One-Time Passwords (TOTPs) dynamically. The engine uses the same standard cryptographic hashing algorithms as apps like Google Authenticator or Authy.
+
+This integration is critical for automating end-to-end user flows that are protected by strict Two-Factor Authentication (2FA) requirements.
 
 ---
 
-## Adding a new Authenticator App Account
+## 1. Registering an Authenticator Account
 
-> **Note:** You can create multiple authenticator app accounts in a workspace
+You can securely store multiple 2FA secrets within a single Robonito workspace. To bind a new account, you must retrieve your application's raw **secret key** (often provided as a text alternative when a service asks you to scan a QR code).
 
-To add a new authenticator app account, you'll need to provide the **secret key**.
-
-**Steps:**
-
-1.  **Go to Integrations:** In your Robonito dashboard, click **"Integrations"** in the sidebar.
-
-2.  **Select Authenticator App:** Find the Authenticator App option and hit the `Add Account` button to start.
-
-3.  **Enter Connection Details:** A side drawer with a form will open. You'll need to enter this info:
-    * **Account Name:** A descriptive name that clearly identifies which account or site this 2FA setup belongs to (e.g. Github 2FA, CRM Login OTP).
-    * **Secret Key:** The secret key provided by your 2FA service when you initially set up the 2FA (e.g. when you scan a QR code or manually enter a key).
-     * **Advanced Options (Prefilled with Standard Values):**
-        * **Number of Digits:** The length of the OTP (commonly 6 or 8 digits).
-        * **Period:** The time interval (in seconds) for which an OTP is valid (typically 30 seconds).
-        * **Algorithm:** The hashing algorithm used to generate the OTP (usually SHA-1).
-
-4.  **Add Account:** After filling everything in, click `Save`. A notification will appear indicating success or failure.
-
-5.  **Confirm Integration:** On the Integrations page, the Authenticator App integration status will automatically show as `Connected` for your workspace.
+1. **Navigate to Integrations:** In your main dashboard, open the **Integrations** tab from the left sidebar.
+2. **Select Authenticator App:** Find the Authenticator tile and click `Add Account`.
+3. **Configure the Connection:**
+   - **Account Name:** Enter a recognizable description (e.g., *Staging Admin 2FA*).
+   - **Secret Key:** Paste the 16-32 character cryptographic secret string provided by your software.
+   - **Advanced Options:** Generally, leave these as default (6 digits, 30-second interval, SHA-1).
+4. **Save:** Click `Save` to officially bind the account to your workspace.
 
 ---
 
-## Recording a web test case with Authenticator App OTPs
+## 2. Using OTPs During Test Execution
 
-> **Note:** You should add the respective account first.
-Once you have added an account, you can easily generate and fetch OTPs directly during your test case execution.
+Once the secret is saved, you can effortlessly fetch live OTP tokens while actively recording a test step.
 
-**Steps:**
+1. **Start Recording:** Begin recording your test case naturally.
+2. **Trigger the UI:** Reach the specific application screen requesting the 2FA code.
+3. **Fetch OTP:** In your Robonito recording toolbar overlay, click the **Fetch OTP** action button.
+4. **Target the App:** Select **Authenticator App** as your data source.
+5. **Pick the Account:** Select the exact account name (e.g., *Staging Admin 2FA*) you configured earlier.
 
-1.  **Select a Test Case to Record:** Choose the test case where you need to use an authenticator app OTP. Start recording your test.
-
-2.  **Navigate to OTP Page:** During your test recording, navigate to the page that requires the OTP.
-
-3.  **Click "Fetch OTP" in the Toolbar:** Once you are on a page that requires OTP, click the "Fetch OTP" button on the Robonito toolbar.
-
-4.  **Select "Authenticator App OTP" in the Dialog Box:** A dialog box will appear. From the available options, select "Authenticator App" as your OTP source.
-
-5.  **Select Account Name:** If you have multiple accounts set up, select the account you wish to use from the dropdown list.
-
-6.  **OTP Generation and Filling:** Robonito will generate the OTP using the configured secret key and automatically populate the detected OTP field on the current page with the generated OTP.
-
-<iframe width="660" height="365" src="https://www.youtube.com/embed/89ITxT_0NTU?si=UyMas55d0Cmfqg2c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+Robonito will immediately generate a mathematically valid 6-digit code and seamlessly inject it into the active input field on your screen to bypass the security wall.

@@ -1,111 +1,79 @@
 # Execution Reports
 
-The Execution Reports section in Robonito provides a centralized view of all test executions. It allows you to monitor test activity, track failures, analyze execution trends, and review detailed results.
+The **Execution Reports** section provides a centralized dashboard covering all of your automated test executions. It allows you to monitor active testing, track failure occurrences across environments, and review detailed test performance metadata.
 
-Reports help teams maintain visibility into automation performance and quickly identify failing tests.
+These reports help QA teams maintain full visibility into their automation pipelines to quickly identify unstable runs or failing test suites.
 
-![Execution Reports](/test-case/execution-reports.png)
+![Execution Reports Dashboard](/test-case/execution-reports.png)
 
-## Execution Trend Graph
+---
 
-The chart visualizes test runs over time.
+## The Execution Trend Graph
 
-It displays executions categorized by:
+The dynamic trend chart visualizes your test runs over hours, days, or weeks. 
 
-- GithubCheckRun
-- Schedule
-- Suite
-- Testcase
+It displays execution histories categorized across:
+- **GitHub Check Runs**
+- **Scheduled Executions**
+- **Test Suites**
+- **Individual Test Cases**
 
-The graph helps you:
+Using the trend graph helps development teams:
+- Identify overall test execution frequencies.
+- Detect sudden spikes in system-wide automation failures following a new deployment.
+- Monitor the cumulative health of your automation architecture daily.
 
-- Identify execution frequency
-- Detect spikes in failures
-- Track activity trends across days
-- Monitor automation health
+---
 
+## Managing Failed Tests
 
-## Failed Tests Panel
+On the right side of the primary dashboard, the **Failed Tests** panel highlights your most recent broken test cases.
 
-On the right side, the Failed Tests panel highlights recently failed test cases.
+Each failed entry displays the following metadata:
+- **Test Case Name:** The specific script or scenario that failed.
+- **Suite Name:** The parent suite where the test resides.
+- **Time of Failure:** The precise timestamp of the run.
+- **Failure Reason:** An automated error description highlighting exactly why the step failed.
+- **Environment:** Where it executed (e.g., `LOCAL` or `CLOUD`).
+- **Test Type:** The platform classification (e.g., `WEB`, `API`, `MOBILE`).
 
-Each failed entry shows:
+### Investigating Failures
+- Click **Show More** to expand detailed failure breakdown metrics.
+- Click **View Logs** to instantly inspect the underlying terminal logs.
 
-- Test case name
-- Suite name
-- Time of failure
-- Failure reason
-- Environment (e.g., LOCAL)
-- Test type (WEB, API, etc.)
-- Tags (if applied)
+*This focused panel allows for rapid pipeline debugging without having to navigate through full-length test reports.*
 
-You can:
+---
 
-- Click **Show more** to expand failure details
-- Click **view logs** to inspect execution logs
+## Filtering and Exporting
 
-This allows quick debugging without navigating through full reports.
+Robonito provides robust dashboard filters to narrow your report data for focused analysis:
+- **Status:** Filter executions by `Passed`, `Failed`, or `In Progress`.
+- **Environment:** Isolate metrics mapped from `Local` or `Cloud` execution servers.
+- **Execution Type:** Narrow reports down by a single `Test Case`, an entire `Suite`, or a `Schedule`.
 
+### Downloading Reports
+You can click the **Download** button to export execution logs or comprehensive `.csv` spreadsheets securely for use outside of the Robonito platform.
 
-## Filters
+---
 
-Robonito provides filtering options to refine report data:
+## Deep Dive: Execution Details
 
-- Status (Passed, Failed, In Progress)
-- Environment (Local, Cloud)
-- Execution Type (Test case, Suite, Schedule)
+Clicking into any specific execution entry opens highly detailed debugging information, including:
+- Exact step-by-step test timelines.
+- Pass/fail assertion data result comparisons.
+- In-depth UI failure messages, network snapshots, and DOM traces.
+- Comprehensive system logs.
 
-Filters help narrow down execution data for analysis.
-### Download
+### Understanding Failure Examples
 
-Allows downloading execution logs or reports.
+In the event of a test failure, Robonito explicitly highlights the error directly in the UI. For example:
 
-## Viewing Execution Details
+> **Visual assertion FAILED. Check diff and actual image.**
 
-Clicking on an execution entry opens detailed information, including:
+This output indicates that:
+1. A visual DOM mismatch occurred during execution.
+2. An unexpected UI change was detected.
+3. The recorded visual assertion failed.
 
-- Step-by-step execution results
-- Assertion results
-- Failure messages
-- Runtime data
-- Logs
-
-This enables deep inspection for debugging.
-
-
-## Failed Execution Example
-
-In case of failure (as shown in your UI):
-
-**Example:**
-
-Visual assertion FAILED check diff and actual image
-
-This indicates:
-
-- A visual comparison mismatch
-- UI change detected
-- Assertion failure during execution
-
-Users can inspect logs and screenshots to determine root cause.
-
-
-## Benefits of Execution Reports
-
-Execution Reports allow teams to:
-
-- Monitor automation activity
-- Track test stability
-- Identify flaky tests
-- Review execution history
-- Debug failures efficiently
-- Maintain quality assurance transparency
-
-
-## Best Practices for Reports
-
-- Regularly review failed tests panel
-- Monitor test case health trends
-- Use filters to isolate unstable tests
-- Investigate recurring visual or CSS assertion failures
-- Schedule automated runs and monitor report trends
+From here, teams can deeply inspect the generated logs alongside the saved diagnostic screenshots to exactly determine the core root cause of the UI breakdown.

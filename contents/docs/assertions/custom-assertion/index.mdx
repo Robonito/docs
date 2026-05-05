@@ -1,0 +1,67 @@
+# Custom Assertions in Robonito
+
+Custom Assertions allow you to validate UI text dynamically using **runtime variables** instead of fixed, hardcoded strings. 
+
+This approach is essential for scaling automation when expected values change fluidly during execution. Typical scenarios include validating:
+- Dynamically generated Order IDs or Usernames.
+- Live timestamps.
+- API-generated content injected into the UI.
+- Form data entered during preceding test steps.
+
+---
+
+## The Power of Custom Assertions
+
+Traditional static assertions verify hardcoded text, which makes tests highly brittle:
+- **Static Assertion:** Expects the UI to say exactly `"Welcome, Arshad"`. *(This test will fail the moment User B logs in).*
+
+Custom Assertions solve this by evaluating against a dynamic memory variable:
+- **Custom Assertion:** Expects the UI to say `"Welcome, {{!username}}"`. *(This test passes for any user, making the test suite infinitely reusable).*
+
+---
+
+## Variable Syntax Rules
+
+To reference a dynamically cached variable during a UI assertion, you must use double-curly braces prefixed with an exclamation mark:
+
+**Syntax:**  
+`{{!variable_name}}`
+
+**Examples:**
+- `{{!page_title}}`
+- `{{!current_user}}`
+- `{{!generated_order_id}}`
+
+During test execution, Robonito safely intercepts these placeholders and injects the actual runtime value stored in memory before performing the text comparison.
+
+---
+
+## Step-by-Step Implementation
+
+### Step 1: Capture the Dynamic Value
+Before you can assert against a variable, you must store it in memory. You can capture variables by:
+- Recording a **Local Variable** directly from an onscreen UI element.
+- Saving a user configuration from an **Input** step.
+- Extracting a payload using an **API Variable**.
+
+**Example:** You capture a generated ID and save it as: `order_id = "ORD-999"`.
+
+### Step 2: Configure the Assertion
+1. Open the **Add Assertion** dialogue in Robonito.
+2. Select **Content Based** → **Custom Expression**.
+3. In the **Expected Value** field, inject your variable using the exact syntax:  
+   `Wait for your order: {{!order_id}}`
+
+### Step 3: Execution Behavior
+During runtime, Robonito processes the test logically:
+1. Translates `{{!order_id}}` into `"ORD-999"`.
+2. Scans the target UI element.
+3. If the UI says *"Wait for your order: ORD-999"*, the assertion logs a **✅ PASS**.
+
+---
+
+## Essential Rules
+
+- **Pre-requisite Existence:** The variable *must* be initialized and stored in a test step **before** the assertion step occurs chronologically.
+- **Strict Case Sensitivity:** Variable names inside the brackets (`{{!varName}}`) are strictly case-sensitive.
+- **The Exclamation Formatting:** You MUST include the `!` prefix inside the curly braces to trigger runtime resolution.

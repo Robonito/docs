@@ -1,7 +1,30 @@
-### Assertions
+# Assertions in Robonito
 
-Assertions are used to validate expected behavior during test execution. **Robonito** allows you to add assertions while recording or after recording by editing a test step.
+Assertions are the foundation of automated testing. They mathematically validate that your application's user interface, network responses, and routing behave exactly as intended when users interact with it. 
 
-When adding an assertion, the **Add Assertion** dialog appears, enabling you to choose the assertion type and configure validation rules.
-![Add Assertions](/test-case/add-assertion.png)
+With **Robonito**, you can seamlessly attach assertions dynamically while recording your test journey, or inject them retroactively by editing an existing test step.
 
+When configuring a new validation rule, the **Add Assertion** dialogue presents you with multiple tailored assertion categories, allowing you to enforce highly specific validation criteria securely.
+
+![Add Assertions Dialog](/test-case/add-assertion.png)
+
+---
+
+## Types of UI Assertions
+
+Robonito supports a comprehensive suite of UI-centric assertion types to ensure rock-solid test coverage for any web element. Explore the dedicated sections below to master each category:
+
+- **[Text Assertions](./assertions/text-assertion)**  
+  Validate that explicit static strings, dynamic variables, and complex RegEx patterns correctly render inside your UI elements.
+  
+- **[UI / Element-Based Assertions](./assertions/ui-assertion)**  
+  Verify the structural presence, exact count, physical visibility, and dynamic CSS styling properties of DOM elements.
+
+- **[Page Assertions](./assertions/page-assertion)**  
+  Ensure your application successfully navigates to the expected URL and loads the correct Page Title metadata during specific workflows.
+  
+- **[Smart Assertions](./assertions/smart-assertion)**  
+  Let AI handle the complex DOM logic. Use plain, natural English to describe what should be explicitly true about a specific UI element (e.g., "The submit button should be disabled").
+  
+- **[Custom Assertions](./assertions/custom-assertion)**  
+  Execute complex validations dynamically using runtime variables instead of fixed, hardcoded strings.

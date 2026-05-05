@@ -1,0 +1,79 @@
+# GitHub Integration
+
+The GitHub Integration connects Robonito directly to your source code repositories. Once linked, you can define **Event Rules** that automatically trigger your test suites whenever specific repository events occur — like a Pull Request being opened or merged.
+
+---
+
+## 1. Connecting Your GitHub Account
+
+1. Navigate to **Integrations** in the left sidebar of the Robonito dashboard.
+2. Click the **GitHub** tile and authorize Robonito with your GitHub account.
+3. Select the **repositories** you want to monitor from the list of your available GitHub repos.
+4. Click **Save** to confirm the connection.
+
+> **Screenshot placeholder:** *[Screenshot of the GitHub integration connection screen with connected repositories listed]*
+
+---
+
+## 2. Understanding Event Rules
+
+An **Event Rule** defines what happens when a specific GitHub event occurs in a connected repository:
+
+- **Which repository** to watch
+- **Which GitHub events** should trigger the test run
+- **Which test suite and test cases** to execute
+
+Robonito supports the following GitHub pull request events:
+
+| Event Name | When It Triggers |
+|---|---|
+| `pull_request.opened` | A new Pull Request is opened |
+| `pull_request.reopened` | A previously closed PR is reopened |
+| `pull_request.comment` | A comment is added to a PR |
+| `pull_request.assigned` | A PR is assigned to a reviewer |
+| `pull_request.closed` | A PR is closed or merged |
+
+---
+
+## 3. Creating an Event Rule
+
+From the **GitHub Check Runs** page (accessible from the Integrations section), click the **+ New Event Rule** button.
+
+> **Screenshot placeholder:** *[Screenshot of the GitHub Check Runs page with the Event Rules table and the New Event Rule button]*
+
+### Configuration Fields
+
+Fill in all required fields in the Event Rule form:
+
+| Field | Description |
+|---|---|
+| **Repository** | Select the GitHub repository this rule applies to |
+| **Suite** | Select the test suite to run when the event fires |
+| **Test Cases** | Select one or more test cases from the suite to include in the run |
+| **Event Names** | Select one or more GitHub events that should trigger this rule |
+
+> **Important:** Each repository/event combination can only be used in **one rule**. If you try to assign the same event to the same repository twice, Robonito will show a duplicate validation error.
+
+Click **Save** to activate the rule.
+
+---
+
+## 4. Managing Event Rules
+
+All configured rules appear in the **Event Rules** table under the GitHub Check Runs page.
+
+- **Edit:** Click the edit icon on any row to modify the rule's repository, suite, test cases, or events.
+- **Delete:** Click the delete icon to remove the rule permanently.
+
+---
+
+## 5. How Check Runs Work
+
+When a matching GitHub event occurs (e.g., a PR is opened in the connected repo):
+
+1. GitHub sends a webhook notification to Robonito.
+2. Robonito identifies the matching Event Rule.
+3. The configured test cases execute in the **cloud**.
+4. Results are reported back as a **GitHub Check Run** directly on the Pull Request — your PR will show `✅ Passed` or `❌ Failed` based on the Robonito test results.
+
+> **Note:** Cloud execution must be enabled on your workspace for GitHub Check Runs to work.

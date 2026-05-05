@@ -1,62 +1,40 @@
-### Install Robonito on macOS
+# Install Robonito on macOS
 
-This guide explains how to install and set up **Robonito** on macOS systems.
+This guide explains how to install the **Robonito** desktop application natively on macOS systems.
 
-### Important Note – Intel Macs Not Supported
+---
 
-> ⚠️ **Robonito does NOT support Intel-based macOS systems.**
+## ⚠️ Important Note: Apple Silicon Only
 
-Robonito is built **only for Apple Silicon (ARM64)** architecture.
+**Robonito is built strictly for Apple Silicon (ARM64) architectures and does NOT support Intel-based Macs.**
 
-### Supported Mac Devices
+- **Supported:** M1, M2, M3, M4 chips (MacBook Air/Pro, Mac Mini, Mac Studio, Mac Pro).
+- **Unsupported:** Intel Core processors. Rosetta 2 emulation is also completely unsupported.
 
-- MacBook Air (M1, M2, M3)
-- MacBook Pro (M1, M2, M3)
-- Mac Mini (M1, M2)
-- Mac Studio (M1, M2)
+Check your hardware via `Apple Menu > About This Mac` before downloading the software.
 
-### Not Supported
+---
 
-- ❌ Intel-based Macs (Intel Core i5, i7, i9)
-- ❌ macOS running on Intel processors
-- ❌ Rosetta emulation is **not supported**
+## 1. Download the Installer
 
-Please verify your Mac’s processor before downloading.
+Download the official Robonito disk image file specifically compiled for macOS ARM64 architectures:
 
+📥 **[Download Robonito for macOS (v2.5.0)](https://robonito-prod-builds.s3.ap-south-1.amazonaws.com/Robonito-2.5.0-arm64.dmg)**
 
-### System Requirements
+---
 
-- **Operating System:** macOS 11 (Big Sur) or later
-- **Architecture:** Apple Silicon (ARM64) only
-- **Browser:** Google Chrome (latest version recommended)
-- **Internet Connection:** Required for installation and updates
+## 2. Install the Application
 
+1. Double-click to mount the downloaded `.dmg` file.
+2. In the visual prompt window, drag the **Robonito** application icon directly into your **Applications** folder shortcut.
+3. Keep the file transfer window open until the copy completes, then eject the `.dmg` installer.
+4. Launch Robonito directly from your macOS Applications directory or Launchpad.
 
-### Download Robonito for macOS
+---
 
-- **macOS (ARM64)**  
-  [Download Robonito for macOS](https://robonito-prod-builds.s3.ap-south-1.amazonaws.com/Robonito-2.5.0-arm64.dmg)
+## 3. Grant Privacy Permissions
 
+During your first test recording session, macOS will actively block the engine and request standard privacy permissions. You must navigate to your Mac's **System Settings > Privacy & Security** and manually enable:
 
-### Installation Steps
-
-1. Download the Robonito macOS installer (`.dmg`)
-2. Open the downloaded `.dmg` file
-3. Drag the **Robonito** app into the **Applications** folder
-4. Open Robonito from the Applications folder
-
-
-### Permissions
-
-On first launch, macOS may request the following permissions:
-
-- Accessibility
-- Screen Recording
-
-Grant these permissions to enable recording and automation features.
-
-
-### After Installation
-
-- Ensure **Google Chrome** is installed
-- Robonito is now ready for use
+1. **Accessibility:** Required for the testing engine to interact securely with UI elements on your screen.
+2. **Screen Recording:** Required to capture failure frame screenshots and evaluate visual assertions during test automation workflows.

@@ -1,41 +1,98 @@
+# Variables in API Testing
+
+Variables in Robonito enable you to capture dynamic values from an API response and seamlessly reuse them in subsequent API requests. Passing data downstream is essential for building dynamic, chained, and realistic end-to-end automation scenarios.
+
+Variables are critically useful for:
+- Managing authentication tokens (JWTs, Bearer tokens).
+- Retrieving newly generated Object IDs (Users, Orders).
+- Propagating transaction references.
+- Validating holistic workflows rather than isolated endpoints.
+
 ---
-title: Using Variables in API Testing
+
+## Why Variables Matter
+
+Traditional hardcoding is fragile. In the real world, APIs create dynamic identifiers and session tokens on the fly. 
+
+By extracting values dynamically, you ensure your Robonito tests remain **reusable, reliable, and entirely maintenance-free**.
+
 ---
 
-# Using Variables in API Testing
+## How Variable Extraction Works
 
-Variables allow you to make your API tests more dynamic and reusable by substituting placeholder values at runtime. This is particularly useful for managing environment-specific configurations (like base URLs) or data that changes between test runs.
+During an execution sequence:
+1. An API test sends a request and receives a server response.
+2. Robonito uses a designated **JSONPath** to isolate a specific target value.
+3. The isolated value is cached into memory under your custom Variable Name.
+4. Subsequent tests reference this cached data using the `{{variableName}}` syntax.
 
-## Current Support: URL Variables
+---
 
-Currently, Robonito supports variable substitution directly within the **API endpoint URL**.
+## Configuring a Variable Extraction
 
-### Syntax
+Follow these steps to programmatically extract an API response value:
 
-To use a variable within the endpoint URL, enclose the variable name in double curly braces:
+![Configuring a Variable](/test-case/variable-setup.png)
 
+1. **Access the Source Request:** Open the API test case that generates the desired data.
+2. **Navigate to Variables:** Open the **Variables** tab.
+3. **Add an Extraction:** Click **Extract Variable**.
+4. **Define the Rules:**
+
+![Variable Extractions Config](/test-case/variable-extractions.png)
+
+- **Variable Name:** An intuitive identifier (e.g., `userId` or `authToken`). You will inject this later using `{{userId}}`.
+- **Source:** Choose where to look. The most common target is `Response Body (JSON)`.
+- **JSONPath Navigation:** A valid [JSONPath](https://jsonpath.com/) expression pointing directly to the value.
+
+**Example Setup:**
+If the API returns:
+```json
+{
+  "user": { "id": 101 },
+  "token": "abc123xyz"
+}
 ```
-{{variable_name}}
+You could use `$.user.id` to capture `101`, and `$.token` to capture `abc123xyz`.
+
+---
+
+## Using Variables Downstream
+
+Once extracted, variables exist in the test workflow memory. You can inject them securely into subsequent API test configuration fields simply by wrapping the variable name in double curly braces: `{{variableName}}`.
+
+**Supported Injection Points:**
+- **URLs and Endpoints** (e.g., `https://api.site.com/users/{{userId}}`)
+- **Query Parameters**
+- **HTTP Headers**
+- **Authorization Tokens**
+- **Request Body Payload (JSON)**
+
+**Example Injection in a Body Payload:**
+```json
+{
+  "targetUserId": "{{userId}}",
+  "action": "activate"
+}
 ```
 
-### Example
+---
 
-Imagine you have an environment variable named `baseURL` set to `https://api.yourapp.com/v1`. You can use this variable in your request URL like this:
+## A Real-World Scenario: End-to-End Workflow
 
-```
-{{baseURL}}/users/{{userId}}
-```
+Variables truly shine when validating multi-step user actions.
 
-During execution, Robonito will replace `{{baseURL}}` with `https://api.yourapp.com/v1` and `{{userId}}` with the current value of the `userId` variable (assuming it's also defined).
+1. **Step 1: Account Creation**  
+   - **Action:** Execute a `POST /users` request to create an account.
+   - **Extraction:** Target `$.id` and save it as `{{userId}}`.
+   
+2. **Step 2: Authentication Login**  
+   - **Action:** Execute a `POST /login` request for the new user.
+   - **Extraction:** Target `$.accessToken` and save it as `{{authToken}}`.
 
-*(Note: Explain where variables like `baseURL` and `userId` are defined, e.g., in Environment settings.)*
-
-## Upcoming Enhancements
-
-We are actively working to expand variable support to other parts of the API request configuration:
-
--   **Request Body:** Using variables within JSON payloads or form data.
--   **Authentication:** Referencing variables for dynamic tokens or credentials.
--   **Headers:** Using variables in request header values.
-
-Stay tuned for future updates that will enhance the flexibility and power of your API tests in Robonito.
+3. **Step 3: Access Secured Profile**  
+   - **Action:** Request the user profile to validate creation.
+   - **Endpoint:** `GET /users/{{userId}}`
+   - **Header:** `Authorization: Bearer {{authToken}}`
+   
+With dynamic variables, this complex three-step authentication framework works reliably in test automation pipelines every single time.

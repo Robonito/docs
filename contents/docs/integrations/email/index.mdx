@@ -1,49 +1,33 @@
----
-title: 'Integrating Robonito with Email (IMAP)'
-description: 'Learn how to set up Email integration and automate OTP retrieval for your test cases.'
----
-## Understanding Email Integration
+# Email Integration
 
-Integrating Robonito with your email account via **IMAP** lets Robonito read incoming emails. This is super handy for automating test cases that need **One-Time Passwords (OTPs)** or other info sent by email. Robonito can grab the necessary data and use it in your tests.
+Connecting Robonito to an email account via the **IMAP** protocol allows the test automation engine to read incoming messages securely. 
+
+This integration is extremely useful for bypassing security flows that mandate users click a "Magic Link" or input a One-Time Password (OTP) sent directly to their email address.
 
 ---
 
-## Setting Up Email Integration
+## 1. Setting Up the IMAP Connection
 
-To connect Robonito with your email, you'll need to give it the right **IMAP details and credentials**.
+To establish a secure read-only connection to your test email inbox:
 
-**Steps:**
-
-1.  **Go to Integrations:** In your Robonito dashboard, click **"Integrations"** in the sidebar.
-
-2.  **Select Email:** Find the Email option and hit the `Connect` button to start.
-
-3.  **Enter Connection Details:** A form will pop up. You'll need to enter this info:
-    * **Email Address:** The email Robonito will connect to.
-    * **Password:** Your email account's password.
-    * **IMAP Server:** Your email provider's IMAP server address (e.g., `mail.sofyrus.com`).
-    * **IMAP Port:** The IMAP server's port number (usually `993` for secure connections).
-
-4.  **Connect:** After filling everything in, click `Connect`, a notification will appear indicating success or failure.
-
-5.  **Confirm Integration:** On the Integrations page, the Email integration status will automatically show as `Connected` for your workspace.
+1. **Navigate to Integrations:** Open the **Integrations** tab from the left sidebar on the main dashboard.
+2. **Select Email:** Find the Email integration tile and click `Connect`.
+3. **Provide Server Credentials:**
+   - **Email Address:** The specific inbox Robonito should monitor (e.g., `qa-test-1@yourdomain.com`).
+   - **Password:** The account password. If the inbox uses 2FA restrictions (like Gmail or Outlook), you must generate and provide a dedicated **App Password**.
+   - **IMAP Server:** Your provider's IMAP host address (e.g., `imap.gmail.com`).
+   - **IMAP Port:** Typical secure ports are `993` (SSL/TLS).
+4. **Connect:** Click `Connect` to test the credentials. The UI will update to "Connected" if the handshake succeeds.
 
 ---
 
-## Reading OTPs from Mail
+## 2. Fetching OTPs During Test Execution
 
-Once your Email integration is set up, you can easily fetch OTPs directly from emails during your test case execution.
+Once connected, you can program the Robonito recorder to pause, parse the inbox, and inject the dynamically fetched code.
 
-**Steps:**
+1. **Start Recording:** Launch your test case and trigger your app's "Send Code via Email" logic.
+2. **Fetch OTP:** Once the application UI loads the verification input screen, click the **Fetch OTP** button on the Robonito toolbar overlay.
+3. **Target Email:** Choose **Email** as your source target.
+4. **Enter Subject Line Payload:** Enter the exact (or partial) subject line of the expected email (e.g., *Your Verification Code*). 
 
-1.  **Select a Test Case to Record:** Choose the test case where you need to read an OTP. Start recording your test.
-
-2.  **Navigate to OTP Page:** During your test recording, navigate to the page that requires the OTP.
-
-3.  **Click "Fetch OTP" in the Toolbar:** Once you are on a page that requires OTP, click the "Fetch OTP" button on the Robonito toolbar.
-
-4.  **Select "Email" in the Dialog Box:** A dialog box will appear. From the available options, select "Email" as your OTP source.
-
-5.  **Enter OTP Mail Subject:** In the provided field, enter the exact subject line of the email containing the OTP. This helps Robonito locate the correct email.
-
-6.  **OTP Detection and Filling:** Robonito will automatically detect the OTP field on the current page and populate it with the fetched OTP from the email.
+Robonito will autonomously parse the matching email, extract the underlying numeric string using regex logic, and explicitly inject the code into your application's UI to let the test properly proceed.

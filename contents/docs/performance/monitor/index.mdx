@@ -1,0 +1,45 @@
+# Performance Monitor
+
+The **Performance Monitor** is Robonito's real-time analytics engine. It provides a live, visual dashboard that captures every metric of your application's performance as it happens during a load test or a high-frequency execution run.
+
+---
+
+## Real-Time Dashboards
+
+When a performance test is active, the monitor displays several key visualizations:
+
+### 1. Latency Distribution
+Shows a histogram of response times. This helps you identify outliers — requests that take significantly longer than the average, even if the overall test "passes."
+
+### 2. Success vs. Failure Trends
+A live line chart comparing successful responses against error codes (4xx/5xx). A sudden spike in the red "Failure" line often indicates a service crash or database deadlock under load.
+
+### 3. Virtual User (VU) Status
+Tracks exactly how many virtual users are currently active in the ramp-up, peak, or ramp-down phase of your test.
+
+---
+
+## Key Metrics Tracked
+
+| Metric | What it Measures | Why it Matters |
+|---|---|---|
+| **P95 Latency** | The time under which 95% of requests complete | Better representation of "real user" experience than simple averages |
+| **RPS** | Requests Per Second | Measures the total volume of traffic your system is handling |
+| **Error Rate** | Percentage of failed requests | Indicates system instability or exhausted resources |
+| **TTFB** | Time to First Byte | Measures server responsiveness before data transfer begins |
+
+---
+
+## Monitoring During Execution
+
+You can access the Performance Monitor directly from the **Performance** tab in the main sidebar. 
+
+1. Select an active or recently completed performance run.
+2. The dashboard will populate with historical or live data.
+3. Hover over data points to see precise timestamps and value snapshots.
+
+> **Screenshot placeholder:** *[Screenshot of the Performance Monitor live charts showing latency and RPS]*
+
+---
+
+> **Tip:** Use the **Filter** menu to isolate specific API endpoints or geographic regions (if using cloud execution) to compare performance variations across different segments of your infrastructure.

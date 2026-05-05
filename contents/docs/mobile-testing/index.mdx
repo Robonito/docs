@@ -1,20 +1,45 @@
+# Mobile Testing with Robonito
+
+Robonito lets you record and replay automated tests on real mobile applications — no coding required. You interact with the app normally, and Robonito captures every tap, swipe, and input as a reusable test step.
+
 ---
-title: Mobile Testing with Robonito
+
+## Supported Platforms
+
+- 🤖 **Android** — via `.apk` app files, run on an Android emulator
+- 🍏 **iOS** — via `.ipa` app files *(requires macOS with Apple Silicon)*
+
 ---
 
-Robonito provides a powerful and intuitive way to test mobile applications, ensuring they function correctly across different platforms and devices. This section guides you through the tools and features available for creating, configuring, and analyzing mobile test cases using emulators.
+## How to Get Started
 
-Robonito supports mobile testing for:
-- **Android applications**
-- **iOS applications**
-- **Emulator-based execution**
+Follow these steps in order to set up and run your first mobile test:
 
-Learn how to:
+### Step 1 — Set Up Your Environment
+Before recording, your machine needs a few tools installed (Appium, Android SDK, Node.js). Robonito handles this automatically.
 
--   [Create a Mobile Test Case](./mobile-testing/create-mobile-testcase)
--   [Configure Mobile App & Device Settings](./configure-mobile-environment)
--   [Use Variables in Mobile Tests](./variables-in-mobile)
--   [Add Assertions to Validate App Behavior](./mobile-assertions)
--   [Understand Mobile Execution Reports](./mobile-execution-report)
+➡️ **[Configure Mobile Setup](/docs/environment-manager/mobile-setup)**
 
-Dive into the topics below to get started with mobile testing in Robonito.
+### Step 2 — Create a Mobile Test Case
+Initialize a new test case inside a **Mobile** suite in Robonito.
+
+➡️ **[Create a Mobile Test Case](./mobile-testing/create-mobile-testcase)**
+
+### Step 3 — Record Your Test
+Upload your `.apk` or `.ipa` file, launch the emulator, and start interacting with the app. Robonito records every action.
+
+➡️ **[Start Recording](./mobile-testing/recording)**
+
+---
+
+## What Gets Recorded?
+
+During a recording session, Robonito captures:
+- Taps and clicks on buttons, links, and list items
+- Text input into fields
+- Swipes and scrolls
+- Screen transitions and navigation flows
+
+Each action becomes a **test step** that can be replayed, edited, or run in the cloud.
+
+> **Screenshot placeholder:** *[Screenshot of the Robonito mobile recorder with a running Android emulator]*

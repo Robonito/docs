@@ -1,32 +1,49 @@
 # Install Robonito on Linux
 
-This guide explains how to install and run **Robonito** on Linux systems using AppImage.
+This guide explains how to install and run the **Robonito** application on Linux systems using a standalone portable AppImage.
 
 ---
 
-## System Requirements
+## Prerequisites
 
-Before installing Robonito, ensure your system meets the following requirements:
-
-- **Operating System:** Ubuntu 20.04+, Debian-based, or equivalent
-- **Browser:** Google Chrome (latest version recommended)
-- **Internet Connection:** Required for updates
-- **Permissions:** Execute permission for AppImage
+- **Operating System:** Ubuntu 20.04+, Debian-based distributions, or equivalent architectures.
+- **Permissions:** You must have the ability to run `chmod` shell commands or modify file execution properties.
 
 ---
 
-## Download Robonito for Linux
+## 1. Download the AppImage
 
-- **Linux (AppImage)**  
-  [Download Robonito for Linux](https://robonito-prod-builds.s3.ap-south-1.amazonaws.com/Robonito-2.5.0.AppImage)
+Unlike traditional `.deb` packages, an AppImage is a fully portable software format that contains all dependencies in a single file without requiring a system-level installation.
+
+📥 **[Download Robonito for Linux (v2.5.0)](https://robonito-prod-builds.s3.ap-south-1.amazonaws.com/Robonito-2.5.0.AppImage)**
 
 ---
 
-## Installation Steps
+## 2. Grant Execution Permissions
 
-1. Download the Robonito AppImage file
-2. Open a terminal and navigate to the download directory
-3. Make the AppImage executable:
+Before you can run the AppImage, you must mark it as an executable binary on your system.
 
+**Via Terminal:**
+1. Open your terminal and navigate to the directory holding the application:
+   ```bash
+   cd ~/Downloads
+   ```
+2. Grant execution rights using `chmod`:
    ```bash
    chmod +x Robonito-2.5.0.AppImage
+   ```
+
+**Via GUI (File Manager):**
+Alternatively, right-click the file, select **Properties**, go to the **Permissions** tab, and explicitly check the box labeled *“Allow executing file as program.”*
+
+---
+
+## 3. Launch Robonito
+
+Once permissions are properly set, launch the application via your terminal:
+
+```bash
+./Robonito-2.5.0.AppImage
+```
+
+Alternatively, simply double-click the file tightly inside your visual Desktop Environment to start the Robonito client.

@@ -1,33 +1,80 @@
 # External Integrations
 
-Integrations allow you to seamlessly connect Robonito with third-party bug trackers, version control systems, and two-factor authentication solutions to streamline your entire testing lifecycle.
+Integrations connect Robonito to your existing development and QA toolchain — bug trackers, CI/CD pipelines, test management systems, version control, authentication, and notification systems.
 
-> **Important:** Integrations are bound strictly to your **active Workspace**. Different workspaces can maintain entirely isolated sets of connected integrations without overlapping credentials.
+> **Important:** Integrations are bound to your **active Workspace**. Different workspaces maintain entirely separate sets of connected integrations without overlapping credentials.
 
 ---
 
 ## Accessing Integrations
 
-To configure new external connections:
 1. Navigate to the main dashboard.
-2. Click on the **Integrations** tab located in the left navigation sidebar.
+2. Click the **Integrations** tab in the left navigation sidebar.
 
 ![Integrations Menu Click](/integrations/integrations-click.gif)
 
 ---
 
-## Supported Ecosystems
-
-Robonito currently features native plug-and-play combinations with the following enterprise systems:
+## Bug Tracking & Project Management
 
 ### [Jira](./integrations/jira)
-Connect Robonito to Atlassian Jira to automatically create bug tickets when test runs fail.
+Connect to Atlassian Jira to automatically create bug tickets when test runs fail. Failure logs, DOM state, and screenshots are auto-filled into the ticket description.
 
-### [Email](./integrations/email)
-Connect Robonito to an IMAP email inbox so the automation engine can fetch One-Time Passwords (OTPs) and magic links from real emails during test execution.
+### [Linear](./integrations/linear)
+Create Linear issues from failed test runs in one click. Also usable as context in AI Studio — attach a Linear issue so the agent tests against its acceptance criteria.
+
+### [Asana](./integrations/asana)
+Create Asana tasks from failed test executions with pre-filled failure details. Reference Asana tasks in AI Studio for requirement-driven test generation.
+
+---
+
+## Test Management Systems
+
+### [TestRail](./integrations/testrail)
+Export Robonito test suites to TestRail as test cases and sync execution results back automatically.
+
+### [Zephyr](./integrations/zephyr)
+Export Robonito test suites to Zephyr Scale or Zephyr Squad and push execution results to Zephyr test cycles.
+
+---
+
+## CI/CD & Version Control
 
 ### [GitHub Actions](./integrations/github)
-Trigger cloud test runs directly from GitHub repository events — when a PR is opened, code is pushed, or a branch is merged.
+Trigger cloud test runs automatically when GitHub pull request events occur (PR opened, merged, commented). Results are posted back to the PR as a GitHub Check Run (✅ / ❌).
+
+### [Jenkins](./integrations/jenkins)
+Trigger Robonito cloud test runs from Jenkins pipelines using a generated API key and a ready-to-use Groovy pipeline snippet.
+
+---
+
+## Notifications
+
+### [Slack](./integrations/slack)
+Send test execution results and failure alerts directly to Slack channels via an incoming webhook. Configurable per-workspace with pass/fail threshold filtering.
+
+### [Microsoft Teams](./integrations/microsoft-teams)
+Post test run summaries and failure alerts to Microsoft Teams channels using an incoming webhook connector.
+
+### [Google Chat](./integrations/google-chat)
+Send execution result cards to Google Chat spaces using a webhook URL.
+
+---
+
+## Authentication
+
+### [Email (IMAP)](./integrations/email)
+Connect a test email inbox via IMAP so Robonito can read OTP codes and magic links from incoming emails during test execution. Supports Gmail, Outlook, and any IMAP-compatible provider.
 
 ### [Authenticator Apps (TOTP)](./integrations/authenticator-apps)
-Register a shared TOTP secret so Robonito can generate and inject 6-digit 2FA codes automatically — just like Google Authenticator.
+Store a 2FA secret key so Robonito can generate live TOTP codes (like Google Authenticator) and inject them automatically into 2FA prompts during recording and execution.
+
+---
+
+## Integration Scope
+
+All integrations are **workspace-scoped**:
+
+- Credentials, API keys, and OAuth tokens apply only to the workspace where they were configured.
+- Different workspaces (e.g., `Staging` vs. `Production`) can connect to different Jira projects, GitHub repos, and TestRail instances independently.
+- Team members invited to a workspace share access to all integrations configured in that workspace.

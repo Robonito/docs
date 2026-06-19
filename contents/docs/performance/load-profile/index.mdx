@@ -1,0 +1,114 @@
+# Load Profile Configuration
+
+The Load Profile defines how virtual users are ramped up, sustained, and ramped down during a performance test. Robonito supports four built-in load types, each suited for a different testing scenario.
+
+---
+
+## Load Types
+
+### Fixed Load
+
+All virtual users start simultaneously and run for the full test duration at a constant rate.
+
+**Best for:** Sustained load testing, validating that your system can handle a known steady-state traffic level.
+
+**Configuration:**
+| Field | Description |
+|---|---|
+| **Virtual Users** | Number of concurrent users (1–10,000) |
+| **Duration** | How long to maintain the load (1–60 minutes) |
+
+> **Screenshot placeholder:** *[Screenshot of Fixed Load configuration with virtual users set to 100 and duration set to 10 minutes]*
+
+---
+
+### Ramp Up
+
+Virtual users increase gradually from 0 to the target count over the test duration, simulating a growing user base.
+
+**Best for:** Finding the breaking point of your system — identifying at what load level response times degrade or errors appear.
+
+**Configuration:**
+
+The Ramp Up profile is edited with the **interactive Load Profile Editor**. Drag the phase handles to reshape the ramp curve. The X-axis is time (minutes) and the Y-axis is concurrent virtual users.
+
+| Field | Description |
+|---|---|
+| **Virtual Users** | Maximum concurrent users at peak |
+| **Duration** | Total test duration (1–60 minutes) |
+
+> **Screenshot placeholder:** *[Screenshot of the Load Profile Editor showing a Ramp Up curve from 0 to 200 users over 15 minutes]*
+
+---
+
+### Spike Test
+
+Virtual users surge suddenly to the maximum and then drop back, simulating flash-sale events or traffic spikes.
+
+**Best for:** Testing resilience to sudden bursts of traffic — verifying that your system recovers quickly after an overload.
+
+**Configuration:**
+
+Use the **Load Profile Editor** to drag the spike shape. The default is a sharp peak at the midpoint of the test duration.
+
+| Field | Description |
+|---|---|
+| **Virtual Users** | Peak concurrent users during the spike |
+| **Duration** | Total test duration |
+
+---
+
+### Peak Test
+
+Multiple sustained peaks separated by lower-traffic valleys, simulating a business day with morning rush, lunch lull, and afternoon surge.
+
+**Best for:** Testing how your system handles shifting demand — validating that it scales up and down without degradation.
+
+**Configuration:**
+
+Use the **Load Profile Editor** to drag the phase handles and create the multi-peak shape. Each phase can be independently positioned.
+
+---
+
+## The Load Profile Editor
+
+For non-Fixed load types, the Load Profile Editor provides an interactive SVG canvas to shape the load curve visually.
+
+| Control | Description |
+|---|---|
+| **Drag phase handles** | Pull up/down or left/right to reshape the load curve |
+| **Snap to grid** | Toggle to snap drag positions to grid intervals for precise values |
+| **Show grid** | Toggle the background grid lines |
+| **Reset** | Restore the default shape for the selected load type |
+| **Phase badges** | Color-coded labels showing each phase type (Ramp Up, Hold, Ramp Down) |
+
+> **Screenshot placeholder:** *[Screenshot of the Load Profile Editor with a Ramp Up curve, showing drag handles, phase badges, and snap-to-grid controls]*
+
+---
+
+## Success Criteria
+
+Define thresholds that automatically fail the performance test if exceeded:
+
+| Criterion | Description |
+|---|---|
+| **P90 Response Time** | 90th percentile latency must be below this value (milliseconds) |
+| **P95 Response Time** | 95th percentile latency threshold (milliseconds) |
+| **P99 Response Time** | 99th percentile latency threshold (milliseconds) |
+| **Error Rate** | Percentage of failed requests must not exceed this threshold |
+
+The comparison operator for each criterion is configurable: `<`, `≤`, `>`, `≥`.
+
+If any criterion is breached, the performance run is marked as **Failed** and the threshold violation is highlighted in the [Performance Monitor →](../monitor).
+
+---
+
+## Running a Performance Test
+
+1. Navigate to **Performance** in the sidebar.
+2. Select the API test cases to include (searchable, grouped by suite).
+3. Choose a **Load Type** and configure the profile.
+4. Set any **Success Criteria**.
+5. Click **Run**.
+
+Robonito dispatches the test and opens the [Performance Monitor →](../monitor) for real-time observation.

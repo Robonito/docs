@@ -1,0 +1,68 @@
+# Asana Integration
+
+The Asana integration connects Robonito to your Asana workspace, enabling you to create Asana tasks from failed test runs and reference Asana tasks as context in AI Studio sessions.
+
+> **Screenshot placeholder:** *[Screenshot of the Asana integration tile in the Integrations page]*
+
+---
+
+## What It Does
+
+- **Create Asana tasks from test failures** — log bugs as Asana tasks directly from an execution report, with failure details auto-filled.
+- **Link Asana tasks to AI Studio** — reference an Asana task when running the AI agent so it uses the task description and requirements as context for test generation.
+
+---
+
+## Connecting Asana
+
+1. Navigate to **Integrations** in the left sidebar.
+2. Click the **Asana** tile.
+3. Click **Connect with Asana**. A browser window opens requesting OAuth authorization.
+4. Select the Asana workspace to connect and approve the permissions.
+5. Return to Robonito — the status updates to **Connected**.
+
+> **Screenshot placeholder:** *[Screenshot of the Asana OAuth authorization screen]*
+
+---
+
+## Configuring Defaults
+
+1. Open the Asana tile in Integrations.
+2. Click **Edit Defaults**.
+3. Set:
+   - **Workspace** — the Asana workspace for task creation.
+   - **Project** — the default Asana project where tasks are created.
+   - **Assignee** — the default task assignee.
+4. Save.
+
+> **Screenshot placeholder:** *[Screenshot of the Asana defaults form showing Workspace, Project, and Assignee dropdowns]*
+
+---
+
+## Creating an Asana Task from a Failure
+
+When a test run fails:
+
+1. Open the **Execution Report** for the failing test case.
+2. Click **Log Issue** (or **Create Asana Task**) near the failed step.
+3. A task creation form opens, pre-filled with:
+   - **Task Name** — the test case name and failure description.
+   - **Description** — failure logs, DOM state, and screenshot links from the execution report.
+   - **Project** and **Assignee** — from your defaults (editable).
+4. Click **Create Task**. The task appears in Asana and a link appears in the execution report.
+
+> **Screenshot placeholder:** *[Screenshot of the Asana task creation form pre-filled with test failure details]*
+
+---
+
+## Using Asana Tasks in AI Studio
+
+Type `/asana` in the AI Studio chat input to attach an Asana task as context. The agent reads the task title and description to guide test generation.
+
+See [AI Studio →](../ai-studio) for more.
+
+---
+
+## Disconnecting Asana
+
+Open the Asana tile in Integrations and click **Disconnect**. Existing tasks in Asana are unaffected.

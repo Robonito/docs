@@ -1,0 +1,81 @@
+# Tags
+
+Tags are colored labels you attach to test cases to categorize, filter, and organize your test suite at a glance. A tag could represent a feature area (`checkout`), a test priority (`smoke`), a team (`mobile-squad`), or a release milestone (`v2.1`).
+
+Tags are **workspace-scoped** — they are shared across all suites and test cases in a workspace, so teams can standardize their taxonomy without duplicating effort.
+
+> **Screenshot placeholder:** *[Screenshot of a test case list with colored tags applied — e.g., "smoke", "checkout", "P0" labels visible next to test case names]*
+
+---
+
+## Creating a Tag
+
+1. Navigate to any test case in the Test Explorer.
+2. Click the **Tags** section in the test case detail panel (or click the tag icon in the suite sidebar context menu).
+3. Click **+ New Tag** or the **Edit Tags** button.
+4. In the Tag Editor:
+   - **Name** — enter a short, descriptive label (e.g., `regression`, `smoke`, `P0`).
+   - **Description** — optional note explaining what this tag represents.
+   - **Color** — pick from swatches or enter a custom hex color. The color is used as the pill background in the UI.
+5. Click **Save**.
+
+> **Screenshot placeholder:** *[Screenshot of the Tag Editor drawer showing the Name, Description, and Color picker fields]*
+
+---
+
+## Applying Tags to a Test Case
+
+1. Open the test case you want to label.
+2. In the **Tags** field, click the input and type to search existing tags, or select from the dropdown list.
+3. Select one or more tags — multiple tags can be applied to a single test case.
+4. Changes are saved automatically.
+
+> **Screenshot placeholder:** *[Screenshot of the tag selector on a test case showing the multi-select dropdown with colored tag pills]*
+
+---
+
+## Filtering by Tag
+
+You can filter the test case list to show only tests that carry a specific tag:
+
+1. In the Test Explorer, open the **Filters** panel.
+2. Select one or more tags from the **Tags** filter.
+3. The list updates in real-time to show only matching test cases.
+
+This is particularly useful when you need to run a specific subset of tests — for example, filtering for `smoke` tests before a release, or `P0` critical-path tests during an incident.
+
+> **Screenshot placeholder:** *[Screenshot of the Filters panel with the Tags filter expanded and a tag selected]*
+
+---
+
+## Managing Tags
+
+### Editing a Tag
+1. Open the Tag Manager (accessible from the workspace settings or the tag editor).
+2. Find the tag and click the edit icon.
+3. Update the name, description, or color and save.
+
+All test cases that carry this tag will immediately reflect the updated label and color.
+
+### Deleting a Tag
+1. Open the Tag Manager.
+2. Click the delete icon on the tag you want to remove.
+3. Confirm the deletion.
+
+The tag is removed from all test cases it was applied to. **This action is permanent and cannot be undone.**
+
+> **Screenshot placeholder:** *[Screenshot of the Tag Manager showing a list of tags with edit and delete actions]*
+
+---
+
+## Tips for Organizing with Tags
+
+Use a consistent taxonomy across your team to get the most out of tags:
+
+- **Priority tags:** `P0`, `P1`, `P2` — lets you quickly filter critical-path tests before a deployment.
+- **Type tags:** `smoke`, `regression`, `exploratory` — for quick pre-release smoke runs.
+- **Feature tags:** `auth`, `checkout`, `payments`, `onboarding` — filter tests by product area.
+- **Team tags:** `frontend`, `backend`, `mobile-squad` — useful in larger orgs with multiple QA teams.
+- **Release tags:** `v2.1`, `sprint-42` — temporarily label tests related to a specific release cycle.
+
+Tags can be combined freely. A test might carry `smoke`, `checkout`, and `P0` at the same time, making it eligible for any of those filtered views.

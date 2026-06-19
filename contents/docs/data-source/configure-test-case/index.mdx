@@ -1,40 +1,81 @@
-# Data Source Execution Behavior
+# Configure a Test Case for Data Source
 
-After uploading a **Data Source** and successfully binding its columns to your test steps using the `{{@filename.columnName}}` syntax, you are ready to execute your test case.
-
-Unlike complex testing frameworks that require you to manually build intricate iteration loops or draft YAML configuration files, Robonito simplifies data-driven testing by automatically handling the strategy under the hood during execution.
+Once you have [uploaded a data source →](./upload-data-source) and [applied column references to your test steps →](./apply-data-source), you need to configure how the test case uses the data. This page explains execution behavior, configuration options, and best practices.
 
 ---
 
-## The Default Strategy: Randomized Fetching
+## How Robonito Selects Rows
 
-Currently, Robonito applies a streamlined **Randomized Execution Strategy** by default when processing any bound Data Source variables during a standard test run.
+By default, Robonito selects a **random row** from the data source each time the test runs. This means:
 
-### How It Works
+- Each individual test execution uses one row.
+- You cannot predict which row will be selected for a given run.
+- Over multiple runs, different rows will be used.
 
-When a test case is executed (either manually via the Test Explorer or through a CI/CD pipeline hook), the runtime engine performs the following actions:
+This is intentional — it catches bugs that only appear with specific data values, rather than always testing the same row.
 
-1. **Test Initialization:** Robonito safely boots the isolated testing browser (Chromium or Firefox).
-2. **Memory Loading:** It securely loads the bound data sources containing your hundreds or thousands of rows into active memory.
-3. **Random Row Selection:** For each execution of the test case, Robonito's engine intrinsically picks a **randomized row** from the dataset.
-4. **Value Injection:** When the timeline hits your parameterized step, the engine dynamically injects exactly the corresponding column values from that randomized row into the UI.
-
----
-
-## Why Randomized Fetching?
-
-Robonito utilizes Randomized Execution by default because it mathematically guarantees better edge-case discovery. 
-
-By randomly fetching rows across thousands of test runs rather than repeatedly hitting the first few sequential rows, your test suite essentially simulates chaotic, real-world user behavior. This immediately exposes frontend validation errors and backend logic flaws that sequential testing often misses.
+> **Note:** Sequential or ordered row execution (running the test once per row) is not currently supported automatically. To test all rows, create a schedule that runs the test case multiple times, or add multiple instances of the test case to a suite.
 
 ---
 
-## Executing the Test
+## Running a Test Case with a Data Source
 
-To actively execute your parameterized test:
+When you execute a test case that contains `{{@FileName.ColumnName}}` references, Robonito:
 
-1. Navigate to the **Test Explorer**.
-2. Click the **Execute** button globally or select a specific **Execution Config** (e.g., your custom Google Chrome setup).
-3. The test will automatically begin, and you can observe your `{{@...}}` variables being dynamically replaced with live, randomized data from your uploads in real-time.
+1. Detects that the test case uses a data source.
+2. Loads the uploaded file.
+3. Randomly picks one row.
+4. Substitutes `{{@FileName.ColumnName}}` expressions with the row's values.
+5. Runs the test with those substituted values.
+6. Reports which row was used in the execution report.
 
-> **See also:** [Upload a Data Source](../upload-data-source) | [Apply Data Source to Steps](../apply-data-source) | [Execution Reports](/docs/reports)
+> **Screenshot placeholder:** *[Screenshot of the execution report for a data-source-powered test, showing the row values that were used in that run]*
+
+---
+
+## Execution Report — What You'll See
+
+In the execution detail view, each step that used a data source reference shows:
+
+- The substituted value (e.g., `email → test_user_3@example.com`)
+- Which column the value came from
+- Which row number was selected
+
+This makes failures traceable — you can see exactly which input data caused the test to fail.
+
+---
+
+## When the Data Source Changes
+
+If you modify a data source file after binding it to a test case:
+
+- **Adding rows** — new rows immediately become eligible for random selection on future runs.
+- **Removing columns** — any test steps referencing a removed column will fail at runtime with an "expression not found" error. Update the test steps to remove or replace the broken references before running.
+- **Renaming columns** — same as removing a column. The reference `{{@file.oldColumnName}}` will fail until updated to `{{@file.newColumnName}}`.
+- **Replacing the file** — uploading a new file with the same name replaces the data. If column names change, update all test steps referencing the old columns.
+
+---
+
+## Multi-Run Coverage Strategy
+
+To cover all rows in a data source:
+
+**Option A — Suite with duplicate test cases**
+Add the same test case to a suite multiple times (once per row you want to cover). Each execution instance picks a different random row. Not guaranteed to cover all rows, but increases coverage with each run.
+
+**Option B — Scheduled repetition**
+Configure a schedule to run the test case daily. Over time, the random selection covers more rows.
+
+**Option C — Explicit per-row test cases**
+Create one test case per data row, each with hardcoded values instead of data source references. More maintenance, but guaranteed coverage.
+
+---
+
+## Common Errors
+
+| Error | Cause | Fix |
+|---|---|---|
+| `Column not found: {{@file.col}}` | The column name has been renamed or deleted | Update the data source reference in the step |
+| `Data source not found: {{@file}}` | The file was deleted from data sources | Re-upload the file with the same name |
+| `Data source is empty` | The file has zero data rows | Add at least one row to the file |
+| Step value is blank | The referenced column exists but the selected row has an empty cell | Ensure all data rows have values in referenced columns |

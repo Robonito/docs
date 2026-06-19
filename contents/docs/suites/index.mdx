@@ -1,50 +1,127 @@
-# Managing Test Suites
+# Test Suites
 
-Test Suites are organizational containers used to logically group related test cases together (e.g., "Authentication Flow" or "Checkout Core").
-
----
-
-## 1. Creating a New Suite
-
-To isolate a new batch of tests:
-
-1. **New Suite:** Click the `+ New Suite` button located in the top-left corner of the Robonito sidebar.
-   ![Suite Management](/suite/Test-IDE.png)
-   
-2. **Name:** Provide a descriptive identifier in the "Suite Name" field (e.g., "Checkout Cart").
-   ![Suite Creation Dialog](/suite/Suite-Creation-Dialog.png)
-
-3. **Platform Type:** 
-   Robonito explicitly isolates test architectures natively. You must pick the target execution environment for the suite:
-   - **Web:** For browser-based UI functionality.
-   - **API:** For executing backend endpoint tests.
-   - **Mobile:** For native iOS and Android application UI tests.
-
-4. **Save:** Click **Create** to initialize the suite.
+Suites are the primary organizational unit in Robonito. Every test case lives inside a suite. A suite groups related tests together — for example, `Checkout Flow`, `User Authentication`, or `API Regression`.
 
 ---
 
-## 2. Managing Your Suites
+## Creating a Suite
 
-Click the **ellipsis (three dots)** next to any suite name to open its context menu:
+1. In the **Test Explorer** sidebar, click **New Suite**.
+2. Enter a suite name and select the test type: **Web**, **API**, or **Mobile**.
+3. Click **Create**.
 
-![Suite Action](/suite/SuiteActions.png)
-
-From this menu, you can selectively trigger the following lifecycle events:
-- **Add Test Case:** Initialize a new blank test case natively mapped to the suite's underlying architecture type.
-- **Schedule:** Queue the entire suite to execute automatically at defined recurring cron intervals.
-- **Report:** View unified Execution Reports mapping test pass/fail ratios specifically for this suite cluster.
-- **Delete Suite:** Permanently destroy the suite and all dynamically nested test cases.
+The suite appears in the sidebar. Test cases can now be added inside it.
 
 ---
 
-## 3. Batch Suite Execution
+## Suite Actions
 
-By grouping tests into suites, you unlock the ability to trigger **batch executions**. 
+Right-click a suite name (or click the **⋯** overflow menu) to access:
 
-Rather than selecting individual test cases, you can click the `Execute` button at the Suite level to recursively run all internal tests sequentially:
+| Action | Description |
+|---|---|
+| **Add Test Case** | Creates a new test case inside the suite |
+| **Report** | Opens the suite-level execution report |
+| **Generate Code** | Exports all test cases in the suite as JavaScript test files |
+| **Export Suite** | Exports to TestRail or Zephyr |
+| **Delete Suite** | Permanently removes the suite and all test cases inside it |
 
-* **[Local Execution](/docs/executions/local):** Utilize your host machine hardware to physically launch and execute the suite in real-time.
-* **[Cloud Execution](/docs/executions/cloud):** Offload the suite to Robonito's scalable cloud clusters.
+> **Warning:** Deleting a suite is permanent. All test cases, recordings, and execution history inside the suite are removed. There is no undo.
 
-As the suite runs iteratively, Robonito naturally coalesces the independent completion boundaries of every test case into a single execution report.
+---
+
+## Executing a Suite
+
+To run all test cases in a suite:
+
+1. Select the suite in the Test Explorer.
+2. Click **Execute** in the toolbar.
+3. Choose **Local** or **Cloud** execution, select an environment, and click **Run**.
+
+Cloud execution dispatches all tests **in parallel** across isolated workers. Local execution runs them sequentially on your machine.
+
+You can also run individual test cases within a suite by clicking **Execute** from inside any test case.
+
+---
+
+## Reordering Test Cases
+
+Within a suite, drag test case rows to reorder them. The order affects sequential local execution. Cloud execution dispatches all tests simultaneously regardless of order.
+
+---
+
+## Importing Test Cases into a Suite
+
+Robonito can import test cases from external sources directly into a suite.
+
+### From Postman
+
+1. Open the suite's **⋯** menu → **Import from Postman**.
+2. Upload a Postman collection JSON file (v2.1.0 format).
+3. Select a target suite (or create a new one).
+4. Robonito streams the import progress and creates one API test case per request.
+
+### From Swagger / OpenAPI
+
+1. Open the suite's **⋯** menu → **Import from Swagger/OpenAPI**.
+2. Enter the OpenAPI spec URL (e.g., `https://api.example.com/openapi.json`) and optionally a Base URL override.
+3. Robonito parses the spec and displays all endpoints with HTTP method badges.
+4. Select the endpoints to import (duplicates are detected and flagged).
+5. Preview each request with a cURL command copy, then click **Import**.
+
+> **Screenshot placeholder:** *[Screenshot of the Swagger import dialog showing the endpoint list with method badges and per-endpoint checkbox selection]*
+
+### From TestRail
+
+1. Open the suite's **⋯** menu → **Import from TestRail**.
+2. Select a TestRail Project and Suite to import from.
+3. Choose a target Robonito suite.
+4. Assign a test type (Web, API, Mobile, or Agent) to each imported test case.
+5. Duplicates are flagged. Click **Import** to proceed.
+
+---
+
+## Exporting a Suite
+
+### Export to Excel
+
+Click **Export to Excel** in the suite toolbar to download a spreadsheet of all test cases in the suite — names, descriptions, step counts, and status.
+
+### Export to TestRail
+
+1. Click **⋯ → Export Suite → TestRail**.
+2. Select the destination TestRail project.
+3. Robonito creates a test run in TestRail with one test case per Robonito test, and streams the export progress.
+
+See [TestRail Integration →](../integrations/testrail) for setup.
+
+### Export to Zephyr
+
+1. Click **⋯ → Export Suite → Zephyr**.
+2. Select the destination Zephyr project.
+3. Robonito exports each test case to a Zephyr test cycle and pushes execution results.
+
+See [Zephyr Integration →](../integrations/zephyr) for setup.
+
+---
+
+## Generating Code
+
+Robonito can generate JavaScript test files from any suite:
+
+1. Click **⋯ → Generate Code** on the suite.
+2. Robonito generates one file per test case, grouped by suite name.
+3. Files are downloaded as a ZIP archive.
+
+Generated code can be used as a reference or integrated into custom test runners.
+
+---
+
+## Suite-Level Reports
+
+Click **⋯ → Report** to open the suite-level execution report. This shows:
+- Pass/fail trends over time for this suite
+- Individual test case health scores
+- Execution history with date, environment, and execution type filters
+
+See [Reports →](../reports) for full detail.

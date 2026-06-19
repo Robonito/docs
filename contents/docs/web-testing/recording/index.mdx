@@ -57,7 +57,7 @@ While the recording session is active, Robonito overlays a powerful suite of **A
 
 ### Validation Tools
 
-- **Smart Assertion:** Validate UI states using plain English. Simply describe what should be explicitly true about an element, and Robonito’s AI handles the underlying validation logic automatically. [Learn more](/docs/assertions/smart-assertion).
+- **Smart Assertion:** Validate UI states using plain English. Simply describe what should be explicitly true about an element, and Robonito's AI handles the underlying validation logic automatically. [Learn more](/docs/assertions/smart-assertion).
 - **Standard Assertions:** Manually add assertions to verify text content, element visibility, or attributes mid-recording. [Learn more](/docs/assertions).
 - **Page Assertion:** Validate that the browser has navigated to the exact correct URL and that the entire page has loaded successfully. [Learn more](/docs/assertions/page-assertion).
 - **Visual Assert:** Take a snapshot of a specific element or the entire page to detect pixel-level visual layout regressions in future runs.
@@ -90,3 +90,42 @@ Building tests via the Robonito Recorder offers massive advantages:
 - **Extreme Accuracy:** Actions capture exact DOM selectors used during the real interaction.
 - **Rapid Maintenance:** Easily append new steps or delete outdated ones without rewriting entire scripts.
 - **AI-Enhanced:** Mid-recording smart assertions make validations bulletproof against minor UI changes.
+
+---
+
+## Advanced Recording Tools
+
+### Fetch OTP
+
+During recording, click **Fetch OTP** to read a one-time password from your email inbox. Robonito connects to the configured [Email (IMAP) integration →](../../integrations/email), finds the most recent email matching the subject filter you specify, and extracts the OTP code — automatically inserting it into the active input field.
+
+This allows you to record end-to-end flows that include email-based 2FA without manually reading emails.
+
+**Requirements:** The [Email integration →](../../integrations/email) must be configured in your workspace before using Fetch OTP.
+
+### Optional Steps
+
+Mark any step as **Optional** by toggling the **Optional** flag in the step's options. Optional steps behave like regular steps during execution — but if an optional step fails, execution continues and the failure is not counted toward the test's pass/fail result.
+
+Use optional steps for:
+- Cookie consent banners (present on first visit only)
+- One-time onboarding dialogs
+- "What's new" modals that appear intermittently
+- Any step that is expected to fail under certain conditions
+
+To mark a step as optional: open the step editor and toggle **Optional Step** to On.
+
+> **Screenshot placeholder:** *[Screenshot of the step editor with the Optional Step toggle highlighted]*
+
+### Loops
+
+Add a **Loop Start** and **Loop End** node pair to repeat a block of steps:
+
+1. Add a **Loop Start** node before the steps you want to repeat.
+2. Add a **Loop End** node after the last repeated step.
+3. Configure the loop condition:
+   - **Iteration** — repeat a fixed number of times (set Initial and Final values)
+   - **Element Visible** — keep looping while an element is present on screen
+   - **Element Invisible** — keep looping until an element disappears
+
+Loops are useful for paginating through search results, processing items in a list, or retrying an action until a condition is met.

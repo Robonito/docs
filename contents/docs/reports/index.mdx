@@ -1,8 +1,6 @@
 # Execution Reports
 
-The **Execution Reports** section provides a centralized dashboard covering all of your automated test executions. It allows you to monitor active testing, track failure occurrences across environments, and review detailed test performance metadata.
-
-These reports help QA teams maintain full visibility into their automation pipelines to quickly identify unstable runs or failing test suites.
+The **Reports** dashboard is your centralized view of every test execution across your workspace. It tracks pass/fail trends, surfaces recent failures with root-cause details, and provides deep-dive logs for individual test runs — across web, API, and mobile tests.
 
 ![Execution Reports Dashboard](/test-case/execution-reports.png)
 
@@ -10,70 +8,108 @@ These reports help QA teams maintain full visibility into their automation pipel
 
 ## The Execution Trend Graph
 
-The dynamic trend chart visualizes your test runs over hours, days, or weeks. 
+The trend chart at the top of the Reports page visualizes test runs over hours, days, or weeks. Executions are broken down by source:
 
-It displays execution histories categorized across:
-- **GitHub Check Runs**
-- **Scheduled Executions**
-- **Test Suites**
-- **Individual Test Cases**
+- **GitHub Check Runs** — runs triggered by PR events via the GitHub integration
+- **Scheduled Executions** — runs triggered by configured schedules
+- **Test Suites** — manual suite-level executions
+- **Individual Test Cases** — single test case runs
 
-Using the trend graph helps development teams:
-- Identify overall test execution frequencies.
-- Detect sudden spikes in system-wide automation failures following a new deployment.
-- Monitor the cumulative health of your automation architecture daily.
+Use the trend graph to detect sudden spikes in failures after a deployment, measure testing frequency, and track overall automation health over time.
+
+> **Screenshot placeholder:** *[Screenshot of the execution trend graph showing a time-series chart with pass/fail bars, filtered by week]*
 
 ---
 
-## Managing Failed Tests
+## Failed Tests Panel
 
-On the right side of the primary dashboard, the **Failed Tests** panel highlights your most recent broken test cases.
+The right side of the Reports dashboard highlights your most recently failed test cases:
 
-Each failed entry displays the following metadata:
-- **Test Case Name:** The specific script or scenario that failed.
-- **Suite Name:** The parent suite where the test resides.
-- **Time of Failure:** The precise timestamp of the run.
-- **Failure Reason:** An automated error description highlighting exactly why the step failed.
-- **Environment:** Where it executed (e.g., `LOCAL` or `CLOUD`).
-- **Test Type:** The platform classification (e.g., `WEB`, `API`, `MOBILE`).
+| Column | Description |
+|---|---|
+| **Test Case Name** | The specific scenario that failed |
+| **Suite Name** | The parent suite |
+| **Time of Failure** | Precise timestamp of the run |
+| **Failure Reason** | Auto-generated error description |
+| **Environment** | Where it ran (`LOCAL` or `CLOUD`) |
+| **Test Type** | Platform classification (`WEB`, `API`, `MOBILE`) |
 
-### Investigating Failures
-- Click **Show More** to expand detailed failure breakdown metrics.
-- Click **View Logs** to instantly inspect the underlying terminal logs.
-
-*This focused panel allows for rapid pipeline debugging without having to navigate through full-length test reports.*
+- Click **Show More** to expand detailed failure metrics.
+- Click **View Logs** to open the full terminal execution log.
 
 ---
 
-## Filtering and Exporting
+## Filtering Reports
 
-Robonito provides robust dashboard filters to narrow your report data for focused analysis:
-- **Status:** Filter executions by `Passed`, `Failed`, or `In Progress`.
-- **Environment:** Isolate metrics mapped from `Local` or `Cloud` execution servers.
-- **Execution Type:** Narrow reports down by a single `Test Case`, an entire `Suite`, or a `Schedule`.
+Use the filter panel to narrow down the report view:
 
-### Downloading Reports
-You can click the **Download** button to export execution logs or comprehensive `.csv` spreadsheets securely for use outside of the Robonito platform.
+| Filter | Options |
+|---|---|
+| **Status** | `Passed`, `Failed`, `In Progress` |
+| **Environment** | `Local`, `Cloud` |
+| **Execution Type** | `Test Case`, `Suite`, `Schedule`, `GitHub Check Run` |
+| **Tags** | Filter by test case tags (e.g., `smoke`, `regression`) |
+| **Date Range** | Specify a custom date window |
 
 ---
 
-## Deep Dive: Execution Details
+## Exporting Reports
 
-Clicking into any specific execution entry opens highly detailed debugging information, including:
-- Exact step-by-step test timelines.
-- Pass/fail assertion data result comparisons.
-- In-depth UI failure messages, network snapshots, and DOM traces.
-- Comprehensive system logs.
+Click the **Download** button to export execution results:
+- **CSV** — tabular export of all test results for a selected period. Useful for dashboards, spreadsheets, and stakeholder reports.
+- **Logs** — raw terminal output for a specific execution run.
 
-### Understanding Failure Examples
+---
 
-In the event of a test failure, Robonito explicitly highlights the error directly in the UI. For example:
+## Execution Detail View
 
-> **Visual assertion FAILED. Check diff and actual image.**
+Click any execution entry to open its detail view. This is your primary debugging workspace:
 
-This output indicates that:
-1. A visual DOM mismatch occurred during execution.
-2. An unexpected UI change was detected.
-3. The recorded visual assertion failed.
+### Step-by-Step Timeline
+Every recorded step is shown in execution order with individual pass/fail status. Failed steps are highlighted in red with:
+- The exact error message
+- A screenshot taken at the moment of failure
+- The DOM state at the time of the failure
+- Network request/response data (for API steps)
 
-From here, teams can deeply inspect the generated logs alongside the saved diagnostic screenshots to exactly determine the core root cause of the UI breakdown.
+> **Screenshot placeholder:** *[Screenshot of the execution detail view showing a failed step highlighted in red with a failure screenshot and error message]*
+
+### Assertion Results
+For each assertion step, the detail view shows:
+- **Expected value** — what the test expected to find
+- **Actual value** — what was found in the live app
+- **Diff** — for visual assertions, a pixel-level image diff highlighting the changed regions
+
+### Console and Network Logs
+Web test executions include:
+- **Browser console logs** — JavaScript errors, warnings, and custom console output captured during the run
+- **HAR data** — full network request/response log (HTTP Archive format) for debugging API calls made by the application during the test
+
+### Log to Issue
+From any failed step, click **Log Issue** to create a bug ticket in Jira, Linear, or Asana with failure details pre-filled — without leaving the report.
+
+> **Screenshot placeholder:** *[Screenshot of the "Log Issue" button on a failed step, with the Jira/Linear/Asana picker]*
+
+---
+
+## Test Case Health Score
+
+Each test case in the Reports dashboard shows a **Health Score** — a rolling stability percentage calculated from recent execution history. A test that passes consistently scores near 100%; a flaky test that fails intermittently will have a lower score.
+
+Use health scores to:
+- Identify flaky tests that need selector updates or timing fixes.
+- Prioritize maintenance on the least stable parts of your test suite.
+- Track improvement over time as fixes are applied.
+
+---
+
+## API Test Reports
+
+API test executions have their own detail view that shows:
+- Request method, URL, headers, and body for each step
+- Response status code, headers, and body
+- Response time in milliseconds
+- Assertion results with expected vs. actual values
+- Variable extraction results showing what was captured and passed to the next step
+
+> **Screenshot placeholder:** *[Screenshot of the API execution report showing request/response panels and assertion results for a chained API test]*

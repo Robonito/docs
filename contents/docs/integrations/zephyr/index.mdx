@@ -1,0 +1,54 @@
+# Zephyr Integration
+
+The Zephyr integration connects Robonito to **Zephyr Scale** (for Jira) or **Zephyr Squad**, letting you export Robonito test suites as Zephyr test cases and synchronize execution results back to your Zephyr test cycles.
+
+> **Screenshot placeholder:** *[Screenshot of the Zephyr integration tile in the Integrations page]*
+
+---
+
+## What It Does
+
+- **Export Robonito suites to Zephyr** — converts your Robonito test cases into Zephyr test cases inside a Zephyr project and folder.
+- **Push execution results** — after a Robonito test run, results are reported back to Zephyr as test executions within a test cycle.
+
+---
+
+## Connecting Zephyr
+
+### Prerequisites
+
+You need a **Zephyr API key**. To generate one:
+- In Zephyr Scale: go to **Zephyr Scale Settings → API Access Tokens → Generate token**.
+- In Zephyr Squad: go to your Jira profile → **Zephyr Squad → API Key**.
+
+### Setup Steps
+
+1. Navigate to **Integrations** in the left sidebar.
+2. Click the **Zephyr** tile.
+3. Paste your **Zephyr API Key** in the input field.
+4. Click **Save**. Robonito validates the key and shows a **Connected** status.
+
+> **Screenshot placeholder:** *[Screenshot of the Zephyr configuration form with the API key input field and a "Save" button]*
+
+---
+
+## Exporting a Suite to Zephyr
+
+Once connected:
+
+1. In the Test Explorer, click the **three-dot menu** (⋯) next to the suite you want to export.
+2. Select **Export to Zephyr**.
+3. In the export dialog, select:
+   - **Zephyr Project** — the project where test cases will be created.
+   - **Folder** — the folder or component within the project (optional).
+4. Click **Export**.
+
+Robonito creates a Zephyr test case for each Robonito test case in the suite, including step descriptions.
+
+> **Screenshot placeholder:** *[Screenshot of the Export to Zephyr modal showing project and folder selectors]*
+
+---
+
+## Disconnecting Zephyr
+
+To remove the connection, open the Zephyr tile and click **Disconnect** or clear the API key. Previously exported test cases remain in Zephyr unaffected.

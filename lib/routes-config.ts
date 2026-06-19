@@ -78,9 +78,10 @@ export const ROUTES: EachRoute[] = [
     items: [
       { title: "Create API testcase", href: "/create-api-testcase" },
       { title: "Configure API endpoint", href: "/configure-api-endpoint" },
-      { title: "Execution report", href: "/execution-report" },
       { title: "Variables in API", href: "/variables-in-api" },
       { title: "Assertions", href: "/assertions" },
+      { title: "API Chaining", href: "/chaining" },
+      { title: "Execution report", href: "/execution-report" },
     ],
   },
   {
@@ -89,6 +90,7 @@ export const ROUTES: EachRoute[] = [
     items: [
       { title: "Create Mobile test case", href: "/create-mobile-testcase" },
       { title: "Recording", href: "/recording" },
+      { title: "iOS Setup", href: "/ios-setup" },
     ],
   },
   {
@@ -106,34 +108,30 @@ export const ROUTES: EachRoute[] = [
     title: "Executions",
     href: "/executions",
     items: [
-      { title: "Cloud", href: "/cloud" },
       { title: "Local", href: "/local" },
-    ],
-  },
-  {
-    title: "Performance",
-    href: "/performance",
-    items: [
-      { title: "Performance Monitor", href: "/monitor" },
+      { title: "Cloud", href: "/cloud" },
+      { title: "Parallel Execution", href: "/parallelization" },
     ],
   },
   {
     title: "Variables",
     href: "/variables",
-  },
-  {
-    title: "Teams",
-    href: "/teams",
-  },
-  {
-    title: "Integrations",
-    href: "/integrations",
     items: [
-      { title: "Email", href: "/email" },
-      { title: "Jira", href: "/jira" },
-      { title: "Github", href: "/github" },
-      { title: "Authenticator Apps", href: "/authenticator-apps" },
+      { title: "Global Variables", href: "/global-variables" },
+      { title: "Random Values", href: "/random-values" },
     ],
+  },
+  {
+    title: "Tags",
+    href: "/tags",
+  },
+  {
+    title: "Reusable Test Cases",
+    href: "/reusable-test-cases",
+  },
+  {
+    title: "AI Studio",
+    href: "/ai-studio",
   },
   {
     title: "Data Source",
@@ -148,10 +146,43 @@ export const ROUTES: EachRoute[] = [
     ],
   },
   {
+    title: "Schedules",
+    href: "/schedules",
+  },
+  {
+    title: "Reports",
+    href: "/reports",
+  },
+  {
+    title: "Integrations",
+    href: "/integrations",
+    items: [
+      { title: "Jira", href: "/jira" },
+      { title: "Linear", href: "/linear" },
+      { title: "Asana", href: "/asana" },
+      { title: "TestRail", href: "/testrail" },
+      { title: "Zephyr", href: "/zephyr" },
+      { title: "Github", href: "/github" },
+      { title: "Jenkins", href: "/jenkins" },
+      { title: "Email", href: "/email" },
+      { title: "Authenticator Apps", href: "/authenticator-apps" },
+      { title: "Slack", href: "/slack" },
+      { title: "Microsoft Teams", href: "/microsoft-teams" },
+      { title: "Google Chat", href: "/google-chat" },
+    ],
+  },
+  {
+    title: "Performance",
+    href: "/performance",
+    items: [
+      { title: "Performance Monitor", href: "/monitor" },
+      { title: "Load Profile", href: "/load-profile" },
+    ],
+  },
+  {
     title: "Environment Manager",
     href: "/environment-manager",
     items: [
-      // { title: "Environment Manager", href: "/" },
       { title: "User Settings", href: "/user-settings" },
       { title: "License Management", href: "/license-check" },
       { title: "Browser Management", href: "/browsers" },
@@ -159,12 +190,8 @@ export const ROUTES: EachRoute[] = [
     ],
   },
   {
-    title: "Reports",
-    href: "/reports",
-  },
-  {
-    title: "Schedules",
-    href: "/schedules",
+    title: "Teams",
+    href: "/teams",
   },
 ];
 

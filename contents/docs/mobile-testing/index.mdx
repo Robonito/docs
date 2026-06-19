@@ -6,8 +6,12 @@ Robonito lets you record and replay automated tests on real mobile applications 
 
 ## Supported Platforms
 
-- 🤖 **Android** — via `.apk` app files, run on an Android emulator
-- 🍏 **iOS** — via `.ipa` app files *(requires macOS with Apple Silicon)*
+| Platform | File Type | Requirement |
+|---|---|---|
+| 🤖 **Android** | `.apk` | Any OS — runs via Android emulator |
+| 🍏 **iOS** | `.ipa` | macOS with Apple Silicon (M1/M2/M3) only |
+
+> **iOS Note:** iOS simulation requires Xcode installed from the Mac App Store. It cannot run on Windows or Linux. See the [iOS Setup guide →](./mobile-testing/ios-setup) for full details.
 
 ---
 
@@ -16,30 +20,96 @@ Robonito lets you record and replay automated tests on real mobile applications 
 Follow these steps in order to set up and run your first mobile test:
 
 ### Step 1 — Set Up Your Environment
-Before recording, your machine needs a few tools installed (Appium, Android SDK, Node.js). Robonito handles this automatically.
 
-➡️ **[Configure Mobile Setup](/docs/environment-manager/mobile-setup)**
+Before recording, your machine needs Appium, Android SDK tools, and Node.js installed. Robonito handles all of this automatically through the Mobile Setup wizard.
+
+➡️ **[Configure Mobile Setup →](/docs/environment-manager/mobile-setup)**
+
+For iOS on macOS, additional setup is required.
+
+➡️ **[iOS Setup →](./mobile-testing/ios-setup)**
 
 ### Step 2 — Create a Mobile Test Case
-Initialize a new test case inside a **Mobile** suite in Robonito.
 
-➡️ **[Create a Mobile Test Case](./mobile-testing/create-mobile-testcase)**
+Initialize a new test case inside a Mobile suite and choose your target platform (Android or iOS).
+
+➡️ **[Create a Mobile Test Case →](./mobile-testing/create-mobile-testcase)**
 
 ### Step 3 — Record Your Test
-Upload your `.apk` or `.ipa` file, launch the emulator, and start interacting with the app. Robonito records every action.
 
-➡️ **[Start Recording](./mobile-testing/recording)**
+Upload your `.apk` or `.ipa` file, launch the emulator or simulator, and start interacting with the app. Robonito records every action.
+
+➡️ **[Start Recording →](./mobile-testing/recording)**
 
 ---
 
-## What Gets Recorded?
+## What Gets Recorded
 
 During a recording session, Robonito captures:
-- Taps and clicks on buttons, links, and list items
-- Text input into fields
-- Swipes and scrolls
-- Screen transitions and navigation flows
 
-Each action becomes a **test step** that can be replayed, edited, or run in the cloud.
+| Interaction | Recorded Step Type |
+|---|---|
+| Tap on a button or link | `mobile-tap` |
+| Text input into a field | `mobile-input` |
+| Swipe or scroll | `mobile-swipe` |
+| System button (Home, Back) | `mobile-system-button` |
+| Assertion (element visible, text equals) | `mobile-assert` |
 
-> **Screenshot placeholder:** *[Screenshot of the Robonito mobile recorder with a running Android emulator]*
+Each action becomes a test step that can be replayed, edited, or run in the cloud.
+
+> **Screenshot placeholder:** *[Screenshot of the Robonito mobile recorder with a running Android emulator showing recorded tap and input steps in the sidebar]*
+
+---
+
+## Android vs. iOS: Key Differences
+
+| Aspect | Android | iOS |
+|---|---|---|
+| **OS Requirement** | Windows, Mac, or Linux | macOS with Apple Silicon only |
+| **App File** | `.apk` | `.ipa` (debug build signed for simulator) |
+| **Automation Driver** | UiAutomator2 (via Appium) | XCUITest (via Appium) |
+| **Element Targeting** | Resource IDs, XPath, content-desc | Accessibility Identifiers, XPath |
+| **System Buttons** | Back, Home, Recent Apps | Home button, back gesture |
+| **Permission Dialogs** | Android system dialogs | iOS system alerts (require explicit tap steps) |
+| **Scroll Behavior** | Smooth scrolling | Physics-based momentum scrolling |
+
+### Android-Specific Notes
+
+- Android emulators run directly on your machine via the Android SDK. No Mac required.
+- Element targeting uses Android **Resource IDs** (e.g., `com.app:id/login_button`) or content descriptions for the most stable selectors.
+- The **Back** hardware button is supported as a system button step.
+- Robonito installs the `.apk` on the emulator automatically at the start of each recording or execution session.
+
+### iOS-Specific Notes
+
+- iOS simulators require Xcode, which is Mac-only. See [iOS Setup →](./mobile-testing/ios-setup).
+- Your `.ipa` must be a **development build** signed to run on the simulator — distribution builds signed for the App Store will not install.
+- Element targeting relies on **Accessibility Identifiers** set by your development team. Ask them to add `accessibilityIdentifier` to key UI elements.
+- iOS system permission dialogs (camera, location, notifications) appear outside the app and must be handled with explicit tap steps during recording.
+- The `Bundle ID` (e.g., `com.yourcompany.app`) is required in the recording configuration to launch the correct app on the simulator.
+
+---
+
+## Mobile Assertions
+
+Both Android and iOS support assertions that verify the state of the mobile UI:
+
+| Assertion | What It Checks |
+|---|---|
+| **Element Visible** | The element is present and visible on screen |
+| **Element Not Visible** | The element is absent from the current screen |
+| **Element Text Equals** | The element's text matches exactly |
+| **Element Text Contains** | The element's text contains a substring |
+| **Element Enabled** | The element is interactive (not greyed out) |
+
+Assertions are added by pausing the recording and selecting the element you want to validate.
+
+> **Screenshot placeholder:** *[Screenshot of the mobile assertion editor showing available assertion types for a selected UI element]*
+
+---
+
+## Running Mobile Tests
+
+Click **Execute** on a mobile test case and select **Local** execution. The emulator or simulator launches, your app installs, and Robonito replays all recorded steps automatically.
+
+For cloud-based mobile execution (parallel runs, CI/CD), contact Robonito Support for mobile cloud plan options.

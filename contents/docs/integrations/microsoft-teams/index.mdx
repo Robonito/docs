@@ -1,0 +1,49 @@
+# Microsoft Teams Integration
+
+The Microsoft Teams integration posts test execution summaries and failure alerts to a Teams channel using an incoming webhook connector.
+
+---
+
+## Prerequisites
+
+- A Microsoft Teams workspace where you have permission to configure connectors
+- A Robonito workspace with Admin or Owner access
+
+---
+
+## Setup
+
+### Step 1 — Create an Incoming Webhook in Teams
+
+1. In Microsoft Teams, navigate to the channel where you want Robonito notifications.
+2. Click **⋯** (More Options) next to the channel name and select **Connectors**.
+3. Search for **Incoming Webhook** and click **Configure**.
+4. Enter a name (e.g., "Robonito") and optionally upload an icon.
+5. Click **Create** and copy the webhook URL.
+
+> **Note:** If your organization uses the new Teams experience, webhooks are configured via the Teams admin center or through Power Automate flows.
+
+### Step 2 — Connect in Robonito
+
+1. In Robonito, navigate to **Integrations → Microsoft Teams**.
+2. Paste the webhook URL into the **Webhook URL** field.
+3. Click **Save**.
+
+> **Screenshot placeholder:** *[Screenshot of the Microsoft Teams integration panel showing the Webhook URL field]*
+
+---
+
+## What Gets Posted
+
+Robonito sends an Adaptive Card to the Teams channel after each suite or scheduled run with:
+
+- Execution summary (total, passed, failed, pass rate)
+- Status indicator (green / red / yellow)
+- Top failed tests with error snippets
+- A button linking to the full report in Robonito
+
+---
+
+## Updating or Disconnecting
+
+Navigate to **Integrations → Microsoft Teams** and update the webhook URL or click **Disconnect** to remove the integration.

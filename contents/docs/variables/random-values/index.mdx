@@ -1,0 +1,124 @@
+# Random Values
+
+Random value generators let you fill form fields, API payloads, and variable expressions with realistic fake data — inline, without an external file. Use them in any smart input field with the `{{$type}}` syntax.
+
+---
+
+## How to Use
+
+In any input field that supports variables, type `{{$` to open the random value picker. Select a type, and Robonito inserts the expression. At execution time, it resolves to a fresh random value for each test run.
+
+```
+{{$firstName}}     → Maria
+{{$email}}         → test_7f3k2@example.com
+{{$uuid}}          → 550e8400-e29b-41d4-a716-446655440000
+```
+
+> **Screenshot placeholder:** *[Screenshot of the smart input picker open with the `{{$` prefix entered and a list of random value types visible]*
+
+---
+
+## Available Random Value Types
+
+### Personal Information
+
+| Expression | Example Output | Description |
+|---|---|---|
+| `{{$firstName}}` | Maria | Random first name |
+| `{{$lastName}}` | Johnson | Random last name |
+| `{{$fullName}}` | Maria Johnson | Random full name |
+| `{{$email}}` | test_abc@example.com | Random email address (safe for testing) |
+| `{{$phone}}` | +1-555-234-5678 | Random phone number |
+| `{{$username}}` | maria_j92 | Random username |
+| `{{$password}}` | Xk9#mP2$qL | Random strong password |
+
+### Address
+
+| Expression | Example Output | Description |
+|---|---|---|
+| `{{$city}}` | Portland | Random city name |
+| `{{$country}}` | Germany | Random country name |
+| `{{$zipCode}}` | 97201 | Random ZIP/postal code |
+| `{{$streetAddress}}` | 742 Evergreen Terrace | Random street address |
+
+### Numbers & Identifiers
+
+| Expression | Example Output | Description |
+|---|---|---|
+| `{{$uuid}}` | 550e8400-e29b-41d4-... | RFC 4122 UUID v4 |
+| `{{$number}}` | 4729 | Random integer |
+| `{{$float}}` | 47.29 | Random decimal number |
+
+### Dates & Times
+
+| Expression | Example Output | Description |
+|---|---|---|
+| `{{$date}}` | 2024-03-15 | Random date (ISO format) |
+| `{{$timestamp}}` | 1710460800000 | Random Unix timestamp (ms) |
+
+### Text
+
+| Expression | Example Output | Description |
+|---|---|---|
+| `{{$word}}` | quantum | Random English word |
+| `{{$sentence}}` | The quick brown fox... | Random sentence |
+| `{{$paragraph}}` | Lorem ipsum... | Random paragraph |
+
+### Internet & Tech
+
+| Expression | Example Output | Description |
+|---|---|---|
+| `{{$url}}` | https://example.com/path | Random URL |
+| `{{$ipAddress}}` | 192.168.42.17 | Random IPv4 address |
+| `{{$hexColor}}` | #3a7bd5 | Random hex color code |
+
+---
+
+## Common Use Cases
+
+**Registering a new user without collision:**
+```
+Email:     {{$email}}
+Password:  {{$password}}
+First Name: {{$firstName}}
+```
+
+**Creating a product with a unique SKU:**
+```
+Product Name: {{$word}} Pro
+SKU:          {{$uuid}}
+Price:        {{$float}}
+```
+
+**Filling an address form:**
+```
+Street:  {{$streetAddress}}
+City:    {{$city}}
+Zip:     {{$zipCode}}
+Country: {{$country}}
+```
+
+---
+
+## Combining with Other Variable Types
+
+Random values can be combined with static text and other variable expressions in the same field. For example, to generate a unique but recognizable test email:
+
+```
+test_{{$uuid}}@yourcompany-qa.com
+```
+
+This produces something like: `test_550e8400-e29b-41d4@yourcompany-qa.com`
+
+---
+
+## Comparison with Data Sources
+
+| | Random Values | Data Sources |
+|---|---|---|
+| **Setup** | None — use inline | Upload a CSV/XLSX/JSON file |
+| **Reproducibility** | Different value every run | Same rows, consistent data |
+| **Volume** | Unlimited (one per run) | Up to the row count in the file |
+| **Use case** | Unique IDs, avoiding collisions | Specific user accounts, test datasets |
+
+Use **Random Values** when you need uniqueness. Use **Data Sources** when you need specific, controlled input data.

@@ -1,45 +1,105 @@
 # Performance Monitor
 
-The **Performance Monitor** is Robonito's real-time analytics engine. It provides a live, visual dashboard that captures every metric of your application's performance as it happens during a load test or a high-frequency execution run.
+The Performance Monitor provides real-time visibility into your performance test as it runs — streaming live KPI cards, charts, and status distributions from cloud workers to your screen.
 
 ---
 
-## Real-Time Dashboards
+## Accessing the Monitor
 
-When a performance test is active, the monitor displays several key visualizations:
+The monitor opens automatically when you start a performance test from the **Performance** configuration page. To configure and start a test:
 
-### 1. Latency Distribution
-Shows a histogram of response times. This helps you identify outliers — requests that take significantly longer than the average, even if the overall test "passes."
+1. Navigate to **Performance** in the left sidebar.
+2. Select API test cases to include.
+3. Configure the [Load Profile →](../load-profile) (load type, virtual users, duration).
+4. Set Success Criteria (optional).
+5. Click **Run**.
 
-### 2. Success vs. Failure Trends
-A live line chart comparing successful responses against error codes (4xx/5xx). A sudden spike in the red "Failure" line often indicates a service crash or database deadlock under load.
+The monitor opens immediately and begins streaming data as virtual users ramp up.
 
-### 3. Virtual User (VU) Status
-Tracks exactly how many virtual users are currently active in the ramp-up, peak, or ramp-down phase of your test.
+> **Screenshot placeholder:** *[Screenshot of the Performance Monitor with a live test running, showing KPI cards, charts, and the Stop Test button]*
 
 ---
 
-## Key Metrics Tracked
+## KPI Cards
 
-| Metric | What it Measures | Why it Matters |
+Four real-time metric cards appear at the top of the monitor:
+
+| Card | What It Shows |
+|---|---|
+| **Total Requests** | Cumulative request count + success percentage |
+| **Requests/Second** | Current RPS + active virtual user count + active requests in flight |
+| **Error Rate** | Current error percentage + total failed request count |
+| **Avg Latency** | Rolling average latency in milliseconds + min/max range |
+
+Cards update continuously as the test runs.
+
+---
+
+## Charts
+
+### Virtual Users Over Time
+
+A line chart showing how many virtual users are active at each moment. Reflects the load profile shape — ramp-up curves, spikes, and steady-state periods are all visible here.
+
+### Metrics / Percentiles Toggle
+
+Click the **Metrics** / **Percentiles** tab to switch between two chart views:
+
+**Metrics view:**
+- Latency (ms) — average response time per second
+- Requests/sec — throughput over time
+- Error Rate (%) — error percentage per second
+- Throughput KB/s — data transferred per second
+
+**Percentiles view:**
+- P50 — median latency (half of all requests are faster than this)
+- P90 — 90th percentile latency
+- P95 — 95th percentile latency
+- P99 — 99th percentile latency (your worst-case users)
+
+> **Screenshot placeholder:** *[Screenshot of the Percentiles chart view showing P50, P90, P95, and P99 lines diverging under load]*
+
+---
+
+## Status Code Distribution
+
+A donut chart breaks down all responses by HTTP status code class:
+
+| Color | Code Class | Meaning |
 |---|---|---|
-| **P95 Latency** | The time under which 95% of requests complete | Better representation of "real user" experience than simple averages |
-| **RPS** | Requests Per Second | Measures the total volume of traffic your system is handling |
-| **Error Rate** | Percentage of failed requests | Indicates system instability or exhausted resources |
-| **TTFB** | Time to First Byte | Measures server responsiveness before data transfer begins |
+| Green | 2xx | Successful responses |
+| Orange | 4xx | Client errors (bad requests, auth failures) |
+| Red | 5xx | Server errors (crashes, timeouts) |
+
+The legend shows the count for each class. A rising 5xx slice during a ramp-up typically indicates the server is hitting its capacity limit.
 
 ---
 
-## Monitoring During Execution
+## Controls
 
-You can access the Performance Monitor directly from the **Performance** tab in the main sidebar. 
-
-1. Select an active or recently completed performance run.
-2. The dashboard will populate with historical or live data.
-3. Hover over data points to see precise timestamps and value snapshots.
-
-> **Screenshot placeholder:** *[Screenshot of the Performance Monitor live charts showing latency and RPS]*
+| Button | When Available | Action |
+|---|---|---|
+| **Stop Test** | While test is running | Immediately halts all virtual users and ends the test |
+| **Save Report** | After test ends | Downloads a JSON file with the full test result data |
+| **Back to Configuration** | After test ends | Returns to the Load Profile configuration page |
 
 ---
 
-> **Tip:** Use the **Filter** menu to isolate specific API endpoints or geographic regions (if using cloud execution) to compare performance variations across different segments of your infrastructure.
+## Success Criteria Results
+
+If you configured Success Criteria (P90/P95/P99 thresholds or Error Rate limits), the monitor displays a verdict at the end of the test:
+
+- **Passed** — all criteria met throughout the test duration
+- **Failed** — at least one criterion was breached; the violating criterion is highlighted with the peak value recorded
+
+---
+
+## Interpreting Results
+
+**Healthy test:** Latency stays flat as VUs increase, error rate stays near 0%, P95 ≈ P50.
+
+**Approaching capacity:** Latency begins rising with VU count, P95 diverges significantly from P50, slight error rate increase (1–5%).
+
+**System overload:** Error rate spikes above 5–10%, P99 is 5× or more higher than P50, 5xx responses appear in the status distribution.
+
+Use the percentile chart to identify which requests are slow — if P99 is very high but P50 is normal, a subset of requests (perhaps specific endpoints) are the bottleneck.

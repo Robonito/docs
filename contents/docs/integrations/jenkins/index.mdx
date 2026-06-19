@@ -1,0 +1,87 @@
+# Jenkins Integration
+
+The Jenkins integration lets you trigger Robonito cloud test runs directly from your Jenkins pipelines using a generated API key and a Groovy pipeline snippet. No plugins required — it works via Robonito's REST API.
+
+> **Screenshot placeholder:** *[Screenshot of the Jenkins integration tile in the Integrations page, with a "Connected" status badge]*
+
+---
+
+## How It Works
+
+Robonito generates a **workspace-scoped API key** that authenticates Jenkins to trigger test executions on your behalf. You embed this key and a provided Groovy snippet into your `Jenkinsfile`. When the pipeline runs, Jenkins calls the Robonito API, executes the specified test suite in the cloud, and waits for the results before marking the build as passed or failed.
+
+---
+
+## Setting Up the Integration
+
+### 1. Connect Jenkins in Robonito
+
+1. Navigate to **Integrations** in the left sidebar.
+2. Click the **Jenkins** tile.
+3. In the Jenkins configuration panel, click **Generate API Key**.
+4. Copy the generated key and store it securely — you will not be able to see it again.
+
+> **Screenshot placeholder:** *[Screenshot of the Jenkins connection panel with the Generate API Key button and the masked API key field]*
+
+### 2. Add the API Key to Jenkins
+
+Store the Robonito API key as a Jenkins **Credential** (type: Secret text):
+
+1. In Jenkins, go to **Manage Jenkins → Credentials**.
+2. Add a new credential of type **Secret text**.
+3. Set the ID to something memorable (e.g., `ROBONITO_API_KEY`) and paste the API key as the value.
+
+### 3. Copy the Pipeline Snippet
+
+Back in Robonito's Jenkins integration panel, click **View Snippet** to open the **Snippet Generator**. The generator produces a ready-to-use Groovy block pre-configured with your workspace ID and the correct API endpoint:
+
+```groovy
+stage('Run Robonito Tests') {
+    steps {
+        withCredentials([string(credentialsId: 'ROBONITO_API_KEY', variable: 'ROBONITO_KEY')]) {
+            script {
+                def response = httpRequest(
+                    url: 'https://api.robonito.com/v1/executions/trigger',
+                    httpMode: 'POST',
+                    contentType: 'APPLICATION_JSON',
+                    customHeaders: [[name: 'x-api-key', value: env.ROBONITO_KEY]],
+                    requestBody: '{"workspaceId": "YOUR_WORKSPACE_ID", "suiteId": "YOUR_SUITE_ID"}'
+                )
+                if (response.status != 200) {
+                    error "Robonito tests failed: ${response.content}"
+                }
+            }
+        }
+    }
+}
+```
+
+> **Screenshot placeholder:** *[Screenshot of the Jenkins Snippet Generator panel showing the generated Groovy code with workspace ID pre-filled]*
+
+### 4. Configure Trigger Rules (Optional)
+
+In the Jenkins integration panel, you can define **Trigger Rules** to control which Robonito suite runs for which Jenkins job or branch:
+
+1. Click **+ New Trigger Rule**.
+2. Set:
+   - **Job Name** — the Jenkins job name pattern (e.g., `main-branch-deploy`)
+   - **Suite** — the Robonito suite to execute
+   - **Test Cases** — specific test cases within the suite (or leave blank to run all)
+3. Save the rule.
+
+> **Screenshot placeholder:** *[Screenshot of the Trigger Rules table with a configured rule showing job name, suite, and status]*
+
+---
+
+## Verifying the Connection
+
+After adding the snippet to your `Jenkinsfile` and running a build, check:
+
+1. The Jenkins build console log shows the Robonito API call succeeded.
+2. In Robonito → **Reports**, a new execution entry appears with the source labeled `JENKINS`.
+
+---
+
+## Disconnecting Jenkins
+
+To revoke access, return to the Jenkins integration tile and click **Disconnect** (or **Regenerate Key** to issue a new key and invalidate the old one). Existing pipeline snippets using the old key will fail until updated with the new key.

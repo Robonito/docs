@@ -1,41 +1,97 @@
 # Variables
 
-Variables allow your automation scripts to capture and store dynamic values (like generated Order IDs or random email addresses) during a live execution, and instantly reuse them later in that exact same test case. 
+Variables allow you to pass dynamic data through your test cases — capturing values from one step and using them in a later step, parameterizing tests with external data, or keeping sensitive configuration out of your test logic.
 
-Currently, Robonito supports **Local Variables**, which are strictly scoped to the lifecycle of a single test execution.
-
----
-
-## 1. Recording a Local Variable
-
-To capture a dynamic value from your application during a recording session:
-
-1. **Start Recording:** Begin recording your target test case.
-2. **Open Variable Tool:** In the Robonito recording overlay toolbar, click the **Record Local Variable** action icon.
-   ![Record Variable Tool](/test-case/record-variable-tool.png)
-3. **Configure the Variable:**
-   - **Variable Name:** Enter a recognizable string (e.g., `checkoutOrderId` or `temporaryEmail`).
-   - **Value:** You can explicitly type a static baseline value or use the targeter to extract text natively from a DOM element on the screen.
-4. **Save:** Click **Save Variable**. 
-
-An independent `LOCAL-VARIABLE` step is immediately inserted into your execution flow. This step will autonomously capture and bind the target value from the application memory whenever the test runs.
+Robonito supports four distinct variable systems, each suited for a different purpose.
 
 ---
 
-## 2. Using a Variable
+## Overview
 
-Once a variable step is successfully recorded in the flow, you can map it to downstream actions like Input Fields or Assertions.
-
-1. **Trigger an Input Action:** Navigate to a text input field in your application and click it.
-2. **Open Use Variable Tool:** Instead of typing text on your keyboard, click the **Use Variable** icon in the Robonito overlay toolbar.
-   ![Use Variable Tool](/test-case/use-variable-tool.png)
-3. **Select the Variable:** A dropdown dialog will appear containing all Local Variables correctly initialized *before* this current step. Select your target variable (e.g., `checkoutOrderId`).
-4. **Inject:** Robonito will record the input step heavily binding the logic to the variable reference rather than a hard-coded string.
+| Type | Syntax | Scope | Use Case |
+|---|---|---|---|
+| **Local Variable** | `{{variableName}}` | Single test run | Capture a value from one step and use it in the next |
+| **Global / Environment Variable** | Set by name in the Environment Variable step | Workspace-wide per environment | Shared config that changes between staging/production |
+| **Data Source Column** | `{{@FileName.ColumnName}}` | Single test run, per row | Parameterize tests with rows from a CSV, XLSX, or JSON file |
+| **Random Value** | `{{$type}}` | Single test run | Generate realistic fake data inline (names, emails, UUIDs) |
 
 ---
 
-## Technical Constraints
+## Local Variables
 
-- **Local Scope Limitations:** Variables cannot be shared across different test cases or test suites. They exist only inside the sandbox of the active script.
-- **Volatile Memory:** Variable values map entirely to runtime memory and are completely wiped when the test execution terminates.
-- **Sequential Requirements:** A variable **must** be extracted and recorded in the timeline *before* you can attempt to use it in a subsequent step.
+Local variables are created by the **Local Variable** node during a test run. They capture a value from a UI element — such as an order number, an ID returned from a form, or text displayed on screen — and store it under a name you define. That name becomes available to all subsequent steps in the same test run.
+
+### Creating a Local Variable
+
+1. During recording or in the node editor, add a **Local Variable** step.
+2. Target the element whose text you want to capture.
+3. Enter a **Variable Name** (no spaces; use camelCase or underscores).
+4. Optionally add a **Slice Expression** to extract a substring:
+   - `*` — the entire text (default)
+   - `0` — first character only
+   - `1-3` — characters 1 through 3
+   - `1-3,5,8-10` — characters 1–3, 5, and 8–10
+
+### Using a Local Variable
+
+Type `{{` in any smart input field and select the variable name from the autocomplete dropdown, or type the full expression manually: `{{orderNumber}}`.
+
+Local variables are available to all steps that appear **after** the Local Variable node in execution order.
+
+> **Screenshot placeholder:** *[Screenshot of the Local Variable node editor showing the Variable Name field and Slice Expression field with an element targeted]*
+
+---
+
+## Global Variables (Environments)
+
+Global variables — also called Environment Variables — are workspace-level key-value pairs stored inside a named **Environment** (e.g., `Staging`, `Production`). When you execute a test, you select which environment to use, and all global variables from that environment become available.
+
+➡️ **[Learn more about Global Variables and Environments →](./variables/global-variables)**
+
+---
+
+## Data Source Variables
+
+Data Source variables let you run the same test case against multiple rows of input data from an external file (CSV, XLSX, or JSON). Reference a column using `{{@FileName.ColumnName}}`.
+
+For example, if you upload a file named `users.csv` with a `email` column:
+
+```
+{{@users.email}}
+```
+
+During execution, Robonito automatically picks a row and substitutes the value.
+
+➡️ **[Learn more about Data Sources →](../data-source)**
+
+---
+
+## Random Values
+
+Random value generators produce realistic fake data inline — without needing an external file. Use them in any smart input field with the `{{$type}}` syntax.
+
+➡️ **[View all Random Value types →](./variables/random-values)**
+
+---
+
+## Choosing the Right Variable
+
+| Situation | Use |
+|---|---|
+| Capturing a value produced by the app (e.g., an order ID) | Local Variable |
+| Storing a base URL or API key that differs per environment | Global Variable |
+| Running the same test with 10 different email addresses | Data Source |
+| Filling a "First Name" field with a realistic fake value | Random Value (`{{$firstName}}`) |
+| Referencing a captured value in the very next step | Local Variable |
+| Sharing a login token across test cases via Reusable Test | Local Variable (promoted to caller's scope) |
+
+---
+
+## Smart Input Fields
+
+All fields that accept variable expressions show a smart input with autocomplete. Type `{{` to open the variable picker:
+
+- `{{name}}` — selects from local variables captured earlier in the test
+- `{{@file.col}}` — selects from uploaded data source columns
+- `{{$type}}` — opens the random value generator picker
+- `{{!name}}` — used specifically in the **Environment Variable** node to reference a local variable as the source value (see [Global Variables →](./variables/global-variables))

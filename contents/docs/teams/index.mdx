@@ -1,50 +1,110 @@
-# Managing Team Members
+# Teams & Collaboration
 
-The **Team Members** feature securely allows your Quality Assurance team to collaborate, share recorded test suites, and execute pipelines natively within a unified Robonito workspace.
+Robonito supports multi-user workspaces where team members can collaborate on test suites, share environments, and jointly manage integrations.
 
 ---
 
-## Prerequisites
+## Roles
 
-Before inviting a teammate to your workspace, ensure they have:
-1. Created an active Robonito account.
-2. Successfully downloaded and installed the Robonito Desktop App (see our **[Installation Guide](./installation)**).
+Every workspace member has one of three roles. Roles control what actions a member can take.
+
+| Role | Who It's For | Key Permissions |
+|---|---|---|
+| **Owner** | The workspace creator or an assigned successor | Full access — manage billing, delete org, transfer ownership, manage all members and roles |
+| **Admin** | Team leads and QA managers | Create/delete workspaces, manage members, configure integrations, manage reporting thresholds and ROI assumptions |
+| **Member** | Individual contributors | Create and run test cases, view reports, use integrations configured by Admin/Owner |
+
+Roles are shown with colored badges: Owner (grape), Admin (blue), Member (gray).
+
+### Permission Reference
+
+| Feature | Member | Admin | Owner |
+|---|---|---|---|
+| Create / run test cases | ✅ | ✅ | ✅ |
+| Create / delete suites | ✅ | ✅ | ✅ |
+| Create / edit tags | ✅ | ✅ | ✅ |
+| Create / edit schedules | ✅ | ✅ | ✅ |
+| Upload / delete data sources | ✅ | ✅ | ✅ |
+| Create / edit environments | ✅ | ✅ | ✅ |
+| Invite team members | ❌ | ✅ | ✅ |
+| Remove team members | ❌ | ✅ | ✅ |
+| Configure integrations | ❌ | ✅ | ✅ |
+| Manage billing / subscription | ❌ | ❌ | ✅ |
+| Delete organization | ❌ | ❌ | ✅ |
+| Transfer ownership | ❌ | ❌ | ✅ |
+
+---
+
+## Workspace Access Scope
+
+When inviting a member, you choose their **access scope**:
+
+- **All Workspaces** — the member can access every workspace in the organization, with a default role applied uniformly.
+- **Specific Workspaces** — the member can only access the workspaces you explicitly assign, and can have a different role per workspace.
+
+This lets you give a contractor access to a single `Staging` workspace without exposing `Production`.
 
 ---
 
 ## Inviting a Team Member
 
-To securely grant access to your workspace:
+> **Requires:** Admin or Owner role
 
-1. **Open Team Settings:** 
-   Navigate to the main Robonito dashboard. Locate and click the **Team Members** icon (the fourth icon from the top in the left sidebar).
-   
-   ![Open Team Members Sidebar](/team/team-homepage.png)
+1. Navigate to **Teams** in the left sidebar.
+2. Click **Invite Member**.
+3. Enter the team member's email address.
+4. Choose access scope:
+   - **All Workspaces**: select a default role (Owner / Admin / Member)
+   - **Specific Workspaces**: add one or more workspace + role pairs
+5. Click **Send Invite**.
 
-2. **Send the Invitation:** 
-   Inside the Team Management panel, click the primary **Add Member** button. Enter your teammate's registered email address and click send.
-   
-   ![Add Members Button UI](/team/sent-invite.png)
+The invited member receives an email with an acceptance link. Their status shows as **Pending** until they accept.
 
-### Invitation Status
+> **Screenshot placeholder:** *[Screenshot of the Invite Member panel showing email input, scope selector (All Workspaces / Specific Workspaces), and workspace + role pair selector]*
 
-Immediately after sending the invitation, you will see a green success notification confirming the invite was dispatched.
+---
 
-![Success Notification Alert](/team/invite-sucess.png)
+## Managing Existing Members
+
+The **Teams** table shows all current members with:
+
+| Column | Description |
+|---|---|
+| **Name / Email** | Member identity and avatar |
+| **Role** | Current role badge |
+| **Workspace Access** | Shows "All Workspaces" or up to 2 workspace names with overflow tooltip |
+| **Status** | Active or Pending |
+| **Actions** | Edit access, Change role, Remove member |
+
+### Changing a Member's Role
+
+Click **Edit** next to a member to open the access panel. Change their role or workspace assignments and save.
+
+> **Note:** Promoting a member to Owner or demoting an existing Owner requires Owner-level access.
+
+### Removing a Member
+
+Click **Remove** next to a member. The member loses access to all workspaces immediately. Their previously executed test runs and reports are preserved.
 
 ---
 
 ## Accepting an Invitation
 
-When your teammate receives the invitation in their email or dashboard:
-1. They must navigate to their Robonito client and **Accept** the invite.
-2. Once accepted, they gain immediate read and write access to your shared test suites, schedules, and reports.
+When you receive a Robonito team invitation by email:
 
-**Important Step for New Users:**  
-After accepting the invitation, the new team member must actively switch their current active dashboard instance to your shared *Workspace Name* from their account dropdown in order to see your collaborative tests.
+1. Click the **Accept Invitation** link in the email.
+2. Sign in or create a Robonito account.
+3. You are automatically added to the workspace(s) with the assigned role.
+
+If the invitation link has expired, ask the Admin or Owner to resend it.
 
 ---
 
-## Next Steps
+## Organization vs. Workspace
 
-To learn how to integrate your team's test suites with popular third-party alerting systems like Slack or GitHub Actions, please visit our **[Integrations Guide](./integrations)**.
+Robonito has two levels of access control:
+
+- **Organization** — the top-level account. Owns billing and all workspaces.
+- **Workspace** — a project environment (e.g., `Staging`, `Production`, or `Mobile QA`). Each workspace has its own test suites, integrations, environments, and member access.
+
+A member with Admin access to `Organization A` may have Member access in one of its workspaces, or no access to another workspace entirely — depending on how their access was scoped.

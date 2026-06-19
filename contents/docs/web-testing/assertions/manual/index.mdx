@@ -1,51 +1,144 @@
 # Manual Assertions
 
-Manual assertions let you add specific validation rules to any step in your web test case — without relying on AI. You define exactly what you want to check, and Robonito evaluates it during test execution.
+Assertions verify that your application is in the correct state at a specific point during test execution. If an assertion fails, the test step is marked as failed and execution stops (unless the step is marked Optional).
 
 ---
 
-## When to Use Manual Assertions
-
-Use manual assertions when you need precise control over what gets validated:
-- Checking that an exact error message appears after a failed login
-- Verifying a price, count, or label matches a known value
-- Confirming an element is visible or hidden at a specific point in the flow
-
----
-
-## How to Add a Manual Assertion
+## Adding Assertions
 
 ### During Recording
-1. In the recording toolbar, click the **Add Assertion** button.
-2. Choose your assertion type (Text, UI, Page, or Visual).
-3. Click the target element on the page.
-4. Configure the expected value and matching rules.
-5. Click **Save Assertion**.
 
-> **Screenshot placeholder:** *[Screenshot of the assertion panel open during a recording session]*
+1. Pause recording by clicking the **Pause** button in the recording toolbar.
+2. Right-click the element you want to assert against.
+3. Select **Add Assertion**.
+4. Choose an assertion type from the dropdown.
+5. Configure the expected value.
+6. Resume recording.
 
-### After Recording (Editing a Step)
-1. Open your test case in the Test Explorer.
-2. Click the **Edit (✏️)** icon on a step.
-3. In the step editor, scroll to the **Assertions** section.
-4. Click **Add Assertion** and follow the same steps as above.
+### After Recording (Post-Edit)
 
----
-
-## Supported Assertion Types
-
-| Type | What It Checks |
-|------|----------------|
-| [Text Assertion](/docs/assertions/text-assertion) | Text content inside a UI element |
-| [UI Assertion](/docs/assertions/ui-assertion) | Element existence, visibility, count, or CSS style |
-| [Page Assertion](/docs/assertions/page-assertion) | Page title or current URL |
-| [Smart Assertion](/docs/assertions/smart-assertion) | Plain-English AI-powered UI validation |
-| [Custom Assertion](/docs/assertions/custom-assertion) | Dynamic values using runtime variables |
+1. Open the test case in the editor.
+2. Click the **+** button between steps to insert a new step.
+3. Select **Assert** from the step type picker.
+4. Configure the assertion in the node editor.
 
 ---
 
-## Tips for Reliable Assertions
+## Assertion Types
 
-- **Be specific:** Prefer `Exact Match` over `Partial Match` when the value is always the same.
-- **Check visibility, not just existence:** An element might be in the DOM but hidden — use `Element Visible` when the user must actually see it.
-- **Use variables for dynamic text:** If the value changes per run, use a [Custom Assertion](/docs/assertions/custom-assertion) with `{{!variableName}}`.
+### CSS Style
+
+Checks that a CSS property of an element has a specific value.
+
+**Examples:**
+- Verify a button is red: `background-color` equals `rgb(255, 0, 0)`
+- Verify text is bold: `font-weight` equals `700`
+- Verify an element is hidden: `display` equals `none`
+
+**Fields:** CSS Property, Operator (=, ≠, contains, starts with, ends with), Expected Value. Optional: Case Sensitive checkbox, Arithmetic Expression checkbox.
+
+---
+
+### Element Property
+
+Checks a DOM property of an element — the runtime JavaScript value as opposed to the HTML attribute.
+
+**Common properties:** `value` (input content), `checked` (checkbox state), `disabled`, `textContent`, `innerHTML`
+
+**Fields:** Property Name, Operator, Expected Value. Optional: Case Sensitive, Arithmetic Expression.
+
+---
+
+### Element Attribute
+
+Checks an HTML attribute set in the markup.
+
+**Common attributes:** `href`, `src`, `aria-label`, `data-testid`, `placeholder`, `title`, `class`
+
+**Fields:** Attribute Name, Operator, Expected Value. Optional: Case Sensitive, Arithmetic Expression.
+
+---
+
+### Element Count
+
+Checks how many elements match a selector — useful for verifying list lengths, table row counts, or the presence of multiple items.
+
+**Example:** Assert that a product grid contains exactly 12 items.
+
+**Fields:** Operator (=, ≠, >, <, ≥, ≤), Expected Count.
+
+---
+
+### Page Assertion
+
+Checks page-level state rather than a specific element.
+
+**Page conditions:** Current URL, Page title, Page loaded state
+
+**Example:** After a login redirect, assert that the URL contains `/dashboard`.
+
+**Fields:** Page Condition, Operator, Expected Value. Optional: Case Sensitive. References the current browser tab/page rather than a specific element.
+
+---
+
+### Visual Assertion (Visually Same)
+
+Captures a screenshot of an element at recording time and stores it as the **reference snapshot**. At execution time, a fresh screenshot is taken and compared pixel-by-pixel against the reference.
+
+**Use cases:**
+- Verifying that a chart, graph, or image renders correctly
+- Catching unintended CSS changes that break layout
+- Validating icon and logo rendering
+
+**Fields:**
+- **Tolerance** — the percentage of pixels allowed to differ before the assertion fails (0 = pixel-perfect, 5 = 5% variation allowed)
+- **Snapshot URL** — the stored reference image (read-only, set during recording)
+- **Bounding box** — the region captured (read-only, set during recording)
+
+When the assertion fails, the execution report shows a **pixel diff image** highlighting the changed regions in red.
+
+> **Screenshot placeholder:** *[Screenshot of the Visual Assertion node editor showing the reference snapshot thumbnail, tolerance slider, and bounding box coordinates]*
+
+---
+
+### Smart Assertion
+
+Describe what you want to verify in plain English. The AI interprets the description and evaluates it against the live page state.
+
+**Examples:**
+- "The shopping cart shows 3 items"
+- "The error message is visible"
+- "The submit button is disabled"
+- "The price is greater than 0"
+
+Smart Assertions use `{{!variableName}}` syntax to reference local variables captured earlier in the test. For example: "The order confirmation number matches {{!orderId}}"
+
+**Field:** Description (smart input supporting variable references)
+
+---
+
+## Operators Reference
+
+| Operator | Meaning |
+|---|---|
+| `=` | Exactly equals |
+| `≠` | Does not equal |
+| `contains` | The actual value contains the expected substring |
+| `starts with` | The actual value starts with the expected string |
+| `ends with` | The actual value ends with the expected string |
+| `>` | Greater than (numeric) |
+| `<` | Less than (numeric) |
+| `≥` | Greater than or equal (numeric) |
+| `≤` | Less than or equal (numeric) |
+
+---
+
+## Assertion Failure Behavior
+
+When an assertion fails:
+- The test step is marked as **Failed** (red).
+- Execution stops at the failing step (unless the step is marked **Optional**).
+- The execution report captures the actual value, expected value, and a screenshot at the moment of failure.
+- For Visual Assertions, a pixel diff image is also saved.
+
+To make an assertion non-blocking (continue on failure), mark the assertion step as **Optional** in the step editor.

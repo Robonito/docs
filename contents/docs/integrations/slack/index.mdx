@@ -1,0 +1,67 @@
+# Slack Integration
+
+The Slack integration sends test execution results and failure alerts directly to a Slack channel via an incoming webhook. Configure it once per workspace and all scheduled runs and suite executions will post results automatically.
+
+---
+
+## Prerequisites
+
+- A Slack workspace where you have permission to add apps
+- A Robonito workspace with Admin or Owner access
+
+---
+
+## Setup
+
+### Step 1 — Create a Slack Incoming Webhook
+
+1. Go to [api.slack.com/apps](https://api.slack.com/apps) and click **Create New App → From Scratch**.
+2. Name the app (e.g., "Robonito") and select your Slack workspace.
+3. In the left sidebar, click **Incoming Webhooks** and toggle **Activate Incoming Webhooks** to On.
+4. Click **Add New Webhook to Workspace**.
+5. Select the channel where Robonito should post results, then click **Allow**.
+6. Copy the webhook URL — it looks like `https://hooks.slack.com/services/T.../B.../...`.
+
+### Step 2 — Connect in Robonito
+
+1. In Robonito, navigate to **Integrations → Slack**.
+2. Paste your webhook URL into the **Webhook URL** field.
+3. Click **Save**.
+
+> **Screenshot placeholder:** *[Screenshot of the Slack integration configuration panel showing the Webhook URL field and Save button]*
+
+---
+
+## What Gets Posted
+
+Robonito sends a Slack message after each test suite or scheduled run with:
+
+- Suite name and execution time
+- Total tests, passed count, failed count, and pass rate
+- Direct links to the full execution report
+- A color-coded status bar (green = all pass, red = failures, yellow = mixed)
+
+Failed test cases are listed individually with their error summaries, up to 5 failures per message.
+
+> **Screenshot placeholder:** *[Screenshot of a Slack message from Robonito showing a test run summary with pass/fail counts and a link to the report]*
+
+---
+
+## Notification Scope
+
+Slack notifications are sent for:
+
+- **Scheduled runs** — after every scheduled execution fires
+- **Suite executions** — when you manually execute a full suite
+- **GitHub Check Runs** — after a PR-triggered run completes (if GitHub integration is configured)
+
+Single test case runs do not trigger Slack notifications.
+
+---
+
+## Updating or Disconnecting
+
+To change the webhook URL or disconnect Slack:
+
+1. Navigate to **Integrations → Slack**.
+2. Update the webhook URL and click **Save**, or click **Disconnect** to remove the integration.

@@ -1,0 +1,82 @@
+# TestRail Integration
+
+The TestRail integration connects Robonito to your TestRail test management instance. It lets you export Robonito test suites directly to TestRail as test cases, keeping your test management system in sync with your automation suite without manual copy-paste.
+
+> **Screenshot placeholder:** *[Screenshot of the TestRail integration tile in the Integrations page]*
+
+---
+
+## What It Does
+
+- **Export Robonito suites to TestRail** — converts your Robonito test cases into TestRail test cases inside a TestRail project and section of your choice.
+- **Sync execution results** — after a Robonito test run, results are automatically pushed to the corresponding TestRail test case as a test result (passed/failed).
+
+---
+
+## Connecting TestRail
+
+### Prerequisites
+
+You need:
+- A TestRail account with API access enabled.
+- Your TestRail instance URL (e.g., `https://yourcompany.testrail.io`).
+- Your TestRail **username** (email address).
+- A TestRail **API Key** (generated under your TestRail account settings).
+
+### Setup Steps
+
+1. Navigate to **Integrations** in the left sidebar.
+2. Click the **TestRail** tile.
+3. Enter:
+   - **TestRail URL** — your full instance URL.
+   - **Username** — your TestRail account email.
+   - **API Key** — your TestRail API key (not your password).
+4. Click **Connect**. Robonito validates the credentials and shows a **Connected** status.
+
+> **Screenshot placeholder:** *[Screenshot of the TestRail connection form with URL, username, and API key fields]*
+
+---
+
+## Exporting a Suite to TestRail
+
+Once connected, you can export any Robonito suite to TestRail:
+
+1. In the Test Explorer, click the **three-dot menu** (⋯) next to the suite you want to export.
+2. Select **Export to TestRail**.
+3. In the export dialog:
+   - Select the **TestRail Project** to export into.
+   - Robonito creates a new Section in that project named after your Robonito suite.
+   - All test cases in the suite are exported as individual TestRail test cases.
+4. Click **Export**.
+
+> **Screenshot placeholder:** *[Screenshot of the Export to TestRail modal showing the project selector dropdown]*
+
+### What Gets Exported
+
+Each Robonito test case becomes a TestRail test case with:
+- **Title** — the Robonito test case name.
+- **Steps** — a human-readable description of each recorded or configured test step.
+- **Section** — the name of the parent Robonito suite.
+
+---
+
+## Configuring Defaults
+
+To speed up repeated exports, set default project mappings in the TestRail integration settings:
+
+1. Open the TestRail tile in Integrations.
+2. Click **Edit Defaults**.
+3. Set:
+   - **Default Project** — the TestRail project where exports go by default.
+   - **Default Section** — a specific section within the project.
+4. Save.
+
+These defaults pre-fill the export dialog but can be overridden for individual exports.
+
+> **Screenshot placeholder:** *[Screenshot of the TestRail defaults form]*
+
+---
+
+## Disconnecting TestRail
+
+To remove the integration, open the TestRail tile and click **Disconnect**. All previously exported test cases remain in TestRail — disconnecting only stops future sync operations.

@@ -1,50 +1,81 @@
-# Mobile Setup Workflow
+# Mobile Setup
 
-If your required mobile testing boundaries are not fully configured, Robonito will display an active warning: **“Mobile Setup Not Complete”**. This warning indicates that the local mobile testing architecture (Appium or SDKs) is currently missing essential system components.
-
-To proceed with mobile test recording, click **Configure Environment** to begin the auto-installation process.
+If mobile testing is not yet configured, Robonito displays a **"Mobile Setup Not Complete"** warning. Click **Configure Environment** to begin the automatic installation process.
 
 ![Mobile Setup Configuration Dashboard](/test-case/mobile-setup.png)
 
----
-
-## Environment Setup Overview
-
-The **Mobile Environment** setup wizard allows Robonito to download and configure:
-- Android SDK Toolchains
-- Node.js Runtime Layers
-- Appium Server Modules
-
-This setup pipeline instantly prepares your host system for complex mobile automation emulation.
-
-> **Important:** Robonito manages these specific SDKs within independent, isolated folders. This automated setup will **not** affect or overwrite your machine's pre-existing global native environment variables.
+> **Important:** Robonito installs all mobile SDKs into isolated folders managed by Robonito. This does **not** affect your machine's existing global environment variables, PATH, or any pre-installed Android/Node.js installations.
 
 ---
 
-## Required Environment Components
+## Platform Requirements
 
-The following software components must be successfully installed on your machine for mobile testing to execute correctly. 
+| Platform | Operating System | Additional Requirement |
+|---|---|---|
+| **Android** | Windows, macOS, or Linux | None |
+| **iOS** | macOS with Apple Silicon only | Xcode (installed separately from Mac App Store) |
 
-*(Robonito will display a red `MISSING` status next to any tool that has not been securely configured.)*
+iOS simulation requires Xcode and only runs on macOS with Apple Silicon (M1/M2/M3). See the [iOS Setup guide →](../../mobile-testing/ios-setup) for full details.
+
+---
+
+## Required Components
+
+Robonito displays a red `MISSING` status next to any component that is not yet installed. All components listed below must show `INSTALLED` before mobile recording is available.
+
+### Android Components
 
 | Component | Description |
-| :--- | :--- |
-| **Java Development Kit (JDK)** | The baseline Java runtime required for compiling Android build tools. |
-| **Android Command Tools** | The core Android SDK Manager utilities. |
-| **Platform Tools (ADB)** | Provides the Android Debug Bridge pipeline to communicate with virtual devices. |
-| **Android Emulator** | An automated Virtual Device exclusively used for test rendering. |
-| **Node.js Runtime** | An isolated JavaScript engine explicitly used for operating the Appium server. |
-| **Appium Server** | The primary automation server engine used to translate interaction tests. |
-| **UiAutomator2 Driver** | Appium's core Android automation accessibility driver. |
+|---|---|
+| **Java Development Kit (JDK)** | Java runtime required by Android build tools |
+| **Android Command Tools** | Core Android SDK Manager utilities |
+| **Platform Tools (ADB)** | Android Debug Bridge — communicates with the virtual device |
+| **Android Emulator** | The virtual Android device used for test execution |
+| **Node.js Runtime** | JavaScript engine used to run the Appium server (isolated installation) |
+| **Appium Server** | Automation server that translates Robonito test steps into device interactions |
+| **UiAutomator2 Driver** | Appium's Android automation driver |
+
+### iOS Components (macOS with Apple Silicon only)
+
+| Component | Description |
+|---|---|
+| **Node.js Runtime** | Same isolated install as Android |
+| **Appium Server** | Same server, handles both Android and iOS |
+| **XCUITest Driver** | Appium's iOS automation driver (installed automatically on macOS) |
+| **Xcode** | Must be installed manually from the Mac App Store — Robonito cannot install it |
 
 ---
 
-## How to Install Components
+## Installing Components
 
-Follow these exact steps to fetch all structural requirements:
+1. Open the Robonito application.
+2. Navigate to **Environment Manager → Mobile Setup**.
+3. Click **Install All**.
 
-1. **Launch:** Open the main Robonito application interface.
-2. **Navigate:** Proceed to the **Mobile Setup** dashboard locally.
-3. **Execute:** Click the **Install All** button located directly at the top of the interface.
+Robonito downloads and installs all missing components sequentially in the background. Installation typically takes 3–10 minutes depending on your internet connection.
 
-Robonito will autonomously sequence, download, and install all missing architectural components in strict isolation.
+Once complete, all components show a green `INSTALLED` status and the "Mobile Setup Not Complete" warning disappears.
+
+> **Screenshot placeholder:** *[Screenshot of the Mobile Setup page with all components showing green INSTALLED status and the Install All button at the top]*
+
+---
+
+## Troubleshooting
+
+| Issue | Solution |
+|---|---|
+| A component shows `MISSING` after Install All | Click **Install All** again — some components have dependencies that must install first |
+| Android emulator fails to launch | Ensure virtualization (Intel VT-x / AMD-V) is enabled in your machine's BIOS settings |
+| iOS components are not shown | Mobile Setup only shows iOS components on macOS with Apple Silicon |
+| Xcode not found (macOS) | Install Xcode from the Mac App Store, then re-run Install All |
+| `ADB not found` error during recording | Restart Robonito after installation to reload environment paths |
+
+---
+
+## Next Steps
+
+Once setup is complete:
+
+- [Create a Mobile Test Case →](../../mobile-testing/create-mobile-testcase)
+- [Record an Android Test →](../../mobile-testing/recording)
+- [iOS-Specific Setup →](../../mobile-testing/ios-setup)

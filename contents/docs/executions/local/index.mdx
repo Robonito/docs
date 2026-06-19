@@ -1,41 +1,89 @@
 # Local Execution
 
-Local Execution allows you to dynamically run your automated test cases directly on your host desktop machine using your current Robonito `desktop-app` setup. 
-
-This execution mode revolves entirely around rapid test development, initial step debugging, and secure intranet validations.
+Local execution runs your tests on your own machine, using browsers and devices installed through the Robonito environment manager. It gives you immediate access to services running on `localhost` and lets you watch tests live in a real browser window.
 
 ---
 
-## Key Benefits of Local Execution
+## When to Use Local Execution
 
-- **Zero Cloud Latency:** Test cases execute entirely on your local system resources sequentially.
-- **Use Local Installations:** Automatically uses the portable browsers configured in your local Robonito environment.
-- **Rapid Feedback Loops:** Ideal for getting immediate runtime feedback while actively creating new test suites.
-- **Secure Network Isolation:** Perfect for running scenarios against un-deployed local servers (e.g., `localhost:3000`) or testing confidentially behind a strict corporate firewall.
+| Situation | Use Local |
+|---|---|
+| Testing against `localhost` or a private intranet | ✅ Yes |
+| Debugging a failing test step-by-step | ✅ Yes |
+| Watching the test run live in a browser | ✅ Yes |
+| Unattended overnight regression pipeline | ❌ Use Cloud |
+| Running tests in CI/CD without a desktop app | ❌ Use Cloud |
+| Parallel execution across multiple browsers | ❌ Use Cloud |
+
+---
+
+## Running a Test Locally
+
+### From a Single Test Case
+
+1. Open the test case in the editor.
+2. Click **Execute**.
+3. In the execution dialog, set **Runs on** to `Local`.
+4. Select an **Environment** from the dropdown.
+5. Click **Run**.
+
+Robonito launches a browser window on your machine and replays every recorded step in sequence. You can watch it run in real time.
+
+> **Requirement:** The Robonito desktop application must be open and you must be signed in for local execution to work. If the app is closed, scheduled local runs will not fire.
+
+> **Screenshot placeholder:** *[Screenshot of the execution dialog with "Local" selected, Environment dropdown highlighted, and Run button]*
+
+### From a Suite
+
+1. Open the suite in the test explorer.
+2. Click **Execute** in the suite toolbar.
+3. Select `Local` and choose an environment.
+4. All test cases in the suite run sequentially on your machine.
 
 ---
 
 ## Local Execution Behavior
 
-During a local execution run:
-1. Robonito boots the selected local browser architecture (e.g., Chromium or Firefox).
-2. All recorded test steps execute in full view on your screen.
-3. Live progression updates display side-by-side in the Robonito application.
+- **Sequential** — test cases run one after another, not in parallel.
+- **Same browser session** — each test case gets a fresh browser instance.
+- **Live browser window** — a real visible browser opens for each test. You can watch every step execute.
+- **No VPN required** — because the test runs on your machine, it can reach any host your machine can reach, including `localhost` and private network hosts.
 
 ---
 
-## Reviewing the Results
+## Available Browsers (Local)
 
-A detailed **Local Execution Report** generates instantly after the run finishes. This dashboard serves as your primary debugging tool:
+Browsers must be installed via the [Browser Management →](../../environment-manager/browsers) page before they are available for local runs.
 
-![Local Execution Report](/test-case/execution-report.png)
+| Browser | Notes |
+|---|---|
+| **Chrome** | Default. Most compatible. |
+| **Firefox** | Excellent for cross-browser testing. |
+| **Edge** | Windows systems installed via a separate installer. |
+| **WebKit (Safari)** | macOS only. Requires macOS installation. |
 
-### The Execution Summary
-- **Passed / Failed Totals:** A clear breakdown of the test's lifetime success rate.
-- **Average Duration:** Benchmarks performance timings for your application's UI response.
-- **Test Case Health:** A dynamically calculated stability percentage designed to flag explicitly flaky test logic over time.
+---
 
-### Debugging Local Failures
-If a local run fails, Robonito explicitly highlights the broken step in red. Comprehensive visual failure information—including screenshots, DOM state, and precise mismatch logs—are made available. 
+## Headless Mode
 
-This immediate feedback loop enables rapid diagnosis so you can permanently fix the test logic before committing it to your production cloud suites.
+The browser node in your test case has a **Headless Mode** toggle. When enabled, the browser runs invisibly in the background — no window opens. Useful for fast background validation when you do not need to watch the run.
+
+---
+
+## Viewing Results
+
+When the run completes, Robonito automatically opens the execution report. You can also find it later in **Reports → Execution Type: Test Case** filtered to your local runs.
+
+Local execution reports show the same step-level detail as cloud reports: pass/fail per step, screenshots on failure, DOM state, and assertion results.
+
+---
+
+## Troubleshooting Local Runs
+
+| Symptom | Solution |
+|---|---|
+| "Browser not found" error | Install the browser in **Environment Manager → Browser Management** |
+| Test hangs and never completes | Check that the target URL is reachable from your machine |
+| Steps fail that pass in cloud | Check for timing differences — cloud machines may be faster/slower; add Wait steps |
+| Local scheduled run didn't fire | Confirm the Robonito app was open and signed in at the scheduled time |
+| Video / network capture missing | Enable capture in the Browser node options of the test case |

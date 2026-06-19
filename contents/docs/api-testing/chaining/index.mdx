@@ -1,0 +1,154 @@
+# API Chaining
+
+API Chaining lets you connect multiple API requests in sequence, passing data extracted from one response into the next request. This is the foundation of realistic end-to-end API testing — where a token from a login endpoint must be forwarded to an authenticated endpoint, or an ID returned from a create operation must be used to fetch, update, or delete that resource.
+
+> **Screenshot placeholder:** *[Screenshot of an API test case with three chained steps: POST /auth/login → GET /users/`{{userId}}` → DELETE /users/`{{userId}}`, each linked by variable arrows]*
+
+---
+
+## How Chaining Works
+
+Chaining is built on top of Robonito's **Variable Extraction** system. In each API step, you define which values to extract from the response and what variable names to give them. Downstream steps reference those variables using `{{variableName}}` in any field — URL, headers, query params, or request body.
+
+```
+Step 1: POST /auth/login
+  → Extract: $.accessToken → {{authToken}}
+  → Extract: $.user.id    → {{userId}}
+
+Step 2: GET /users/{{userId}}
+  → Header: Authorization: Bearer {{authToken}}
+
+Step 3: PATCH /users/{{userId}}
+  → Header: Authorization: Bearer {{authToken}}
+  → Body:   { "role": "admin" }
+```
+
+---
+
+## Setting Up a Chain
+
+### Step 1 — Create the API Test Case
+
+Create a new API test case. Each API test case can contain multiple request steps chained together. See [Creating an API Test Case](../create-api-testcase) for setup.
+
+### Step 2 — Configure the First Request
+
+Set the HTTP method, URL, headers, authentication, and body for your first request (e.g., `POST /auth/login`). See [Configure API Endpoint](../configure-api-endpoint).
+
+### Step 3 — Extract Variables from the Response
+
+1. In the first request's step, go to the **Variables** tab.
+2. Click **Extract Variable**.
+3. Set:
+   - **Variable Name** — e.g., `authToken`
+   - **Source** — `Response Body (JSON)`
+   - **JSONPath** — e.g., `$.accessToken`
+4. Add as many extractions as needed.
+
+> **Screenshot placeholder:** *[Screenshot of the Variable Extraction editor with a JSONPath expression and variable name configured]*
+
+### Step 4 — Add the Next Request Step
+
+Click **+ Add Step** in the test case timeline to add another API request. This step will consume the extracted variable.
+
+### Step 5 — Inject Variables into the Next Request
+
+In the second request, reference the extracted variable anywhere:
+
+- **URL:** `https://api.myapp.com/users/{{userId}}`
+- **Header:** `Authorization: Bearer {{authToken}}`
+- **Query Parameter:** `?ownerId={{userId}}`
+- **Request Body:**
+  ```json
+  {
+    "targetUser": "{{userId}}",
+    "action": "promote"
+  }
+  ```
+
+Robonito resolves `{{authToken}}` and `{{userId}}` at runtime using the values extracted in the previous step.
+
+---
+
+## Variable Scope in Chains
+
+Variables extracted in an API test case step are available to **all subsequent steps** in the same test case. If you have 5 chained requests, a variable extracted in step 1 is accessible in steps 2 through 5.
+
+Variables are also promoted to the parent test's scope when the API test case is embedded as a **Reuse Test** step, enabling API chains to feed data to UI test steps as well.
+
+---
+
+## A Real-World Example: Full CRUD Chain
+
+The following chain validates a complete user lifecycle — create, read, update, delete:
+
+**Step 1: Authenticate**
+```
+POST /auth/login
+Body: { "email": "{{adminEmail}}", "password": "{{adminPassword}}" }
+Extract: $.token → {{authToken}}
+```
+
+**Step 2: Create a User**
+```
+POST /users
+Header: Authorization: Bearer {{authToken}}
+Body: { "name": "Test User", "email": "{{$email}}" }
+Extract: $.id → {{newUserId}}
+Assert: Status Code = 201
+```
+
+**Step 3: Fetch the Created User**
+```
+GET /users/{{newUserId}}
+Header: Authorization: Bearer {{authToken}}
+Assert: $.name = "Test User"
+Assert: Status Code = 200
+```
+
+**Step 4: Update the User**
+```
+PATCH /users/{{newUserId}}
+Header: Authorization: Bearer {{authToken}}
+Body: { "role": "admin" }
+Assert: $.role = "admin"
+Assert: Status Code = 200
+```
+
+**Step 5: Delete the User**
+```
+DELETE /users/{{newUserId}}
+Header: Authorization: Bearer {{authToken}}
+Assert: Status Code = 204
+```
+
+This five-step chain validates the complete API contract for user management — from authentication to cleanup — using a single test case.
+
+---
+
+## Importing Existing Collections
+
+If you already have API requests documented in Postman or an OpenAPI/Swagger spec, Robonito can import them directly rather than requiring you to configure every request manually.
+
+### Import from Postman
+1. Export your Postman Collection as a **Collection v2** JSON file.
+2. In the API Test Case editor, click **Import** → **Postman Collection**.
+3. Select the exported `.json` file.
+4. Robonito converts each Postman request into a Robonito API step, preserving methods, URLs, headers, and body payloads.
+
+### Import from OpenAPI / Swagger
+1. In the API Test Case editor, click **Import** → **Swagger / OpenAPI**.
+2. Enter the URL of your OpenAPI spec (e.g., `https://api.myapp.com/openapi.json`) or upload the file.
+3. Select the endpoints you want to import.
+4. Robonito generates the corresponding request steps.
+
+> **Screenshot placeholder:** *[Screenshot of the API import dialog showing Postman and Swagger/OpenAPI options]*
+
+---
+
+## Tips for Reliable Chains
+
+- **Assert after each step** — don't only assert at the end. If step 2 fails silently (wrong status code), step 3 will likely fail for a confusing reason.
+- **Use specific JSONPath** — `$.data.user.id` is more reliable than `$.id` when APIs wrap responses in data envelopes.
+- **Use Secret variables for credentials** — put `{{adminPassword}}` in a Secret environment variable, not hardcoded in the body.
+- **Chain API tests with UI tests** — use a Reuse Test step to run an API authentication chain before a web UI test, so the UI test starts with a valid session token.

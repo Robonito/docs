@@ -2,7 +2,7 @@
 
 API Chaining lets you connect multiple API requests in sequence, passing data extracted from one response into the next request. This is the foundation of realistic end-to-end API testing — where a token from a login endpoint must be forwarded to an authenticated endpoint, or an ID returned from a create operation must be used to fetch, update, or delete that resource.
 
-> **Screenshot placeholder:** *[Screenshot of an API test case with three chained steps: POST /auth/login → GET /users/`{{userId}}` → DELETE /users/`{{userId}}`, each linked by variable arrows]*
+![API test case with three chained steps linked by variable arrows](/api-testing/api-chaining-steps.png)
 
 ---
 
@@ -45,7 +45,7 @@ Set the HTTP method, URL, headers, authentication, and body for your first reque
    - **JSONPath** — e.g., `$.accessToken`
 4. Add as many extractions as needed.
 
-> **Screenshot placeholder:** *[Screenshot of the Variable Extraction editor with a JSONPath expression and variable name configured]*
+![Variable Extraction editor with JSONPath expression and variable name configured](/test-case/variable-extractions.png)
 
 ### Step 4 — Add the Next Request Step
 
@@ -142,7 +142,7 @@ If you already have API requests documented in Postman or an OpenAPI/Swagger spe
 3. Select the endpoints you want to import.
 4. Robonito generates the corresponding request steps.
 
-> **Screenshot placeholder:** *[Screenshot of the API import dialog showing Postman and Swagger/OpenAPI options]*
+![API import dialog showing Postman Collection and Swagger/OpenAPI import options](/api-testing/api-import-dialog.png)
 
 ---
 

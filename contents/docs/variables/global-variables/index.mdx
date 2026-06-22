@@ -2,7 +2,7 @@
 
 Global Variables are workspace-level key-value pairs that persist across test runs and across test cases. They are organized into **Environments**, allowing you to maintain separate sets of values for different deployment targets (e.g., `Default`, `Staging`, `Production`) and switch between them at execution time — without changing a single test step.
 
-> **Screenshot placeholder:** *[Screenshot of the Environment Variables page showing the environment selector and variable list]*
+![Environment Variables page showing the environment selector and variable list](/assets/environment-manager/empty-environment.png)
 
 ---
 
@@ -27,7 +27,7 @@ Your `Production` environment would hold the same keys with different values. Wh
 1. Click the **Environment Manager** icon in the left sidebar (gear icon).
 2. Select **User Settings** → **Environment Variables**, or navigate directly from the Environment Manager.
 
-> **Screenshot placeholder:** *[Screenshot of the navigation path to Environment Variables in the sidebar]*
+![Navigation path to Environment Variables in the sidebar](/assets/environment-manager/nav-highlight.png)
 
 ---
 
@@ -51,7 +51,7 @@ If you only need one set of values (common for most projects), the **Default** e
    - **Type** — `config` (visible) or `secret` (masked, use for passwords/tokens)
 4. Click **Save**.
 
-> **Screenshot placeholder:** *[Screenshot of the Add Variable form with Key, Value, and Type fields]*
+![Add Variable form with Key, Value, and Type fields](/assets/environment-manager/add-variable.png)
 
 > **Important:** Secret variable values are masked immediately after saving and cannot be retrieved in plaintext from the UI. Store them somewhere safe before saving.
 
@@ -75,7 +75,7 @@ Robonito resolves these at runtime against the environment you selected in the E
 
 When you click **Execute** on any test case or suite, the **Execution Configuration** dialog lets you choose the target Environment. The selected environment's variables are injected for that run only — switching environments does not alter any test steps permanently.
 
-> **Screenshot placeholder:** *[Screenshot of the Execution Configuration dialog showing the Environment dropdown]*
+![Execution Configuration dialog showing the Environment dropdown](/variables/variables-execution-config-env.png)
 
 ---
 
@@ -92,7 +92,7 @@ You can update a global variable's value during a test run using the **Environme
 
 When the test runs, the Environment Variable step writes the captured live value into `authToken` for the remainder of the suite execution.
 
-> **Screenshot placeholder:** *[Screenshot of the Environment Variable step editor]*
+![Environment Variable step editor for updating a global variable mid-test](/variables/variables-env-step-editor.png)
 
 ---
 

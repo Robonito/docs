@@ -2,7 +2,7 @@
 
 iOS testing in Robonito requires a macOS machine with Apple Silicon (M1, M2, M3, or later). Unlike Android — which runs via an emulator on any operating system — iOS simulators are Apple-exclusive and cannot run on Windows or Linux.
 
-> **Screenshot placeholder:** *[Screenshot of the Mobile Setup page on macOS showing iOS-specific components alongside Android components]*
+![Mobile Setup page on macOS showing iOS-specific components alongside Android components](/mobile-testing/mobile-setup-macos.png)
 
 ---
 
@@ -34,7 +34,7 @@ Robonito's **Mobile Setup** wizard handles the Appium and driver installation au
    - UiAutomator2 driver (for Android)
 4. Wait for all components to show a green **INSTALLED** status.
 
-> **Screenshot placeholder:** *[Screenshot of the Mobile Setup page on macOS showing both XCUITest Driver (iOS) and UiAutomator2 Driver (Android) with green INSTALLED status]*
+![Mobile Setup page showing XCUITest Driver and UiAutomator2 Driver both with green INSTALLED status](/mobile-testing/mobile-drivers-installed.png)
 
 > **Note:** Xcode itself must be installed manually from the Mac App Store — Robonito cannot install it automatically due to Apple's distribution restrictions.
 
@@ -60,7 +60,7 @@ Then re-run the Robonito Mobile Setup install.
 4. Choose **iOS** as the platform.
 5. Click **Create**.
 
-> **Screenshot placeholder:** *[Screenshot of the test case creation dialog with Mobile type and iOS platform selected]*
+![Test case creation dialog with Mobile type and iOS platform selected](/mobile-testing/mobile-create-ios.png)
 
 ---
 
@@ -79,7 +79,7 @@ When you click **Record** on an iOS test case:
    - Opens the app.
    - Begins capturing your touch interactions.
 
-> **Screenshot placeholder:** *[Screenshot of the iOS recording configuration dialog showing the .ipa upload field and Bundle ID input]*
+![iOS recording configuration dialog showing the .ipa upload field and Bundle ID input](/mobile-testing/mobile-ios-recording-config.png)
 
 ---
 
@@ -110,7 +110,7 @@ iOS automation via XCUITest relies heavily on **Accessibility Identifiers** set 
 ### Alerts and Permission Dialogs
 iOS frequently shows system permission dialogs (e.g., "Allow access to Camera?"). These appear as native iOS alerts outside the app's UI. Robonito records taps on the **Allow** or **Don't Allow** buttons as system-level interaction steps. Ensure your recording session handles these dialogs to avoid test failures during playback.
 
-> **Screenshot placeholder:** *[Screenshot of a recorded iOS test case timeline showing mobile-tap, mobile-input, and mobile-swipe nodes, plus a system permission dialog step]*
+![Recorded iOS test case timeline showing mobile-tap, mobile-input, and mobile-swipe nodes](/mobile-testing/mobile-ios-timeline.png)
 
 ---
 
@@ -126,7 +126,7 @@ Robonito's mobile assertion (`mobile-assert`) node supports:
 | **Element Text Contains** | Validates that a label contains a substring |
 | **Element Enabled** | Confirms an element is interactive (not disabled) |
 
-> **Screenshot placeholder:** *[Screenshot of the mobile assertion editor on an iOS test case]*
+![Mobile assertion editor on an iOS test case showing available assertion types](/mobile-testing/mobile-ios-assertion.png)
 
 ---
 

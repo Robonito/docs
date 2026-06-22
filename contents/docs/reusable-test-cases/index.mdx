@@ -2,7 +2,7 @@
 
 A Reusable Test Case is a test that is embedded as a single step inside another test case. Instead of duplicating the same recorded steps across multiple test cases — like a login flow that every authenticated test needs — you record it once and reference it everywhere.
 
-> **Screenshot placeholder:** *[Screenshot of a test case timeline showing a "Reuse Test" step, with the referenced test case name shown inside the step card]*
+![Test case timeline showing a Reuse Test step with the referenced test case name](/reusable-test-cases/reuse-timeline.png)
 
 ---
 
@@ -51,7 +51,7 @@ To embed a test case inside another:
 3. In the step editor, search for and select the test case you want to embed (e.g., `Login as Admin`).
 4. Save.
 
-> **Screenshot placeholder:** *[Screenshot of the "Reuse Test" step editor showing the test case search dropdown]*
+![Reuse Test step editor showing the test case search dropdown](/reusable-test-cases/reuse-step-editor.png)
 
 The referenced test case is shown as a single collapsible **Reuse Test** card in the timeline. During execution, Robonito expands and runs all of its steps inline — exactly as if you had recorded them directly in the parent test.
 
@@ -82,6 +82,6 @@ Reuse Test steps can be nested — a reusable test can itself reference another 
 
 In the Web Recording configuration, there is a dedicated **Auth Test Case** field. When set, Robonito runs the selected test case before opening the recording browser — automatically injecting valid session cookies so you can start recording from an authenticated state, skipping the login flow every time.
 
-> **Screenshot placeholder:** *[Screenshot of the recording configuration dialog with the Auth Test Case dropdown field highlighted]*
+![Recording configuration dialog with the Auth Test Case dropdown highlighted](/reusable-test-cases/reuse-auth-dropdown.png)
 
 This is distinct from the general Reuse Test step — it is specifically a pre-recording hook for session bootstrapping.

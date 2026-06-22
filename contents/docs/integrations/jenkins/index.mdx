@@ -2,7 +2,7 @@
 
 The Jenkins integration lets you trigger Robonito cloud test runs directly from your Jenkins pipelines using a generated API key and a Groovy pipeline snippet. No plugins required — it works via Robonito's REST API.
 
-> **Screenshot placeholder:** *[Screenshot of the Jenkins integration tile in the Integrations page, with a "Connected" status badge]*
+![Jenkins integration tile in the Integrations page with Connected status badge](/integrations/jenkins/jenkins-tile.png)
 
 ---
 
@@ -21,7 +21,7 @@ Robonito generates a **workspace-scoped API key** that authenticates Jenkins to 
 3. In the Jenkins configuration panel, click **Generate API Key**.
 4. Copy the generated key and store it securely — you will not be able to see it again.
 
-> **Screenshot placeholder:** *[Screenshot of the Jenkins connection panel with the Generate API Key button and the masked API key field]*
+![Jenkins connection panel showing Generate API Key button and masked API key field](/integrations/jenkins/jenkins-api-key.png)
 
 ### 2. Add the API Key to Jenkins
 
@@ -56,7 +56,7 @@ stage('Run Robonito Tests') {
 }
 ```
 
-> **Screenshot placeholder:** *[Screenshot of the Jenkins Snippet Generator panel showing the generated Groovy code with workspace ID pre-filled]*
+![Jenkins Snippet Generator panel showing the generated Groovy code with workspace ID pre-filled](/integrations/jenkins/jenkins-snippet.png)
 
 ### 4. Configure Trigger Rules (Optional)
 
@@ -69,7 +69,7 @@ In the Jenkins integration panel, you can define **Trigger Rules** to control wh
    - **Test Cases** — specific test cases within the suite (or leave blank to run all)
 3. Save the rule.
 
-> **Screenshot placeholder:** *[Screenshot of the Trigger Rules table with a configured rule showing job name, suite, and status]*
+![Trigger Rules table showing a configured rule with job name, suite, and status](/integrations/jenkins/jenkins-trigger-rules.png)
 
 ---
 

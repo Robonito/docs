@@ -2,7 +2,7 @@
 
 AI Studio is Robonito's autonomous testing agent. Instead of recording clicks manually, you describe what you want to test in plain language, and the AI agent browses your application, generates test steps, saves them as real test cases, and even classifies failures — all without writing a single line of code.
 
-> **Screenshot placeholder:** *[Screenshot of the AI Studio main interface showing the chat panel on the left, browser mirror on the right, and the platform selector at the top]*
+![AI Studio main interface showing the chat panel, browser mirror, and platform selector](/ai-studio/ai-studio-overview.png)
 
 ---
 
@@ -37,7 +37,7 @@ AI Studio works across all test platforms Robonito supports:
 
 Click the **AI Studio** icon (sparkle icon) in the left sidebar.
 
-> **Screenshot placeholder:** *[Screenshot of the sidebar with the AI Studio icon highlighted]*
+![Sidebar with the AI Studio icon highlighted](/ai-studio/ai-studio-sidebar-icon.png)
 
 ### 2. Select a Platform
 
@@ -53,7 +53,7 @@ Click the model selector dropdown to choose:
 - **OpenRouter** — browse hundreds of models from a single API key.
 - **Ollama (Local)** — run any Ollama-compatible model on your machine.
 
-> **Screenshot placeholder:** *[Screenshot of the model selector dropdown showing all available providers]*
+![Model selector dropdown showing all available AI providers](/ai-studio/ai-studio-model-selector.png)
 
 ### 4. Describe Your Goal
 
@@ -69,7 +69,7 @@ Click **Send** (or press `Enter`). The agent:
 3. Takes screenshots at each step and displays them in the browser mirror.
 4. Generates a structured test case and surfaces it inline in the chat.
 
-> **Screenshot placeholder:** *[Screenshot of the browser mirror panel showing the live agent session with a screenshot of the app]*
+![Browser mirror panel showing the live agent session](/ai-studio/ai-studio-browser-mirror.png)
 
 ---
 
@@ -83,14 +83,14 @@ The agent first researches your goal and produces a **Strategic Plan** — a ste
 
 To activate: click the **Plan** toggle in the input toolbar before sending your message.
 
-> **Screenshot placeholder:** *[Screenshot of Plan Mode with an approval card showing the strategic plan]*
+![Plan Mode approval card showing the strategic plan before execution](/ai-studio/ai-studio-plan-mode.png)
 
 ### Explore Mode (Web only)
 The agent autonomously crawls your entire application using a breadth-first search — following every link, button, and navigation path — and builds a live **Site Map** of all discovered pages and interactions. No goal needed; the agent maps whatever it can reach.
 
 To activate: click the **Explore** toggle in the input toolbar.
 
-> **Screenshot placeholder:** *[Screenshot of the Site Map tab showing a visual graph of discovered pages]*
+![Explore Mode Site Map tab showing a visual graph of discovered pages](/ai-studio/ai-studio-explore-sitemap.png)
 
 ---
 
@@ -105,7 +105,7 @@ You can give the agent richer context before it starts:
 - **Linear issues** — type `/linear` to link a Linear issue.
 - **Asana tasks** — type `/asana` to link an Asana task.
 
-> **Screenshot placeholder:** *[Screenshot of the slash-command menu appearing in the chat input showing Figma, GitHub, Jira, Linear, Asana options]*
+![Slash-command menu in the chat input showing /figma, /github, /jira, /linear, /asana options](/ai-studio/ai-studio-slash-commands.png)
 
 ---
 
@@ -113,7 +113,7 @@ You can give the agent richer context before it starts:
 
 During a complex flow, the agent may pause and ask for your help — for example, when it encounters a CAPTCHA, a 2FA prompt it cannot solve, or an ambiguous UI state. A **HITL card** appears in the chat asking you to take over the browser momentarily. Once you complete the blocked step, click **Resume** and the agent continues from where it left off.
 
-> **Screenshot placeholder:** *[Screenshot of the HITL takeover card with a "Take Over" and "Resume" button]*
+![Human-in-the-loop takeover card with Take Over and Resume buttons](/ai-studio/ai-studio-hitl.png)
 
 ---
 
@@ -125,7 +125,7 @@ When the agent finishes, a test case card appears inline in the chat showing the
 2. Select the target suite from the dropdown.
 3. Click **Save**. The card shows a ✓ **Saved** indicator and the test case is immediately available in your Test Explorer.
 
-> **Screenshot placeholder:** *[Screenshot of the test case card with the Save to Suite button and suite selector]*
+![Generated test case card with Save to Suite button and suite selector dropdown](/ai-studio/ai-studio-save-test.png)
 
 ---
 
@@ -137,7 +137,7 @@ Every AI Studio conversation is saved as a **Thread**. To revisit a past session
 2. Browse your thread history — each entry shows the original prompt and the platform used.
 3. Click any thread to resume it. The agent loads the full conversation context and can continue from where you left off.
 
-> **Screenshot placeholder:** *[Screenshot of the History drawer showing a list of past threads]*
+![History drawer showing a list of past AI Studio threads](/ai-studio/ai-studio-history.png)
 
 ---
 
@@ -155,7 +155,7 @@ After an AI-generated test is saved and executed, if a step fails, AI Studio cla
 
 Classifications are shown as colored pills in the chat alongside severity (`low`, `medium`, `high`). Use the **Log Issue** button on any bug pill to create a Jira, Linear, or Asana issue directly from the failure.
 
-> **Screenshot placeholder:** *[Screenshot of a bug pill in the chat showing classification "real_bug", severity "high", with a Log Issue button]*
+![Bug classification pill showing type, severity, and Log Issue button](/ai-studio/ai-studio-bug-pill.png)
 
 ---
 

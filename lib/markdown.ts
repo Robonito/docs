@@ -60,6 +60,28 @@ type BaseMdxFrontmatter = {
   description: string;
 };
 
+let cachedConfig: Record<string, string> | null = null;
+
+async function loadDownloadConfig(): Promise<Record<string, string>> {
+  if (cachedConfig) return cachedConfig;
+  try {
+    const configPath = path.join(process.cwd(), "download-config.json");
+    const content = await fs.readFile(configPath, "utf-8");
+    cachedConfig = JSON.parse(content);
+    return cachedConfig || {};
+  } catch (err) {
+    console.error("Failed to load download-config.json", err);
+    return {};
+  }
+}
+
+function replacePlaceholders(content: string, config: Record<string, string>): string {
+  return content.replace(/\{\{([^}]+)\}\}/g, (match, key) => {
+    const trimmedKey = key.trim();
+    return trimmedKey in config ? config[trimmedKey] : match;
+  });
+}
+
 export async function getDocsForSlug(slug: string) {
   // skip assets to prevent ENOENT errors on index.mdx
   const assetExtensions = [".png", ".jpg", ".jpeg", ".gif", ".svg", ".ico", ".css", ".js"];
@@ -67,7 +89,9 @@ export async function getDocsForSlug(slug: string) {
 
   try {
     const contentPath = getDocsContentPath(slug);
-    const rawMdx = await fs.readFile(contentPath, "utf-8");
+    let rawMdx = await fs.readFile(contentPath, "utf-8");
+    const downloadConfig = await loadDownloadConfig();
+    rawMdx = replacePlaceholders(rawMdx, downloadConfig);
     const res = await parseMdx<BaseMdxFrontmatter>(rawMdx);
 
     // If title/description are missing from frontmatter, extract from content
@@ -99,7 +123,9 @@ function stripMdx(text: string) {
 
 export async function getDocsTocs(slug: string) {
   const contentPath = getDocsContentPath(slug);
-  const rawMdx = await fs.readFile(contentPath, "utf-8");
+  let rawMdx = await fs.readFile(contentPath, "utf-8");
+  const downloadConfig = await loadDownloadConfig();
+  rawMdx = replacePlaceholders(rawMdx, downloadConfig);
   // captures between ## - #### can modify accordingly
   const headingsRegex = /^(#{2,4})\s(.+)$/gm;
   let match;

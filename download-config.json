@@ -1,0 +1,7 @@
+{
+  "version": "4.1.0",
+  "region": "ap-south-1",
+  "linuxBucketName": "robonito-downloads",
+  "macBucketName": "robonito-downloads",
+  "winBucketName": "robonito-downloads"
+}

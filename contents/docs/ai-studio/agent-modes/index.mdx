@@ -1,0 +1,49 @@
+# Choose an agent mode
+
+Use this guide to pick the AI Studio **mode** that matches what you're trying to do — execute a test, get a plan first, or map an unknown app.
+
+The **mode** is a small pill next to the send box, shown only for the **Web** platform. It changes *how* the agent approaches your request — not *what* it tests.
+
+---
+
+## The three modes
+
+| Mode | Use it when | What happens |
+|---|---|---|
+| **Default** | You know the goal and want it done. | Standard test generation and execution. The agent acts on its plan directly. |
+| **Plan** | You want to **review before anything runs**. | The agent researches, presents a step-by-step plan, and **waits for you to approve it** before taking any browser action. |
+| **Explore** | The app is **unknown** to you. | An autonomous crawl of the entire application. No goal is required; the agent builds a **live site map** of what it finds. |
+
+**Plan** and **Explore** are mutually exclusive — choose one per run.
+
+---
+
+## How to change the mode
+
+1. In the chat composer, click the **Agent Mode** pill (it shows the current mode, e.g. *Default*).
+2. Open the **Agent Mode** menu.
+3. Pick **Default**, **Plan**, or **Explore**. The pill updates to reflect your choice.
+4. Write your prompt and send as usual.
+
+![Plan Mode approval card showing the strategic plan before execution](/ai-studio/ai-studio-plan-mode.png)
+
+---
+
+## Choosing for common situations
+
+- **"Just run this one test."** → **Default.**
+- **"I have a goal, but I want to check the approach first."** → **Plan.** When a plan card appears, read it and click **Approve Plan**. Until you approve, the browser is *not* acted on.
+- **"Give me a tour of the product's test surface."** → **Explore.** The right pane fills in with a live **Site Map** as the agent discovers pages.
+
+![Explore Mode Site Map tab showing a visual graph of discovered pages](/ai-studio/ai-studio-explore-sitemap.png)
+
+<Note type="note" title="Tip">
+**Explore** is the mode for new or unfamiliar apps; **Plan** is the mode when a run is *delicate* (for example, it creates records or sends email) and you want a human checkpoint before any side effects.
+</Note>
+
+---
+
+## Related
+
+- The agent may also stop and **ask you** mid-run — [Human-in-the-loop](/docs/ai-studio/human-in-the-loop).
+- What "thread" and "run" mean — [Concepts](/docs/ai-studio/concepts).

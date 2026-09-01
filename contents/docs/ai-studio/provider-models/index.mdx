@@ -1,0 +1,66 @@
+# Configure a provider and model
+
+Use this guide to run AI Studio on a model provider other than the Robonito default — Claude, GPT, Gemini, OpenRouter, NVIDIA NIM, or a local Ollama model — and make sure a key is available.
+
+By default the agent runs on **Robonito (Default)**, a vision-capable model with a 1M-token context window and **no key of your own** to manage. To use another provider, pick it in the model selector and make sure a key is configured.
+
+![Model selector dropdown showing all available AI providers](/ai-studio/ai-studio-model-selector.png)
+
+---
+
+## 1. Pick the provider and model
+
+In the chat composer, open the **model selector** (next to the platform selector). It lists the catalog:
+
+| Provider | Models (examples) | Notes |
+|---|---|---|
+| **RoBonito** | Robonito (Default) — Gemini 3.1 Flash Lite | No key needed. Default. Vision. |
+| **Anthropic** | Claude Sonnet 4.6, Opus 4.6, Haiku 4.5 | Vision. |
+| **OpenAI** | GPT-5.5, GPT-5.4 mini, GPT-4.1 | Vision. |
+| **Google** | Gemini 3.1 Pro, 3 Flash, 2.5 Flash, 3.1 Flash Lite | Vision. |
+| **OpenRouter** | *browse at runtime* | One key proxies many models; vision per model. |
+| **NVIDIA NIM** | Kimi K2.6 (free trial) | 256k context, vision. Base URL `https://integrate.api.nvidia.com/v1`. |
+| **Ollama** | *local / cloud* | Runs a model you've pulled; vision detected from the model. Base URL `http://localhost:11434`. |
+
+For **OpenRouter** and **Ollama**, the model list isn't fixed — OpenRouter's models are fetched from the OpenRouter API when you pick that provider, and Ollama's come from the daemon you point at, so you choose the concrete model there. Ollama also shows a **base URL** field for the local daemon.
+
+---
+
+## 2. Make sure a key is configured
+
+A key is needed for everything **except** the **Robonito** default (which uses your workspace token and requires no key).
+
+**Where keys live:** add a provider key in **Settings → External APIs** (and, per-org, the *Provider Keys* area of the organization dashboard). Keys are stored **encrypted at rest with AES-256** — never in plaintext.
+
+**How a key is chosen.** A key can be scoped to specific **workspaces** or added to a shared **pool** (no workspace). When a run starts, the key pool resolves one key for the provider, in this order: (1) try **workspace-scoped** keys first, (2) fall back to the **global pool**, (3) skip any key that has hit its **per-minute request/token limit**, and (4) **round-robin** among the remaining keys. This means one workspace can have its own keys while others share the pool, and limits stop a single workspace from exhausting everyone's quota.
+
+**Two model roles.** The form asks for a **reasoning** model and a **basic** model (some tasks use a lighter model). Use **“use same”** to apply one configuration to both roles, or set them separately.
+
+<Note type="note" title="Keys today">
+Keys support workspace and global-pool scoping, with per-minute limits and round-robin, server-side. The dedicated *Provider Keys* tab in the organization dashboard is still a placeholder, so manage keys through **Settings → External APIs** for now.
+</Note>
+
+<Note type="danger" title="Security">
+Provider keys are encrypted at rest (AES-256). Never paste a key into a prompt or commit it to a repository. In the CLI, supply a short-lived `ROBONITO_AUTH_TOKEN` for automation instead of writing a key to a `.env` file.
+</Note>
+
+**If a run can't find a key,** you'll be told which provider is missing one (for example, *“No API key is configured for provider … Add one in Settings.”*). Add it and retry.
+
+---
+
+## 3. (Ollama only) Point at your local daemon
+
+After you pick **Ollama → Local**, set the **Ollama base URL** field to your daemon (default `http://localhost:11434`) and press Enter to commit it. Vision support for the chosen local model is detected automatically once the daemon reports your installed models.
+
+---
+
+## 4. Verify it worked
+
+Start a run on the new provider. In the **Results** / usage area you'll see token usage and (where reported) cost — a good sign the provider is wired up. If the run fails on auth, double-check the key in **Settings → External APIs**.
+
+---
+
+## Related
+
+- Choose *how* the agent proceeds with **modes** — [Choose an agent mode](/docs/ai-studio/agent-modes).
+- The full model catalog and run fields — [Reference](/docs/ai-studio/reference).

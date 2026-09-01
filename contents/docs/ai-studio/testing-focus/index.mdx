@@ -1,0 +1,55 @@
+# Add a testing focus
+
+Use this guide to ask AI Studio to add **responsive**, **accessibility**, or **performance** checks to a web run.
+
+A **testing focus** is a specialist lane you opt into *before* a run. The control appears in the input toolbar for the **Web** platform. Lanes run after the main web run, each producing its own compact result card.
+
+---
+
+## 1. Open the testing focus
+
+In the chat composer, click the **Testing focus** pill (the target icon). A drawer opens listing the available lanes. The pill shows a count badge once one or more lanes are selected.
+
+---
+
+## 2. The lanes
+
+| Lane | What it checks | Output |
+|---|---|---|
+| **Responsive** | The page across multiple device viewports. | Per-viewport progress, screenshots, and a live mirror in the right pane. |
+| **Accessibility** | Automated accessibility conformance. | An accessibility report you can expand into a recordable result. |
+| **Performance** | Core Web Vitals plus network metrics. | A performance verdict; network metrics arrive after the page closes. |
+
+---
+
+## 3. Choosing lanes
+
+1. Open the **Testing focus** drawer.
+2. Tick the lane(s) you want. The pill badge shows how many are active.
+3. (**Responsive**) pick device viewports, or leave it empty to run **all workspace devices**.
+4. Write your goal and send as usual.
+
+<Note type="warning" title="Choose before the run">
+Performance reuses a network trace that the browser can only arm *when the page context is created* — so a lane chosen mid-run can't enable it. Opt in before you send.
+</Note>
+
+<Note type="note" title="Org gate">
+Specialist lanes are available only when your organization has enabled **specialized testing**. If the pill isn't showing, ask your admin to enable it; otherwise accessibility runs by default.
+</Note>
+
+---
+
+## 4. Reading the result
+
+Each finished lane appears as a card in the chat:
+
+- **Responsive:** progress per viewport + screenshots, and a results card.
+- **Accessibility:** a compact card that expands to the full report.
+- **Performance:** a Core Web Vitals verdict, with network metrics arriving slightly later (the browser only exposes a full network trace at teardown).
+
+---
+
+## Related
+
+- Pick a **mode** first (Default / Plan / Explore) — [Choose an agent mode](/docs/ai-studio/agent-modes).
+- What lanes mean — [Concepts → Testing focus](/docs/ai-studio/concepts#testing-focus-specialist-lanes).

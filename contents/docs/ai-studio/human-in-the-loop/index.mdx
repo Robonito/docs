@@ -1,0 +1,59 @@
+# Human-in-the-loop (HITL)
+
+Use this guide to respond when the agent can't proceed on its own — answer its question, fill in what it needs, or take over the browser manually.
+
+**HITL** means *human-in-the-loop*. The agent isn't fire-and-forget: when it's uncertain or blocked, it stops and hands control back to you. There are three kinds of prompts — a **question**, a **structured input**, and a **takeover**.
+
+![Human-in-the-loop takeover card with Take Over and Resume buttons](/ai-studio/ai-studio-hitl.png)
+
+---
+
+## 1. Answering a question
+
+When the agent needs a decision, a question card appears inline in the chat. It shows the question, a short header, and one or more options.
+
+- **Pick an option**, or
+- Type a free-form answer (the **"Other"** path) when none of the options fit.
+
+The agent resumes using your answer.
+
+---
+
+## 2. Filling in structured input
+
+For something the agent can't guess (a suite name, test-data values), it shows a **sticky input bar above the chat input** with labeled fields — text, single choice, or multiple choice; required fields are marked. Fill the fields and submit; the agent continues.
+
+---
+
+## 3. Taking over the browser
+
+If the agent keeps failing on one step (three failures on the same action, or it can't tell whether a selector is broken), it escalates to you with a **takeover card**:
+
+- The live browser is handed to you with a **hint banner** pointing at the step it's stuck on (often a suggested target).
+- **Do the step yourself** in the browser. The action is captured.
+- Choose one of:
+    - **Teach / Captured** — your manual action is recorded as a reusable **recipe**. The agent continues using it.
+    - **Resume** — continue *without* teaching a recipe; the agent re-reads the page and proceeds from where it is.
+    - **Reject** — cancel the takeover; the session ends.
+
+<Note type="note" title="Why take over?">
+The recipe you teach is stored and reused, so a step the agent can't crack once often stops tripping it next time. A failed step is also logged to the **bug ledger** — see [Concepts → Bug ledger](/docs/ai-studio/concepts#bug-ledger).
+</Note>
+
+---
+
+## In automation (CLI)
+
+Non-interactive runs can't answer prompts. The CLI offers two options:
+
+- `--non-interactive` — disable HITL prompts and auto-reject requests.
+- `--hitl-timeout-ms <n>` — maximum time to wait for a response (default `600000`, i.e. 10 minutes).
+
+A run that reaches HITL with no one to answer it exits with code **4**. See [Advanced — CLI and API](/docs/ai-studio/cli-api).
+
+---
+
+## Related
+
+- The three agent **modes** — [Choose an agent mode](/docs/ai-studio/agent-modes).
+- What **threads** and **recipes** are — [Concepts](/docs/ai-studio/concepts).

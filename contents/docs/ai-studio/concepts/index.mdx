@@ -1,0 +1,124 @@
+# Concepts
+
+This page explains the words and ideas AI Studio uses, so the [how-to guides](/docs/ai-studio/quick-start) and the [reference](/docs/ai-studio/reference) make sense. It's an explanation, not a procedure.
+
+---
+
+## The big picture
+
+You have a goal ("test that login works"). AI Studio turns it into a **run**: an **agent** that drives a runtime, asserts what it sees, and writes the result back to a **suite**. Three things make that useful:
+
+- **Plain language in.** You describe the test in everyday words, optionally pointing at a design (Figma), a repo (GitHub), or a work item (Jira/Asana/Linear).
+- **Autonomy with a human in the loop.** The agent acts on its own, but can stop to **ask you** or hand you the **browser** when it's unsure.
+- **Durable output.** What it produces is saved — **test cases** into a suite, **learned fixes** as **recipes**, **failures** into a **bug ledger**.
+
+---
+
+## Threads and runs
+
+A **thread** is one continuous conversation with the agent — the chat you see in the center pane. A **run** is a single agent execution within a thread.
+
+- A new thread starts when you click **New chat**.
+- The first message **binds** the thread to one **suite** (write-once) — that's where its test cases go.
+- Threads can be **rewound** to a checkpoint or **forked** into a new thread (see [Thread history](/docs/ai-studio/thread-history)).
+- Your most recent thread is remembered per user and workspace.
+
+---
+
+## Suites
+
+A **suite** is a container of test cases — the destination that a thread's results are saved into. Choosing a suite is **required** before you can send, because a run with nowhere to store its output isn't useful. Generated cases appear in a staging area and show **✓ Saved** once persisted, then live in the Test Explorer.
+
+---
+
+## Personas
+
+A **persona** is a file that describes a *specific user of the app under test* — a clinician, a sales rep, a warehouse clerk. Adopting one changes *how* the agent behaves (it acts the way that user would) while still applying QA discipline.
+
+- **Core personas** ship with Robonito (ten of them).
+- **User personas** are files you add under **Settings → Personas**; they're **QA-pre-screened** (a denylist plus a classifier) so a file can't turn the agent into something other than a QA agent.
+- A persona doesn't change *which* site you test — only *how*. Pair it with a site in that user's domain. See [Test as a persona](/docs/ai-studio/personas).
+
+---
+
+## Modes
+
+The **mode** sets the approach for a web run (see [Choose an agent mode](/docs/ai-studio/agent-modes)):
+
+- **Default** — act on the goal directly.
+- **Plan** — research, present a plan, and wait for your **Approve Plan** before any browser action.
+- **Explore** — goal-free crawl that builds a live **site map** of the app.
+
+**Plan** and **Explore** can't be used together.
+
+---
+
+## Human-in-the-loop (HITL)
+
+When the agent is uncertain or blocked, it stops and asks. There are three prompts (see [Human-in-the-loop](/docs/ai-studio/human-in-the-loop)):
+
+- **Question** — a multiple-choice (or free-form "Other") decision.
+- **Structured input** — a form asking for data it can't guess.
+- **Takeover** — the live browser is handed to you to complete a step; what you do can be **taught** back as a recipe, **resumed** without teaching, or **rejected**.
+
+In non-interactive automation, HITL can be disabled or given a timeout.
+
+---
+
+## Testing focus (specialist lanes)
+
+A **testing focus** is a specialist lane opted in *before* a web run (see [Add a testing focus](/docs/ai-studio/testing-focus)):
+
+- **Responsive** — the page across device viewports.
+- **Accessibility** — automated accessibility conformance.
+- **Performance** — Core Web Vitals plus network metrics.
+
+Why *before* the run: performance needs a network trace that's armed when the page context is created, so a lane chosen mid-run can't enable it.
+
+---
+
+## Recipes
+
+A **recipe** is a learned, reusable fix — the steps a *specific* user action took, recorded so the agent can replay it next time instead of re-deriving it from the page. You create one by **teaching** during a takeover. Recipes improve with use, but if the site is redesigned they can go stale — Robonito eventually stops pre-binding them and tells you "known patterns may be out of date."
+
+---
+
+## Bug ledger
+
+When a run fails, the agent classifies *why* and writes a durable record to the **bug ledger**:
+
+| Classification | Meaning |
+|---|---|
+| `real_bug` | A genuine defect in the app. |
+| `env_issue` | The environment (not the app) caused it. |
+| `selector_broken` | The element target the agent used no longer matches. |
+| `flaky` | Inconsistent — passes sometimes, fails sometimes. |
+| `inconclusive` | Not enough signal to decide. |
+
+Each record has a **severity** (`low` / `medium` / `high`), the **step** that failed, and an **occurrences** count that bumps each time the same failure recurs. A record waiting on a takeover shows **pending_hitl**; once you teach or reject it, its status moves on.
+
+---
+
+## Provider keys and scoping
+
+The agent runs on an LLM **provider** and **model** (see [Configure a provider and model](/docs/ai-studio/provider-models)). The **Robonito** default (Gemini 3.1 Flash Lite) needs no user key — it authenticates with your workspace token. Other providers (Anthropic, OpenAI, Google, OpenRouter, NVIDIA NIM, Ollama) do.
+
+Keys are stored **encrypted at rest (AES-256)** and can be scoped to specific **workspaces** or placed in a shared **pool**. When a run starts, the key pool picks one key per provider — workspace-scoped keys first, global pool as a fallback — skipping any key that has hit its **per-minute limit** and **round-robining** among the rest.
+
+---
+
+## Glossary
+
+| Term | One-line meaning |
+|---|---|
+| **Thread** | One continuous agent conversation. |
+| **Run** | A single agent execution within a thread. |
+| **Suite** | A container of saved test cases. |
+| **Checkpoint** | A saved point in a thread you can rewind to or fork from. |
+| **Persona** | A description of a specific user the agent can act as. |
+| **Mode** | Default, Plan, or Explore — the approach for a web run. |
+| **HITL** | A pause where the agent asks you or hands you the browser. |
+| **Testing focus** | A specialist lane (responsive / accessibility / performance). |
+| **Recipe** | A learned, reusable fix taught via takeover. |
+| **Bug ledger** | The durable record of failures, classified and deduped. |
+| **Provider / model** | The LLM the agent runs on. |

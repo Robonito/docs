@@ -129,10 +129,22 @@ export const ROUTES: EachRoute[] = [
     title: "Reusable Test Cases",
     href: "/reusable-test-cases",
   },
-  {
-    title: "AI Studio",
-    href: "/ai-studio",
-  },
+    {
+     title: "AI Studio",
+     href: "/ai-studio",
+     items: [
+        { title: "Quick start", href: "/quick-start" },
+        { title: "Concepts", href: "/concepts" },
+        { title: "Choose an agent mode", href: "/agent-modes" },
+        { title: "Test as a persona", href: "/personas" },
+        { title: "Human-in-the-loop", href: "/human-in-the-loop" },
+        { title: "Testing focus", href: "/testing-focus" },
+        { title: "Configure provider & model", href: "/provider-models" },
+        { title: "Thread history", href: "/thread-history" },
+        { title: "Reference", href: "/reference" },
+        { title: "Advanced — CLI and API", href: "/cli-api" },
+      ],
+    },
   {
     title: "Data Source",
     href: "/data-source",

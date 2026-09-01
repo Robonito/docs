@@ -4,6 +4,16 @@ AI Studio is Robonito's autonomous testing agent. Instead of recording clicks ma
 
 ![AI Studio main interface showing the chat panel, browser mirror, and platform selector](/ai-studio/ai-studio-overview.png)
 
+## Start here
+
+| I want to… | Go to |
+|---|---|
+| Run my first AI-generated test | [**Quick start →**](/docs/ai-studio/quick-start) |
+| Understand the key terms (thread, suite, persona, HITL, recipe) | **[Concepts →**](/docs/ai-studio/concepts) |
+| Run the web agent from a terminal or call the API | **[Advanced — CLI and API →**](/docs/ai-studio/cli-api) |
+
+This page is an overview. The deeper, task-based guides live in the sections below and in the sidebar.
+
 ---
 
 ## What AI Studio Can Do
@@ -13,7 +23,7 @@ AI Studio is Robonito's autonomous testing agent. Instead of recording clicks ma
 - **Plan before acting** — in Plan Mode, the agent researches your goal and presents a step-by-step strategy for your approval before touching the browser.
 - **Classify bugs** — when a test run fails, the agent analyzes the failure and labels it as a real bug, environment issue, broken selector, or flaky test.
 - **Save directly to your test suite** — generated test cases are one click away from being added to any suite in your workspace.
-- **Support multiple AI providers** — use Robonito's default model or bring your own API key for Anthropic Claude, OpenAI GPT, Google Gemini, OpenRouter, or a local Ollama model.
+- **Support multiple AI providers** — use Robonito's default model or bring your own API key for Anthropic Claude, OpenAI GPT, Google Gemini, OpenRouter, NVIDIA NIM, or a local Ollama model.
 
 ---
 
@@ -31,49 +41,9 @@ AI Studio works across all test platforms Robonito supports:
 
 ---
 
-## Getting Started
-
-### 1. Open AI Studio
-
-Click the **AI Studio** icon (sparkle icon) in the left sidebar.
-
-![Sidebar with the AI Studio icon highlighted](/ai-studio/ai-studio-sidebar-icon.png)
-
-### 2. Select a Platform
-
-Choose the platform you want to test: **Web**, **API**, **Android**, **iOS**, or **Desktop**. The input hints update to guide you on what to enter.
-
-### 3. Configure the AI Model
-
-Click the model selector dropdown to choose:
-- **Robonito (Default)** — fully managed, no API key needed.
-- **Claude Sonnet / Opus / Haiku** — enter your Anthropic API key.
-- **GPT-4o / o1** — enter your OpenAI API key.
-- **Gemini 3.1 Pro / Flash** — enter your Google API key.
-- **OpenRouter** — browse hundreds of models from a single API key.
-- **Ollama (Local)** — run any Ollama-compatible model on your machine.
-
-![Model selector dropdown showing all available AI providers](/ai-studio/ai-studio-model-selector.png)
-
-### 4. Describe Your Goal
-
-Type your test objective in the chat input. Be specific — include the URL, the user action, and what you expect to happen:
-
-> *"Go to https://staging.myapp.com, sign in with `qa@myapp.com` / `testpass123`, add the first item in the catalog to the cart, and verify the cart count shows 1."*
-
-### 5. Send and Observe
-
-Click **Send** (or press `Enter`). The agent:
-1. Opens a browser and navigates to the target URL.
-2. Performs each action, streaming real-time progress in the chat panel.
-3. Takes screenshots at each step and displays them in the browser mirror.
-4. Generates a structured test case and surfaces it inline in the chat.
-
-![Browser mirror panel showing the live agent session](/ai-studio/ai-studio-browser-mirror.png)
-
----
-
 ## Agent Modes
+
+The **mode** sets *how* the agent approaches your goal. It appears in the input toolbar for **Web** platform.
 
 ### Default Mode
 The agent immediately starts interacting with the application, performing actions and generating test steps as it goes.
@@ -91,6 +61,34 @@ The agent autonomously crawls your entire application using a breadth-first sear
 To activate: click the **Explore** toggle in the input toolbar.
 
 ![Explore Mode Site Map tab showing a visual graph of discovered pages](/ai-studio/ai-studio-explore-sitemap.png)
+
+> Plan and Explore are mutually exclusive — choose one per run. See [Choose an agent mode](/docs/ai-studio/agent-modes).
+
+---
+
+## Configure the AI Model
+
+Click the model selector dropdown to choose the provider and model:
+
+- **Robonito (Default)** — fully managed, no API key needed.
+- **Anthropic Claude** — Claude Sonnet 4.6, Opus 4.6, or Haiku 4.5.
+- **OpenAI GPT** — GPT-5.5, GPT-5.4 Mini, or GPT-4.1.
+- **Google Gemini** — Gemini 3.1 Pro, 3 Flash, 2.5 Flash, or 3.1 Flash Lite.
+- **OpenRouter** — browse hundreds of models from a single API key.
+- **NVIDIA NIM** — browse NVIDIA's NIM model catalog.
+- **Ollama (Local)** — run any locally installed Ollama model on your machine.
+
+![Model selector dropdown showing all available AI providers](/ai-studio/ai-studio-model-selector.png)
+
+> A key is needed for everything except the Robonito default. Add provider keys in **Settings → External APIs** (keys resolve global → organization → workspace, most specific winning). See [Configure a provider and model](/docs/ai-studio/provider-models).
+
+---
+
+## Test as a Persona
+
+The agent can adopt a **persona** — a real user of the application under test (a clinician, a call-center agent, a sales rep, …) — and exercise your app the way that person would, while still applying QA discipline. Ten personas ship by default, and you can add your own.
+
+> See [Test as a persona](/docs/ai-studio/personas) and [Persona testing — demo sites](/docs/ai-studio/personas#demo-sites).
 
 ---
 
@@ -111,9 +109,23 @@ You can give the agent richer context before it starts:
 
 ## Human-in-the-Loop (HITL)
 
-During a complex flow, the agent may pause and ask for your help — for example, when it encounters a CAPTCHA, a 2FA prompt it cannot solve, or an ambiguous UI state. A **HITL card** appears in the chat asking you to take over the browser momentarily. Once you complete the blocked step, click **Resume** and the agent continues from where it left off.
+During a complex flow, the agent may pause and ask for your help — for example, when it encounters a CAPTCHA, a 2FA prompt it cannot solve, or an ambiguous UI state. A **HITL card** appears in the chat asking you to take over the browser momentarily. Once you complete the blocked step, choose whether to **teach** the agent the action, **resume** without teaching, or **reject** — and the agent continues or ends accordingly.
 
 ![Human-in-the-loop takeover card with Take Over and Resume buttons](/ai-studio/ai-studio-hitl.png)
+
+> See [Human-in-the-loop](/docs/ai-studio/human-in-the-loop).
+
+---
+
+## Add a Testing Focus
+
+For **Web** platform, opt in to specialist lanes **before** the run:
+
+- **Responsive** — check the page across multiple device viewports.
+- **Accessibility** — automated accessibility conformance.
+- **Performance** — Core Web Vitals plus network metrics.
+
+> See [Add a testing focus](/docs/ai-studio/testing-focus).
 
 ---
 
@@ -129,7 +141,7 @@ When the agent finishes, a test case card appears inline in the chat showing the
 
 ---
 
-## Session History
+## Session History, Rewind & Fork
 
 Every AI Studio conversation is saved as a **Thread**. To revisit a past session:
 
@@ -137,7 +149,11 @@ Every AI Studio conversation is saved as a **Thread**. To revisit a past session
 2. Browse your thread history — each entry shows the original prompt and the platform used.
 3. Click any thread to resume it. The agent loads the full conversation context and can continue from where you left off.
 
+You can also **rewind** a thread to an earlier point, or **fork** it into a new conversation.
+
 ![History drawer showing a list of past AI Studio threads](/ai-studio/ai-studio-history.png)
+
+> See [Thread history, rewind & fork](/docs/ai-studio/thread-history).
 
 ---
 
@@ -169,4 +185,21 @@ A **Token Tracker** in the AI Studio header shows real-time token consumption fo
 
 For Android and iOS platforms, the agent mirrors the device screen live and interacts via touch events (tap, swipe, type) just like a human tester. Select the target device from the **Device** dropdown when using Android or iOS mode.
 
-> See also: [Mobile Setup →](../environment-manager/mobile-setup) | [iOS Setup →](../mobile-testing/ios-setup)
+> See also: [Mobile Setup →](/docs/mobile-testing/mobile-setup)
+
+---
+
+## All AI Studio docs
+
+| Topic | Page |
+|---|---|
+| First run, end to end | [Quick start](/docs/ai-studio/quick-start) |
+| Key terms explained | [Concepts](/docs/ai-studio/concepts) |
+| Default / Plan / Explore | [Choose an agent mode](/docs/ai-studio/agent-modes) |
+| Test as a user | [Personas](/docs/ai-studio/personas) |
+| Answer questions / take over | [Human-in-the-loop](/docs/ai-studio/human-in-the-loop) |
+| Responsive / a11y / performance | [Testing focus](/docs/ai-studio/testing-focus) |
+| Pick a provider & model | [Provider & model](/docs/ai-studio/provider-models) |
+| Rewind / fork a thread | [Thread history](/docs/ai-studio/thread-history) |
+| Slash commands, models, flags, API | [Reference](/docs/ai-studio/reference) |
+| Terminal & app-server API | [Advanced — CLI and API](/docs/ai-studio/cli-api) |

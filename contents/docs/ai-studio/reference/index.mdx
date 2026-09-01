@@ -1,0 +1,190 @@
+# Reference
+
+This page lists the exact names of AI Studio's building blocks — slash commands, the model catalog, run options, environment flags, stream events, and the app-server API. It describes the machinery; see the [how-to guides](/docs/ai-studio/quick-start) for procedures and [Concepts](/docs/ai-studio/concepts) for the why.
+
+---
+
+## Slash commands
+
+Type **`/`** in the chat input (or click **Help & commands**).
+
+| Command | Does |
+|---|---|
+| `/figma` | Add a Figma design file as context. |
+| `/github` | Add a GitHub repository as context. |
+| `/jira` | Reference a JIRA issue (e.g. `PROJ-123`). |
+| `/asana` | Reference an Asana task URL. |
+| `/linear` | Reference a Linear issue (e.g. `ENG-42`). |
+| `/attach` | Attach a PDF, doc, image, or Markdown file. |
+| `/persona` | Have the agent test as a specific SUT user persona. |
+
+---
+
+## Platform
+
+`web` (default) · `android` · `ios` · `desktop`. The **agent-mode** and **testing-focus** controls appear for `web`.
+
+For **android** / **ios** you must also supply a device: a device id (Android serial from `adb devices`, iOS UDID), and for Android the **app package name** (e.g. `com.example.app`). Mobile runs show a **device mirror** in the results pane.
+
+---
+
+## Agent modes
+
+`default` · `plan` · `explore` — see [Choose an agent mode](/docs/ai-studio/agent-modes) and [Concepts → Modes](/docs/ai-studio/concepts#modes).
+
+---
+
+## Testing focus (specialist lanes)
+
+`responsive` · `accessibility` · `performance` — opted in **before** the run. See [Add a testing focus](/docs/ai-studio/testing-focus).
+
+---
+
+## Model catalog
+
+The model selector shows these; OpenRouter / NVIDIA NIM / Ollama are “Browse models” placeholders you resolve to a concrete model. **Vision** = accepts image input.
+
+| Value | Label | Provider | Context (tokens) | Vision |
+|---|---|---|---|---|
+| `robonito-default` | Robonito (Default) | robonito | 1,048,576 | yes |
+| `claude-sonnet-4-6` | Claude Sonnet 4.6 | anthropic | 200,000 | yes |
+| `claude-opus-4-6` | Claude Opus 4.6 | anthropic | 200,000 | yes |
+| `claude-haiku-4-5` | Claude Haiku 4.5 | anthropic | 200,000 | yes |
+| `gpt-5.5` | GPT-5.5 | openai | 1,050,000 | yes |
+| `gpt-5.4-mini` | GPT-5.4 mini | openai | 400,000 | yes |
+| `gpt-4.1` | GPT-4.1 | openai | 1,047,576 | yes |
+| `gemini-3.1-pro-preview` | Gemini 3.1 Pro | google | 1,048,576 | yes |
+| `gemini-3-flash-preview` | Gemini 3 Flash | google | 1,048,576 | yes |
+| `gemini-2.5-flash` | Gemini 2.5 Flash | google | 1,048,576 | yes |
+| `gemini-3.1-flash-lite` | Gemini 3.1 Flash Lite | google | 1,048,576 | yes |
+| `moonshotai/kimi-k2.6` | NVIDIA NIM — Kimi K2.6 | nvidia-nim | 256,000 | yes |
+| `openrouter` | OpenRouter (browse) | openrouter | runtime | detected at runtime |
+| `ollama` | Ollama (local / cloud) | ollama | runtime | detected at runtime |
+
+The `robonito` default model (`robonito-default`) is **Gemini 3.1 Flash Lite** — a
+1M-token, vision-capable model that needs **no user key** (it authenticates with
+your workspace token).
+
+> **Where these models come from.** The list above is the authoritative catalog the
+> agent resolves at run time, aggregated from each provider's model list in
+> `lib-executor/src/agent/llm/providers/`. The desktop model selector shows a
+> convenient subset, but the provider layer is the source of truth.
+>
+> **OpenRouter** and **Ollama** have no fixed list: OpenRouter's models are
+> fetched from the OpenRouter API at runtime (default
+> `nvidia/nemotron-3-ultra-550b-a55b:free`), and Ollama's models come from
+> whichever daemon you point at, so both are filled in per-installation.
+>
+> **Provider base URLs.** Anthropic and OpenAI use their default endpoints (no
+> base URL needed; an optional `baseUrl` overrides them). OpenRouter:
+> `https://openrouter.ai/api/v1`. NVIDIA NIM: `https://integrate.api.nvidia.com/v1`.
+> Ollama default: `http://localhost:11434`.
+>
+> **Vision.** Every built-in model listed above is vision-capable. Vision for
+> OpenRouter and Ollama is detected from the model's own metadata at runtime.
+
+---
+
+## Run options
+
+The desktop run is described by a single run configuration. The fields an end user controls (others are supplied by the app and server):
+
+| Field | Controls | Default / notes |
+|---|---|---|
+| `provider` / `model` | Which LLM runs the agent. | `robonito` / `robonito-default`. |
+| `platform` | `web` / `android` / `ios` / `desktop`. | `web`. |
+| `userMessage` | Your prompt. | — |
+| `isNewThread` | Start a fresh thread vs continue. | — |
+| `boundSuiteId` | Destination suite for generated cases. | Set write-once on first send; **required to send**. |
+| `compactDom` | Compact, token-saving page representation. | From org setting. |
+| `specializedTestingEnabled` | Whether specialist lanes are available. | Org opt-in. |
+| `viewportProfileIds` | Devices for responsive testing. | Empty = all workspace devices. |
+| `specializedLanes` | Lanes opted in **before** the run. | Undefined = accessibility only (when enabled). |
+| `deviceId` / `deviceName` / `appPackageName` / `appBundleId` / `appPath` | Mobile target. | Required for android/ios. |
+| `attachments` | Files attached to the message. | — |
+| `issueRefs` | Linked tracker issues (Jira/Linear/Asana). | — |
+| `contextSources` | Linked context (Figma / GitHub). | — |
+| `exploreMode` / `planningMode` | Enable Explore / Plan. | Mutually exclusive. |
+| `personaIds` / `personasDir` | Personas to adopt + your folder. | v1 runs one at a time. |
+| `sessionTimeoutS` | Max session duration (seconds). | `1800` (30 min); max `14400` (4 h). |
+| `recursionLimit` | Max agent reasoning steps. | `200`; max `500`. |
+
+---
+
+## Environment flags (AI Studio)
+
+All AI Studio runtime behavior is controlled by environment variables read at process start (the agent runs in the Electron **main** process, so set these in the environment that launches the desktop app / executor). Every flag is optional; the **Default** is what runs when the variable is unset. Booleans are string comparisons.
+
+| Variable | Default | Effect |
+|---|---|---|
+| `AI_STUDIO_ACTION_PROBE` | off | After each dispatched action, log the acted element + committed value + current form state. Best tool for debugging form flows. |
+| `ROBONITO_VERBOSE` | off | Verbose checkpointer logging. Noisy unless needed. |
+| `DEBUG_PROD` | off | Enable prod-build devtools/menu in the desktop app. |
+| `AI_STUDIO_STEP_LOOP_TOOLS` | **on** | Deterministic step tools (`fillForm` / `toggleControl` / `submitAndVerify`). |
+| `AI_STUDIO_REGION_SCOPE` | **on** | Region-scoped page-state extraction (focus on the primary form region). |
+| `AI_STUDIO_COMPACT_DOM` | off | Token-saving compact page representation. |
+| `AI_STUDIO_DOM_READ_BUDGET` | `12` | Max DOM reads per sub-agent turn (clamped to 1–20). |
+| `AI_STUDIO_SCREENSHOT_BUDGET` | `8` | Per-session screenshot allowance (clamped to 1–20). |
+| `AI_STUDIO_FAILURE_SCREENSHOT_BUDGET` | `3` | Per-session failure-screenshot allowance (clamped to 1–20). |
+| `AI_STUDIO_THINKING_BASELINE` | `MEDIUM` | Reasoning level for routine turns (`LOW`/`MEDIUM`/`HIGH`). |
+| `AI_STUDIO_DETERMINISTIC_RECORDING` | **on** | Deterministic test-node recording. |
+| `AI_STUDIO_LIVE_TESTCASE_RECORDING` | off | Live incremental test-case append during a run. |
+| `USE_QUEUE_PERSISTENCE` | **on** | Persist test cases via the background queue. |
+| `NODE_ENV` | — | `production` gates prod-only browser/crawl paths. |
+| `START_MINIMIZED` | off | Launch the desktop app minimized. |
+
+<Note type="note" title="Not all `AI_STUDIO_` names are flags">
+Names that look like flags but **aren't** (for example `AI_STUDIO_AGENT_RUN`, `AI_STUDIO_MODELS`) are IPC channel identifiers, not environment variables.
+</Note>
+
+---
+
+## Stream events (what shows up in the chat)
+
+The agent emits a stream of events the UI renders. User-facing highlights:
+
+| Event | What you see |
+|---|---|
+| `text_chunk` / `thought_chunk` | Streaming answer / reasoning. |
+| `tool_start` / `tool_progress` / `tool_end` | A tool acting, with progress and a success/error status (human labels such as *Read Page*). |
+| `todo_update` | The agent's plan, ticking items off. |
+| `test_plan` | A plan card (Plan mode). |
+| `test_case_generated` | A generated test case, shown inline. |
+| `save_test_cases_request` / `save_test_cases_complete` | The save being requested / confirmed. |
+| `test_case_persisted` / `test_case_persistence_failed` | Async save success / failure (failed is retryable). |
+| `hitl_request` / `structured_question` / `structured_input_request` | The agent asking you / handing you a form. |
+| `hitl_takeover_request` / `…_captured` / `…_resolved` | A browser takeover and its outcome (taught / resumed / rejected). |
+| `bug_classified` | An inline “Bug recorded” pill with classification + severity. |
+| `responsive_progress` / `responsive_screenshot` / `responsive_result` | A responsive run's progress, screenshots, result. |
+| `specialized_run_started` / `…_completed` / `specialized_network_metrics` | A specialist lane's lifecycle and late-arriving network metrics. |
+| `mobile_mirror` | The live device mirror for mobile runs. |
+| `path_discovered` | A page found during Explore mode (drives the site map). |
+| `usage` / `context_breakdown` / `context_compressed` / `context_limit_warning` | Token usage and context-window health. |
+| `recipe_pre_bound` / `recipe_hit` / `recipe_miss` / `kg_redesign_suspected` | Recipe telemetry; the last flags “patterns may be out of date.” |
+| `agent_done` / `agent_error` | Run finished / failed. |
+
+---
+
+## App-server API (AI Studio)
+
+The desktop app and a server/CLI client reach AI Studio through a backend controller at the prefix **`ai-studio`**. All routes require authentication and a workspace guard. Default app-server base URL: `http://localhost:3000/app-server`.
+
+| Method & path | Purpose |
+|---|---|
+| `POST /ai-studio/threads` | Create a thread. |
+| `GET /ai-studio/threads` | List threads. |
+| `POST /ai-studio/threads/:id/messages` | Send a message / start a run. |
+| `GET /ai-studio/threads/:id/messages` | List a thread's messages (paginated: default 100, max 250). |
+| `PATCH /ai-studio/threads/:id/bind-suite` | Bind a thread to its suite (write-once). |
+| `POST /ai-studio/test-cases/enqueue` | Enqueue test-case persistence (async). |
+| `GET /ai-studio/test-cases/persistence/:jobId` | Poll an async persistence job. |
+| bug-ledger routes | Create / list / resolve recorded bugs. |
+
+When a run finishes, its terminal status is one of: `succeeded` · `failed` · `cancelled` · `human_intervention_required` · `budget_exhausted` · `infrastructure_failed`.
+
+---
+
+## Related
+
+- CLI usage, environment variables, and exit codes — [Advanced — CLI and API](/docs/ai-studio/cli-api).
+- The user concepts behind these — [Concepts](/docs/ai-studio/concepts).

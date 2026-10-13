@@ -1,0 +1,126 @@
+# Agentic Testing (Agent Evaluation)
+
+As modern applications increasingly integrate Large Language Models (LLMs) and autonomous AI agents (such as LangChain, LangGraph, custom API agents, and Model Context Protocol / MCP tools), traditional deterministic assertions are no longer sufficient. Non-deterministic model responses, multi-step tool-calling loops, and hallucinations require a new approach to quality assurance: **Agentic Testing**.
+
+Robonito's **Agent Evaluation Workbench** provides an end-to-end testing platform to benchmark, evaluate, and regression-test autonomous AI agents across repeatable experiments.
+
+![Agent Evaluation Workbench showing dataset rows, agent trajectory, and evaluation metrics](/ai-studio/agent-eval-workbench.png)
+
+---
+
+## Why Agentic Testing?
+
+AI agents differ fundamentally from traditional software:
+- **Non-Determinism:** The same prompt can yield different reasoning trajectories or wording across runs.
+- **Complex Tool Chains:** An agent might make multiple sequential tool calls (database queries, web searches, API calls) before returning a final answer.
+- **Hallucinations & Drift:** Updates to system prompts, underlying model weights (e.g., upgrading from GPT-4o to Claude 3.5 Sonnet or Gemini 3 Flash), or tool schemas can silently degrade reliability.
+
+Robonito transforms agent evaluation into a disciplined, automated QA process with durable experiment tracking, multi-lens metrics, and regression comparisons.
+
+---
+
+## Core Architecture & Workflow
+
+Agentic testing in Robonito revolves around five core concepts:
+
+```
+┌─────────────────────────┐      ┌─────────────────────────┐
+│   Evaluation Dataset    │ ───► │  Agent Target Profile   │
+│ (Prompts, Ground Truth) │      │  (HTTP / MCP / LangGraph)│
+└─────────────────────────┘      └────────────┬────────────┘
+                                              │ Executes N Repetitions
+                                              ▼
+┌─────────────────────────┐      ┌─────────────────────────┐
+│  Regression Matrix &    │ ◄─── │ Multi-Lens Evaluators   │
+│  Candidate Comparison   │      │ (Task, Tools, Halluc.)  │
+└─────────────────────────┘      └─────────────────────────┘
+```
+
+---
+
+## 1. Evaluation Datasets
+
+An **Evaluation Dataset** is a versioned collection of test scenarios used to benchmark your agent. Each row in a dataset defines:
+- **Input Prompt:** The user message or task assigned to the agent (e.g., *"Book the cheapest flight from London to Dubai on Nov 15th"*).
+- **Context & Constraints:** Required constraints, personas, or mock data slots.
+- **Expected Outcome / Ground Truth:** The target business outcome, expected output format, or verified facts.
+- **Tool Ground Truth:** The list of tools the agent is expected to invoke (and tools it must *not* invoke).
+
+Datasets can be created manually in the workbench, uploaded via CSV/JSON, or converted from real production interaction logs.
+
+---
+
+## 2. Agent Target Profiles & Connections
+
+Robonito connects to your AI agent using standardized target profiles:
+
+| Connection Type | Protocol | How It Connects |
+|---|---|---|
+| **REST / HTTP Agent** | HTTP/JSON | Sends input payloads to your agent's API endpoint and parses streaming or batch responses. |
+| **Model Context Protocol (MCP)** | JSON-RPC / MCP | Connects directly to MCP servers, verifying tool registrations, parameter schemas, and authentication slots (ADR 0012). |
+| **LangGraph / LangChain** | Python / JS Runtime | Dispatches runs directly to local or cloud-hosted LangGraph agent state machines. |
+| **OpenTelemetry (OTLP)** | OTLP / W3C Trace | Ingests distributed traces directly from your agent runtime, linking Robonito's test execution spans with the agent's internal reasoning spans (ADR 0041–0044). |
+
+---
+
+## 3. Multi-Lens Evaluators
+
+Rather than relying on a single pass/fail metric, Robonito evaluates agent runs across multiple specialized lenses:
+
+### Task Completion & Business Outcome
+Validates whether the agent reached the requested terminal state. For example, in an e-commerce agent, search results or clicking an "Add to Cart" button do not substitute for a verified cart count and order confirmation.
+
+### Tool-Calling Precision & Safety
+- **Tool Selection:** Did the agent invoke the right tools with schema-compliant arguments?
+- **Omission Testing:** Verifies that agents do not invoke prohibited or out-of-scope tools (ADR 0037).
+- **Parameter Accuracy:** Validates that extracted entities (dates, IDs, quantities) passed to tools match the user prompt.
+
+### Hallucination & Factuality Testing
+An LLM judge compares the agent's claims against the retrieved ground truth and tool outputs:
+- **Faithfulness:** Verifies that every assertion made by the agent is grounded in retrieved context.
+- **Answer Relevance:** Ensures the response directly addresses the user's intent without superfluous filler.
+
+### Performance & Cost Governance
+- **Latency & Time-to-First-Token:** Measures round-trip time across each step in the agent's loop.
+- **Token Budgets & Cost Receipts:** Enforces hard caps on input/output tokens per attempt with durable operation receipts (ADR 0051).
+
+---
+
+## 4. Running Experiments & Repetitions
+
+In the **Agent Experiment Workbench**:
+1. Select your target agent connection and the test dataset.
+2. Configure the **Repetition Count** (e.g., 3 to 10 repetitions per row) to measure statistical stability and non-deterministic variance.
+3. Set your token budget and latency thresholds.
+4. Click **Run Experiment**.
+
+Robonito executes the batch using durable, leased attempts (ADR 0036). If your desktop app or network disconnects mid-experiment, progress is preserved and incomplete work resumes automatically.
+
+---
+
+## 5. Regression Matrix & Candidate Comparison
+
+When you tweak a system prompt, change tool definitions, or test a new foundational model (e.g., comparing Candidate A vs. Candidate B):
+
+1. Run the evaluation dataset against both candidate configurations.
+2. Open the **Candidate Comparison View**:
+   - **Win / Loss / Tie Scoring:** See immediately which candidate performs better overall.
+   - **Per-Metric Deltas:** Compare pass rates, hallucination rates, and tool accuracy with confidence intervals.
+   - **Cost vs. Latency Tradeoffs:** Visualize whether a more capable model justifies its higher token cost and latency.
+   - **Causal Evidence Links:** Click on any regression to view the exact trace timeline, tool parameters, and model outputs that caused the failure.
+
+---
+
+## Best Practices for Agent Quality Engineering
+
+- **Pin Evaluation Definitions:** Store agent test configurations as immutable versions (ADR 0040) so benchmarks are strictly comparable over time.
+- **Never Rely on Self-Reporting:** Always verify concrete business outcomes (e.g., database records created or API side-effects confirmed) rather than trusting an agent's self-generated confirmation text.
+- **Include Negative Test Cases:** Include adversarial prompts and out-of-domain requests in your evaluation sets to ensure guardrails hold under stress.
+
+---
+
+## Related Documentation
+
+- [AI Studio Overview](/docs/ai-studio) — Robonito's autonomous test-authoring agent.
+- [AI Studio Concepts](/docs/ai-studio/concepts) — Understanding threads, runs, and personas.
+- [Execution Reports](/docs/reports) — Analyzing execution logs and health trends.

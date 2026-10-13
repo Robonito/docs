@@ -43,13 +43,13 @@ A **persona** is a file that describes a *specific user of the app under test* �
 
 ## Modes
 
-The **mode** sets the approach for a web run (see [Choose an agent mode](/docs/ai-studio/agent-modes)):
+The **mode** sets the execution approach for a web run (see [Choose an agent mode](/docs/ai-studio/agent-modes)):
 
-- **Default** — act on the goal directly.
-- **Plan** — research, present a plan, and wait for your **Approve Plan** before any browser action.
-- **Explore** — goal-free crawl that builds a live **site map** of the app.
+- **Default** — Acts on the specified goal directly, generating test steps inline.
+- **Plan** — Researches your goal, presents a **Strategic Plan Card**, and waits for your **Approve Plan** before performing any browser actions. Once executed, tests can be reviewed and saved via a review card.
+- **Explore** — Runs in resumable segments to autonomously walk real user flows, generate synthetic data, detect business rule violations, reuse authentication steps (`REUSE_TEST`), and commit deduplicated tests to your suite.
 
-**Plan** and **Explore** can't be used together.
+**Plan** and **Explore** cannot be used together.
 
 ---
 

@@ -56,9 +56,10 @@ Securely authenticate your test requests using Robonito's built-in Authenticatio
 
 - **Action:** Navigate to the **Authentication** tab, select the required format, and provide your credentials.
 - **Supported Methods:**
-  - **Bearer Token:** Supply the token string.
+  - **Bearer Token:** Supply the token string or reference a dynamic token (e.g., `{{authToken}}`).
   - **Basic Auth:** Supply your username and password.
   - **API Key:** Define the key name, its value, and where it should be injected (e.g., Query Params or Header).
+  - **Browser Session:** Reuses the active browser session and cookies from preceding Web steps. This allows API requests to execute directly as the authenticated web user without manually managing session cookies or JWT tokens.
 
 ---
 

@@ -1,158 +1,146 @@
 # Advanced — CLI and API
 
-This is the developer and automation companion to [Quick start](/docs/ai-studio/quick-start). It covers running AI Studio's agent from a terminal (`robonito-cli`) and driving it through the app-server API.
+This is the developer and CI/CD automation companion to [AI Studio Quick start](/docs/ai-studio/quick-start). It covers running AI Studio's autonomous agent from a terminal or build pipeline using `robonito-cli`, and driving it programmatically via the backend API.
 
 ---
 
 ## The CLI (`robonito-cli`)
 
-The CLI runs the **same** web-testing agent as the desktop app, from a terminal. CLI v1 supports the **web** platform only.
+The Robonito CLI runs the **same** autonomous web-testing agent as the desktop application directly from your command line or continuous integration (CI) container. CLI v1 supports the **Web** platform.
 
 ### Prerequisites
 
 - Node.js 20 or newer.
-- The Robonito monorepo and its local packages built.
-- A running Robonito app server, and access to at least one organization and workspace.
-- Chromium from Playwright (or a compatible Chromium executable).
-- Ollama only when using an Ollama model.
+- An active Robonito account with access to at least one organization and workspace.
+- Chromium installed (via Playwright or system browser).
+- (Optional) A local Ollama instance if you are running private on-premise models.
 
-The CLI deliberately fails when the configured Robonito server is unavailable.
+### Installation
 
-### Install and build
-
-From the monorepo root, build the local packages the CLI requires, then:
+Install the CLI globally using npm:
 
 ```bash
-cd cli-agent
-npm install
-npm run build
+npm install -g robonito-cli
 ```
 
-Run via `npm run dev --` (TypeScript) or `npm start --` (compiled). The examples below use `npm run dev --`.
-
-### First login
+Or execute it directly via `npx`:
 
 ```bash
-npm run dev -- auth login
+npx robonito-cli --help
 ```
 
-This opens the system browser for authentication. On success it:
+---
 
-1. Stores the refresh session in the operating-system credential vault.
-2. Asks you to select an authorized organization and workspace when needed.
-3. Offers an authorized model selection.
-4. Asks for testing mode and diagnostics preferences.
-5. Starts the interactive Robonito terminal at the `robonito>` prompt.
+### Authentication & Setup
 
-### Common runs
+Before running tests, authenticate the CLI with your Robonito account:
 
 ```bash
-# Interactive session, then type a request at robonito>
-npm run dev
-
-# One-shot run, then exit
-npm run dev -- run "Test login on https://www.saucedemo.com with standard_user"
-
-# Plan or Explore mode
-npm run dev -- run "Plan coverage for https://example.com" --planning
-npm run dev -- run "Explore https://example.com and identify critical journeys" --explore
-
-# Attach one or more files
-npm run dev -- run "Use these requirements to test the site" --attach ./requirements.txt
-
-# A persona (core personas need no --personas-dir)
-robonito-cli --persona sales-rep -w <workspaceId> \
-    --instructions "Create an opportunity for Acme, $50k, Prospecting stage"
+robonito-cli auth login
 ```
 
-### Options
+This opens your default browser for single-sign-on verification. On success, the CLI:
+1. Stores the secure session token in your operating system's credential vault.
+2. Prompts you to select your default **Organization** and **Workspace**.
+3. Configures your default AI provider and model preferences.
+
+For headless CI/CD environments (GitHub Actions, GitLab CI, Jenkins), you can bypass the interactive browser login by setting the `ROBONITO_AUTH_TOKEN` environment variable in your pipeline secrets.
+
+---
+
+### Common CLI Commands
+
+```bash
+# Interactive terminal session
+robonito-cli
+
+# Execute a one-shot goal and exit
+robonito-cli run "Test login on https://www.saucedemo.com with standard_user"
+
+# Run in Plan Mode (generates and prints plan before acting)
+robonito-cli run "Plan coverage for https://example.com" --planning
+
+# Run in Explore Mode (autonomously walks and saves key user flows)
+robonito-cli run "Explore https://example.com and discover critical flows" --explore
+
+# Attach requirements or test data files
+robonito-cli run "Verify user checkout against these rules" --attach ./test-specs.md
+
+# Adopt a specific testing persona
+robonito-cli run "Verify dashboard as clinical staff" --persona clinician -w <workspaceId>
+```
+
+---
+
+### Command Options Reference
 
 | Option | Purpose | Default |
 |---|---|---|
-| `-i, --instructions S` | One-shot instructions (`-` reads stdin). | Interactive. |
-| `--attach PATH` | Attach a file (repeatable). | None. |
-| `-p, --provider TYPE` | `robonito`, `anthropic`, `openai`, `google`, or `ollama`. | `robonito`. |
-| `-m, --model NAME` | Model id. | `robonito-default`. |
-| `--choose-model` | Force selection from the authorized catalog. | Off. |
-| `-pl, --platform TYPE` | Requested platform (v1: `web` only). | `web`. |
-| `-w, --workspace-id` / `--organization-id` | Override saved context. | Saved. |
-| `-t, --thread-id` | Use a specific thread. | New. |
-| `--headed` | Show the browser. | On for interactive non-benchmark. |
-| `--executable-path PATH` | Specific Chromium executable. | Playwright Chromium. |
-| `--planning` / `--explore` | Enable Plan / Explore mode. | Off. |
-| `--non-interactive` | Disable HITL; auto-reject requests. | Off. |
-| `--hitl-timeout-ms MS` | Max wait for a HITL response (milliseconds). | `600000`. |
-| `-v, --verbose` | Verbose activity + diagnostic logs. | Off. |
-| `--output FORMAT` | Human terminal output or `jsonl` JSON Lines. | `human`. |
-| `--json-summary PATH` | Write the run summary as JSON. | None. |
-| `--evidence PATH` | Write a redacted evidence pack. | None. |
+| `-i, --instructions <string>` | Direct prompt instructions (`-` reads from standard input). | Interactive prompt. |
+| `--attach <path>` | Attach a file for agent context (repeatable). | None. |
+| `-p, --provider <type>` | AI provider: `robonito`, `anthropic`, `openai`, `google`, `ollama`. | `robonito`. |
+| `-m, --model <id>` | Specific model ID to use. | Provider default. |
+| `--planning` | Enable Plan Mode (review strategic plan before browser actions). | Off. |
+| `--explore` | Enable Explore Mode (autonomous flow mapping and test generation). | Off. |
+| `-w, --workspace-id <id>` | Target workspace ID where test cases will be saved. | Active workspace. |
+| `-t, --thread-id <id>` | Resume a specific existing chat thread. | New thread. |
+| `--headed` | Launch visible browser window (useful for local debugging). | Headless in CI. |
+| `--non-interactive` | Disable Human-in-the-Loop prompts for unattended automation. | Interactive. |
+| `--hitl-timeout-ms <ms>` | Maximum milliseconds to wait for human intervention before failing. | `600000` (10 min). |
+| `--output <format>` | Output format: `human` (formatted terminal text) or `jsonl`. | `human`. |
+| `--json-summary <path>` | Write execution summary to a JSON file. | None. |
+| `--evidence <path>` | Save a redacted ZIP evidence bundle containing screenshots and trace logs. | None. |
 
-<Note type="danger" title="Don't commit tokens">
-For automation, authenticate once and pass a short-lived `ROBONITO_AUTH_TOKEN` through the environment. Never write a token to a committed `.env` file.
+<Note type="danger" title="Credential Security">
+Never commit API keys or auth tokens to source control. In CI/CD pipelines, inject `ROBONITO_AUTH_TOKEN` as a masked pipeline secret.
 </Note>
 
-### Environment
+---
 
-A `.env` file in `cli-agent` is loaded automatically. Browser login usually removes the need for credentials or IDs in it.
+### Environment Variables
 
 | Variable | Default | Purpose |
 |---|---|---|
-| `ROBONITO_SERVER_URL` | `http://localhost:3000/app-server` | App-server base URL. |
-| `ROBONITO_CLOUD_GATEWAY_URL` | `http://localhost:3001` | Cloud execution gateway. |
-| `ROBONITO_API_GATEWAY_URL` | `http://localhost:3002` | API execution gateway. |
-| `ROBONITO_CONFIG_DIR` | `~/.robonito` | Saved context directory. |
-| `ROBONITO_AUTH_TOKEN` | — | Short-lived access-token override (for automation). |
-| `ROBONITO_ORGANIZATION_ID` / `ROBONITO_WORKSPACE_ID` | Saved | Context override. |
-| `OLLAMA_BASE_URL` | `http://localhost:11434` | Local Ollama proxy URL. |
-| `LANGSMITH_API_KEY` | None | Required to enable `--langsmith` tracing. |
-
-### Exit codes
-
-| Code | Meaning |
-|---|---|
-| `0` | Success. |
-| `1` | Startup/configuration or unhandled failure. |
-| `2` | Agent/test failure. |
-| `3` | Authentication failure. |
-| `4` | HITL required or failed. |
-| `5` | Run budget exhausted. |
-| `130` | Cancelled / interrupted. |
-
-`Ctrl+C` cancels the active run and disposes browser/session resources.
-
-### Troubleshooting
-
-- **`auth_required`** — run `npm run dev -- auth login`; for machines, also pass a complete org/workspace pair or save one with `context use`.
-- **Browser login won't return** — the CLI uses a loopback callback, with a manual paste fallback. Ensure the app-server CLI auth endpoints and Firebase web configuration are available.
-- **Context selection fails** — confirm you're a member of the requested org/workspace; explicit IDs are revalidated, arbitrary ones aren't accepted.
-- **Server/gateway connection fails** — check the three Robonito URLs and that the app server plus the required execution gateway are running.
-- **Chromium won't launch** — `npx playwright install chromium`, or pass `--executable-path /path/to/chromium`.
-- **Run finishes but test persistence fails** — standard authoring runs need a durable persisted artifact; planning, explore, and benchmark runs don't. Inspect the JSON summary or evidence pack for the persistence status.
-- **Playwright binaries** — must match the version matrix in the [Installation](/docs/installation) guide.
+| `ROBONITO_AUTH_TOKEN` | None | Access token for unattended CI/CD automation. |
+| `ROBONITO_SERVER_URL` | Cloud Default | Robonito API server endpoint. |
+| `ROBONITO_WORKSPACE_ID` | None | Default workspace ID override. |
+| `ROBONITO_ORGANIZATION_ID` | None | Default organization ID override. |
+| `OLLAMA_BASE_URL` | `http://localhost:11434` | Endpoint for local Ollama instances. |
 
 ---
 
-## App-server API
+### Exit Codes for CI/CD
 
-The desktop app and a server/CLI client reach AI Studio through a backend controller at the prefix **`ai-studio`**. All routes require authentication and a workspace guard. Default base URL: `http://localhost:3000/app-server`.
-
-| Method & path | Purpose |
-|---|---|
-| `POST /ai-studio/threads` | Create a thread. |
-| `GET /ai-studio/threads` | List threads. |
-| `POST /ai-studio/threads/:id/messages` | Send a message / start a run. |
-| `GET /ai-studio/threads/:id/messages` | List a thread's messages (paginated: default 100, max 250). |
-| `PATCH /ai-studio/threads/:id/bind-suite` | Bind a thread to its suite (write-once). |
-| `POST /ai-studio/test-cases/enqueue` | Enqueue test-case persistence (async). |
-| `GET /ai-studio/test-cases/persistence/:jobId` | Poll an async persistence job. |
-| bug-ledger routes | Create / list / resolve recorded bugs. |
-
-Run terminal states: `succeeded` · `failed` · `cancelled` · `human_intervention_required` · `budget_exhausted` · `infrastructure_failed`.
+| Exit Code | Meaning | CI Action |
+|---|---|---|
+| `0` | Success: Test goals reached, assertions passed, tests saved. | Pass build. |
+| `1` | Configuration error, invalid arguments, or missing server connection. | Fail build. |
+| `2` | Test execution failure: Application defect or failed assertion. | Fail build (log bug). |
+| `3` | Authentication failure: Expired or invalid token. | Fail build (check secret). |
+| `4` | Human intervention required, but running in non-interactive mode. | Fail build. |
+| `5` | Token budget or step execution limit exhausted. | Review prompt budget. |
+| `130` | Interrupted (`Ctrl+C` or SIGINT). | Cancelled build. |
 
 ---
 
-## Related
+## App-Server API
 
-- The same agent in the desktop UI — [Quick start](/docs/ai-studio/quick-start).
-- Slash commands, the model catalog, run fields, and stream events — [Reference](/docs/ai-studio/reference).
-- The desktop **Settings → Personas** folder mirrors the CLI `--personas-dir` — [Test as a persona](/docs/ai-studio/personas).
+For deep integration with custom test harnesses, developer portals, or internal tooling, Robonito exposes a REST API at `/ai-studio`:
+
+| HTTP Method & Path | Description |
+|---|---|
+| `POST /ai-studio/threads` | Create a new AI Studio conversation thread. |
+| `GET /ai-studio/threads` | List all existing threads for the workspace. |
+| `POST /ai-studio/threads/:id/messages` | Dispatch a prompt to start an autonomous run. |
+| `GET /ai-studio/threads/:id/messages` | Retrieve conversation stream, step history, and tool outputs. |
+| `PATCH /ai-studio/threads/:id/bind-suite` | Bind a thread to its target destination suite. |
+| `POST /ai-studio/test-cases/enqueue` | Enqueue a generated test case for asynchronous persistence. |
+| `GET /ai-studio/test-cases/persistence/:jobId` | Poll persistence status for a saved test case. |
+
+---
+
+## Related Documentation
+
+- [AI Studio Quick Start](/docs/ai-studio/quick-start) — Getting started in the desktop app.
+- [Choose an Agent Mode](/docs/ai-studio/agent-modes) — Detailed guide to Default, Plan, and Explore modes.
+- [Agentic Testing](/docs/agentic-testing) — Benchmarking and evaluating autonomous agents.

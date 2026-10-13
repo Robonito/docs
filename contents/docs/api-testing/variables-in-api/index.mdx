@@ -1,98 +1,113 @@
 # Variables in API Testing
 
-Variables in Robonito enable you to capture dynamic values from an API response and seamlessly reuse them in subsequent API requests. Passing data downstream is essential for building dynamic, chained, and realistic end-to-end automation scenarios.
-
-Variables are critically useful for:
-- Managing authentication tokens (JWTs, Bearer tokens).
-- Retrieving newly generated Object IDs (Users, Orders).
-- Propagating transaction references.
-- Validating holistic workflows rather than isolated endpoints.
+Variables in Robonito allow you to capture dynamic values from an API response and reuse them across subsequent API requests or UI test steps. Using variables eliminates fragile hardcoding and enables dynamic, data-driven test automation.
 
 ---
 
-## Why Variables Matter
+## Why Use Variables in API Testing?
 
-Traditional hardcoding is fragile. In the real world, APIs create dynamic identifiers and session tokens on the fly. 
-
-By extracting values dynamically, you ensure your Robonito tests remain **reusable, reliable, and entirely maintenance-free**.
-
----
-
-## How Variable Extraction Works
-
-During an execution sequence:
-1. An API test sends a request and receives a server response.
-2. Robonito uses a designated **JSONPath** to isolate a specific target value.
-3. The isolated value is cached into memory under your custom Variable Name.
-4. Subsequent tests reference this cached data using the `{{variableName}}` syntax.
+Modern web APIs rely heavily on dynamic identifiers and session state:
+- **Authentication Tokens:** Extracting Bearer JWTs or OAuth tokens from login endpoints to authenticate downstream calls.
+- **Auto-Generated IDs:** Capturing generated database IDs (e.g., `userId`, `orderId`, `invoiceNumber`) from creation endpoints.
+- **Workflow State:** Carrying status tokens or correlation IDs across microservice boundaries.
+- **Environment Portability:** Decoupling tests from hardcoded hostnames so they run seamlessly across local, staging, and production environments.
 
 ---
 
-## Configuring a Variable Extraction
+## Variable Types & Scopes
 
-Follow these steps to programmatically extract an API response value:
+Robonito supports three levels of variables in API testing:
 
-![Configuring a Variable](/test-case/variable-setup.png)
+| Variable Type | Scope | How It Is Defined | Example Use |
+|---|---|---|---|
+| **Step-Extracted Variables** | Current test case and downstream steps. | Extracted from an API response body or header via the **Variables** tab. | `{{newUserId}}`, `{{authToken}}` |
+| **Global / Environment Variables** | Entire workspace and all suites. | Configured in **Workspace Settings → Variables**. | `{{baseUrl}}`, `{{adminPassword}}` |
+| **Dynamic Random Generators** | Re-evaluated on every run. | Built-in template tags provided by Robonito. | `{{$randomEmail}}`, `{{$randomName}}` |
 
-1. **Access the Source Request:** Open the API test case that generates the desired data.
-2. **Navigate to Variables:** Open the **Variables** tab.
-3. **Add an Extraction:** Click **Extract Variable**.
-4. **Define the Rules:**
+---
+
+## Extracting Variables from an API Response
+
+To extract a dynamic value from a response:
+
+1. Open the API test case step that produces the data.
+2. Navigate to the **Variables** tab in the step configuration pane.
+3. Click **Extract Variable**.
+4. Configure the extraction parameters:
+   - **Variable Name:** Enter an identifier (e.g., `accessToken` or `userId`). You will use this identifier downstream as `{{accessToken}}`.
+   - **Source:**
+     - `Response Body (JSON)` — Extract values from structured JSON payloads using JSONPath.
+     - `Response Header` — Extract values from HTTP response headers (e.g., `Set-Cookie`, `Location`).
+     - `Status Code` — Capture the numeric HTTP status code.
+   - **JSONPath Expression:** Provide a path that isolates the exact property.
 
 ![Variable Extractions Config](/test-case/variable-extractions.png)
 
-- **Variable Name:** An intuitive identifier (e.g., `userId` or `authToken`). You will inject this later using `{{userId}}`.
-- **Source:** Choose where to look. The most common target is `Response Body (JSON)`.
-- **JSONPath Navigation:** A valid [JSONPath](https://jsonpath.com/) expression pointing directly to the value.
+---
 
-**Example Setup:**
-If the API returns:
-```json
-{
-  "user": { "id": 101 },
-  "token": "abc123xyz"
-}
-```
-You could use `$.user.id` to capture `101`, and `$.token` to capture `abc123xyz`.
+## JSONPath Syntax Reference
+
+When extracting from a JSON response body, Robonito uses standard JSONPath expressions:
+
+| JSON Response Structure | JSONPath Expression | Extracted Value |
+|---|---|---|
+| `{ "token": "xyz123" }` | `$.token` | `"xyz123"` |
+| `{ "user": { "id": 42 } }` | `$.user.id` | `42` |
+| `{ "items": ["apple", "banana"] }` | `$.items[0]` | `"apple"` |
+| `{ "data": [{ "id": 10 }, { "id": 20 }] }` | `$.data[1].id` | `20` |
+| `{ "meta": { "total": 150 } }` | `$.meta.total` | `150` |
+
+<Note type="tip" title="JSONPath Best Practice">
+Always use specific paths (e.g., `$.data.user.id`) rather than recursive wildcards (`$..id`) to prevent extraction ambiguity when response structures contain multiple nested objects with similar keys.
+</Note>
 
 ---
 
-## Using Variables Downstream
+## Injecting Variables Downstream
 
-Once extracted, variables exist in the test workflow memory. You can inject them securely into subsequent API test configuration fields simply by wrapping the variable name in double curly braces: `{{variableName}}`.
+Once extracted, a variable is immediately available to all subsequent steps in the test case. You inject it by enclosing the variable name in double curly braces: `{{variableName}}`.
 
-**Supported Injection Points:**
-- **URLs and Endpoints** (e.g., `https://api.site.com/users/{{userId}}`)
-- **Query Parameters**
-- **HTTP Headers**
-- **Authorization Tokens**
-- **Request Body Payload (JSON)**
+### Supported Injection Locations
 
-**Example Injection in a Body Payload:**
-```json
-{
-  "targetUserId": "{{userId}}",
-  "action": "activate"
-}
-```
+1. **Endpoint URLs:**
+   ```
+   https://api.example.com/v1/users/{{userId}}/orders
+   ```
+2. **Query Parameters:**
+   ```
+   Key: search
+   Value: {{searchTerm}}
+   ```
+3. **HTTP Headers:**
+   ```
+   Key: Authorization
+   Value: Bearer {{authToken}}
+   ```
+4. **JSON Request Body:**
+   ```json
+   {
+     "customerId": "{{userId}}",
+     "items": [
+       { "productId": "{{productId}}", "quantity": 1 }
+     ],
+     "email": "{{userEmail}}"
+   }
+   ```
 
 ---
 
-## A Real-World Scenario: End-to-End Workflow
+## Variable Propagation to Web UI Tests
 
-Variables truly shine when validating multi-step user actions.
+Robonito's architecture allows API test cases to be embedded directly inside Web UI test flows using the **Reuse Test** step:
+1. Run an API authentication test case to extract `{{authToken}}`.
+2. In subsequent Web test steps, the token is available to local scripts or storage state injectors.
+3. This saves significant execution time by allowing test suites to bypass repetitive web login forms.
 
-1. **Step 1: Account Creation**  
-   - **Action:** Execute a `POST /users` request to create an account.
-   - **Extraction:** Target `$.id` and save it as `{{userId}}`.
-   
-2. **Step 2: Authentication Login**  
-   - **Action:** Execute a `POST /login` request for the new user.
-   - **Extraction:** Target `$.accessToken` and save it as `{{authToken}}`.
+---
 
-3. **Step 3: Access Secured Profile**  
-   - **Action:** Request the user profile to validate creation.
-   - **Endpoint:** `GET /users/{{userId}}`
-   - **Header:** `Authorization: Bearer {{authToken}}`
-   
-With dynamic variables, this complex three-step authentication framework works reliably in test automation pipelines every single time.
+## Related Documentation
+
+- [API Chaining](/docs/api-testing/chaining) — Building end-to-end multi-step API flows.
+- [Global Variables](/docs/variables/global-variables) — Workspace-level environment variables.
+- [Random Values Generator](/docs/variables/random-values) — Built-in dynamic data generators (`{{$randomEmail}}`).
+- [Configuring an API Endpoint](/docs/api-testing/configure-api-endpoint) — Headers, parameters, and authentication.

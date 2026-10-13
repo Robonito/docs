@@ -43,20 +43,26 @@ AI Studio works across all test platforms Robonito supports:
 
 ## Agent Modes
 
-The **mode** sets *how* the agent approaches your goal. It appears in the input toolbar for **Web** platform.
+The **mode** sets *how* the agent approaches your goal. It appears in the input toolbar for the **Web** platform.
 
 ### Default Mode
-The agent immediately starts interacting with the application, performing actions and generating test steps as it goes.
+The agent immediately begins interacting with the application, translating your natural language prompt into browser actions, validating results, and generating automated test steps as it goes.
 
 ### Plan Mode
-The agent first researches your goal and produces a **Strategic Plan** — a step-by-step breakdown of what it intends to do. You review and approve (or edit) the plan before the agent executes any browser actions. Best for complex, multi-step flows where you want control over the approach.
+The agent first analyzes your goal and produces a **Strategic Plan** — an interactive step-by-step breakdown of its intended approach. You review, refine, and approve the plan before the agent touches the browser. Once approved, the agent executes the plan and presents a review card to save the resulting test case.
 
 To activate: click the **Plan** toggle in the input toolbar before sending your message.
 
 ![Plan Mode approval card showing the strategic plan before execution](/ai-studio/ai-studio-plan-mode.png)
 
 ### Explore Mode (Web only)
-The agent autonomously crawls your entire application using a breadth-first search — following every link, button, and navigation path — and builds a live **Site Map** of all discovered pages and interactions. No goal needed; the agent maps whatever it can reach.
+The agent autonomously explores your application in resumable segments:
+- Walks real end-to-end user journeys (signup, search, checkout) and saves distinct tests directly to your suite.
+- Employs an **Explore Save Guard** with suite-wide behaviour deduplication and value gating so you don't accumulate duplicate or trivial tests.
+- Automatically captures the initial login flow as an Auth Test and replaces repetitive downstream logins with lightweight `REUSE_TEST` steps.
+- Generates synthetic form data dynamically with unmasked test values.
+- Discovers broken business rules (e.g. incorrect price totals or invalid state transitions) and automatically logs them as bugs while saving failing regression checks.
+- Validates backend server rules using the browser's active session (`BROWSER_SESSION`).
 
 To activate: click the **Explore** toggle in the input toolbar.
 

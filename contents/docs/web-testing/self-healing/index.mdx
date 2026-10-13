@@ -1,0 +1,86 @@
+# Self-Healing Locators & Heal Review
+
+Modern web applications change rapidly. Front-end framework updates, CSS class renaming, dynamic IDs, and component redesigns frequently break automated test selectors, turning test pipelines red even when the underlying application functionality is working correctly.
+
+Robonito's **Self-Healing Engine** automatically detects broken element locators during test execution, identifies the intended target element using multi-signal heuristics, and completes the test run without stalling your delivery pipeline.
+
+---
+
+## How Self-Healing Works
+
+When an automated test step cannot find its recorded DOM element during playback:
+
+1. **Failure Interception:** The executor intercepts the selector lookup failure before failing the step.
+2. **Multi-Signal Analysis:** The engine evaluates candidate elements across multiple dimensions:
+   - **Accessible Name & Roles:** ARIA labels, semantic roles, and text content.
+   - **Visual Geometry:** Viewport coordinates, bounding boxes, and relative positioning to surrounding anchor elements.
+   - **DOM Hierarchy:** Ancestor trees, neighbouring siblings, and tag attributes.
+3. **Dynamic Execution:** If a candidate element scores above the required confidence threshold, Robonito uses the candidate to execute the step, records a `REVIEW_REQUIRED` healing record, and captures high-resolution visual evidence of the page with the proposed element highlighted.
+4. **Execution Continuity:** The test run finishes without failing due to locator drift.
+
+---
+
+## Reviewing Pending Heals
+
+Healed selectors are never silently forced into your test definitions without your knowledge. Robonito surfaces all newly healed selectors from the **latest test execution run** for human review and approval.
+
+### Entry Points
+
+You can access pending heals from two locations in the Robonito desktop app:
+
+1. **Pending Heals Badge in Test Explorer:**
+   Suites containing tests with healed locators display an interactive badge indicating the number of pending heals.
+2. **Test Case Header:**
+   When viewing an individual test case that has experienced locator healing, a **Pending Heals** button appears in the top navigation bar.
+
+Clicking either the badge or the header button opens the **Heal Review Drawer**.
+
+---
+
+## The Heal Review Drawer
+
+The **Heal Review Drawer** provides all the diagnostic evidence you need to evaluate proposed selector updates with confidence:
+
+| Review Pane Field | Description |
+|---|---|
+| **Step Details** | The exact test step number, action type (e.g., Click, Input), and step title. |
+| **Element Comparison** | The originally recorded element description versus the proposed healed element. |
+| **Selector Diff** | The existing selector string compared side-by-side with the new healed selector (e.g., `#submit-btn` → `button[data-testid="checkout-submit"]`). |
+| **Confidence & Diagnostics** | The statistical match score and the explanation of why the engine selected this element. |
+| **Visual Evidence** | A full-page snapshot captured during execution, with the proposed healed element prominently outlined with a visual bounding box. |
+
+---
+
+## Accepting vs. Dismissing Heals
+
+Within the review drawer, you can choose between two actions for each healed step:
+
+### 1. Accept Heal
+Click **Accept** to apply the healed selector to your test case.
+
+- **Primary Selector Updated:** The new, robust selector becomes the primary target for that step.
+- **Fallback Retention:** Robonito retains your previous selectors as secondary fallbacks. If your development team rolls back the frontend deployment, your test continues to pass using the fallback selector without requiring another manual update.
+- **Audit Logged:** The decision is recorded in your workspace test history.
+
+### 2. Dismiss Heal
+Click **Dismiss** to reject the proposed selector change.
+
+- The test step retains its original selector configuration.
+- The pending badge and review prompt for this step are cleared.
+- Use this option if the element was clicked due to an unintended UI match or if you plan to manually re-record the step.
+
+---
+
+## Best Practices for Managing Heals
+
+- **Review Heals After Deployments:** Make it a standard practice to check the Pending Heals badges across your test suites following a major frontend release.
+- **Inspect the Visual Evidence:** Always check the element snapshot in the review drawer to verify that the proposed element matches the exact button or input the user was intended to interact with.
+- **Maintain Reusable Components:** For recurring widgets like authentication bars or navigation menus, consider using [Reusable Test Cases](/docs/reusable-test-cases) so an accepted heal benefits all dependent flows automatically.
+
+---
+
+## Related Documentation
+
+- [Recording a Web Test](/docs/web-testing/recording) — Best practices for capturing robust web test steps.
+- [AI-Generated Assertions](/docs/web-testing/assertions/ai-generated) — Using live perception to validate UI states.
+- [Execution Reports](/docs/reports) — Analyzing test run logs, failure classifications, and trends.

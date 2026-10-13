@@ -4,15 +4,14 @@ export type EachRoute = {
   title: string;
   href: string;
   noLink?: true;
+  group?: string;
   items?: EachRoute[];
 };
 
 export const ROUTES: EachRoute[] = [
-  // {
-  //   title: "Quick Tour",
-  //   href: "/quick-tour",
-  // },
+  // ─── GETTING STARTED ──────────────────────────────────────────
   {
+    group: "Getting Started",
     title: "Installation",
     href: "/installation",
     items: [
@@ -22,18 +21,43 @@ export const ROUTES: EachRoute[] = [
     ],
   },
   {
+    group: "Getting Started",
     title: "Workspace",
     href: "/workspace",
   },
-  // {
-  //   title: "Suites",
-  //   href: "/suites",
-  // },
   {
-    title: "Test Case",
-    href: "/test-case",
+    group: "Getting Started",
+    title: "Teams",
+    href: "/teams",
+  },
+
+  // ─── AI & AUTONOMOUS TESTING ─────────────────────────────────
+  {
+    group: "AI & Autonomous Testing",
+    title: "AI Studio",
+    href: "/ai-studio",
+    items: [
+      { title: "Quick start", href: "/quick-start" },
+      { title: "Concepts", href: "/concepts" },
+      { title: "Choose an agent mode", href: "/agent-modes" },
+      { title: "Test as a persona", href: "/personas" },
+      { title: "Human-in-the-loop", href: "/human-in-the-loop" },
+      { title: "Testing focus", href: "/testing-focus" },
+      { title: "Configure provider & model", href: "/provider-models" },
+      { title: "Thread history", href: "/thread-history" },
+      { title: "Reference", href: "/reference" },
+      { title: "Advanced — CLI and API", href: "/cli-api" },
+    ],
   },
   {
+    group: "AI & Autonomous Testing",
+    title: "Agentic Testing",
+    href: "/agentic-testing",
+  },
+
+  // ─── CORE TEST AUTHORING ─────────────────────────────────────
+  {
+    group: "Core Test Authoring",
     title: "Web Testing",
     href: "/web-testing",
     items: [
@@ -69,10 +93,14 @@ export const ROUTES: EachRoute[] = [
         title: "AI Generated Assertions",
         href: "/assertions/ai-generated",
       },
+      {
+        title: "Self-Healing Locators",
+        href: "/self-healing",
+      },
     ],
   },
-
   {
+    group: "Core Test Authoring",
     title: "API Testing",
     href: "/api-testing",
     items: [
@@ -80,11 +108,13 @@ export const ROUTES: EachRoute[] = [
       { title: "Configure API endpoint", href: "/configure-api-endpoint" },
       { title: "Variables in API", href: "/variables-in-api" },
       { title: "Assertions", href: "/assertions" },
-      { title: "API Chaining", href: "/chaining" },
+      { title: "API Chaining & AI Workflows", href: "/chaining" },
+      { title: "Import collections", href: "/import-collections" },
       { title: "Execution report", href: "/execution-report" },
     ],
   },
   {
+    group: "Core Test Authoring",
     title: "Mobile Testing",
     href: "/mobile-testing",
     items: [
@@ -93,7 +123,15 @@ export const ROUTES: EachRoute[] = [
       { title: "iOS Setup", href: "/ios-setup" },
     ],
   },
+
+  // ─── TEST BUILDING BLOCKS ────────────────────────────────────
   {
+    group: "Test Building Blocks",
+    title: "Test Case",
+    href: "/test-case",
+  },
+  {
+    group: "Test Building Blocks",
     title: "Assertions",
     href: "/assertions",
     items: [
@@ -105,15 +143,7 @@ export const ROUTES: EachRoute[] = [
     ],
   },
   {
-    title: "Executions",
-    href: "/executions",
-    items: [
-      { title: "Local", href: "/local" },
-      { title: "Cloud", href: "/cloud" },
-      { title: "Parallel Execution", href: "/parallelization" },
-    ],
-  },
-  {
+    group: "Test Building Blocks",
     title: "Variables",
     href: "/variables",
     items: [
@@ -122,30 +152,12 @@ export const ROUTES: EachRoute[] = [
     ],
   },
   {
-    title: "Tags",
-    href: "/tags",
-  },
-  {
+    group: "Test Building Blocks",
     title: "Reusable Test Cases",
     href: "/reusable-test-cases",
   },
-    {
-     title: "AI Studio",
-     href: "/ai-studio",
-     items: [
-        { title: "Quick start", href: "/quick-start" },
-        { title: "Concepts", href: "/concepts" },
-        { title: "Choose an agent mode", href: "/agent-modes" },
-        { title: "Test as a persona", href: "/personas" },
-        { title: "Human-in-the-loop", href: "/human-in-the-loop" },
-        { title: "Testing focus", href: "/testing-focus" },
-        { title: "Configure provider & model", href: "/provider-models" },
-        { title: "Thread history", href: "/thread-history" },
-        { title: "Reference", href: "/reference" },
-        { title: "Advanced — CLI and API", href: "/cli-api" },
-      ],
-    },
   {
+    group: "Test Building Blocks",
     title: "Data Source",
     href: "/data-source",
     items: [
@@ -158,14 +170,45 @@ export const ROUTES: EachRoute[] = [
     ],
   },
   {
+    group: "Test Building Blocks",
+    title: "Tags",
+    href: "/tags",
+  },
+
+  // ─── EXECUTION & PERFORMANCE ─────────────────────────────────
+  {
+    group: "Execution & Operations",
+    title: "Executions",
+    href: "/executions",
+    items: [
+      { title: "Local", href: "/local" },
+      { title: "Cloud", href: "/cloud" },
+      { title: "Parallel Execution", href: "/parallelization" },
+    ],
+  },
+  {
+    group: "Execution & Operations",
     title: "Schedules",
     href: "/schedules",
   },
   {
+    group: "Execution & Operations",
+    title: "Performance",
+    href: "/performance",
+    items: [
+      { title: "Performance Monitor", href: "/monitor" },
+      { title: "Load Profile", href: "/load-profile" },
+    ],
+  },
+  {
+    group: "Execution & Operations",
     title: "Reports",
     href: "/reports",
   },
+
+  // ─── INTEGRATIONS & SETTINGS ─────────────────────────────────
   {
+    group: "Integrations & Setup",
     title: "Integrations",
     href: "/integrations",
     items: [
@@ -184,14 +227,7 @@ export const ROUTES: EachRoute[] = [
     ],
   },
   {
-    title: "Performance",
-    href: "/performance",
-    items: [
-      { title: "Performance Monitor", href: "/monitor" },
-      { title: "Load Profile", href: "/load-profile" },
-    ],
-  },
-  {
+    group: "Integrations & Setup",
     title: "Environment Manager",
     href: "/environment-manager",
     items: [
@@ -200,10 +236,6 @@ export const ROUTES: EachRoute[] = [
       { title: "Browser Management", href: "/browsers" },
       { title: "Mobile Setup", href: "/mobile-setup" },
     ],
-  },
-  {
-    title: "Teams",
-    href: "/teams",
   },
 ];
 

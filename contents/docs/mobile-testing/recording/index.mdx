@@ -1,59 +1,122 @@
 # Start Recording a Mobile Test
 
-Robonito allows you to naturally record user interactions on mobile applications by actively running an Android or iOS emulator locally. During your recording session, the system automatically translates your manual touch inputs into highly reusable, repeatable test steps.
+Robonito lets you record test cases on native mobile applications using a live emulator or simulator mirror. During your recording session, the system automatically translates your manual touch inputs, gestures, variable extractions, and assertions into structured, repeatable test steps.
 
 ---
 
 ## 1. Preparing the Test Case
 
-Navigate to your active project workspace and explicitly open the defined **Mobile Test Case** you wish to execute. 
-
-Click the **Record** button located at the top of the dashboard to initialize the visual mobile recording process.
+1. Open your active workspace and navigate to your **Mobile Suite**.
+2. Select an existing mobile test case or click **New Test Case**.
+3. In the test case editor, click the **Record** button located in the top navigation toolbar.
 
 ---
 
 ## 2. Configure Launch Options
 
-A configuration dialog instantly appears, allowing you to define exactly how the testing environment will bootstrap:
+The **Configure Launch Options** dialog appears, allowing you to configure the virtual device environment:
 
 ### Target Platform
-Select the explicit mobile platform (*Android* or *iOS*).
+Select **Android** or **iOS**.
 
-### Upload App Files
-You must provide the actual compiled application file you want to test. Click the file selector and securely choose your application build directly from your system.
+### Application Build File
+Provide the compiled application file:
+- **`.apk`** for Android
+- **`.ipa`** for iOS (debug simulator build)
 
-**Supported mobile file types:**
-- **`.apk`** (Android application package)
-- **`.ipa`** (iOS application package)
+### iOS Configuration (iOS only)
+For iOS, provide your application's **Bundle Identifier** (e.g., `com.mycompany.app`) so the simulator can launch the target app binary directly.
 
 ---
 
-## 3. Emulator Initialization
+## 3. Fast Emulator Launch & Warm Reuse
 
-After uploading the application file, click the **Start Recording** button.
+Click **Start Recording**. Robonito initializes the mobile workspace:
 
-Robonito will independently launch your configured mobile emulator workspace in the background. During this standard process, the virtual mobile device spins up and installs your selected application (`.apk` or `.ipa`).
+- **Warm Emulator Reuse:** If a compatible Android emulator or iOS simulator is already running on your machine, Robonito automatically attaches to it within seconds rather than cold-booting a fresh virtual device.
+- **Application Bootstrapping:** The selected `.apk` or `.ipa` is installed and launched on the virtual device.
+- **Interactive Mirror:** The device screen appears directly in the Robonito recording interface, ready for interaction.
 
-> *Note: Initializing the emulator for the first time on a fresh installation may take a few minutes.*
+<Note type="tip" title="Windows Performance Tip">
+On Windows machines, ensure you have enabled the Windows Defender exclusion during [Mobile Setup](/docs/environment-manager/mobile-setup). This significantly speeds up emulator disk I/O and snapshot loading.
+</Note>
 
 ---
 
 ## 4. Recording User Actions
 
-Once the emulator screen fully boots, your target application automatically opens. You can now interact with the mobile application precisely like an actual user.
+Interact with the mirrored mobile screen exactly as an end-user would:
 
-**Examples of captured recording actions:**
-- Tapping on a native button
-- Entering text dynamically into an input component
-- Swiping down to scroll naturally
-- Activating dropdowns and select pickers
+- **Tap:** Click on native buttons, tab items, navigation icons, or cards.
+- **Type Text:** Click any mobile input field and enter text directly from your keyboard.
+- **Swipe & Scroll:** Click and drag vertically or horizontally to scroll through list views or carousels.
+- **System Buttons:** Use the recording toolbar to trigger hardware buttons such as **Back**, **Home**, or **Enter**.
 
-As you navigate the app, Robonito's tracker intelligently generates human-readable step instructions inside the sidebar, completely mapping out your exact sequence of actions.
+As you interact, each action is converted into a readable test step in the recording sidebar.
 
 ---
 
-## 5. Saving the Flow
+## 5. Working with Dynamic Variables
 
-Once your test pipeline successfully replicates the defined scenario, click the **Save** button in the dashboard to permanently commit the logic steps. 
+Real-world mobile apps often require dynamic data—such as capturing an order ID from a confirmation screen and verifying it in a downstream profile view. Robonito provides full support for capturing and injecting variables during mobile recording:
 
-You can later modify these instructions manually, configure specific UI assertions, or execute the test via the cloud automation system.
+### Extracting a Local Variable
+1. In the mobile recording toolbar, click **Record Variable**.
+2. Tap on the target UI element on the mobile screen that displays the value you want to capture (e.g., an order reference code or username).
+3. The **Record Mobile Variable** modal appears:
+   - **Variable Name:** Enter an identifier (e.g., `order_id`).
+   - **Extraction Target:** Choose to capture the element's visible text or a specific accessibility attribute.
+4. Click **Save Variable**. Robonito inserts a `mobile-local-variable` step into your test sequence.
+
+### Injecting Variables into Mobile Inputs
+To reuse a captured variable or an environment variable downstream:
+1. When typing into any mobile text input, click the **Use Variable** icon in the toolbar, or type `{{variable_name}}` directly into the input value field.
+2. Robonito dynamically resolves the variable value during test execution.
+
+---
+
+## 6. Simulating Geolocation
+
+Testing location-dependent mobile features—such as store finders, delivery tracking, ride booking, or regional content restrictions—is easy with built-in GPS simulation:
+
+1. In the mobile recording toolbar, click the **Geolocation** icon (pin icon).
+2. The **Mobile Geolocation Modal** opens:
+   - **Latitude:** e.g., `37.7749`
+   - **Longitude:** e.g., `-122.4194`
+   - **Altitude (optional):** e.g., `10`
+3. Click **Set Geolocation**.
+4. Robonito immediately broadcasts the coordinates to the device:
+   - On Android: updates the GPS coordinates via ADB geo fix.
+   - On iOS: simulates device location via Appium / CoreLocation.
+5. A `mobile-geolocation` step is recorded into your test sequence, ensuring future automated test runs simulate the exact same coordinates.
+
+---
+
+## 7. Adding Mobile Assertions
+
+Validate on-screen states without writing code:
+1. Click **Add Assertion** in the recording toolbar.
+2. Tap the element you wish to validate on the device mirror.
+3. Choose the validation type:
+   - **Element Visible:** Confirms the element appears on screen.
+   - **Element Text Equals:** Validates exact text (supports `{{variable}}` comparisons).
+   - **Element Text Contains:** Checks for substring matches.
+   - **Element Enabled:** Verifies the control is interactive.
+4. Click **Save Assertion**.
+
+---
+
+## 8. Finalizing and Committing the Test
+
+When you have completed your test flow:
+1. Click **Save** in the recording toolbar.
+2. Robonito finalizes and commits all recorded steps, variable extractions, geolocation updates, and assertions.
+3. Your mobile test is now ready to run locally, schedule across nightly runs, or execute in CI/CD pipelines.
+
+---
+
+## Related Documentation
+
+- [Mobile Testing Overview](/docs/mobile-testing) — Supported platforms and setup requirements.
+- [Configure Mobile Setup](/docs/environment-manager/mobile-setup) — Emulator, SDK, and Appium prerequisites.
+- [iOS Setup](/docs/mobile-testing/ios-setup) — Specific steps for macOS Xcode simulator automation.

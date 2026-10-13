@@ -1,22 +1,86 @@
-# AI-Generated Assertions
+# AI-Generated Assertions & Live Perception
 
-> **Coming Soon:** This feature is currently under active development.
-
-AI-Generated Assertions will allow Robonito's AI engine to automatically propose and insert validation steps as you record user flows — saving you from manually adding every assertion.
+During web test recording, Robonito's **Live Perception Engine** continuously inspects the active document object model (DOM), computed geometry, and element states. Instead of manually composing complex XPath or CSS selector rules, you can use the **Suggestion Bulb** to insert pre-filled, confidence-ranked validation assertions with a single click.
 
 ---
 
-## How It Will Work
+## What are AI-Generated Assertions?
 
-After each action you perform during recording (e.g., clicking a button that triggers a result), the AI engine will:
-1. Analyze the current state of the UI.
-2. Suggest an appropriate assertion (e.g., "The success banner should be visible").
-3. Allow you to accept, reject, or modify the suggestion before it is saved to the test.
+When you hover over elements or interact with dynamic components during a recording session, Robonito analyzes the element's visual perceptibility, accessible name, text content, and visibility state.
 
----
+The engine then surfaces a floating **Suggestion Bulb** containing context-aware assertion chips tailored to that exact element:
 
-## Current Alternative
-
-You can already use the [Smart Assertion](/docs/assertions/smart-assertion) tool to create AI-powered validations inline during any recording session.
+- **Element Visible:** Offered when an element is visibly rendered on the viewport.
+- **Element Exists:** Validates that the element exists in the DOM regardless of display state.
+- **Text Equals / Contains:** Pre-populated with the exact text or label currently perceived by the engine.
+- **Element Hidden / Stays Hidden:** When an element is present in the DOM but cannot be seen by the user, Robonito explains *why* (e.g., zero-size, transparent, detached, or obscured) and offers an honest "Element Hidden" assertion rather than an assertion that would fail at playback.
+- **Held-Open Tooltips & Hover Overlays:** Accurately pins and validates dynamic tooltips and hover menus using Chrome DevTools Protocol (CDP) forced pseudo-states.
 
 ![AI assertion suggestion dialog during recording showing AI-proposed validations](/web-testing/web-ai-assertion.png)
+
+---
+
+## How Live Perceptibility Works
+
+Robonito differentiates between simple programmatic DOM presence and **real human perceptibility**:
+
+| Perceived State | Offered Assertion Chip | Confidence Rating | Behavior & Explanation |
+|---|---|---|---|
+| **Fully Visible** | `Visible` | High (0.85) | Verifies the element is rendered, non-transparent, and has measurable dimensions in the viewport. |
+| **Visible via Hover** | `Visible (Hover Held)` | High (0.85) | Explains that the element is currently visible because a hover trigger is actively held open. |
+| **Element Hidden** | `Stays Hidden` | High (0.80) | Explains why the element is hidden (e.g., `transparent`, `hidden`, `not-rendered`, `no-size`, `detached`). |
+| **Text Content** | `Assert Text: "<value>"` | Dynamic | Pre-fills the exact visible string extracted from the element. If the element is hidden, confidence is lowered with an explanation. |
+| **DOM Existence** | `Exists` | Medium (0.30) | Asserts presence in the DOM without requiring visual rendering. |
+
+---
+
+## How to Use Suggestions During Recording
+
+Follow these steps to add AI-generated assertions during an active web recording session:
+
+### Step 1: Hover Over the Target Element
+In the recording browser window, move your pointer over the element you want to validate (e.g., a success alert, a user profile name, a shopping cart badge, or a dropdown menu).
+
+### Step 2: Open the Suggestion Bulb
+Hovering near the element displays the **Suggestion Bulb** icon next to the element highlight box:
+1. Click the **Bulb** icon to reveal the contextual suggestion popover.
+2. Review the offered assertion chips and confidence ratings.
+3. If an element is hidden or transient, a callout banner at the top of the popover explains its exact state (e.g., *"Element has zero height and is not perceptible to users"*).
+
+### Step 3: Click to Open the Pre-Filled Assertion Modal
+Clicking any suggestion chip (e.g., **Assert Text** or **Assert Visible**) immediately opens the **Add Assertion Modal**:
+- The modal opens directly on the corresponding assertion card (e.g., UI Assertion, Text Assertion).
+- The target selector, condition, operator, and expected values are already filled in based on the live perception data.
+
+### Step 4: Confirm and Save
+1. Review the pre-filled fields. You can adjust the expected text or operator if needed.
+2. Click **Save Assertion**.
+3. Robonito commits the assertion into your test step sequence and automatically resumes standard recording mode.
+
+---
+
+## Handling Hover Menus and Tooltips
+
+Testing dynamic navigation menus or informational tooltips is often difficult because moving the mouse away to click an "Assert" button can cause the menu to disappear.
+
+Robonito solves this automatically:
+1. Hover over the trigger element (e.g., "Products" dropdown or info icon).
+2. Robonito pins the `:hover` pseudo-state using Chrome DevTools Protocol to keep the menu or tooltip rendered on screen.
+3. You can click the Suggestion Bulb on the revealed menu items or tooltip text without the menu collapsing.
+4. Once the assertion is saved, the hover pin releases and normal interaction resumes.
+
+---
+
+## Best Practices
+
+- **Use Suggestions for Dynamic Data:** When validating dynamic outputs (e.g., order reference numbers, dates, status badges), click the text suggestion chip to capture the exact string format without typing mistakes.
+- **Validate Negative States with "Element Hidden":** When checking that a modal has closed or an error alert has vanished, choose the **Element Hidden** suggestion rather than asserting text on an invisible element.
+- **Combine with Smart Assertions:** If you need to test a complex visual rule that spans multiple conditions (e.g., *"Button should be disabled until terms are accepted"*), use [Smart Assertions](/docs/assertions/smart-assertion) for plain-English AI evaluation.
+
+---
+
+## Related Documentation
+
+- [Smart Assertions](/docs/assertions/smart-assertion) — Define natural language validations evaluated by AI.
+- [Recording a Web Test](/docs/web-testing/recording) — End-to-end guide to recording user journeys.
+- [Self-Healing Locators](/docs/web-testing/self-healing) — How Robonito automatically heals broken element selectors during regression runs.

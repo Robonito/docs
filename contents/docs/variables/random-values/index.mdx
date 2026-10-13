@@ -1,124 +1,128 @@
-# Random Values
+# Fake Data Generation
 
-Random value generators let you fill form fields, API payloads, and variable expressions with realistic fake data — inline, without an external file. Use them in any smart input field with the `{{$type}}` syntax.
+Robonito features a built-in fake data generation engine that lets you populate input fields, web forms, and API payloads with realistic dynamic data on every test run — without needing to maintain external spreadsheet or CSV files.
+
+Fake data generators use the `{{$type}}` syntax, where the dollar sign (`$`) tells Robonito to generate a fresh, realistic mock value at execution time.
 
 ---
 
-## How to Use
+## How to Use Fake Data Generators
 
-In any input field that supports variables, type `{{$` to open the random value picker. Select a type, and Robonito inserts the expression. At execution time, it resolves to a fresh random value for each test run.
+In any smart input field across Web, API, and Mobile tests:
+
+1. Type `{{$` into the input box.
+2. A smart autocomplete dropdown opens displaying available fake data generators (names, emails, addresses, UUIDs, dates, etc.).
+3. Select your desired generator from the list or finish typing the expression (for example, `{{$email}}`).
+4. During test execution, Robonito automatically generates a unique, realistic value for each test iteration.
 
 ```
 {{$firstName}}     → Maria
 {{$email}}         → test_7f3k2@example.com
 {{$uuid}}          → 550e8400-e29b-41d4-a716-446655440000
+{{$city}}          → Portland
 ```
 
-![Smart input picker open showing the list of random value types](/variables/variables-random-picker.png)
+![Smart input picker open showing the list of fake data generator types](/variables/variables-random-picker.png)
+
+> **Image Update Note:** The picker UI screenshot (`/variables/variables-random-picker.png`) can be refreshed with a screenshot showing the latest selector interface when convenient.
 
 ---
 
-## Available Random Value Types
+## Supported Fake Data Types
 
-### Personal Information
-
-| Expression | Example Output | Description |
-|---|---|---|
-| `{{$firstName}}` | Maria | Random first name |
-| `{{$lastName}}` | Johnson | Random last name |
-| `{{$fullName}}` | Maria Johnson | Random full name |
-| `{{$email}}` | test_abc@example.com | Random email address (safe for testing) |
-| `{{$phone}}` | +1-555-234-5678 | Random phone number |
-| `{{$username}}` | maria_j92 | Random username |
-| `{{$password}}` | Xk9#mP2$qL | Random strong password |
-
-### Address
+### Personal & Contact Information
 
 | Expression | Example Output | Description |
 |---|---|---|
-| `{{$city}}` | Portland | Random city name |
-| `{{$country}}` | Germany | Random country name |
-| `{{$zipCode}}` | 97201 | Random ZIP/postal code |
-| `{{$streetAddress}}` | 742 Evergreen Terrace | Random street address |
+| `{{$firstName}}` | Maria | Realistic first name |
+| `{{$lastName}}` | Johnson | Realistic last name |
+| `{{$fullName}}` | Maria Johnson | Full name combining first and last name |
+| `{{$email}}` | test_abc@example.com | Safe testing email address |
+| `{{$phone}}` | +1-555-234-5678 | Formatted phone number |
+| `{{$username}}` | maria_j92 | Unique username identifier |
+| `{{$password}}` | Xk9#mP2$qL | Strong random password string |
 
-### Numbers & Identifiers
-
-| Expression | Example Output | Description |
-|---|---|---|
-| `{{$uuid}}` | 550e8400-e29b-41d4-... | RFC 4122 UUID v4 |
-| `{{$number}}` | 4729 | Random integer |
-| `{{$float}}` | 47.29 | Random decimal number |
-
-### Dates & Times
+### Addresses & Geolocation
 
 | Expression | Example Output | Description |
 |---|---|---|
-| `{{$date}}` | 2024-03-15 | Random date (ISO format) |
-| `{{$timestamp}}` | 1710460800000 | Random Unix timestamp (ms) |
+| `{{$streetAddress}}` | 742 Evergreen Terrace | Realistic street address |
+| `{{$city}}` | Portland | Valid city name |
+| `{{$country}}` | Germany | Country name |
+| `{{$zipCode}}` | 97201 | Postal / ZIP code |
 
-### Text
-
-| Expression | Example Output | Description |
-|---|---|---|
-| `{{$word}}` | quantum | Random English word |
-| `{{$sentence}}` | The quick brown fox... | Random sentence |
-| `{{$paragraph}}` | Lorem ipsum... | Random paragraph |
-
-### Internet & Tech
+### Numbers & Unique Identifiers
 
 | Expression | Example Output | Description |
 |---|---|---|
-| `{{$url}}` | https://example.com/path | Random URL |
-| `{{$ipAddress}}` | 192.168.42.17 | Random IPv4 address |
-| `{{$hexColor}}` | #3a7bd5 | Random hex color code |
+| `{{$uuid}}` | 550e8400-e29b-41d4-a716-446655440000 | RFC 4122 standard UUID v4 |
+| `{{$number}}` | 4729 | Random positive integer |
+| `{{$float}}` | 47.29 | Random two-decimal floating-point number |
+
+### Dates & Timestamps
+
+| Expression | Example Output | Description |
+|---|---|---|
+| `{{$date}}` | 2024-03-15 | Formatted calendar date (ISO 8601) |
+| `{{$timestamp}}` | 1710460800000 | Current Unix epoch timestamp in milliseconds |
+
+### Text & Copy
+
+| Expression | Example Output | Description |
+|---|---|---|
+| `{{$word}}` | quantum | Single dictionary word |
+| `{{$sentence}}` | The quick brown fox jumps over the lazy dog. | Full sentence string |
+| `{{$paragraph}}` | Lorem ipsum dolor sit amet... | Multi-sentence placeholder paragraph |
+
+### Internet & Network
+
+| Expression | Example Output | Description |
+|---|---|---|
+| `{{$url}}` | https://example.com/path | Valid web URL |
+| `{{$ipAddress}}` | 192.168.42.17 | Standard IPv4 network address |
+| `{{$hexColor}}` | #3a7bd5 | Hexadecimal color code |
 
 ---
 
-## Common Use Cases
+## Practical Testing Recipes
 
-**Registering a new user without collision:**
+### 1. Collision-Free User Registration
+When testing user signups, hardcoded email addresses cause collisions on subsequent test executions because the account already exists. Using fake data generation creates a brand-new user every time:
+
 ```
-Email:     {{$email}}
-Password:  {{$password}}
+Email:      {{$email}}
+Password:   {{$password}}
 First Name: {{$firstName}}
+Last Name:  {{$lastName}}
 ```
 
-**Creating a product with a unique SKU:**
+### 2. Generating Unique Order & SKU Identifiers
+Combine fake data generators with static text prefixes to generate domain-specific IDs:
+
 ```
-Product Name: {{$word}} Pro
-SKU:          {{$uuid}}
+SKU:          PROD-{{$uuid}}
+Product Name: {{$word}} Premium Edition
 Price:        {{$float}}
 ```
 
-**Filling an address form:**
+### 3. Combining with Branded Email Domains
+You can embed fake data expressions directly into formatted templates:
+
 ```
-Street:  {{$streetAddress}}
-City:    {{$city}}
-Zip:     {{$zipCode}}
-Country: {{$country}}
+qa-user+{{$uuid}}@yourcompany.com
 ```
+
+This resolves into a valid mailbox pattern such as: `qa-user+550e8400-e29b-41d4@yourcompany.com`.
 
 ---
 
-## Combining with Other Variable Types
+## When to Use Fake Data vs. Data Sources
 
-Random values can be combined with static text and other variable expressions in the same field. For example, to generate a unique but recognizable test email:
-
-```
-test_{{$uuid}}@yourcompany-qa.com
-```
-
-This produces something like: `test_550e8400-e29b-41d4@yourcompany-qa.com`
-
----
-
-## Comparison with Data Sources
-
-| | Random Values | Data Sources |
+| Feature | Fake Data Generation (`{{$type}}`) | External Data Sources (`{{@file.column}}`) |
 |---|---|---|
-| **Setup** | None — use inline | Upload a CSV/XLSX/JSON file |
-| **Reproducibility** | Different value every run | Same rows, consistent data |
-| **Volume** | Unlimited (one per run) | Up to the row count in the file |
-| **Use case** | Unique IDs, avoiding collisions | Specific user accounts, test datasets |
+| **Setup** | Zero setup — inline anywhere | Upload CSV, Excel (XLSX), or JSON |
+| **Data Behavior** | Unique, randomized on every run | Deterministic, predefined rows |
+| **Best For** | Form validation, unique signups, preventing collisions | Boundary testing, known login personas, fixed matrices |
+| **Maintenance** | None | Must update dataset file when schema changes |
 
-Use **Random Values** when you need uniqueness. Use **Data Sources** when you need specific, controlled input data.
+Use **Fake Data Generation** when your test requires fresh, unique data that will not collide with existing database records. Use **Data Sources** when you need specific, controlled test records (such as known test accounts with preconfigured permissions).

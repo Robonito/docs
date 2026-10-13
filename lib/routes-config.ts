@@ -148,7 +148,7 @@ export const ROUTES: EachRoute[] = [
     href: "/variables",
     items: [
       { title: "Global Variables", href: "/global-variables" },
-      { title: "Random Values", href: "/random-values" },
+      { title: "Fake Data Generation", href: "/fake-data-generation" },
     ],
   },
   {

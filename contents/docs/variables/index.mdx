@@ -13,7 +13,7 @@ Robonito supports four distinct variable systems, each suited for a different pu
 | **Local Variable** | `{{variableName}}` | Single test run | Capture a value from one step and use it in the next |
 | **Global / Environment Variable** | Set by name in the Environment Variable step | Workspace-wide per environment | Shared config that changes between staging/production |
 | **Data Source Column** | `{{@FileName.ColumnName}}` | Single test run, per row | Parameterize tests with rows from a CSV, XLSX, or JSON file |
-| **Random Value** | `{{$type}}` | Single test run | Generate realistic fake data inline (names, emails, UUIDs) |
+| **Fake Data Generator** | `{{$type}}` | Single test run | Generate realistic fake data inline (names, emails, UUIDs, addresses) |
 
 ---
 
@@ -66,11 +66,11 @@ During execution, Robonito automatically picks a row and substitutes the value.
 
 ---
 
-## Random Values
+## Fake Data Generation
 
-Random value generators produce realistic fake data inline — without needing an external file. Use them in any smart input field with the `{{$type}}` syntax.
+Robonito includes a built-in fake data generation engine that produces realistic mock data inline on every test run — without needing an external file. Use them in any smart input field with the `{{$type}}` syntax.
 
-➡️ **[View all Random Value types →](./variables/random-values)**
+➡️ **[View all Fake Data Generation types →](./variables/fake-data-generation)**
 
 ---
 
@@ -81,7 +81,7 @@ Random value generators produce realistic fake data inline — without needing a
 | Capturing a value produced by the app (e.g., an order ID) | Local Variable |
 | Storing a base URL or API key that differs per environment | Global Variable |
 | Running the same test with 10 different email addresses | Data Source |
-| Filling a "First Name" field with a realistic fake value | Random Value (`{{$firstName}}`) |
+| Filling a "First Name" field with a realistic fake value | Fake Data Generation (`{{$firstName}}`) |
 | Referencing a captured value in the very next step | Local Variable |
 | Sharing a login token across test cases via Reusable Test | Local Variable (promoted to caller's scope) |
 
@@ -93,5 +93,5 @@ All fields that accept variable expressions show a smart input with autocomplete
 
 - `{{name}}` — selects from local variables captured earlier in the test
 - `{{@file.col}}` — selects from uploaded data source columns
-- `{{$type}}` — opens the random value generator picker
+- `{{$type}}` — opens the fake data generator picker
 - `{{!name}}` — used specifically in the **Environment Variable** node to reference a local variable as the source value (see [Global Variables →](./variables/global-variables))

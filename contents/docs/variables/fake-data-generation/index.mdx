@@ -1,0 +1,128 @@
+# Fake Data Generation
+
+Robonito features a built-in fake data generation engine that lets you populate input fields, web forms, and API payloads with realistic dynamic data on every test run — without needing to maintain external spreadsheet or CSV files.
+
+Fake data generators use the `{{$type}}` syntax, where the dollar sign (`$`) tells Robonito to generate a fresh, realistic mock value at execution time.
+
+---
+
+## How to Use Fake Data Generators
+
+In any smart input field across Web, API, and Mobile tests:
+
+1. Type `{{$` into the input box.
+2. A smart autocomplete dropdown opens displaying available fake data generators (names, emails, addresses, UUIDs, dates, etc.).
+3. Select your desired generator from the list or finish typing the expression (for example, `{{$email}}`).
+4. During test execution, Robonito automatically generates a unique, realistic value for each test iteration.
+
+```
+{{$firstName}}     → Maria
+{{$email}}         → test_7f3k2@example.com
+{{$uuid}}          → 550e8400-e29b-41d4-a716-446655440000
+{{$city}}          → Portland
+```
+
+![Smart input picker open showing the list of fake data generator types](/variables/variables-random-picker.png)
+
+> **Image Update Note:** The picker UI screenshot (`/variables/variables-random-picker.png`) can be refreshed with a screenshot showing the latest selector interface when convenient.
+
+---
+
+## Supported Fake Data Types
+
+### Personal & Contact Information
+
+| Expression | Example Output | Description |
+|---|---|---|
+| `{{$firstName}}` | Maria | Realistic first name |
+| `{{$lastName}}` | Johnson | Realistic last name |
+| `{{$fullName}}` | Maria Johnson | Full name combining first and last name |
+| `{{$email}}` | test_abc@example.com | Safe testing email address |
+| `{{$phone}}` | +1-555-234-5678 | Formatted phone number |
+| `{{$username}}` | maria_j92 | Unique username identifier |
+| `{{$password}}` | Xk9#mP2$qL | Strong random password string |
+
+### Addresses & Geolocation
+
+| Expression | Example Output | Description |
+|---|---|---|
+| `{{$streetAddress}}` | 742 Evergreen Terrace | Realistic street address |
+| `{{$city}}` | Portland | Valid city name |
+| `{{$country}}` | Germany | Country name |
+| `{{$zipCode}}` | 97201 | Postal / ZIP code |
+
+### Numbers & Unique Identifiers
+
+| Expression | Example Output | Description |
+|---|---|---|
+| `{{$uuid}}` | 550e8400-e29b-41d4-a716-446655440000 | RFC 4122 standard UUID v4 |
+| `{{$number}}` | 4729 | Random positive integer |
+| `{{$float}}` | 47.29 | Random two-decimal floating-point number |
+
+### Dates & Timestamps
+
+| Expression | Example Output | Description |
+|---|---|---|
+| `{{$date}}` | 2024-03-15 | Formatted calendar date (ISO 8601) |
+| `{{$timestamp}}` | 1710460800000 | Current Unix epoch timestamp in milliseconds |
+
+### Text & Copy
+
+| Expression | Example Output | Description |
+|---|---|---|
+| `{{$word}}` | quantum | Single dictionary word |
+| `{{$sentence}}` | The quick brown fox jumps over the lazy dog. | Full sentence string |
+| `{{$paragraph}}` | Lorem ipsum dolor sit amet... | Multi-sentence placeholder paragraph |
+
+### Internet & Network
+
+| Expression | Example Output | Description |
+|---|---|---|
+| `{{$url}}` | https://example.com/path | Valid web URL |
+| `{{$ipAddress}}` | 192.168.42.17 | Standard IPv4 network address |
+| `{{$hexColor}}` | #3a7bd5 | Hexadecimal color code |
+
+---
+
+## Practical Testing Recipes
+
+### 1. Collision-Free User Registration
+When testing user signups, hardcoded email addresses cause collisions on subsequent test executions because the account already exists. Using fake data generation creates a brand-new user every time:
+
+```
+Email:      {{$email}}
+Password:   {{$password}}
+First Name: {{$firstName}}
+Last Name:  {{$lastName}}
+```
+
+### 2. Generating Unique Order & SKU Identifiers
+Combine fake data generators with static text prefixes to generate domain-specific IDs:
+
+```
+SKU:          PROD-{{$uuid}}
+Product Name: {{$word}} Premium Edition
+Price:        {{$float}}
+```
+
+### 3. Combining with Branded Email Domains
+You can embed fake data expressions directly into formatted templates:
+
+```
+qa-user+{{$uuid}}@yourcompany.com
+```
+
+This resolves into a valid mailbox pattern such as: `qa-user+550e8400-e29b-41d4@yourcompany.com`.
+
+---
+
+## When to Use Fake Data vs. Data Sources
+
+| Feature | Fake Data Generation (`{{$type}}`) | External Data Sources (`{{@file.column}}`) |
+|---|---|---|
+| **Setup** | Zero setup — inline anywhere | Upload CSV, Excel (XLSX), or JSON |
+| **Data Behavior** | Unique, randomized on every run | Deterministic, predefined rows |
+| **Best For** | Form validation, unique signups, preventing collisions | Boundary testing, known login personas, fixed matrices |
+| **Maintenance** | None | Must update dataset file when schema changes |
+
+Use **Fake Data Generation** when your test requires fresh, unique data that will not collide with existing database records. Use **Data Sources** when you need specific, controlled test records (such as known test accounts with preconfigured permissions).

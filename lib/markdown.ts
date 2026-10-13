@@ -159,6 +159,9 @@ function sluggify(text: string) {
 }
 
 function getDocsContentPath(slug: string) {
+  if (slug === "variables/random-values") {
+    slug = "variables/fake-data-generation";
+  }
   return path.join(process.cwd(), "/contents/docs/", `${slug}/index.mdx`);
 }
 

@@ -8,6 +8,15 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/docs/variables/random-values",
+        destination: "/docs/variables/fake-data-generation",
+        permanent: false,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

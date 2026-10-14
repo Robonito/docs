@@ -76,24 +76,30 @@ Each action becomes an independent test step that can be replayed, edited, reord
 - **Warm Emulator Reuse:** Robonito automatically detects and attaches to warm, running emulators, cutting startup delays between recording and test runs to seconds.
 - **Windows Acceleration:** On Windows systems, opt-in to the Windows Defender exclusion during Mobile Setup to eliminate emulator file scanning latency.
 
+➡️ **[Comprehensive Android Testing Guide →](/docs/mobile-testing/android-testing)**
+
 ### iOS-Specific Notes
 - **Simulator Build Signing:** App Store distribution builds cannot run in the simulator. Ensure your iOS engineering team builds the `.ipa` with `SDK=iphonesimulator`.
 - **Accessibility Identifiers:** Ask your iOS developers to add `accessibilityIdentifier` to key interactive elements for the cleanest automation targeting.
 - **Bundle ID:** Provide the application's unique Bundle ID (e.g., `com.company.myapp`) in the launch configuration.
 
+➡️ **[Comprehensive iOS Testing & Setup Guide →](/docs/mobile-testing/ios-setup)**
+
 ---
 
 ## Mobile Assertions
 
-You can validate mobile screen states by pausing the recording toolbar and selecting any UI element:
+Validate element visibility, text matches, accessibility attributes, transient toast notifications, or pixel-perfect visual snapshots:
 
-| Assertion | Validation Logic |
+| Category | Available Assertions |
 |---|---|
-| **Element Visible** | Checks that the element is rendered and perceptible on the device screen. |
-| **Element Not Visible** | Verifies the element is absent from the current screen hierarchy. |
-| **Element Text Equals** | Checks that the element's text exactly matches the expected string (supports variables). |
-| **Element Text Contains** | Checks that the element's text contains a given substring. |
-| **Element Enabled** | Verifies that a button or control is interactive (not disabled/greyed out). |
+| **Element State** | Element Visible, Element Not Visible, Enabled, Disabled, Selected, Focused |
+| **Text & Content** | Text Equals, Text Contains, Starts With, Ends With, Regex (supports `{{variables}}`) |
+| **Attributes** | Resource ID, Accessibility Identifier, Class Name, Bounding Box |
+| **Visual Regression** | Full-screen or element reference snapshot with pixel diff heatmap and tolerance slider |
+| **System Events** | Android Toast notifications, Activity name, and Screen Orientation |
+
+➡️ **[Complete Mobile Assertions Reference →](/docs/mobile-testing/assertions)**
 
 ---
 

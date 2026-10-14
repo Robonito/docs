@@ -1,0 +1,123 @@
+# Android Testing with Robonito
+
+Robonito provides an end-to-end automation engine for native and hybrid Android applications. Whether running on real hardware connected via USB/Wi-Fi or Android Virtual Devices (AVD), Robonito captures your manual interactions, touch gestures, dynamic variables, and screen assertions—translating them into resilient, code-free automated tests.
+
+---
+
+## Android Execution Architecture
+
+Robonito's Android automation stack is engineered for speed, stability, and zero-maintenance execution:
+
+### 1. High-Performance Persistent ADB Channel
+Traditional test frameworks spawn an independent `adb` child process for every tap, swipe, and input check. Robonito maintains a single persistent, framed ADB shell channel with the connected device or emulator. This eliminates per-command process creation overhead and delivers near-instant gesture dispatch.
+
+### 2. Intelligent Visual Settle Detection
+Rather than blocking tests on slow, repeated UI hierarchy XML dumps (which take hundreds of milliseconds per poll), Robonito uses rapid visual settle detection (~200ms perceptual polling) combined with action-invalidated caching. Tests proceed the instant the screen stabilizes.
+
+### 3. Fast Warm Emulator Reuse
+When starting a recording session or running an automated test, Robonito scans for already running Android emulators. If a compatible instance is found, Robonito attaches to it immediately instead of cold-booting an AVD, reducing startup time from minutes to under 5 seconds.
+
+### 4. Windows Defender Acceleration
+On Windows workstations, antivirus real-time disk scanning can significantly throttle Android emulator performance. Robonito's Mobile Setup includes an automated Windows Defender exclusion helper that excludes emulator disk cache folders and SDK directories, boosting emulator frame rates and disk I/O.
+
+---
+
+## Supported Android Devices & Environments
+
+| Environment | Connection | Key Use Cases |
+|---|---|---|
+| **Android Virtual Device (AVD)** | Local Appium / ADB | Automated regression, nightly runs, CI/CD pipelines, multi-resolution testing. |
+| **Physical USB Devices** | USB Debugging (`adb devices`) | Validating hardware features, biometric authenticators, camera, and real-world network latency. |
+| **Wireless ADB** | Wi-Fi IP / Port Pairing | Cable-free local automation on physical devices. |
+| **Cloud Mobile Farm** | Cloud Execution Gateway | Parallel multi-device matrix runs across dozens of Android OS versions. |
+
+---
+
+## Android Locator Strategies
+
+Robonito uses a prioritized, self-healing locator cascade to ensure tests remain reliable across app builds and screen densities:
+
+| Strategy | Priority | Example | Best Practice |
+|---|---|---|---|
+| **Resource ID** | 🥇 Primary | `com.example.shop:id/checkout_btn` | Most stable locator. Resilient across translations and screen sizes. |
+| **Accessibility Label (`content-desc`)** | 🥈 High | `content-desc="Shopping Cart"` | Essential for accessibility compliance and screen-reader elements. |
+| **Text Matching** | 🥉 Medium | `text="Proceed to Checkout"` | Great for buttons, headers, and labels. Supports case-sensitivity toggles. |
+| **UIAutomator Selector** | 🏅 Fallback | `new UiSelector().className("android.widget.EditText")` | Deep queries targeting widget classes, scrollable parents, or child indexes. |
+| **Relative XPath** | ⚠️ Fallback | `//android.widget.Button[@enabled='true']` | Evaluated only when unique IDs or accessibility labels are absent. |
+
+![Android element inspector showing resource ID, content-desc, class name, and bounding box](/mobile-testing/android-inspector.png)
+
+> **Image Update Note:** The inspector screenshot (`/mobile-testing/android-inspector.png`) can be refreshed with a capture showing the latest hierarchy inspector panel and locator scoring badge.
+
+---
+
+## Recording Android Touch Gestures
+
+Robonito mirrors the Android device screen directly in the desktop app. All interactions are recorded without requiring manual coordinate calculations:
+
+### Tap & Double Tap
+Clicking an element generates a `mobile-tap` node. Robonito captures the element's unique locator hierarchy rather than fixed pixel coordinates, ensuring tests replay reliably across different device resolutions.
+
+### Long Press
+Click and hold an element on the mirror to trigger contextual menus, action sheets, or drag handles. You can configure the hold duration in milliseconds (default: `800ms`).
+
+### Vertical & Horizontal Swipes
+Click and drag across the screen to record scroll actions. Robonito captures:
+- Swipe direction: `Up`, `Down`, `Left`, `Right`
+- Velocity and scroll distance
+- Automatic **Scroll-into-View** helper to locate items located below the fold in long lists or recycler views.
+
+### Hardware & System Navigation Keys
+Use the mobile recording toolbar to dispatch native Android system events:
+- **Back Button:** Emulates `KEYCODE_BACK` for drawer closing or screen pop.
+- **Home Button:** Sends `KEYCODE_HOME` to background the app.
+- **Recent Apps / App Switcher:** Emulates `KEYCODE_APP_SWITCH`.
+- **Enter / Search:** Dispatches `KEYCODE_ENTER` on soft keyboards.
+- **Volume & Power:** Emulates physical key triggers.
+
+![Android emulator mirror during recording with gesture trail overlays](/mobile-testing/android-emulator-mirror.png)
+
+> **Image Update Note:** Add screenshot (`/mobile-testing/android-emulator-mirror.png`) showing live device mirror with recorded tap indicators and the floating recording control toolbar.
+
+---
+
+## Dynamic Variables & Real-Time Data
+
+Real-world mobile flows require dynamic data:
+
+### 1. Capturing Local Variables (`mobile-local-variable`)
+Extract order numbers, verification codes, or generated tokens from Android UI elements:
+1. Click **Record Variable** in the mobile recording bar.
+2. Tap the target element (e.g., an order confirmation banner).
+3. Specify a variable name (e.g., `confirmationCode`) and select whether to capture `text` or a specific attribute (e.g., `content-desc`).
+4. Robonito saves a step that captures the runtime value and makes it accessible downstream.
+
+### 2. Injecting Variables and Fake Data
+In any input field, type `{{variableName}}` to insert captured values, or use `{{$type}}` to generate realistic fake data on the fly (e.g., `{{$email}}`, `{{$firstName}}`, `{{$uuid}}`).
+
+### 3. Geolocation Simulation (`mobile-geolocation`)
+Simulate GPS location fixes on Android devices using built-in coordinates overrides:
+1. Click the **Geolocation** icon in the toolbar.
+2. Enter Latitude, Longitude, and Altitude.
+3. Robonito broadcasts the mock location to the Android device via ADB GPS providers, allowing you to test geo-fenced features, local pickup options, and regional app behaviors.
+
+---
+
+## Handling System Dialogs & App Lifecycle
+
+### Runtime Permission Dialogs
+Android apps request runtime permissions (Location, Camera, Notifications, Contacts). When a system dialog appears during recording, simply tap **While using the app** or **Only this time**. Robonito records the system tap step with resilient system package selectors (`com.android.permissioncontroller`).
+
+### App State Lifecycle Controls
+You can insert lifecycle management steps:
+- **Restart App:** Closes the application process and relaunches the main activity.
+- **Background & Resume:** Sends the app to the background for $N$ seconds, then resumes it to verify state restoration.
+- **Clear App Cache / Data:** Cleans runtime storage between test runs for a true zero-state regression test.
+
+---
+
+## Next Steps
+
+- [Mobile Assertions Deep Dive](/docs/mobile-testing/assertions) — Full reference of element, text, attribute, and visual assertions.
+- [Recording a Mobile Test](/docs/mobile-testing/recording) — Step-by-step recording tutorial.
+- [Mobile Setup Guide](/docs/environment-manager/mobile-setup) — Installing Android SDK, AVD emulators, and Appium drivers.

@@ -1,0 +1,141 @@
+# Mobile Assertions
+
+Assertions are checkpoints that verify your mobile application is in the expected state during test execution. If an assertion passes, test execution continues to the next step. If it fails, the step is marked as failed, capturing a failure screenshot, device hierarchy snapshot, and diagnostic logs.
+
+Robonito provides a comprehensive suite of native mobile assertions (`mobile-assert`) designed for both Android and iOS applications.
+
+---
+
+## Adding Mobile Assertions
+
+You can add assertions in two ways:
+
+### 1. During Interactive Recording (Recommended)
+1. Pause the recording session by clicking **Pause** on the floating mobile toolbar.
+2. Click **Add Assertion** in the toolbar.
+3. Tap on the UI element on the device mirror you wish to validate.
+4. The **Mobile Assertion Editor** opens with pre-populated element attributes.
+5. Select the assertion category, operator, and expected value.
+6. Click **Save Assertion**, then resume recording.
+
+### 2. In the Test Case Editor (Post-Recording)
+1. Open any saved mobile test case.
+2. Hover between two steps and click the **+** (Add Step) button.
+3. Select **Mobile Assert** from the step palette.
+4. Configure the target selector and validation logic in the step details panel.
+
+![Mobile Assertion Editor modal showing assertion types, operator dropdown, and expected value field](/mobile-testing/mobile-assertion-editor.png)
+
+> **Image Update Note:** Update screenshot (`/mobile-testing/mobile-assertion-editor.png`) showing the mobile assertion modal with the new visual diff and toast options.
+
+---
+
+## Supported Assertion Types
+
+### 1. Element State & Visibility
+
+Verify whether an element is rendered and interactive on the mobile screen:
+
+| Assertion | Behavior | Common Use Cases |
+|---|---|---|
+| **Element Visible** | Verifies the element is rendered in the active screen hierarchy and has non-zero dimensions. | Verifying headers, cards, success icons, or warning dialogs appear. |
+| **Element Not Visible** | Confirms the element is absent or hidden. | Verifying loading spinners disappear, dismissible banners close, or items are deleted. |
+| **Element Enabled** | Checks that the element is interactive (not disabled/greyed out). | Validating that a "Submit" or "Buy Now" button becomes active after valid form input. |
+| **Element Disabled** | Checks that the control is in a read-only or inactive state. | Ensuring checkout buttons remain disabled until terms are accepted. |
+| **Element Selected / Checked** | Checks boolean selection state (`checked="true"` or `selected="true"`). | Verifying checkboxes, radio button choices, and toggle switch positions. |
+| **Element Focused** | Validates that an input field holds active cursor focus. | Checking auto-focus behavior on search fields or authentication screens. |
+
+---
+
+### 2. Text & Content Assertions
+
+Validate on-screen labels, titles, error messages, and currency amounts:
+
+| Operator | Comparison Logic | Example |
+|---|---|---|
+| **Equals** | Strict string match | Value equals `"Order Confirmed"` |
+| **Does Not Equal** | Inverted string match | Value does not equal `"Pending"` |
+| **Contains** | Substring presence | Value contains `"USD $49.99"` |
+| **Does Not Contain** | Absence of substring | Value does not contain `"Error"` |
+| **Starts With** | Prefix match | Order ID starts with `"ORD-"` |
+| **Ends With** | Suffix match | Status ends with `"completed"` |
+| **Matches Regex** | Regular expression evaluation | Matches pattern `^[A-Z]{3}-\d{6}$` |
+
+#### Comparison Options
+- **Case Sensitive:** Toggle case-sensitive matching on or off.
+- **Trim Whitespace:** Automatically strip leading and trailing whitespace before comparison.
+- **Dynamic Variable Comparison:** Compare actual screen text against captured variables or environment variables using `{{variableName}}` syntax. For example:
+  ```
+  Expected Value: Order #{{orderId}} successfully placed!
+  ```
+
+---
+
+### 3. Attribute & Hierarchy Assertions
+
+Evaluate lower-level properties from the native mobile accessibility tree:
+
+| Attribute | Android Source | iOS Source | Purpose |
+|---|---|---|---|
+| **Identifier** | `resource-id` | `accessibilityIdentifier` | Verifying correct element binding. |
+| **Accessibility Label** | `content-desc` | `accessibilityLabel` | Ensuring screen reader compliance. |
+| **Class Name** | `android.widget.*` | `XCUIElementType*` | Validating specific widget rendering. |
+| **Package / Bundle ID** | `package` | `bundleId` | Verifying the active application context. |
+| **Coordinate Bounds** | `[x1, y1][x2, y2]` | `{x, y, w, h}` | Validating element sizing or sticky placement. |
+
+---
+
+### 4. Mobile Visual Assertions (Snapshot Comparison)
+
+Visual assertions capture a high-resolution snapshot of an element or full screen during recording, storing it as the **Reference Baseline**. During playback, Robonito takes a fresh screenshot of the element and performs a pixel-by-pixel comparison.
+
+| Parameter | Description |
+|---|---|
+| **Baseline Snapshot** | Stored image captured during recording. |
+| **Tolerance Slider** | Allowed pixel variation percentage (0% = pixel-perfect, 5% = allows minor anti-aliasing shifts). |
+| **Diff Heatmap** | If pixels differ beyond tolerance, the test report produces a red diff overlay highlighting discrepancies. |
+
+#### Best Practices for Mobile Visual Assertions
+- **Dynamic Content:** Mask out dynamic timestamps, live clock widgets, or battery icons before establishing the baseline.
+- **Resolution Matching:** Always run visual regression tests on the same emulator screen density and DPI profile to avoid false-positive resolution mismatches.
+
+![Visual Diff report highlighting pixel discrepancies on a mobile component](/mobile-testing/mobile-visual-diff.png)
+
+> **Image Update Note:** Add screenshot (`/mobile-testing/mobile-visual-diff.png`) showing reference image, runtime image, and side-by-side diff overlay with red highlights.
+
+---
+
+### 5. Toast & Transient Notification Assertions
+
+Modern mobile applications use brief popup toasts (e.g., Android `Toast` or floating snackbars) that disappear after 2–3 seconds:
+
+- **Android Toast Assertion:** Robonito listens to system accessibility events (`TYPE_NOTIFICATION_STATE_CHANGED`) to capture transient toast messages even after they fade from view.
+- **Expected Toast Text:** Validate that a toast displaying `"Item added to wishlist"` or `"Settings saved"` was triggered during the step execution window.
+
+---
+
+### 6. Activity & Screen Orientation Assertions
+
+Verify application routing and physical display state:
+
+- **Current Activity (Android):** Asserts that the current Android foreground activity matches expectations (e.g., `.checkout.PaymentActivity`).
+- **Screen Orientation:** Validates whether the device is in **Portrait** or **Landscape** orientation.
+
+---
+
+## Soft vs. Hard Assertions
+
+In Robonito, every assertion step supports an **Optional Step** toggle:
+
+| Mode | Behavior on Failure |
+|---|---|
+| **Hard Assertion (Default)** | The step fails immediately, stops the test run, and records the failure report. |
+| **Soft Assertion (Optional)** | The step is recorded as a warning or failed sub-check in the report, but subsequent test steps continue running. Ideal for non-critical promotional banners or informational tags. |
+
+---
+
+## Related Documentation
+
+- [Android Testing Guide](/docs/mobile-testing/android-testing) — Setup, ADB optimizations, and gestures.
+- [iOS Testing & Setup](/docs/mobile-testing/ios-setup) — XCUITest driver, simulators, and capabilities.
+- [Manual Assertions in Web Testing](/docs/web-testing/assertions/manual) — Web assertion reference.

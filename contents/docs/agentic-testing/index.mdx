@@ -57,9 +57,9 @@ Robonito connects to your AI agent using standardized target profiles:
 | Connection Type | Protocol | How It Connects |
 |---|---|---|
 | **REST / HTTP Agent** | HTTP/JSON | Sends input payloads to your agent's API endpoint and parses streaming or batch responses. |
-| **Model Context Protocol (MCP)** | JSON-RPC / MCP | Connects directly to MCP servers, verifying tool registrations, parameter schemas, and authentication slots (ADR 0012). |
+| **Model Context Protocol (MCP)** | JSON-RPC / MCP | Connects directly to MCP servers, verifying tool registrations, parameter schemas, and authentication slots. |
 | **LangGraph / LangChain** | Python / JS Runtime | Dispatches runs directly to local or cloud-hosted LangGraph agent state machines. |
-| **OpenTelemetry (OTLP)** | OTLP / W3C Trace | Ingests distributed traces directly from your agent runtime, linking Robonito's test execution spans with the agent's internal reasoning spans (ADR 0041–0044). |
+| **OpenTelemetry (OTLP)** | OTLP / W3C Trace | Ingests distributed traces directly from your agent runtime, linking Robonito's test execution spans with the agent's internal reasoning spans. |
 
 ---
 
@@ -72,7 +72,7 @@ Validates whether the agent reached the requested terminal state. For example, i
 
 ### Tool-Calling Precision & Safety
 - **Tool Selection:** Did the agent invoke the right tools with schema-compliant arguments?
-- **Omission Testing:** Verifies that agents do not invoke prohibited or out-of-scope tools (ADR 0037).
+- **Omission Testing:** Verifies that agents do not invoke prohibited or out-of-scope tools.
 - **Parameter Accuracy:** Validates that extracted entities (dates, IDs, quantities) passed to tools match the user prompt.
 
 ### Hallucination & Factuality Testing
@@ -82,7 +82,7 @@ An LLM judge compares the agent's claims against the retrieved ground truth and 
 
 ### Performance & Cost Governance
 - **Latency & Time-to-First-Token:** Measures round-trip time across each step in the agent's loop.
-- **Token Budgets & Cost Receipts:** Enforces hard caps on input/output tokens per attempt with durable operation receipts (ADR 0051).
+- **Token Budgets & Cost Receipts:** Enforces hard caps on input/output tokens per attempt with durable operation receipts.
 
 ---
 
@@ -94,7 +94,7 @@ In the **Agent Experiment Workbench**:
 3. Set your token budget and latency thresholds.
 4. Click **Run Experiment**.
 
-Robonito executes the batch using durable, leased attempts (ADR 0036). If your desktop app or network disconnects mid-experiment, progress is preserved and incomplete work resumes automatically.
+Robonito executes the batch using durable, leased attempts. If your desktop app or network disconnects mid-experiment, progress is preserved and incomplete work resumes automatically.
 
 ---
 
@@ -113,7 +113,7 @@ When you tweak a system prompt, change tool definitions, or test a new foundatio
 
 ## Best Practices for Agent Quality Engineering
 
-- **Pin Evaluation Definitions:** Store agent test configurations as immutable versions (ADR 0040) so benchmarks are strictly comparable over time.
+- **Pin Evaluation Definitions:** Store agent test configurations as immutable versions so benchmarks are strictly comparable over time.
 - **Never Rely on Self-Reporting:** Always verify concrete business outcomes (e.g., database records created or API side-effects confirmed) rather than trusting an agent's self-generated confirmation text.
 - **Include Negative Test Cases:** Include adversarial prompts and out-of-domain requests in your evaluation sets to ensure guardrails hold under stress.
 
@@ -121,6 +121,8 @@ When you tweak a system prompt, change tool definitions, or test a new foundatio
 
 ## Related Documentation
 
+- [Model Context Protocol (MCP) Testing](/docs/agentic-testing/mcp-testing) — Tool-calling evaluation, JSON Schema conformance, and auth slots.
+- [RAG Evaluation & Hallucinations](/docs/agentic-testing/rag-evaluation) — Context precision, recall, and atomic claim faithfulness.
+- [Robonito Eval with Telemetry](/docs/agentic-testing/telemetry) — Distributed tracing, W3C traceparent propagation, and OTLP ingestion.
 - [AI Studio Overview](/docs/ai-studio) — Robonito's autonomous test-authoring agent.
 - [AI Studio Concepts](/docs/ai-studio/concepts) — Understanding threads, runs, and personas.
-- [Execution Reports](/docs/reports) — Analyzing execution logs and health trends.

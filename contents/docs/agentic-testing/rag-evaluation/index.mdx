@@ -1,0 +1,114 @@
+# RAG Evaluation & Hallucination Testing
+
+Retrieval-Augmented Generation (RAG) combines semantic search across private knowledge bases with large language model generation. While powerful, evaluating RAG systems is notoriously challenging because errors can stem from two completely different subsystems:
+
+1. **Retrieval Failures:** The search engine failed to retrieve the necessary chunks, retrieved irrelevant noise, or ranked critical facts at the bottom of the context window.
+2. **Generation Failures (Hallucinations):** The retriever provided accurate chunks, but the model ignored them, invented unsupported facts, or misstated nuances.
+
+Robonito provides an end-to-end evaluation suite designed specifically for RAG pipelines, scoring retrieval precision, retrieval recall, claim-level faithfulness, and answer relevancy with automated LLM judges.
+
+---
+
+## The RAG Evaluation Quintet
+
+Robonito measures RAG pipelines across five standardized, mathematically grounded evaluation metrics:
+
+| Metric | Subsystem Evaluated | What It Measures | Target Threshold |
+|---|---|---|---|
+| **Context Precision** | Retriever & Ranking | Evaluates whether the most relevant passages are ranked at the top of the context list. Penalizes noise and low-ranking signal. | ≥ 0.80 |
+| **Context Recall** | Retriever & Knowledge Base | Measures whether the retrieved chunks contain all the necessary ground-truth facts needed to answer the question. | ≥ 0.85 |
+| **Contextual Relevancy** | Retriever & Chunking | Evaluates whether every retrieved chunk is pertinent to the user's prompt. Penalizes bloated chunk sizes and irrelevant context injection. | ≥ 0.75 |
+| **Faithfulness & Groundedness** | Generator (LLM) | Evaluates whether every single claim in the generated answer can be strictly inferred from the retrieved context. Directly detects hallucinations. | ≥ 0.90 |
+| **Answer Relevancy** | Generator (LLM) | Evaluates whether the final response directly addresses the user's prompt without unnecessary disclaimers, rambling, or topic drift. | ≥ 0.80 |
+
+![RAG Evaluation Scorecard showing scores for the five core metrics with pass/fail threshold indicators](/agentic-testing/rag-scorecard.png)
+
+> **Image Update Note:** Add screenshot (`/agentic-testing/rag-scorecard.png`) showing the RAG Evaluation summary card with per-metric gauge charts and confidence intervals.
+
+---
+
+## Deep Dive: Faithfulness & Hallucination Detection
+
+Traditional string comparison metrics (such as BLEU or ROUGE) fail on generative responses because an answer can be completely rephrased while remaining factual—or sound persuasive while introducing subtle, critical hallucinations.
+
+Robonito uses **Atomic Claim Decomposition** to score faithfulness:
+
+### 1. Claim Extraction
+The evaluator decomposes the agent's generated response into individual, self-contained factual claims.
+
+*Example Generated Answer:*
+> "The warranty covers accidental water damage for 12 months, and battery replacements are complimentary during the first 24 months."
+
+*Extracted Atomic Claims:*
+1. The warranty covers accidental water damage.
+2. Water damage coverage lasts for 12 months.
+3. Battery replacements are complimentary.
+4. Complimentary battery replacements last for 24 months.
+
+### 2. Context Verification
+Each extracted claim is verified against the retrieved context passages:
+- **Claim 1:** Verified (Supported by chunk #2).
+- **Claim 2:** Verified (Supported by chunk #2).
+- **Claim 3:** Verified (Supported by chunk #3).
+- **Claim 4:** **UNSUPPORTED.** Retrieved chunk states: *"Battery replacements are complimentary for 12 months."*
+
+### 3. Faithfulness Score Calculation
+The faithfulness score is computed as the ratio of supported claims to total claims:
+
+```text
+Faithfulness Score = (Number of Supported Claims) / (Total Extracted Claims)
+                   = 3 / 4 = 0.75
+```
+
+If your test specifies a threshold of `0.85`, this attempt fails, and the test report flags Claim 4 as an unsupported hallucination.
+
+![Atomic claim decomposition view highlighting supported vs. hallucinated claims in red](/agentic-testing/rag-claim-decomposition.png)
+
+> **Image Update Note:** Add screenshot (`/agentic-testing/rag-claim-decomposition.png`) displaying the claim-by-claim verification table with source passage citation links.
+
+---
+
+## RAG Dataset Schema
+
+To benchmark your RAG pipeline in Robonito, create or upload an evaluation dataset containing the following fields:
+
+| Field Name | Type | Description |
+|---|---|---|
+| `input` | String | The user query or question (e.g., *"What is our refund window for software licenses?"*). |
+| `groundTruth` | String (Optional) | The verified canonical reference answer. Required for Context Recall. |
+| `retrievalContext` | Array of Strings | The raw text passages retrieved by your vector database / search index. |
+| `retrievalRelevance` | Array of Booleans | Ground-truth labels indicating which retrieved chunks were actually relevant. |
+| `tags` | Array of Strings | Categorization tags (e.g., `["pricing", "tier-1", "apac"]`) for faceted reporting. |
+
+You can import datasets directly from CSV, Excel (`.xlsx`), JSON, or generate them automatically using Robonito's Document Synthesizer.
+
+---
+
+## Synthetic Scenario Generation with Document Synthesizers
+
+Evaluating against only 10–20 hand-crafted test questions creates blind spots. Robonito includes an automated **Document Synthesizer** that ingests your knowledge base documents and synthesizes challenging evaluation datasets across 7 evolution patterns:
+
+1. **Simple Factual:** Direct questions testing single-fact retrieval.
+2. **Comparative:** Questions comparing two distinct entities, plans, or products in your docs.
+3. **Hypothetical / Conditional:** *"If a user signs up on Tuesday but cancels before Friday..."*
+4. **Constrained:** Queries imposing strict boundary limits or exclusions.
+5. **Multi-Hop / In-Breadth:** Questions requiring synthesis across multiple unrelated documents.
+6. **Negative / Out-of-Domain:** Queries where the knowledge base intentionally contains no answer, verifying that the model replies *"I don't know"* rather than hallucinating.
+7. **Adversarial / Red-Team:** Prompts containing prompt injections embedded inside document context.
+
+---
+
+## Mitigating Judge Bias
+
+When using LLMs as evaluators, models can exhibit predictable biases (such as favoring longer responses or favoring information presented at the beginning of a prompt). Robonito mitigates this through:
+
+- **Position-Swap Bias Mitigation:** The order of retrieved passages is swapped across evaluation runs to eliminate primacy/recency bias.
+- **Multi-Judge Consensus:** High-stakes evaluation runs can query multiple diverse foundation models (e.g., Gemini, Claude, and GPT-4) in parallel, requiring agreement before a verdict is finalized.
+
+---
+
+## Next Steps
+
+- [Robonito Eval with Telemetry](/docs/agentic-testing/telemetry) — Correlating RAG metrics with distributed OpenTelemetry traces.
+- [MCP Testing Guide](/docs/agentic-testing/mcp-testing) — Evaluating tool-calling accuracy and schemas.
+- [Candidate Comparison](/docs/agentic-testing) — Comparing different chunking strategies and embedding models.

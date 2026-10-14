@@ -1,149 +1,192 @@
-# iOS Setup for Mobile Testing
+# iOS Testing & Setup Guide
 
-iOS testing in Robonito requires a macOS machine with Apple Silicon (M1, M2, M3, or later). Unlike Android — which runs via an emulator on any operating system — iOS simulators are Apple-exclusive and cannot run on Windows or Linux.
+Automating native iOS applications requires specialized tooling and environment configurations due to Apple's security model. Robonito provides an automated, code-free testing engine for iOS apps running on Apple Silicon macOS hardware via the Appium XCUITest driver and Xcode Simulator.
 
 ![Mobile Setup page on macOS showing iOS-specific components alongside Android components](/mobile-testing/mobile-setup-macos.png)
 
----
-
-## Prerequisites
-
-Before recording or executing iOS tests, ensure the following are installed and configured on your Mac:
-
-| Requirement | Notes |
-|---|---|
-| **macOS with Apple Silicon** | M1 / M2 / M3 chip. Intel Macs are not supported for iOS simulation. |
-| **Xcode** | Install from the Mac App Store. Required for the iOS Simulator and build tools. |
-| **Xcode Command Line Tools** | Run `xcode-select --install` in Terminal. |
-| **Node.js** | Required for the Appium server (managed by Robonito). |
-| **Appium Server** | Managed and installed by Robonito automatically. |
-| **XCUITest Driver** | Appium's iOS automation driver — installed by Robonito automatically. |
+> **Image Update Note:** The Mobile Setup screenshot (`/mobile-testing/mobile-setup-macos.png`) can be refreshed with a capture showing the latest Apple Silicon component checkmarks and Xcode Command Line Tools status.
 
 ---
 
-## Automatic Setup via Robonito
+## Prerequisites & System Requirements
 
-Robonito's **Mobile Setup** wizard handles the Appium and driver installation automatically. On macOS, it installs iOS-specific components alongside the Android toolchain:
+| Requirement | Specification | Why It Is Required |
+|---|---|---|
+| **Operating System** | macOS (Sonoma, Ventura, or later) | Apple iOS simulators run exclusively on macOS. Windows and Linux are not supported for iOS simulation. |
+| **Hardware** | Apple Silicon (M1, M2, M3, M4, or Pro/Max/Ultra) | XCUITest simulator architectures are optimized for ARM64 Apple Silicon. |
+| **Xcode** | Xcode 15 or later (from Mac App Store) | Provides the iOS Simulator runtime, SDK headers, and `simctl` CLI utilities. |
+| **Xcode CLI Tools** | `xcode-select --install` | Command-line developer utilities required to compile WebDriverAgent (WDA). |
+| **Node.js Runtime** | Managed by Robonito | Embedded runtime powering the local Appium server. |
+| **Appium & XCUITest Driver** | Managed by Robonito | The automation driver that bridges Robonito's test steps with iOS accessibility APIs. |
+
+---
+
+## One-Click Mobile Setup via Robonito
+
+Robonito automates the entire installation and dependency verification process:
 
 1. Open Robonito and navigate to **Environment Manager → Mobile Setup**.
 2. Click **Install All**.
-3. Robonito detects that you are on macOS and installs:
-   - Node.js runtime (isolated)
+3. Robonito detects your macOS environment and automatically installs:
+   - Isolated Node.js runtime
    - Appium server
-   - **XCUITest driver** (for iOS)
-   - UiAutomator2 driver (for Android)
-4. Wait for all components to show a green **INSTALLED** status.
+   - **XCUITest driver** (for iOS simulation)
+   - UiAutomator2 driver (for Android emulation)
+   - WebDriverAgent (WDA) dependencies
+4. Once installation completes, all components will display a green **INSTALLED** badge.
 
 ![Mobile Setup page showing XCUITest Driver and UiAutomator2 Driver both with green INSTALLED status](/mobile-testing/mobile-drivers-installed.png)
 
-> **Note:** Xcode itself must be installed manually from the Mac App Store — Robonito cannot install it automatically due to Apple's distribution restrictions.
-
----
-
-## Accepting Xcode License
-
-If you see an error like `Xcode license not accepted`, run the following in Terminal:
+### Accepting the Xcode License Agreement
+If you see an error indicating that the Xcode license has not been accepted, open Terminal on your Mac and run:
 
 ```bash
 sudo xcodebuild -license accept
 ```
 
-Then re-run the Robonito Mobile Setup install.
+After accepting the agreement, return to Robonito and verify the status in Mobile Setup.
 
 ---
 
-## Creating an iOS Test Case
+## Simulator Builds vs. App Store Builds
 
+<Note type="important" title="Critical Build Requirement">
+App Store distribution `.ipa` files and production Ad-Hoc builds are compiled for physical device hardware (`arm64-iphoneos`) and cannot run on the Xcode Simulator.
+</Note>
+
+To test iOS apps on the simulator, ensure your iOS development team compiles a **Simulator Build** (`x86_64` or `arm64-iphonesimulator`):
+
+### How Developers Generate a Simulator Build
+From the command line in the iOS Xcode project directory:
+
+```bash
+xcodebuild -workspace YourApp.xcworkspace \
+  -scheme YourAppScheme \
+  -configuration Debug \
+  -sdk iphonesimulator \
+  -derivedDataPath build
+```
+
+This generates an application bundle (`YourApp.app`) inside `build/Build/Products/Debug-iphonesimulator/`. You can zip this `.app` into a `.zip` or `.ipa` archive and upload it directly into Robonito.
+
+---
+
+## Creating and Recording an iOS Test Case
+
+### 1. Initialize the Test Case
 1. In the Test Explorer, click **+ New Test Case**.
-2. Select the target suite.
-3. Choose **Mobile** as the test type.
-4. Choose **iOS** as the platform.
-5. Click **Create**.
+2. Select your mobile suite.
+3. Choose **Mobile** as the test type and **iOS** as the platform.
+4. Click **Create**.
 
 ![Test case creation dialog with Mobile type and iOS platform selected](/mobile-testing/mobile-create-ios.png)
 
----
-
-## Recording an iOS Test
-
-When you click **Record** on an iOS test case:
-
-1. A configuration dialog appears:
-   - **Platform:** iOS (pre-selected)
-   - **App File:** Upload your `.ipa` file — the compiled iOS application package.
-   - **Bundle ID:** The application's bundle identifier (e.g., `com.yourcompany.yourapp`). This is required for Appium to launch the correct app on the simulator.
-
-2. Click **Start Recording**. Robonito:
-   - Launches the iOS Simulator.
-   - Installs the `.ipa` on the simulator.
-   - Opens the app.
-   - Begins capturing your touch interactions.
+### 2. Configure Launch Options
+Click **Record** on the iOS test case. The launch modal opens:
+- **Application Build:** Upload your simulator-compatible `.ipa` or `.app.zip`.
+- **Bundle Identifier:** Enter the app's unique Bundle ID (e.g., `com.company.storefront`). Robonito uses this to launch the app directly.
+- **Simulator Device:** Select your desired iOS device profile (e.g., iPhone 15 Pro, iPhone 16, iPad Air).
 
 ![iOS recording configuration dialog showing the .ipa upload field and Bundle ID input](/mobile-testing/mobile-ios-recording-config.png)
 
----
-
-## iOS-Specific Interaction Nuances
-
-iOS and Android applications behave differently in ways that affect how test steps are recorded and played back. Be aware of the following:
-
-### Tap vs. Click
-iOS uses **tap** events natively. Robonito records iOS interactions as `mobile-tap` nodes (not `click` nodes used in web tests). Each tap captures the accessibility identifier or XPath of the tapped element.
-
-### Text Input
-iOS text input on a simulator uses the software keyboard. Robonito records `mobile-input` nodes that type text directly into fields without relying on the keyboard animation. If a field requires a specific keyboard type (numeric, email), the input step captures that context automatically.
-
-### Swipe and Scroll
-iOS scroll behavior is physics-based (momentum scrolling). Robonito records `mobile-swipe` nodes with directional parameters (up, down, left, right) and distance. For long lists, you may need multiple swipe steps to reach deeply nested content.
-
-### System Buttons
-iOS hardware-equivalent actions (like the Home button or Back gesture) are recorded as `mobile-system-button` nodes. Common system actions available:
-
-| Action | Description |
-|---|---|
-| Home | Returns to the iOS home screen |
-| Back | iOS back gesture (swipe right from left edge) |
-
-### Accessibility Identifiers
-iOS automation via XCUITest relies heavily on **Accessibility Identifiers** set in the app's source code. If your app does not set accessibility identifiers on UI elements, Robonito falls back to XPath — which is less stable across app updates. Ask your development team to add `accessibilityIdentifier` attributes to key interactive elements for the most reliable test selectors.
-
-### Alerts and Permission Dialogs
-iOS frequently shows system permission dialogs (e.g., "Allow access to Camera?"). These appear as native iOS alerts outside the app's UI. Robonito records taps on the **Allow** or **Don't Allow** buttons as system-level interaction steps. Ensure your recording session handles these dialogs to avoid test failures during playback.
+### 3. Interactive Mirror & Live Recording
+Click **Start Recording**. Robonito:
+- Boots the selected iOS Simulator (or reuses a warm running simulator).
+- Installs the app package onto the simulator.
+- Launches WebDriverAgent (WDA) and connects the interactive screen mirror.
+- Begins capturing your touch gestures, inputs, and validations.
 
 ![Recorded iOS test case timeline showing mobile-tap, mobile-input, and mobile-swipe nodes](/mobile-testing/mobile-ios-timeline.png)
 
----
-
-## Assertions on iOS
-
-Robonito's mobile assertion (`mobile-assert`) node supports:
-
-| Assertion Type | Description |
-|---|---|
-| **Element Visible** | Confirms a UI element is visible on screen |
-| **Element Not Visible** | Confirms a UI element is not shown |
-| **Element Text Equals** | Validates the exact text content of a label |
-| **Element Text Contains** | Validates that a label contains a substring |
-| **Element Enabled** | Confirms an element is interactive (not disabled) |
-
-![Mobile assertion editor on an iOS test case showing available assertion types](/mobile-testing/mobile-ios-assertion.png)
+> **Image Update Note:** Update screenshot (`/mobile-testing/mobile-ios-timeline.png`) showing live recorded steps with XCUITest locator badges and variable tokens.
 
 ---
 
-## Running iOS Tests
+## iOS Locator Strategies & Best Practices
 
-iOS test execution follows the same flow as Android — use the **Execute** button on the test case and ensure the execution mode is set to **Local** (iOS simulation is local-only; cloud iOS execution requires a premium mobile cloud plan).
+iOS uses the XCUITest accessibility hierarchy. Robonito evaluates locators in order of resilience:
 
-The iOS simulator launches, the app installs and opens, and Robonito replays all recorded steps automatically.
+| Locator Strategy | Example | Stability | Recommendation |
+|---|---|---|---|
+| **Accessibility Identifier** | `accessibilityIdentifier="submit_order_btn"` | 🥇 Highest | **Best Practice:** Ask developers to set `accessibilityIdentifier` in Swift/Objective-C/SwiftUI. Stable across translations and UI refactors. |
+| **Accessibility Label / Name** | `label="Proceed to Payment"` | 🥈 High | User-facing text read by VoiceOver. Stable for static action buttons. |
+| **iOS Class Chain** | `**/XCUIElementTypeButton[`name == "checkout"`]` | 🥉 Medium | Fast, targeted hierarchy traversal supported natively by XCUITest. |
+| **iOS Predicate String** | `name == 'login' AND visible == 1` | 🥉 Medium | Boolean property evaluation on XCUITest attributes. |
+| **XPath** | `//XCUIElementTypeButton[@name='Submit']` | ⚠️ Fallback | Slower and more fragile. Used only when unique accessibility identifiers are absent. |
+
+### SwiftUI & UIKit Accessibility Tip
+In SwiftUI:
+```swift
+Button("Checkout") {
+    // action
+}
+.accessibilityIdentifier("checkout_button")
+```
+
+In UIKit:
+```swift
+checkoutButton.accessibilityIdentifier = "checkout_button"
+```
 
 ---
 
-## Troubleshooting
+## iOS Gestures & Touch Interactions
 
-| Issue | Solution |
-|---|---|
-| "XCUITest driver not found" | Re-run **Install All** in Mobile Setup on macOS |
-| Simulator launches but app does not install | Verify the `.ipa` file is a debug/development build signed for simulator use |
-| "Instruments not found" | Ensure Xcode Command Line Tools are installed: `xcode-select --install` |
-| Steps fail on system permission dialogs | Add explicit tap steps for "Allow" or "Don't Allow" to the recording |
-| Tap coordinates are off | The simulator resolution must match the device profile set in the test case |
+Robonito translates desktop pointer actions into native XCUITest touch events:
+
+- **Tap (`mobile-tap`):** Direct tap on native iOS elements.
+- **Long Press:** Press and hold for contextual menus or drag states.
+- **Swipe & Scroll (`mobile-swipe`):** iOS momentum scrolling (Up, Down, Left, Right).
+- **Edge Swipe (Back Navigation):** Swipe right from the left edge of the screen to pop view controllers in navigation stacks.
+- **System Buttons (`mobile-system-button`):** Home button, Lock screen, or App Switcher.
+
+---
+
+## Handling System Alerts & Biometric Dialogs
+
+### Native Permission Dialogs
+iOS frequently prompts users with system alerts outside the app's DOM/hierarchy:
+- *"Allow [App] to use your location?"*
+- *"Allow [App] to send you notifications?"*
+- *"Allow [App] to access the Camera?"*
+
+When these alerts appear on the simulator mirror, tap **Allow**, **Allow While Using App**, or **Don't Allow**. Robonito records these interactions as system-level alert handler steps so automated playback never stalls waiting for user consent.
+
+![iOS permission alert step in the test case timeline](/mobile-testing/ios-permission-alert.png)
+
+> **Image Update Note:** Add screenshot (`/mobile-testing/ios-permission-alert.png`) showing an iOS system alert on the device mirror with the recorded action node.
+
+### Biometric Simulation (Face ID / Touch ID)
+Robonito supports automated biometric simulation on Xcode Simulators:
+- In the test case editor, add an **iOS Biometric** step.
+- Choose **Match (Success)** or **Non-Match (Failure)** to test biometric authentication and fallback PIN screens.
+
+---
+
+## Simulating Geolocation on iOS
+
+To test location-aware iOS applications:
+1. In the mobile recording toolbar, click the **Geolocation** pin icon.
+2. Enter target Latitude and Longitude coordinates.
+3. Robonito communicates with `xcrun simctl location` to simulate the device's location in real time.
+4. A `mobile-geolocation` step is recorded into the test case for automated repeatability.
+
+---
+
+## iOS Troubleshooting Guide
+
+| Symptom | Cause | Remediation |
+|---|---|---|
+| **"XCUITest driver not found"** | Driver missing or path broken | Open **Environment Manager → Mobile Setup** and click **Install All**. |
+| **"Failed to install app on simulator"** | Build is signed for physical hardware (`arm64-iphoneos`) | Rebuild the app targeting `SDK=iphonesimulator`. App Store builds cannot run in simulators. |
+| **"Xcode license not accepted"** | Xcode update pending license agreement | Run `sudo xcodebuild -license accept` in Terminal. |
+| **"WebDriverAgent timed out"** | Simulator or WDA runner stalled | Restart the simulator or run `killall -9 com.apple.CoreSimulator.CoreSimulatorService`. |
+| **Element taps miss their target** | Resolution scaling mismatch | Ensure the test case device resolution matches the simulator profile. |
+
+---
+
+## Next Steps
+
+- [Mobile Assertions Reference](/docs/mobile-testing/assertions) — Complete guide to element, text, attribute, and visual assertions.
+- [Android Testing Guide](/docs/mobile-testing/android-testing) — Setup, ADB persistent channel, and Android locators.
+- [Execution Reports](/docs/executions) — Reviewing test logs, traces, and mobile failure screenshots.

@@ -53,6 +53,11 @@ export const ROUTES: EachRoute[] = [
     group: "AI & Autonomous Testing",
     title: "Agentic Testing",
     href: "/agentic-testing",
+    items: [
+      { title: "MCP Testing", href: "/mcp-testing" },
+      { title: "RAG Evaluation", href: "/rag-evaluation" },
+      { title: "Robonito Eval with Telemetry", href: "/telemetry" },
+    ],
   },
 
   // ─── CORE TEST AUTHORING ─────────────────────────────────────
@@ -118,9 +123,11 @@ export const ROUTES: EachRoute[] = [
     title: "Mobile Testing",
     href: "/mobile-testing",
     items: [
+      { title: "Android Testing Guide", href: "/android-testing" },
+      { title: "iOS Testing & Setup", href: "/ios-setup" },
       { title: "Create Mobile test case", href: "/create-mobile-testcase" },
       { title: "Recording", href: "/recording" },
-      { title: "iOS Setup", href: "/ios-setup" },
+      { title: "Mobile Assertions", href: "/assertions" },
     ],
   },
 

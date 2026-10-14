@@ -101,7 +101,7 @@ Each record has a **severity** (`low` / `medium` / `high`), the **step** that fa
 
 ## Provider keys and scoping
 
-The agent runs on an LLM **provider** and **model** (see [Configure a provider and model](/docs/ai-studio/provider-models)). The **Robonito** default (Gemini 3.1 Flash Lite) needs no user key — it authenticates with your workspace token. Other providers (Anthropic, OpenAI, Google, OpenRouter, NVIDIA NIM, Ollama) do.
+The agent runs on an LLM **provider** and **model** (see [Configure a provider and model](/docs/ai-studio/provider-models)). Enterprise provider keys (Anthropic, OpenAI, Google) are provisioned directly on your workspace during onboarding by the Robonito team, while custom BYOK keys can be added in Settings. The **Robonito** default model requires zero key management.
 
 Keys are stored **encrypted at rest (AES-256)** and can be scoped to specific **workspaces** or placed in a shared **pool**. When a run starts, the key pool picks one key per provider — workspace-scoped keys first, global pool as a fallback — skipping any key that has hit its **per-minute limit** and **round-robining** among the rest.
 

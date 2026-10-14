@@ -1,66 +1,119 @@
-# Configure a provider and model
+# Choose a Model & Provider in AI Studio
 
-Use this guide to run AI Studio on a model provider other than the Robonito default — Claude, GPT, Gemini, OpenRouter, NVIDIA NIM, or a local Ollama model — and make sure a key is available.
+Robonito's AI Studio gives you access to an extensive catalog of state-of-the-art vision and reasoning models—including Anthropic Claude, OpenAI GPT, Google Gemini, OpenRouter, NVIDIA NIM, and local Ollama instances.
 
-By default the agent runs on **Robonito (Default)**, a vision-capable model with a 1M-token context window and **no key of your own** to manage. To use another provider, pick it in the model selector and make sure a key is configured.
+You can switch models directly from the chat composer toolbar at any point during your testing sessions.
 
-![Model selector dropdown showing all available AI providers](/ai-studio/ai-studio-model-selector.png)
+<Note type="important" title="Robonito Onboarding & Managed Provider Keys">
+**You do not need to provide or manage your own API keys to use AI Studio.**
+
+During customer onboarding, the Robonito team provisions and configures the required enterprise provider API keys directly on your workspace. You can immediately select and run models like Claude Sonnet 4.6, GPT-5.5, Gemini 3.1 Pro, or Robonito Default without pasting secrets, setting up third-party billing accounts, or managing rate limits.
+
+If your enterprise has strict Bring-Your-Own-Key (BYOK) governance policies or requires custom billing attribution, you can optionally configure your own private API keys in **Settings → External APIs**.
+</Note>
+
+![Model selector dropdown in AI Studio composer showing available AI providers and models](/ai-studio/ai-studio-model-selector.png)
+
+> **Image Update Note:** The model selector screenshot (`/ai-studio/ai-studio-model-selector.png`) should be refreshed with a capture of the modern searchable combobox dropdown in the AI Studio composer toolbar, showing the categorized catalog (Robonito Default, Anthropic, OpenAI, Google, OpenRouter, NVIDIA NIM, and Ollama).
 
 ---
 
-## 1. Pick the provider and model
+## How to Choose the Right Model
 
-In the chat composer, open the **model selector** (next to the platform selector). It lists the catalog:
+Different testing tasks benefit from different model capabilities. Use the guidance below to select the optimal model for your workflow:
 
-| Provider | Models (examples) | Notes |
+| Testing Objective | Recommended Model | Why This Model? |
 |---|---|---|
-| **RoBonito** | Robonito (Default) — Gemini 3.1 Flash Lite | No key needed. Default. Vision. |
-| **Anthropic** | Claude Sonnet 4.6, Opus 4.6, Haiku 4.5 | Vision. |
-| **OpenAI** | GPT-5.5, GPT-5.4 mini, GPT-4.1 | Vision. |
-| **Google** | Gemini 3.1 Pro, 3 Flash, 2.5 Flash, 3.1 Flash Lite | Vision. |
-| **OpenRouter** | *browse at runtime* | One key proxies many models; vision per model. |
-| **NVIDIA NIM** | Kimi K2.6 (free trial) | 256k context, vision. Base URL `https://integrate.api.nvidia.com/v1`. |
-| **Ollama** | *local / cloud* | Runs a model you've pulled; vision detected from the model. Base URL `http://localhost:11434`. |
-
-For **OpenRouter** and **Ollama**, the model list isn't fixed — OpenRouter's models are fetched from the OpenRouter API when you pick that provider, and Ollama's come from the daemon you point at, so you choose the concrete model there. Ollama also shows a **base URL** field for the local daemon.
+| **Complex Exploratory & End-to-End Testing** | **Claude Sonnet 4.6** or **GPT-5.5** | Exceptional spatial reasoning, deep vision perception for canvas/custom widgets, and superior judgment for multi-step checkout and onboarding flows. |
+| **Fast Regression Authoring & Daily Scenarios** | **Robonito (Default)**, **Gemini 3 Flash**, or **GPT-5.4 mini** | Extremely fast time-to-first-token (TTFT) and high throughput. Ideal for generating standard form tests, navigation paths, and repetitive CRUD suites. |
+| **Massive Context & Deep Documentation Ingestion** | **Gemini 3.1 Pro** | Huge 1M+ token context window. Ingests full Figma component trees, lengthy Swagger/OpenAPI specs, and comprehensive PRD documents in a single prompt. |
+| **Local, Air-Gapped, or Zero-Cloud Testing** | **Ollama (Local)** | Runs completely on your local workstation GPU/CPU without transmitting screenshots or DOM trees over the internet. |
 
 ---
 
-## 2. Make sure a key is configured
+## Switching Models in the UI
 
-A key is needed for everything **except** the **Robonito** default (which uses your workspace token and requires no key).
+You can change the active model at any time—even in the middle of an active conversation thread:
 
-**Where keys live:** add a provider key in **Settings → External APIs** (and, per-org, the *Provider Keys* area of the organization dashboard). Keys are stored **encrypted at rest with AES-256** — never in plaintext.
-
-**How a key is chosen.** A key can be scoped to specific **workspaces** or added to a shared **pool** (no workspace). When a run starts, the key pool resolves one key for the provider, in this order: (1) try **workspace-scoped** keys first, (2) fall back to the **global pool**, (3) skip any key that has hit its **per-minute request/token limit**, and (4) **round-robin** among the remaining keys. This means one workspace can have its own keys while others share the pool, and limits stop a single workspace from exhausting everyone's quota.
-
-**Two model roles.** The form asks for a **reasoning** model and a **basic** model (some tasks use a lighter model). Use **“use same”** to apply one configuration to both roles, or set them separately.
-
-<Note type="note" title="Keys today">
-Keys support workspace and global-pool scoping, with per-minute limits and round-robin, server-side. The dedicated *Provider Keys* tab in the organization dashboard is still a placeholder, so manage keys through **Settings → External APIs** for now.
-</Note>
-
-<Note type="danger" title="Security">
-Provider keys are encrypted at rest (AES-256). Never paste a key into a prompt or commit it to a repository. In the CLI, supply a short-lived `ROBONITO_AUTH_TOKEN` for automation instead of writing a key to a `.env` file.
-</Note>
-
-**If a run can't find a key,** you'll be told which provider is missing one (for example, *“No API key is configured for provider … Add one in Settings.”*). Add it and retry.
+1. In the AI Studio chat interface, locate the **Model Selector** dropdown in the composer toolbar (positioned directly beside the platform selector).
+2. Click the dropdown to open the searchable model catalog.
+3. Scroll through the grouped list or type to filter by model name (e.g., type *"Sonnet"* or *"Flash"*).
+4. Select your preferred model.
+5. The session updates immediately. Subsequent prompts and agent execution steps will run on the newly selected model.
 
 ---
 
-## 3. (Ollama only) Point at your local daemon
+## Supported Model Providers
 
-After you pick **Ollama → Local**, set the **Ollama base URL** field to your daemon (default `http://localhost:11434`) and press Enter to commit it. Vision support for the chosen local model is detected automatically once the daemon reports your installed models.
+Robonito supports an expansive roster of models out of the box:
+
+### 1. Robonito (Default)
+- **Model:** Robonito (Default) — powered by Gemini 3.1 Flash Lite.
+- **Capabilities:** Fast multi-modal vision perception, 1M context window, zero setup.
+- **Managed:** Enabled automatically for all workspaces.
+
+### 2. Anthropic Claude
+- **Models:** Claude Sonnet 4.6, Claude Opus 4.6, Claude Haiku 4.5.
+- **Capabilities:** High-fidelity vision understanding, nuanced reasoning, exceptional tool calling precision, and robust self-correction.
+- **Key Setup:** Pre-configured on your workspace during customer onboarding (or BYOK via Settings).
+
+### 3. OpenAI GPT
+- **Models:** GPT-5.5, GPT-5.4 mini, GPT-4.1.
+- **Capabilities:** Multimodal vision, fast structured JSON generation, strong code and locator synthesis.
+- **Key Setup:** Pre-configured on your workspace during customer onboarding (or BYOK via Settings).
+
+### 4. Google Gemini
+- **Models:** Gemini 3.1 Pro, Gemini 3 Flash, Gemini 2.5 Flash, Gemini 3.1 Flash Lite.
+- **Capabilities:** Industry-leading 1M+ token context windows, native multimodal processing, high throughput.
+- **Key Setup:** Pre-configured on your workspace during customer onboarding (or BYOK via Settings).
+
+### 5. OpenRouter
+- **Model Selection:** Dynamic catalog fetched at runtime via OpenRouter API.
+- **Capabilities:** Access to hundreds of open-source and proprietary models through a unified proxy.
+- **Key Setup:** Provide your OpenRouter API key in **Settings → External APIs**.
+
+### 6. NVIDIA NIM
+- **Models:** Specialized models including Kimi K2.6 and domain-specific NIM microservices.
+- **Capabilities:** High-concurrency enterprise inference with 256k context. Base URL `https://integrate.api.nvidia.com/v1`.
+
+### 7. Ollama (Local Daemon)
+- **Model Selection:** Automatically detects models installed locally on your machine (e.g., `llama3.3`, `qwen2.5-coder`, `mistral`).
+- **Setup:**
+  1. Ensure your Ollama daemon is running (`ollama serve`).
+  2. Select **Ollama (Local)** in the model selector.
+  3. Click the gear icon next to the selector to verify your **Base URL** (default: `http://localhost:11434`).
+  4. Robonito queries the local daemon and populates your installed models.
 
 ---
 
-## 4. Verify it worked
+## Bring-Your-Own-Key (BYOK) & Custom Scoping
 
-Start a run on the new provider. In the **Results** / usage area you'll see token usage and (where reported) cost — a good sign the provider is wired up. If the run fails on auth, double-check the key in **Settings → External APIs**.
+While Robonito provisions enterprise keys during customer onboarding, organizations that require private billing attribution or isolated rate limits can add custom keys:
+
+1. Navigate to **Settings → External APIs**.
+2. Select your target provider (Anthropic, OpenAI, Google, etc.).
+3. Enter your private API Key.
+4. **Key Scoping & Protection:**
+   - Keys are stored encrypted at rest with **AES-256**.
+   - You can scope keys to specific **Workspaces** or add them to a shared **Organization Pool**.
+   - When a test run starts, Robonito resolves workspace-scoped keys first, falling back to the organization pool, while enforcing per-minute token and request rate limits.
 
 ---
 
-## Related
+## Verifying Model Connectivity
 
-- Choose *how* the agent proceeds with **modes** — [Choose an agent mode](/docs/ai-studio/agent-modes).
-- The full model catalog and run fields — [Reference](/docs/ai-studio/reference).
+To verify your model selection:
+1. Open AI Studio and select your desired model from the composer dropdown.
+2. Enter a prompt such as *"Analyze the current page and generate a smoke test for the navigation bar."*
+3. When the agent responds, check the **Session Metadata** bar at the bottom of the thread:
+   - It displays the active model name.
+   - Shows live input/output token usage.
+   - Tracks cache hit ratios and execution latency.
+
+---
+
+## Related Documentation
+
+- [AI Studio Quick Start](/docs/ai-studio/quick-start) — Record and explore with your first AI Studio agent.
+- [Choose an Agent Mode](/docs/ai-studio/agent-modes) — Selecting Explore, Bug Hunter, or Test Architect modes.
+- [AI Studio Reference](/docs/ai-studio/reference) — Full reference for tool calling, thread history, and settings.
